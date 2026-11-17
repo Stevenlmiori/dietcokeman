@@ -234,7 +234,9 @@ function wireLinesBoard() {
   });
 }
 
-function bestKey() { return 'dcm-best-' + Q.slug + '-' + mode; }
+// `scoreKey` lets a quiz keep one permanent slug (the Line Game's link never
+// changes) while each week's best score is stored separately.
+function bestKey() { return 'dcm-best-' + (Q.scoreKey || Q.slug) + '-' + mode; }
 function getBest() { try { return parseInt(localStorage.getItem(bestKey()) || '0', 10) || 0; } catch (e) { return 0; } }
 function setBest(v) { try { localStorage.setItem(bestKey(), String(v)); } catch (e) {} }
 
@@ -506,7 +508,11 @@ function end(reason) {
 /* ---------- boot ---------- */
 function boot() {
   const slug = new URLSearchParams(location.search).get('q');
-  Q = (window.QUIZZES || []).find(x => x.slug === slug) || (window.QUIZZES || [])[0];
+  const all = window.QUIZZES || [];
+  Q = all.find(x => x.slug === slug)
+    // an old week-specific Line Game link (line-game-2026-w11) lands on the current week
+    || (slug && slug.startsWith('line-game') && all.find(x => x.type === 'lines'))
+    || all[0];
   if (!Q) { document.body.innerHTML = '<p style="padding:40px;text-align:center">No quiz found.</p>'; return; }
 
   // flatten + index

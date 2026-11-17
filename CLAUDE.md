@@ -393,6 +393,11 @@ number (0 = pick'em).
   green/red square per game in board order, and the link. It must never show a
   pick or a real line. Steven texts it as a challenge, and an earlier version
   that listed every line gave the whole quiz away.
+* **One permanent quiz, replaced weekly.** Slug is always `line-game`, so the
+  link Steven texts never changes; `scoreKey` (`line-game-2026-wNN`) keeps each
+  week's best score separate. Old week-specific links (`?q=line-game-2026-w11`)
+  fall through to the current Line Game. A scheduled task rewrites this entry
+  every Tuesday morning for the rest of the season.
 * Lines are a snapshot. **Use BetMGM, and pull the lines published that same
   day.** Steven caught Week 11 shipping with a day-old page, and most numbers
   had moved. BetMGM posts one page per game at
@@ -414,7 +419,7 @@ number (0 = pick'em).
 | `top5-by-position` | NFL Fantasy Leaders | 30 | Timed 5:00 · No pressure |
 | `round-one-recall` | Round 1 Recall | 12 | Timed 4:00 · No pressure |
 | `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
-| `line-game-2026-w11` | NFL Line Game: Week 11 | 13 games | No pressure · Timed 5:00 |
+| `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links
 and saved best scores keep working. Don't rename a slug to match a title.

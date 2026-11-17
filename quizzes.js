@@ -209,7 +209,8 @@ window.QUIZZES = [
    pulled the afternoon of Tue Nov 17. Steven wants BetMGM, same-day.
    ----------------------------------------------------------- */
 {
-  slug: 'line-game-2026-w11',
+  slug: 'line-game',               // permanent: the weekly link never changes
+  scoreKey: 'line-game-2026-w11',  // per-week best scores
   type: 'lines',
   title: 'NFL Line Game: Week 11',
   sub: 'Guess the Vegas spread on every game',
