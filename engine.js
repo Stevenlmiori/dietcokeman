@@ -20,13 +20,23 @@ function words(s) {
     .toLowerCase().split(/\s+/).map(w => w.replace(/[^a-z0-9]+/g, '')).filter(Boolean);
 }
 
-/* Every spelling we will accept for one answer.
+/* Every spelling we will accept for one answer: the full name, or the last
+   name. Never a first name on its own.
+
+   First names used to count, and they were a free pass: typing tom, tim, john,
+   jim, drew, tony... filled 27 of the 60 on NFL All-Time Top 20 without
+   knowing a single surname. Steven: "people can start typing tom, tim, john,
+   jim and start getting right answers they didn't earn." A first name that
+   is genuinely how a player is known (Saquon, CeeDee) goes in `alias`.
+
+   A quiz with `match: 'full'` drops the last name too: full name (or an
+   alias) only.
 
    Length floors matter here. An earlier version accepted *any* word of a
    multi-word answer, which meant "st" alone unlocked Amon-Ra St. Brown and
    "me" unlocked Dont Tread On Me. Particles and connectors only count as part
    of a larger key now; a bare word has to be long enough to be a real guess. */
-function keysFor(item) {
+function keysFor(item, fullOnly) {
   const keys = new Set();
   const add = (s, min) => { const k = norm(s); if (k.length >= (min || 2)) keys.add(k); };
 
@@ -37,11 +47,12 @@ function keysFor(item) {
   if (core.length) add(core.join(''));                // full name, suffix dropped
   if (real.length) {
     add(real.join(''));                               // "The Goods" -> "goods"
-    add(real[0]);                                     // first name / first word
-    if (real.length > 1) {
-      add(real.slice(1).join(''));                    // surname, compounds kept whole
-      add(real[real.length - 1], 3);                  // final word alone, if it isn't a particle
-      real.forEach(x => add(x, 4));                   // any other word, only if it stands on its own
+    if (real.length === 1) add(real[0]);              // a one-word answer is its own full name
+    else if (!fullOnly) {
+      const rest = real.slice(1);
+      add(rest.join(''));                             // surname, compounds kept whole
+      add(rest[rest.length - 1], 3);                  // final word alone, if it isn't a particle
+      rest.forEach(x => add(x, 4));                   // any other later word, only if it stands on its own
     }
   }
   (item.alias || []).forEach(a => add(a));
@@ -290,6 +301,17 @@ function findMatches(raw, allowFuzzy) {
     if (!it._keys.has(g)) continue;
     if (filled.has(it._i)) exactDone = true; else exact.push(it);
   }
+  /* While typing, hold an exact match that is also the start of a *different*
+     unsolved answer. "james" is Edgerrin James's surname, but it is also the
+     first five letters of "James Lofton"; filling Edgerrin there hands you a
+     player you weren't typing. Same for henry/Henry Ellard and chase/Chase
+     McLaughlin. Keep typing and the longer name lands; press Enter and the
+     surname does. */
+  if (exact.length && !allowFuzzy &&
+      items.some(it => !filled.has(it._i) && !exact.includes(it) &&
+        [...it._keys].some(k => k.length > g.length && k.startsWith(g)))) {
+    return { hits: [], already: false, how: 'exact', held: true };
+  }
   if (exact.length || exactDone) return { hits: exact, already: exactDone, how: 'exact' };
 
   if (!allowFuzzy || midWord(g)) return { hits: [], already: false, how: 'exact' };
@@ -339,8 +361,9 @@ function land(hits, how) {
 function onInput() {
   if (!running) return;
   const box = $('guess');
-  const { hits, already } = findMatches(box.value);
+  const { hits, already, held } = findMatches(box.value);
   if (hits.length) { land(hits, 'exact'); return; }
+  if (held) { toast('Keep typing, or press Enter', 'hint'); return; }
   if (already && norm(box.value).length > 3) { toast('Already on the board', 'hint'); return; }
   toast('');
 }
@@ -526,7 +549,7 @@ function boot() {
   Q.groups.forEach(g => g.items.forEach(it => {
     it._i = items.length;
     it._n = (++n);
-    it._keys = keysFor(it);
+    it._keys = keysFor(it, Q.match === 'full');
     items.push(it);
   }));
   // one flat list, for the "are they still mid-word?" test
@@ -539,6 +562,8 @@ function boot() {
   $('qTitle').textContent = Q.title;
   $('qSub').textContent = Q.blurb || Q.sub;
   $('mTime').textContent = fmt(Q.time);
+  if (Q.match === 'full') $('fine').textContent = 'Full names only · answers fill the moment you spell one · ' +
+    'press Enter and a near-miss still counts';
   if (isLines()) {
     $('guess').hidden = true;
     $('lstat').hidden = false;

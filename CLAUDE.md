@@ -135,14 +135,30 @@ splits on whitespace only, so a hyphenated surname stays one word:
 
 ### Which spellings are accepted (`keysFor`)
 
-For each answer it generates: the name exactly as written, the name with any
-suffix (`Jr`, `Sr`, `II`–`V`) dropped, the same minus noise words
-(`the`, `a`, `an`, `of`, `and`), the first word, the surname group
-(everything after the first word, joined), the final word, and any other single
-word — **plus every `alias`**.
+**Last name or full name. Never a first name on its own.** For each answer it
+generates: the name exactly as written, the name with any suffix (`Jr`, `Sr`,
+`II`–`V`) dropped, the same minus noise words (`the`, `a`, `an`, `of`, `and`),
+the surname group (everything after the first word, joined), the final word,
+and any later single word — **plus every `alias`**. A one-word answer is its
+own full name.
+
+First names were accepted until 2026-11-17 and were a free pass: spraying
+`tom, tim, john, jim, drew, tony…` filled **27 of 60** on NFL All-Time Top 20.
+Steven: "people can start typing tom, tim, john, jim and start getting right
+answers they didn't earn." Don't add first names back. When a first name really
+is how someone is known (`saquon`, `ceedee`, `jamarr`, `amon ra`, `kaimi`), put
+it in that item's `alias` — a distinctive one-off can't be sprayed. Team
+answers carry their city as an alias (`minnesota`, `seattle`…) for the same
+reason the rule exists: the city is the first word.
+
+**`match: 'full'` on a quiz** drops the last-name shortcut too: full name or an
+alias only. No quiz uses it yet. It is the next step if surname spraying
+(`smith, brown, jones…` still fills ~19 of 60 on All-Time Top 20) turns out to
+matter once leaderboards are live. The fine print switches to "Full names
+only" automatically.
 
 **Length floors are load-bearing.** A bare final word needs 3 characters, any
-other bare middle word needs 4. Without these, `st` alone unlocked
+other bare later word needs 4. Without these, `st` alone unlocked
 *Amon-Ra St. Brown* and `me` unlocked *Dont Tread On Me*. Particles only count
 inside a longer key. Do not relax these.
 
@@ -184,11 +200,22 @@ If anything matches exactly, fuzzy results are discarded entirely. Without this,
 typing the full name `Jim Brown` came back ambiguous because `timbrown` is one
 edit away, and `payton` dragged in *Peyton Manning* alongside *Walter Payton*.
 
+### A surname that starts another name waits (`held`)
+
+Some surnames are also the start of another answer's full name: `james`
+(Edgerrin James / **James** Lofton), `henry` (Derrick Henry / **Henry**
+Ellard), `chase` (Ja'Marr Chase / **Chase** McLaughlin). While typing,
+`findMatches` returns `held: true` instead of filling, and the toast says
+"Keep typing, or press Enter". Keep typing and the longer name lands alone;
+press Enter and the surname lands. Without this, typing "James Lofton" handed
+over Edgerrin James on the way — the Brock Purdy bug in a new costume.
+
 ### A shared name sweeps every match
 
-`Manning` fills Peyton **and** Eli. `Brown` fills Jim and Tim. `Henry` fills
-Derrick Henry and Henry Ellard **across different sections** — `items` is one
-flat list spanning all groups. This replaced an earlier "be more specific"
+`Manning` fills Peyton **and** Eli. `Brown` fills Jim and Tim, **across
+different sections** — `items` is one flat list spanning all groups. (`Henry`
+used to fill Henry Ellard too; since first names stopped counting it fills only
+Derrick Henry.) This replaced an earlier "be more specific"
 prompt, which Steven found to be friction for no gain. Keep the sweep.
 
 ### Typing vs. submitting
@@ -287,7 +314,7 @@ later variants reported "already got it" rather than actually being checked.
 `findMatches(g, true)` is what Enter does. Its result carries `how`, either
 `'exact'` or `'fuzzy'`.
 
-Four checks worth re-running after any matcher change, on **every** quiz:
+Five checks worth re-running after any matcher change, on **every** quiz:
 
 1. **Self-lookup** — every `_dcm.items()` entry, searched by its own `a`, must
    return exactly itself.
@@ -295,11 +322,14 @@ Four checks worth re-running after any matcher change, on **every** quiz:
    `jr`) must return zero hits.
 3. **Typing leak** — for every answer, every prefix of it passed to
    `findMatches(prefix)` must never return a *different* answer. The only
-   permitted hits are genuinely shared names: `brock` taking both Brocks,
-   `drew` taking Brees and Bledsoe. Anything else is the bug above coming back.
+   permitted hits are genuinely shared surnames: `manning` taking Peyton and
+   Eli, `brown` taking Jim and Tim. Anything else is the bug above coming back.
+5. **First-name spray** — common first names (`tom`, `tim`, `john`, `jim`,
+   `drew`, `tony`, `josh`, `justin`…) passed to `findMatches(g, true)` must
+   return zero hits, except a first name someone deliberately aliased.
 4. **Enter fuzz** — every answer and every single word of it, passed to
    `findMatches(g, true)`, must never fuzzy-match a *different* answer. This
-   currently returns zero across all three quizzes; it should stay zero.
+   currently returns zero across all three name quizzes; it should stay zero.
 
 ---
 

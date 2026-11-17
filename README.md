@@ -20,10 +20,12 @@ and the score already set. Pick a mode in the bar at the top and press play.
 
 ## How it plays
 
-* **First name, last name or the full name** — any of them counts.
+* **Last name or the full name** counts. A first name on its own doesn't, so
+  typing a list of common first names gets you nothing. A quiz can also be set
+  to full names only.
 * **Answers fill the moment you spell one.** No Enter, no submit button —
   but typing only ever fills a name you've actually got right, so working your
-  way towards "Brock Purdy" can't hand you Brock Bowers along the way.
+  way towards "Brock Purdy" can't hand you anyone else along the way.
 * **Enter forgives a near-miss.** Close but misspelled — `fitzgerld`,
   `gonzales`, `tomlinsen` — lands on Enter. Nothing is ever penalised: a quiz
   that answers itself as you type can't fairly charge you for a guess, so

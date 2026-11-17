@@ -14,11 +14,12 @@
      cols:  'multi'|'single',      // board layout
      hideSub: true,                // hide each item's `sub` until that row is solved
      modes: ['timed','chill'],     // which mode buttons to offer (default: both)
+     match: 'full',                // optional: full names only (no last-name shortcut)
      groups: [{
        name: 'Group heading',
        note: 'right-side label',   // optional
        items: [{
-         a: 'Correct Answer',      // first name / last name / full all accepted
+         a: 'Correct Answer',      // last name or full name accepted; never a first name alone
          hint: '32.13',            // right-hand clue, optional
          sub: 'CIN',               // small clue after the blank, optional
          rk: '1.01',               // overrides the rank badge, optional
@@ -77,11 +78,11 @@ window.QUIZZES = [
       { a: 'Chase McLaughlin',    sub: 'TB',  hint: '10.00', alias: ['mclaughlin'] }
     ]},
     { name: 'Defense / ST', note: 'avg pts', items: [
-      { a: 'Minnesota Vikings',   sub: 'MIN', hint: '12.70', alias: ['vikes','minny'] },
+      { a: 'Minnesota Vikings',   sub: 'MIN', hint: '12.70', alias: ['minnesota','vikes','minny'] },
       { a: 'Tampa Bay Buccaneers',sub: 'TB',  hint: '10.90', alias: ['tampa bay','tampa','buccaneers','bucs'] },
-      { a: 'Jacksonville Jaguars',sub: 'JAX', hint: '9.50',  alias: ['jags'] },
-      { a: 'Seattle Seahawks',    sub: 'SEA', hint: '9.30',  alias: ['hawks'] },
-      { a: 'Pittsburgh Steelers', sub: 'PIT', hint: '9.10',  alias: ['pitt'] }
+      { a: 'Jacksonville Jaguars',sub: 'JAX', hint: '9.50',  alias: ['jacksonville','jags'] },
+      { a: 'Seattle Seahawks',    sub: 'SEA', hint: '9.30',  alias: ['seattle','hawks'] },
+      { a: 'Pittsburgh Steelers', sub: 'PIT', hint: '9.10',  alias: ['pittsburgh','pitt'] }
     ]}
   ]
 },
