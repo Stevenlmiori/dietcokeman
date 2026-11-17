@@ -359,8 +359,9 @@ red-to-cyan hairline on each and it read as clutter.
 
 **No multi-coloured pills.** The hub cards once carried a cyan tag chip, a red
 answer-count chip and a green best chip; Steven's verdict was "typical AI slop".
-A card now shows a muted uppercase tag, the title, the subtitle and one quiet
-line of `30 answers · Timed 5:00 · Best 10`. The single `.pill` class that
+A card now shows a muted uppercase tag, the title and the subtitle — nothing
+else. The answer count, mode/time and best score line was cut too ("these
+aren't needed"), and so was a "Play →" row: the whole card is the link. The single `.pill` class that
 survives — used only in the result card — is deliberately neutral grey. Don't
 reintroduce coloured variants.
 

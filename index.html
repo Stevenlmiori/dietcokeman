@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261117143922">
+<link rel="stylesheet" href="style.css?v=20261117145944">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -51,28 +51,17 @@
   </p>
 </main>
 
-<script src="quizzes.js?v=20261117143922"></script>
+<script src="quizzes.js?v=20261117145944"></script>
 <script>
 (function(){
   const grid = document.getElementById('grid');
-  const modeName = { timed:'Timed', chill:'No pressure' };
   const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const mmss = (t) => Math.floor(t/60) + ':' + String(t%60).padStart(2,'0');
-  // One quiet line of metadata, not a row of coloured chips.
+  // Tag, title, subtitle. No counts, modes or chips.
   grid.innerHTML = (window.QUIZZES||[]).map(q => {
-    const n = q.groups.reduce((a,g)=>a+g.items.length,0);
-    let best = 0;
-    try { best = parseInt(localStorage.getItem('dcm-best-'+(q.scoreKey||q.slug)+'-'+(q.mode||'timed'))||'0',10)||0; } catch(e){}
-    const meta = [
-      n + (q.type === 'lines' ? ' games' : ' answers'),
-      (modeName[q.mode]||'Timed') + (q.mode==='timed' && q.time ? ' ' + mmss(q.time) : '')
-    ].map(esc);
-    if (best) meta.push('<em>Best ' + best + '</em>');
     return `<a class="card" href="play.html?q=${encodeURIComponent(q.slug)}">
       <div class="tag">${esc(q.tag||'Quiz')}</div>
       <h3>${esc(q.title)}</h3>
       <div class="sub">${esc(q.sub)}</div>
-      <div class="meta">${meta.join('<i>&middot;</i>')}</div>
     </a>`;
   }).join('');
 })();
