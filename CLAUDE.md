@@ -65,7 +65,7 @@ automatically; nothing else needs editing.
   mode:  'timed',                // preselected: 'timed' | 'chill'
   time:  900,                    // seconds, for timed mode
   modes: ['timed','chill'],      // which buttons to offer; omit for both
-  cols:  'multi',                // 'multi' = responsive columns, 'single' = one
+  cols:  'multi',                // 'multi' = responsive columns, 'single' = one, 'two' = 2 on desktop
   hideSub: true,                 // hide each item's `sub` until that row solves
   groups: [{
     name: 'Group heading',
@@ -149,7 +149,8 @@ answers they didn't earn." Don't add first names back. When a first name really
 is how someone is known (`saquon`, `ceedee`, `jamarr`, `amon ra`, `kaimi`), put
 it in that item's `alias` — a distinctive one-off can't be sprayed. Team
 answers carry their city as an alias (`minnesota`, `seattle`…) for the same
-reason the rule exists: the city is the first word.
+reason the rule exists: the city is the first word. (None today — kickers and
+defenses were cut from NFL Fantasy Leaders on 2026-11-17.)
 
 **`match: 'full'` on a quiz** drops the last-name shortcut too: full name or an
 alias only. No quiz uses it yet. It is the next step if surname spraying
@@ -456,13 +457,18 @@ number (0 = pick'em).
 
 | Slug | Title | Answers | Modes |
 |---|---|---|---|
-| `top5-by-position` | NFL Fantasy Leaders | 30 | Timed 5:00 · No pressure |
+| `top5-by-position` | NFL Fantasy Leaders (QB/RB/WR/TE through Week 10, 2026) | 20 | Timed 5:00 · No pressure |
 | `round-one-recall` | Round 1 Recall | 12 | Timed 4:00 · No pressure |
 | `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
 | `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links
-and saved best scores keep working. Don't rename a slug to match a title.
+keep working. Don't rename a slug to match a title. When a quiz's answer set
+changes (kickers and defenses cut, 30 → 20), give it a new `scoreKey`
+(`top5-by-position-2026-w10`) so old bests don't sit on the new leaderboard,
+and delete the old Firestore rows (`boards/<old>-<mode>/entries/*`,
+`users/*/bests/<old>-<mode>`) — Steven: "it won't be apples to apples."
+That was done for the 30-answer version (one row, @dietcokeman 23/30).
 
 The two Astroworld quizzes are snapshots of the 2026 season — the Top 5 figures
 are averages through roughly Week 10, and Round 1 is that year's draft. They do

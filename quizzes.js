@@ -11,7 +11,7 @@
      tag:   'ASTROWORLD',          // small muted label on the hub card
      mode:  'timed'|'chill',       // preselected mode
      time:  300,                   // seconds, timed mode
-     cols:  'multi'|'single',      // board layout
+     cols:  'multi'|'single'|'two', // board layout ('two' = always two columns on desktop)
      hideSub: true,                // hide each item's `sub` until that row is solved
      modes: ['timed','chill'],     // which mode buttons to offer (default: both)
      match: 'full',                // optional: full names only (no last-name shortcut)
@@ -35,11 +35,14 @@ window.QUIZZES = [
   slug: 'top5-by-position',
   title: 'NFL Fantasy Leaders',
   sub: 'Astroworld 2026 scoring leaders',
-  blurb: 'The five highest average scorers at every position this season. Average fantasy points are your clue.',
+  blurb: 'The five highest average scorers at QB, RB, WR and TE through Week 10 of the 2026 season. Average fantasy points are your clue.',
+  // Kickers and defenses were cut 2026-11-17 (30 answers became 20), so scores
+  // restart under a new key; the slug stays so old links still work.
+  scoreKey: 'top5-by-position-2026-w10',
   tag: 'ASTROWORLD 2026',
   mode: 'timed',
   time: 300,
-  cols: 'multi',
+  cols: 'two',            // four positions read as a 2x2
   hideSub: true,          // the NFL team would give the player away
   groups: [
     { name: 'Quarterbacks', note: 'avg pts', items: [
@@ -69,20 +72,6 @@ window.QUIZZES = [
       { a: 'Trey McBride',        sub: 'ARI', hint: '17.15', alias: ['macbride'] },
       { a: 'George Kittle',       sub: 'SF',  hint: '14.49' },
       { a: 'Harold Fannin Jr.',   sub: 'CLE', hint: '11.84', alias: ['harold fannin'] }
-    ]},
-    { name: 'Kickers', note: 'avg pts', items: [
-      { a: 'Will Reichard',       sub: 'MIN', hint: '10.40' },
-      { a: 'Tyler Bass',          sub: 'BUF', hint: '10.30' },
-      { a: "Ka'imi Fairbairn",    sub: 'HOU', hint: '10.10', alias: ['kaimi','kaimi fairbairn'] },
-      { a: 'Spencer Shrader',     sub: 'IND', hint: '10.00' },
-      { a: 'Chase McLaughlin',    sub: 'TB',  hint: '10.00', alias: ['mclaughlin'] }
-    ]},
-    { name: 'Defense / ST', note: 'avg pts', items: [
-      { a: 'Minnesota Vikings',   sub: 'MIN', hint: '12.70', alias: ['minnesota','vikes','minny'] },
-      { a: 'Tampa Bay Buccaneers',sub: 'TB',  hint: '10.90', alias: ['tampa bay','tampa','buccaneers','bucs'] },
-      { a: 'Jacksonville Jaguars',sub: 'JAX', hint: '9.50',  alias: ['jacksonville','jags'] },
-      { a: 'Seattle Seahawks',    sub: 'SEA', hint: '9.30',  alias: ['seattle','hawks'] },
-      { a: 'Pittsburgh Steelers', sub: 'PIT', hint: '9.10',  alias: ['pittsburgh','pitt'] }
     ]}
   ]
 },

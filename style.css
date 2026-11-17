@@ -256,6 +256,8 @@ a{color:inherit}
 .board{display:grid;gap:16px;margin:22px 0 40px;
   grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr))}
 .board.single{grid-template-columns:minmax(0,640px);justify-content:start}
+/* cols:'two' — four sections read as a 2x2, not three plus an orphan */
+@media (min-width:721px){.board.two{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .grp{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
   background:linear-gradient(170deg,rgba(255,255,255,.055),rgba(255,255,255,.018))}
 .grp > h4{

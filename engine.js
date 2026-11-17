@@ -260,7 +260,7 @@ function fmt(sec) {
 function buildBoard() {
   if (isLines()) { buildLinesBoard(); return; }
   const board = $('board');
-  board.className = 'board' + (Q.cols === 'single' ? ' single' : '') + (Q.hideSub ? ' hidesub' : '');
+  board.className = 'board' + (Q.cols === 'single' ? ' single' : Q.cols === 'two' ? ' two' : '') + (Q.hideSub ? ' hidesub' : '');
   board.innerHTML = Q.groups.map((g, gi) => {
     const rows = g.items.map((it) => {
       const i = it._i;

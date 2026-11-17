@@ -13,7 +13,7 @@ and the score already set. Pick a mode in the bar at the top and press play.
 
 | Quiz | Answers | Modes |
 |---|---|---|
-| NFL Fantasy Leaders | 30 | Timed 5:00 · No pressure |
+| NFL Fantasy Leaders | 20 | Timed 5:00 · No pressure |
 | Round 1 Recall | 12 | Timed 4:00 · No pressure |
 | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
 | NFL Line Game: Week 11 | 13 games | No pressure · Timed 5:00 |
