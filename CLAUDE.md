@@ -393,10 +393,13 @@ number (0 = pick'em).
   green/red square per game in board order, and the link. It must never show a
   pick or a real line. Steven texts it as a challenge, and an earlier version
   that listed every line gave the whole quiz away.
-* Lines are a snapshot. **Always pull the lines published that same day**, not
-  a page dated the day before: Steven caught Week 11 shipping with Nov 16
-  numbers on Nov 17, and eight of thirteen had moved. Week 11 now uses CBS
-  Sports' updated table from 9:04 a.m. ET Nov 17. Note the date in the blurb. For a new week, add a new quiz with
+* Lines are a snapshot. **Use BetMGM, and pull the lines published that same
+  day.** Steven caught Week 11 shipping with a day-old page, and most numbers
+  had moved. BetMGM posts one page per game at
+  `sports.betmgm.com/en/blog/nfl/<away>-<home>-prediction-odds-player-prop-bets-picks-week-N-jaa/`
+  (Raiders-Broncos sat under `/blog/article-new/`), each stating "the spread
+  sitting at -X" with a timestamp. Yahoo Sports' weekly list is also BetMGM but
+  is usually posted Monday morning and goes stale. Note the date in the blurb. For a new week, add a new quiz with
   a new slug rather than overwriting, so old best scores stay meaningful.
 
 `bump.sh` uses macOS `sed -i ''`; on Linux run the same substitution with
