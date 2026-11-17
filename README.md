@@ -2,7 +2,7 @@
 
 Sporcle-style fill-in-the-blank quizzes. Type a name and it fills itself in.
 
-**Play:** <https://stevenlmiori.github.io/dietcokeman/>
+**Play:** <https://challenge.dietcokeman.com/>
 
 No sign-in, no accounts, works on a phone. Scores stay on the player's own
 device. Five static files, no build step, no dependencies.

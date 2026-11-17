@@ -3,8 +3,13 @@
 Read this before changing anything. It explains what the site is, how the pieces
 fit, and the handful of decisions that look arbitrary but are not.
 
-**Live:** <https://stevenlmiori.github.io/dietcokeman/>
+**Live:** <https://challenge.dietcokeman.com/>
 **Repo:** `Stevenlmiori/dietcokeman` (GitHub Pages, `main` branch, root path)
+**Domain:** `challenge.dietcokeman.com` — a Cloudflare CNAME (DNS only, grey
+cloud) to `stevenlmiori.github.io`, set as the repo's Pages custom domain, with
+HTTPS enforced. The old `stevenlmiori.github.io/dietcokeman/` links redirect
+here, so links already texted keep working. Keep the `CNAME` file in the repo
+root and keep the Cloudflare proxy off — GitHub issues the certificate.
 **Owner:** Steven Miori. The GitHub CLI has two accounts — this repo belongs to
 `Stevenlmiori`, so run `gh auth switch -u Stevenlmiori` before any `gh` command.
 
@@ -305,7 +310,7 @@ GitHub Pages serves from `main` at root. It takes 30–60 seconds. Verify with a
 cache-busting request rather than trusting the browser:
 
 ```
-curl -s "https://stevenlmiori.github.io/dietcokeman/quizzes.js?cb=$RANDOM" | grep -c "slug:"
+curl -s "https://challenge.dietcokeman.com/quizzes.js?cb=$RANDOM" | grep -c "slug:"
 ```
 
 Steven's browser has repeatedly served **stale cached copies** after a deploy —
