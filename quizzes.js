@@ -8,7 +8,8 @@
      title: 'Shown everywhere',
      sub:   'one-line subtitle',
      blurb: 'longer line under the title',
-     tag:   'ASTROWORLD',          // small muted label on the hub card
+     category: 'Sports',           // exactly one, from TAXONOMY.categories
+     tags:  ['NFL','Football','All-Time'], // from TAXONOMY.tags; league, sport, then kind
      mode:  'timed'|'chill',       // preselected mode
      time:  300,                   // seconds, timed mode
      cols:  'multi'|'single'|'two'|'four', // board layout ('two'/'four' = fixed columns on desktop)
@@ -19,7 +20,7 @@
        name: 'Group heading',
        note: 'right-side label',   // optional
        items: [{
-         a: 'Correct Answer',      // last name or full name accepted; never a first name alone
+         a: 'Correct Answer',      // full or last name; an unusual first name; never a common one alone
          hint: '32.13',            // right-hand clue, optional
          sub: 'CIN',               // small clue after the blank, optional
          rk: '1.01',               // overrides the rank badge, optional
@@ -28,6 +29,19 @@
      }]
    }
    =========================================================== */
+
+/* The one list of categories and tags. Every quiz names one category and a
+   few tags from here; the hub's search and filters are built from them, and
+   it warns in the console about anything not on this list. Add a new
+   category or tag here first, then use it. Tags go league, sport, then kind. */
+window.TAXONOMY = {
+  categories: ['Sports', 'Movies'],
+  tags: {
+    league: ['NFL', 'NBA', 'MLB', 'NHL', 'NCAA'],
+    sport:  ['Football', 'Basketball', 'Baseball', 'Hockey'],
+    kind:   ['All-Time', 'This Season', 'Career Leaders', 'Awards', 'Fantasy', 'Betting']
+  }
+};
 
 window.QUIZZES = [
 
@@ -39,7 +53,8 @@ window.QUIZZES = [
   // Kickers and defenses were cut 2026-11-17 (30 answers became 20), so scores
   // restart under a new key; the slug stays so old links still work.
   scoreKey: 'top5-by-position-2026-w10',
-  tag: 'ASTROWORLD 2026',
+  category: 'Sports',
+  tags: ['NFL', 'Football', 'Fantasy', 'This Season'],
   mode: 'timed',
   time: 300,
   cols: 'two',            // four positions read as a 2x2
@@ -81,7 +96,8 @@ window.QUIZZES = [
   title: 'NFL All-Time Top 20',
   sub: 'Passing, rushing and receiving yards',
   blurb: 'The twenty biggest career totals in each of the three great counting stats. Career yards are your clue.',
-  tag: 'NFL ALL-TIME',
+  category: 'Sports',
+  tags: ['NFL', 'Football', 'All-Time', 'Career Leaders'],
   mode: 'timed',
   time: 900,
   modes: ['timed', 'chill'],
@@ -178,7 +194,8 @@ window.QUIZZES = [
   // Basketball-Reference NBA-only career leaders (not NBA+ABA), pulled 2026-11-17
   // ("Last Updated: Tuesday, November 17, 7:01AM"). Active players' totals move
   // nightly; re-pull before trusting. FT% needs 1,200 made free throws.
-  tag: 'NBA ALL-TIME',
+  category: 'Sports',
+  tags: ['NBA', 'Basketball', 'All-Time', 'Career Leaders'],
   mode: 'timed',
   time: 900,
   cols: 'four',
@@ -410,7 +427,8 @@ window.QUIZZES = [
   // Pro-Football-Reference's AP MVP list, checked 2026-11-17 against Wikipedia's
   // "AP NFL Most Valuable Player". PFR skips 1960; Wikipedia lists Norm Van Brocklin,
   // so he is in. Sources disagree on 1958-60 (Marchetti, Conerly, Joe Schmidt).
-  tag: 'NFL ALL-TIME',
+  category: 'Sports',
+  tags: ['NFL', 'Football', 'All-Time', 'Awards'],
   mode: 'timed',
   time: 600,
   cols: 'multi',
@@ -511,7 +529,8 @@ window.QUIZZES = [
   sub: 'Every MVP since 1955-56',
   blurb: 'Every NBA MVP from 1955-56 through 2025-26. The season, team and points per game are your clues. A name fills every season he won.',
   // Basketball-Reference /awards/mvp.html, pulled 2026-11-17; matches Steven's list exactly.
-  tag: 'NBA ALL-TIME',
+  category: 'Sports',
+  tags: ['NBA', 'Basketball', 'All-Time', 'Awards'],
   mode: 'timed',
   time: 600,
   cols: 'multi',
@@ -613,7 +632,8 @@ window.QUIZZES = [
   blurb: 'The 50 greatest home run hitters in MLB history, through the 2026 season. Career home runs are your clue.',
   // Baseball-Reference /leaders/HR_career.shtml, "Last Updated: Monday, November 16" (2026 season final).
   // Ties share a rank (three at 521, two at 512, 511, 493, 475, 462, 449, 434); #49-50 tie closes it at 50.
-  tag: 'MLB ALL-TIME',
+  category: 'Sports',
+  tags: ['MLB', 'Baseball', 'All-Time', 'Career Leaders'],
   mode: 'timed',
   time: 480,
   cols: 'multi',
@@ -688,7 +708,8 @@ window.QUIZZES = [
   title: 'NFL Line Game: Week 11',
   sub: 'Guess the Vegas spread on every game',
   blurb: 'Pick the favorite and guess the spread for all 13 Week 11 games. Within one point of the real Vegas line counts. BetMGM lines as of Nov 17.',
-  tag: 'LINE GAME · 2026 WEEK 11',
+  category: 'Sports',
+  tags: ['NFL', 'Football', 'Betting', 'This Season'],
   mode: 'chill',
   time: 300,
   modes: ['chill', 'timed'],

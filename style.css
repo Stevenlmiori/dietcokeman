@@ -161,6 +161,21 @@ a{color:inherit}
   background:rgba(255,255,255,.055);color:var(--silver);border:1px solid var(--line);
 }
 
+/* hub search and filters (shown past FINDER_AT quizzes, or with ?q=/?tag=/?category=) */
+.finder{margin:0 0 16px}
+.find{width:100%;border:1.5px solid var(--line);border-radius:12px;background:rgba(255,255,255,.05);
+  color:var(--white);font:inherit;font-size:16px;padding:11px 14px;outline:0;transition:border-color .14s}
+.find:focus{border-color:var(--ice)}
+.facets{margin-top:10px}
+.facet-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+/* one quiet neutral style; the pressed one is just brighter — no coloured chips */
+.facet{border:1px solid var(--line);background:transparent;color:var(--silver-dim);border-radius:9px;
+  padding:5px 10px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:color .14s,border-color .14s,background .14s}
+.facet:hover{color:var(--white);border-color:#3A4756}
+.facet[aria-pressed="true"]{color:var(--white);border-color:#4A5868;background:rgba(255,255,255,.07)}
+.nomatch{color:var(--silver-dim);font-size:14px;text-align:center;margin:18px 0}
+.nomatch .linkbtn{display:inline;margin:0}
+
 /* ---------- quiz page intro ---------- */
 /* Title and subtitle only. Choosing a mode happens in the sticky bar, right on
    top of the board, so the first thing you see is the quiz itself. */

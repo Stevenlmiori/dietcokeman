@@ -43,7 +43,9 @@ and the score already set. Pick a mode in the bar at the top and press play.
 ## Adding a quiz
 
 Everything lives in `quizzes.js` — append one object to `QUIZZES` and it shows
-up on the hub automatically. The shape is documented at the top of that file.
+up on the hub automatically. Give it a `category` and `tags` from the
+`TAXONOMY` list at the top of that file; the hub's search and filters are built
+from them. Filtered links work today: `/?tag=NBA`, `/?q=mvp`.
 
 ## Developing
 

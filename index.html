@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261117164418">
+<link rel="stylesheet" href="style.css?v=20261117164713">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -44,7 +44,15 @@
   </section>
 
   <div class="sect-h"><h2>Pick your challenge</h2></div>
+  <!-- Search and filters. Hidden until the hub is big enough to need them
+       (FINDER_AT below), or whenever a link carries ?q= / ?category= / ?tag=. -->
+  <div class="finder" id="finder" hidden>
+    <input class="find" id="find" type="search" placeholder="Search quizzes" autocomplete="off"
+           spellcheck="false" aria-label="Search quizzes">
+    <div class="facets" id="facets"></div>
+  </div>
   <div class="grid" id="grid"></div>
+  <p class="nomatch" id="nomatch" hidden>No quizzes match. <button type="button" class="linkbtn" id="clear">Show all</button></p>
 
   <p style="text-align:center;color:#6C7A8A;font-size:12.5px;margin:48px 0 40px">
     Scores stay on your own device<br>
@@ -52,19 +60,86 @@
   </p>
 </main>
 
-<script type="module" src="account.js?v=20261117164418"></script>
-<script src="quizzes.js?v=20261117164418"></script>
+<script type="module" src="account.js?v=20261117164713"></script>
+<script src="quizzes.js?v=20261117164713"></script>
 <script>
 (function(){
-  const grid = document.getElementById('grid');
+  const $ = (id) => document.getElementById(id);
+  const grid = $('grid');
   const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  // Title and subtitle only. No tags, counts, modes or chips.
-  grid.innerHTML = (window.QUIZZES||[]).map(q => {
-    return `<a class="card" href="play.html?q=${encodeURIComponent(q.slug)}">
+  const norm = (s) => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const QUIZZES = window.QUIZZES || [];
+  const TAX = window.TAXONOMY || { categories: [], tags: {} };
+  const allTags = Object.values(TAX.tags).flat();
+
+  // The taxonomy is the contract; say so loudly while building quizzes.
+  QUIZZES.forEach(q => {
+    if (!TAX.categories.includes(q.category)) console.warn('Quiz', q.slug, 'has an unknown category:', q.category);
+    (q.tags || []).forEach(t => { if (!allTags.includes(t)) console.warn('Quiz', q.slug, 'has an unknown tag:', t); });
+    if (!(q.tags || []).length) console.warn('Quiz', q.slug, 'has no tags');
+  });
+
+  // Search and filters stay out of the way until there are enough quizzes to need them.
+  const FINDER_AT = 12;
+  const params = new URLSearchParams(location.search);
+  const state = { q: params.get('q') || '', category: params.get('category') || '', tag: params.get('tag') || '' };
+  const finderOn = QUIZZES.length > FINDER_AT || state.q || state.category || state.tag;
+
+  // Words typed in the box must all appear somewhere in a quiz's title,
+  // subtitle, blurb, category or tags. Answers are never searched: that
+  // would tell you who is on the board.
+  const hay = (q) => norm([q.title, q.sub, q.blurb, q.category, ...(q.tags || [])].join(' '));
+  function matches(q) {
+    if (state.category && q.category !== state.category) return false;
+    if (state.tag && !(q.tags || []).includes(state.tag)) return false;
+    const words = norm(state.q).split(/\s+/).filter(Boolean);
+    const h = hay(q);
+    return words.every(w => h.includes(w));
+  }
+
+  function render() {
+    const shown = QUIZZES.filter(matches);
+    // Title and subtitle only. No tags, counts, modes or chips on the cards.
+    grid.innerHTML = shown.map(q => `<a class="card" href="play.html?q=${encodeURIComponent(q.slug)}">
       <h3>${esc(q.title)}</h3>
       <div class="sub">${esc(q.sub)}</div>
-    </a>`;
-  }).join('');
+    </a>`).join('');
+    $('nomatch').hidden = shown.length > 0;
+    if (finderOn) paintFacets();
+  }
+
+  // Only categories and tags that some quiz actually uses, in taxonomy order.
+  function paintFacets() {
+    const used = (list, key) => list.filter(v => QUIZZES.some(q => key === 'category' ? q.category === v : (q.tags || []).includes(v)));
+    const cats = used(TAX.categories, 'category');
+    const tags = used(allTags, 'tag');
+    const btn = (key, v, label) => `<button type="button" class="facet" data-k="${key}" data-v="${esc(v)}"
+      aria-pressed="${state[key] === v}">${esc(label)}</button>`;
+    $('facets').innerHTML =
+      (cats.length > 1 ? `<div class="facet-row">${btn('category', '', 'All')}${cats.map(c => btn('category', c, c)).join('')}</div>` : '') +
+      `<div class="facet-row">${btn('tag', '', 'Everything')}${tags.map(t => btn('tag', t, t)).join('')}</div>`;
+  }
+
+  function sync() {
+    const p = new URLSearchParams();
+    ['q', 'category', 'tag'].forEach(k => { if (state[k]) p.set(k, state[k]); });
+    history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : ''));
+    render();
+  }
+
+  if (finderOn) {
+    $('finder').hidden = false;
+    $('find').value = state.q;
+    $('find').addEventListener('input', (e) => { state.q = e.target.value; sync(); });
+    $('facets').addEventListener('click', (e) => {
+      const b = e.target.closest('.facet');
+      if (!b) return;
+      state[b.dataset.k] = b.dataset.v;
+      sync();
+    });
+  }
+  $('clear').addEventListener('click', () => { state.q = state.category = state.tag = ''; $('find').value = ''; sync(); });
+  render();
 })();
 </script>
 </body>

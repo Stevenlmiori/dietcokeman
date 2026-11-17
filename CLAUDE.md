@@ -30,7 +30,7 @@ it was removed on purpose.
 
 | File | What it is |
 |---|---|
-| `index.html` | The hub. Lists every quiz as a card. Reads `QUIZZES` directly. |
+| `index.html` | The hub. Lists every quiz as a card, with search and filters once there are enough quizzes. Reads `QUIZZES` and `TAXONOMY` directly. |
 | `play.html` | The player shell: intro, sticky bar, board, result modal. |
 | `engine.js` | All game logic — matching, scoring, timer, lives, persistence. |
 | `quizzes.js` | **The only file you normally touch.** All quiz content. |
@@ -61,7 +61,8 @@ automatically; nothing else needs editing.
   title: 'Shown everywhere',
   sub:   'one-line subtitle',
   blurb: 'longer line on the start screen',
-  tag:   'NFL ALL-TIME',         // not shown anywhere; kept for reference
+  category: 'Sports',            // required: one of TAXONOMY.categories
+  tags:  ['NFL','Football','All-Time'], // required: from TAXONOMY.tags — league, sport, kind
   mode:  'timed',                // preselected: 'timed' | 'chill'
   time:  900,                    // seconds, for timed mode
   modes: ['timed','chill'],      // which buttons to offer; omit for both
@@ -120,6 +121,36 @@ Wikipedia pages carry a "current through Week N" note; record it. Active players
 climb, so re-pull before trusting an old list.
 
 ---
+
+### Categories and tags (`TAXONOMY`)
+
+Steven: "create a category taxonomy and make sure quizzes get categories and
+tags… so that when there's a ton of quizzes someday, search and filtering
+works well." The single source of truth is `window.TAXONOMY` at the top of
+`quizzes.js`:
+
+* **Categories** (exactly one per quiz): `Sports`, `Movies` — more as the
+  site grows (TV, Music, Geography…). Add it to the list before using it.
+* **Tags** (a few per quiz), in three groups, written in this order:
+  * league — `NFL`, `NBA`, `MLB`, `NHL`, `NCAA`
+  * sport — `Football`, `Basketball`, `Baseball`, `Hockey`
+  * kind — `All-Time`, `This Season`, `Career Leaders`, `Awards`, `Fantasy`, `Betting`
+
+Every quiz must carry a category and tags. The hub warns in the browser
+console about a missing or unknown one, so check the console after adding a
+quiz. **Don't invent a near-duplicate** ("NBA Basketball", "Alltime"): use the
+existing word or add a new one to `TAXONOMY` deliberately. The weekly Line Game
+rewrite must keep `category`/`tags`.
+
+**The hub's search and filters** (search box, category row, tag row) stay
+hidden until there are more than `FINDER_AT` (12) quizzes, because seven cards
+don't need them and Steven dislikes clutter. They appear immediately for any
+link carrying `?q=`, `?category=` or `?tag=` — e.g. `/?tag=NBA`, `/?q=mvp`,
+`/?tag=Football&q=all-time` — and the URL follows the filters, so a filtered
+view can be texted. Search matches title, subtitle, blurb, category and tags;
+it **never searches answers**, which would reveal who is on the board.
+Filters show only values some quiz actually uses. Cards still show title and
+subtitle only — tags are for finding, not decoration (see §8).
 
 ## 3. How matching works (`engine.js`)
 
@@ -456,7 +487,9 @@ number (0 = pick'em).
   link Steven texts never changes; `scoreKey` (`line-game-2026-wNN`) keeps each
   week's best score separate. Old week-specific links (`?q=line-game-2026-w11`)
   fall through to the current Line Game. A scheduled task rewrites this entry
-  every Tuesday morning for the rest of the season.
+  every Tuesday morning for the rest of the season. (As of 2026-11-17 no such
+  task exists on this Mac's scheduled tasks or in claude.ai routines; if it
+  lives elsewhere, it must keep the entry's `category` and `tags`.)
 * Lines are a snapshot. **Use BetMGM, and pull the lines published that same
   day.** Steven caught Week 11 shipping with a day-old page, and most numbers
   had moved. BetMGM posts one page per game at
