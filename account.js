@@ -34,8 +34,14 @@ const firebaseConfig = {
 
 const SDK = 'https://www.gstatic.com/firebasejs/13.1.0/';
 // Local testing against the Firebase emulators: open any page on localhost
-// with ?emu=1 (run `npx firebase-tools emulators:start` first).
-const EMU = location.hostname === 'localhost' && new URLSearchParams(location.search).has('emu');
+// with ?emu=1 (run `npx firebase-tools emulators:start` first). Sticks for the
+// tab's session so redirects between pages stay on the emulator.
+const EMU = location.hostname === 'localhost' && (() => {
+  try {
+    if (new URLSearchParams(location.search).has('emu')) sessionStorage.setItem('dcm-emu', '1');
+    return sessionStorage.getItem('dcm-emu') === '1';
+  } catch (e) { return new URLSearchParams(location.search).has('emu'); }
+})();
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -80,6 +86,7 @@ async function load() {
       catch (e) { profile = null; console.warn(e); }
       ready = true;
       waiters.splice(0).forEach(f => f());
+      settledUid = u ? u.uid : null;
       paintTopbar();
       if (pending) paintSave();
       if ($('profile')) paintProfilePage();
@@ -96,6 +103,8 @@ async function readProfile(uid) {
 }
 
 async function signIn() {
+  // Emulator tests: window._emuUser = ['sub', 'Name'] makes the real buttons sign in without a popup.
+  if (EMU && window._emuUser) { await window._acct.as(...window._emuUser); return true; }
   const p = new fb.GoogleAuthProvider();
   p.setCustomParameters({ prompt: 'select_account' });
   try { await fb.signInWithPopup(fb.auth, p); return true; }
@@ -106,13 +115,47 @@ async function signIn() {
 }
 
 /* ---------- top bar ---------- */
-// One quiet link: "Sign in" or your @name. It goes to the profile page.
+/* One quiet link: "Sign in" or your @name. Signing in happens right here, in
+   a popup, and leaves you on the page you were on. Steven: clicking Sign in
+   used to drop him on the profile page instead of back on the site. Only a
+   brand-new account, which still needs a username, goes to the profile page,
+   and it comes back here afterwards (?next=). @name goes to your profile. */
+const here = () => (location.pathname.replace(/^.*\//, '') || 'index.html') + location.search;
+let settledUid;          // uid whose profile has finished loading (null = signed out)
+
 function paintTopbar() {
   const a = $('acct');
   if (!a) return;
   a.hidden = false;
-  a.textContent = user && profile ? '@' + profile.username : 'Sign in';
-  a.href = 'profile.html';
+  if (user && profile) {
+    a.textContent = '@' + profile.username;
+    a.href = 'profile.html';
+    a.onclick = null;
+    return;
+  }
+  a.textContent = 'Sign in';
+  a.href = 'profile.html?next=' + encodeURIComponent(here());
+  a.onclick = async (e) => {
+    if (user) return;                       // signed in, no username yet: follow the link
+    e.preventDefault();
+    let ok = false;
+    try { ok = await signIn(); } catch (err) { console.warn(err); }
+    if (!ok) return;
+    // wait for the profile lookup that follows every sign-in
+    for (let i = 0; i < 50 && !(user && settledUid === user.uid); i++) await new Promise(r => setTimeout(r, 100));
+    afterTopbarSignIn();
+  };
+}
+
+// After a topbar sign-in: a new account goes to pick a username, then returns.
+function afterTopbarSignIn() {
+  if (user && !profile && !$('profile')) location.href = 'profile.html?next=' + encodeURIComponent(here());
+}
+
+// Only ever send people back to a page on this site.
+function nextPage() {
+  const n = new URLSearchParams(location.search).get('next') || '';
+  return /^[a-z0-9_-]+\.html(\?[^\s]*)?$/i.test(n) && !n.startsWith('profile.html') ? n : '';
 }
 
 /* ---------- usernames ---------- */
@@ -307,6 +350,8 @@ async function paintProfilePage() {
   const root = $('profile');
   const wanted = cleanName(new URLSearchParams(location.search).get('u'));
   if (wanted) return paintPublic(root, wanted);
+  // Signed in with a username already, and sent here only to sign in: go back.
+  if (user && profile && nextPage()) { location.replace(nextPage()); return; }
   if (!user) {
     root.innerHTML = `
       <div class="pf-empty">
@@ -396,6 +441,7 @@ async function paintEdit(root) {
       await claimName(name, bio.value.trim().slice(0, BIO_MAX));
       if (first) await importLocalBests();
       paintTopbar();
+      if (first && nextPage()) { location.replace(nextPage()); return; }
       const s = $('pfSave');
       s.textContent = 'Saved';
       setTimeout(() => paintEdit(root), 900);

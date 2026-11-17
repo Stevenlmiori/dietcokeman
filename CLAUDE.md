@@ -477,6 +477,12 @@ place, the result card after a quiz ("Save your score" → Continue with Google 
 Not now), plus a quiet "Sign in" / `@name` link in the top bar. "Not now" hides
 the offer for the rest of that visit. No pop-ups anywhere else.
 
+The top-bar **Sign in signs you in where you are** (popup) and leaves you on
+that page — it used to link to the profile page and strand you there (Steven
+caught it). Only a brand-new account, which still needs a username, is sent to
+`profile.html?next=<page>`, and saving the username sends it back. `next` only
+accepts a bare `something.html[?query]` on this site, never a URL.
+
 * **Project:** `dietcokeman-12f1e` (console: console.firebase.google.com/project/dietcokeman-12f1e),
   Spark plan, Firestore `(default)` in nam5, Google provider on, public-facing
   name "DietCokeMan Challenge", `challenge.dietcokeman.com` authorized.
@@ -531,7 +537,9 @@ python3 -m http.server 8917        # then open any page with ?emu=1
 
 The emulators enforce `firestore.rules` from `firebase.json`. With `?emu=1`,
 `window._acct.as('sub', 'Name')` signs in a fake Google user without the popup
-(the Claude browser pane can't do popups). Remember the emulator assigns its
+(the Claude browser pane can't do popups). Setting `window._emuUser = ['sub',
+'Name']` makes the real Sign in buttons use that fake user, and `?emu=1` sticks
+for the tab's session so page-to-page redirects stay on the emulator. Remember the emulator assigns its
 own random uid; `sub` is not the uid. Re-run the rules checks after any rules
 change: steal a taken name, write another user's profile/row, score > total,
 row under another name, bio > 160 — all must be denied; claiming a free name,
