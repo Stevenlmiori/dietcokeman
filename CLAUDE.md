@@ -54,10 +54,9 @@ automatically; nothing else needs editing.
   sub:   'one-line subtitle',
   blurb: 'longer line on the start screen',
   tag:   'NFL ALL-TIME',         // small pill on the hub card
-  mode:  'timed',                // preselected: 'timed' | 'lives' | 'chill'
+  mode:  'timed',                // preselected: 'timed' | 'chill'
   time:  900,                    // seconds, for timed mode
-  lives: 10,                     // wrong guesses allowed, for survival
-  modes: ['timed','chill'],      // which buttons to offer; omit for all three
+  modes: ['timed','chill'],      // which buttons to offer; omit for both
   cols:  'multi',                // 'multi' = responsive columns, 'single' = one
   hideSub: true,                 // hide each item's `sub` until that row solves
   groups: [{
@@ -82,8 +81,22 @@ themselves. `alias` adds spellings the name itself doesn't imply.
 quarterback is a free answer. On *Round 1 Recall* the `sub` is the drafting
 manager, which **is** the clue, so that quiz leaves it visible.
 
-**Use `modes` to drop modes that make no sense.** Survival is hidden on the
-60-answer NFL quiz because ten strikes would end it in seconds.
+**There is no wrong-guess mode, and there must not be one.** A quiz that fills
+itself in as you type cannot charge you for a guess, because a *correct* guess
+never needs submitting — you could clear a ten-lives game without losing a
+single life by simply never pressing Enter. Steven spotted it:
+
+> "as far as guessing wrong it really functionally doesn't make sense right
+> now, since as soon as they type something right it gives them the answer"
+
+Survival mode was removed rather than patched. Sporcle has no such mode either,
+for exactly this reason. Timed and No pressure are the two modes; `wrong` is
+still counted internally so a bad Enter can shake the box, but it is not shown
+anywhere and it ends nothing. If you ever want pressure back, it has to be
+something the game can observe without asking the player to commit — a shot
+clock that resets on every find is the obvious candidate.
+
+**Use `modes` to drop a mode that makes no sense for a quiz.**
 
 ### Source your data, don't recall it
 
@@ -176,8 +189,9 @@ prompt, which Steven found to be friction for no gain. Keep the sweep.
   is what makes it feel fast.
 * **Enter** runs `onSubmit()`. It only matters when nothing matched, and that is
   the *only* thing that costs a life.
-* Re-guessing something already on the board, or any guess that matches nothing
-  while under 4 characters, costs nothing.
+* Re-guessing something already on the board costs nothing. Nothing costs
+  anything any more — see §2 on why the wrong-guess mode is gone. A failed
+  Enter shakes the box and says so, and that is all it does.
 
 ---
 
@@ -356,9 +370,9 @@ reintroduce coloured variants.
 
 | Slug | Title | Answers | Modes |
 |---|---|---|---|
-| `top5-by-position` | NFL Fantasy Leaders | 30 | Timed 5:00 · Survival · Chill |
-| `round-one-recall` | Round 1 Recall | 12 | Survival · Timed · Chill |
-| `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · Chill |
+| `top5-by-position` | NFL Fantasy Leaders | 30 | Timed 5:00 · No pressure |
+| `round-one-recall` | Round 1 Recall | 12 | Timed 4:00 · No pressure |
+| `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
 
 The slug stays `top5-by-position` even though the title changed, so old links
 and saved best scores keep working. Don't rename a slug to match a title.

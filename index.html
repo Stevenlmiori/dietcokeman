@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261117100117">
+<link rel="stylesheet" href="style.css?v=20261117101346">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -53,12 +53,12 @@
   </p>
 </main>
 
-<script src="quizzes.js?v=20261117100117"></script>
+<script src="quizzes.js?v=20261117101346"></script>
 <script>
 (function(){
   const grid = document.getElementById('grid');
   const arrow = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-  const modeName = { timed:'Timed', lives:'Survival', chill:'No pressure' };
+  const modeName = { timed:'Timed', chill:'No pressure' };
   const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const mmss = (t) => Math.floor(t/60) + ':' + String(t%60).padStart(2,'0');
   // One quiet line of metadata, not a row of coloured chips.

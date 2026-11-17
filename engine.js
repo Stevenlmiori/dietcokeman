@@ -106,7 +106,7 @@ function close(guess, key) {
 
 /* ---------- state ---------- */
 let Q = null, items = [], allKeys = [], mode = 'timed', total = 0;
-let filled = new Set(), wrong = 0, left = 0, timer = null, running = false, startedAt = 0;
+let filled = new Set(), wrong = 0, left = 0, spent = 0, timer = null, running = false, startedAt = 0;
 
 function bestKey() { return 'dcm-best-' + Q.slug + '-' + mode; }
 function getBest() { try { return parseInt(localStorage.getItem(bestKey()) || '0', 10) || 0; } catch (e) { return 0; } }
@@ -235,7 +235,6 @@ function onSubmit(e) {
   box.value = '';
   toast('“' + raw + '” isn’t on the board', 'no');
   updateStats();
-  if (mode === 'lives' && wrong >= Q.lives) end('out');
 }
 
 /* ---------- stats ---------- */
@@ -246,21 +245,19 @@ function updateStats() {
   $('pbar').style.width = pct + '%';
 
   const box = $('statRight');
-  if (mode === 'lives') {
-    const rem = Math.max(0, Q.lives - wrong);
-    box.innerHTML = `<b>${rem}</b><small>Lives</small>`;
-    box.classList.toggle('danger', rem <= 2);
-  } else if (mode === 'timed') {
+  if (mode === 'timed') {
     box.innerHTML = `<b>${fmt(left)}</b><small>Time</small>`;
     box.classList.toggle('danger', left <= 30);
   } else {
-    box.innerHTML = `<b>${wrong}</b><small>Misses</small>`;
+    // No pressure still earns a clock, just one that counts the other way.
+    box.innerHTML = `<b>${fmt(spent)}</b><small>Time</small>`;
+    box.classList.remove('danger');
   }
 }
 
 /* ---------- lifecycle ---------- */
 function start() {
-  filled = new Set(); wrong = 0; left = Q.time; running = true; startedAt = Date.now();
+  filled = new Set(); wrong = 0; left = Q.time; spent = 0; running = true; startedAt = Date.now();
   $('pre').hidden = true;
   $('live').hidden = false;
   $('giveup').hidden = false;
@@ -275,21 +272,20 @@ function start() {
   box.disabled = false;
   // a tick of delay keeps iOS from fighting the keyboard
   setTimeout(() => box.focus({ preventScroll: true }), 60);
-  if (mode === 'timed') {
-    clearInterval(timer);
-    timer = setInterval(() => {
-      left -= 1;
-      updateStats();
-      if (left <= 0) end('time');
-    }, 1000);
-  }
+  clearInterval(timer);
+  timer = setInterval(() => {
+    spent += 1;
+    if (mode === 'timed') left -= 1;
+    updateStats();
+    if (mode === 'timed' && left <= 0) end('time');
+  }, 1000);
 }
 
 /* Back to "pick a mode and press play", with the board blank again. */
 function reset() {
   running = false;
   clearInterval(timer);
-  filled = new Set(); wrong = 0; left = Q.time;
+  filled = new Set(); wrong = 0; left = Q.time; spent = 0;
   $('pre').hidden = false;
   $('live').hidden = true;
   const gu = $('giveup');
@@ -327,7 +323,6 @@ function end(reason) {
   const heads = {
     swept: ['Perfect run.', 'You cleared the whole board. Ice cold.'],
     time:  ['Time!', 'The clock got you.'],
-    out:   ['Out of lives.', 'Ten strikes and it’s over.'],
     gave:  ['Called it.', 'Here’s everything you missed.']
   };
   const h = heads[reason] || heads.gave;
@@ -338,14 +333,13 @@ function end(reason) {
     + (isBest ? ' · new personal best' : prevBest ? ' · your best is ' + prevBest : '');
 
   const bits = [];
-  if (mode === 'timed') bits.push(`<span class="pill">${reason === 'time' ? 'Full ' + fmt(Q.time) : fmt(elapsed) + ' used'}</span>`);
-  if (mode === 'lives') bits.push(`<span class="pill">${wrong} miss${wrong === 1 ? '' : 'es'}</span>`);
-  if (mode === 'chill') bits.push(`<span class="pill">${fmt(elapsed)}</span>`, `<span class="pill">${wrong} miss${wrong === 1 ? '' : 'es'}</span>`);
+  bits.push(`<span class="pill">${mode === 'timed' && reason === 'time'
+    ? 'Full ' + fmt(Q.time) : fmt(elapsed) + ' used'}</span>`);
   if (isBest) bits.push('<span class="pill">Personal best</span>');
   $('mStats').innerHTML = bits.join('');
 
   window._share = `DietCokeMan Challenge — ${Q.title}\n${score}/${total} (${Math.round((score / total) * 100)}%)` +
-    (mode === 'timed' ? ` in ${fmt(elapsed)}` : mode === 'lives' ? ` · ${wrong} misses` : '') +
+    ` in ${fmt(elapsed)}` +
     `\n${location.origin}${location.pathname}?q=${Q.slug}`;
 
   const gu = $('giveup');
@@ -379,10 +373,8 @@ function boot() {
   $('qTitle').textContent = Q.title;
   $('qSub').textContent = Q.blurb || Q.sub;
   $('mTime').textContent = fmt(Q.time);
-  $('mLives').textContent = Q.lives;
 
-  // A quiz can offer only some modes — survival makes no sense on a 60-answer list.
-  const allowed = Q.modes || ['timed', 'lives', 'chill'];
+  const allowed = Q.modes || ['timed', 'chill'];
   mode = allowed.includes(Q.mode) ? Q.mode : allowed[0];
   document.querySelectorAll('.mode').forEach(b => {
     b.hidden = !allowed.includes(b.dataset.m);

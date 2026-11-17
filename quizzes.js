@@ -7,14 +7,13 @@
      slug:  'url-safe-id',
      title: 'Shown everywhere',
      sub:   'one-line subtitle',
-     blurb: 'longer line on the start screen',
-     tag:   'ASTROWORLD',          // small pill on the hub card
-     mode:  'timed'|'lives'|'chill',   // preselected mode
+     blurb: 'longer line under the title',
+     tag:   'ASTROWORLD',          // small muted label on the hub card
+     mode:  'timed'|'chill',       // preselected mode
      time:  300,                   // seconds, timed mode
-     lives: 10,                    // wrong guesses allowed, lives mode
      cols:  'multi'|'single',      // board layout
      hideSub: true,                // hide each item's `sub` until that row is solved
-     modes: ['timed','chill'],     // which mode buttons to offer (default: all three)
+     modes: ['timed','chill'],     // which mode buttons to offer (default: both)
      groups: [{
        name: 'Group heading',
        note: 'right-side label',   // optional
@@ -39,7 +38,6 @@ window.QUIZZES = [
   tag: 'ASTROWORLD 2026',
   mode: 'timed',
   time: 300,
-  lives: 10,
   cols: 'multi',
   hideSub: true,          // the NFL team would give the player away
   groups: [
@@ -94,9 +92,8 @@ window.QUIZZES = [
   sub: 'Every first-round pick, 2026 draft',
   blurb: 'Twelve picks, twelve managers. Name who went where in the first round of the Astroworld draft.',
   tag: 'ASTROWORLD 2026',
-  mode: 'lives',
+  mode: 'timed',
   time: 240,
-  lives: 5,
   cols: 'single',
   groups: [
     { name: 'Round 1', note: 'drafted by', items: [

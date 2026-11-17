@@ -12,8 +12,8 @@ and the score already set. Pick a mode in the bar at the top and press play.
 
 | Quiz | Answers | Modes |
 |---|---|---|
-| NFL Fantasy Leaders | 30 | Timed 5:00 · Survival · No pressure |
-| Round 1 Recall | 12 | Survival · Timed · No pressure |
+| NFL Fantasy Leaders | 30 | Timed 5:00 · No pressure |
+| Round 1 Recall | 12 | Timed 4:00 · No pressure |
 | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
 
 ## How it plays
@@ -23,13 +23,14 @@ and the score already set. Pick a mode in the bar at the top and press play.
   but typing only ever fills a name you've actually got right, so working your
   way towards "Brock Purdy" can't hand you Brock Bowers along the way.
 * **Enter forgives a near-miss.** Close but misspelled — `fitzgerld`,
-  `gonzales`, `tomlinsen` — lands on Enter and costs you nothing. Enter only
-  costs a life when nothing on the board is close.
+  `gonzales`, `tomlinsen` — lands on Enter. Nothing is ever penalised: a quiz
+  that answers itself as you type can't fairly charge you for a guess, so
+  there's no wrong-guess mode.
 * **Common misspellings are built in**, so `mccaffery`, `rothlisberger`,
   `farve`, `emmit smith` and `jamar chase` fill as you type.
 * **A shared name sweeps every match** — "Manning" takes Peyton and Eli,
   "Brown" takes Jim and Tim, even across different sections of the board.
-* Three modes: a countdown, ten wrong guesses, or no pressure at all.
+* Two modes: a countdown, or no pressure at all.
 
 ## Adding a quiz
 
