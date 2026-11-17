@@ -477,6 +477,9 @@ place, the result card after a quiz ("Save your score" → Continue with Google 
 Not now), plus a quiet "Sign in" / `@name` link in the top bar. "Not now" hides
 the offer for the rest of that visit. No pop-ups anywhere else.
 
+* **Project:** `dietcokeman-12f1e` (console: console.firebase.google.com/project/dietcokeman-12f1e),
+  Spark plan, Firestore `(default)` in nam5, Google provider on, public-facing
+  name "DietCokeMan Challenge", `challenge.dietcokeman.com` authorized.
 * **Owner:** the Firebase project lives on **sylvanmiori@gmail.com** (Steven's
   choice; same account as the Cloudflare DNS), not stevenlmiori.
 * **Stack:** Firebase Auth (Google only) + Firestore, loaded from gstatic as ES
@@ -484,8 +487,8 @@ the offer for the rest of that visit. No pop-ups anywhere else.
   bill. Hosting stays on GitHub Pages. Sign-in uses **popup**, not redirect —
   redirect sign-in breaks in Safari on non-Firebase hosts. If iPhone sign-in
   ever misbehaves, the fix is moving hosting to Firebase Hosting (also free).
-* **Dormant until configured.** `firebaseConfig` at the top of `account.js` is
-  public by design (rules decide access). If it is empty, or Firebase fails to
+* **Live since 2026-11-17.** `firebaseConfig` at the top of `account.js` is
+  public by design (rules decide access). If it is emptied, or Firebase fails to
   load, `account.js` does nothing and the site behaves as before.
 * **Decoupled from the engine.** `end()` dispatches `dcm:end` with
   `{slug, scoreKey, title, mode, score, total}`; `account.js` listens. The

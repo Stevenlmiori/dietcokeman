@@ -23,10 +23,10 @@
 // Public by design: a Firebase web config identifies the project, it does not
 // grant access. Access is decided by firestore.rules.
 const firebaseConfig = {
-  apiKey: '',
-  authDomain: '',
-  projectId: '',
-  appId: ''
+  apiKey: 'AIzaSyBWx2KzEx2UINGXYY397TZkX7xclQTC1Lw',
+  authDomain: 'dietcokeman-12f1e.firebaseapp.com',
+  projectId: 'dietcokeman-12f1e',
+  appId: '1:76413971963:web:3f70772061749d0dc86f5e'
 };
 
 const SDK = 'https://www.gstatic.com/firebasejs/13.1.0/';
