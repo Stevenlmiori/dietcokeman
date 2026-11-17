@@ -161,7 +161,7 @@ a{color:inherit}
   background:rgba(255,255,255,.055);color:var(--silver);border:1px solid var(--line);
 }
 
-/* hub search and filters (shown past FINDER_AT quizzes, or with ?q=/?tag=/?category=) */
+/* hub search and filters */
 .finder{margin:0 0 16px}
 .find{width:100%;border:1.5px solid var(--line);border-radius:12px;background:rgba(255,255,255,.05);
   color:var(--white);font:inherit;font-size:16px;padding:11px 14px;outline:0;transition:border-color .14s}

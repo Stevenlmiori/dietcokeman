@@ -142,12 +142,12 @@ quiz. **Don't invent a near-duplicate** ("NBA Basketball", "Alltime"): use the
 existing word or add a new one to `TAXONOMY` deliberately. The weekly Line Game
 rewrite must keep `category`/`tags`.
 
-**The hub's search and filters** (search box, category row, tag row) stay
-hidden until there are more than `FINDER_AT` (12) quizzes, because seven cards
-don't need them and Steven dislikes clutter. They appear immediately for any
-link carrying `?q=`, `?category=` or `?tag=` — e.g. `/?tag=NBA`, `/?q=mvp`,
-`/?tag=Football&q=all-time` — and the URL follows the filters, so a filtered
-view can be texted. Search matches title, subtitle, blurb, category and tags;
+**The hub's search and filters** (search box, category row, tag row) are
+always shown — Steven chose that over hiding them until the hub grew ("Show it
+now"). The category row only appears once two categories are in use. Links
+carrying `?q=`, `?category=` or `?tag=` open pre-filtered — e.g. `/?tag=NBA`,
+`/?q=mvp`, `/?tag=Football&q=all-time` — and the URL follows the filters, so a
+filtered view can be texted. Search matches title, subtitle, blurb, category and tags;
 it **never searches answers**, which would reveal who is on the board.
 Filters show only values some quiz actually uses. Cards still show title and
 subtitle only — tags are for finding, not decoration (see §8).

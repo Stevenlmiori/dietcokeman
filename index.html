@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261117164713">
+<link rel="stylesheet" href="style.css?v=20261117165515">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -44,8 +44,7 @@
   </section>
 
   <div class="sect-h"><h2>Pick your challenge</h2></div>
-  <!-- Search and filters. Hidden until the hub is big enough to need them
-       (FINDER_AT below), or whenever a link carries ?q= / ?category= / ?tag=. -->
+  <!-- Search and filters. Always on (Steven: "Show it now"). -->
   <div class="finder" id="finder" hidden>
     <input class="find" id="find" type="search" placeholder="Search quizzes" autocomplete="off"
            spellcheck="false" aria-label="Search quizzes">
@@ -60,8 +59,8 @@
   </p>
 </main>
 
-<script type="module" src="account.js?v=20261117164713"></script>
-<script src="quizzes.js?v=20261117164713"></script>
+<script type="module" src="account.js?v=20261117165515"></script>
+<script src="quizzes.js?v=20261117165515"></script>
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
@@ -79,11 +78,9 @@
     if (!(q.tags || []).length) console.warn('Quiz', q.slug, 'has no tags');
   });
 
-  // Search and filters stay out of the way until there are enough quizzes to need them.
-  const FINDER_AT = 12;
   const params = new URLSearchParams(location.search);
   const state = { q: params.get('q') || '', category: params.get('category') || '', tag: params.get('tag') || '' };
-  const finderOn = QUIZZES.length > FINDER_AT || state.q || state.category || state.tag;
+  const finderOn = true;   // Steven: "Show it now" — always on, even with a handful of quizzes
 
   // Words typed in the box must all appear somewhere in a quiz's title,
   // subtitle, blurb, category or tags. Answers are never searched: that
