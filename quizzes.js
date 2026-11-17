@@ -13,6 +13,7 @@
      time:  300,                   // seconds, timed mode
      lives: 10,                    // wrong guesses allowed, lives mode
      cols:  'multi'|'single',      // board layout
+     hideSub: true,                // hide each item's `sub` until that row is solved
      groups: [{
        name: 'Group heading',
        note: 'right-side label',   // optional
@@ -39,6 +40,7 @@ window.QUIZZES = [
   time: 300,
   lives: 10,
   cols: 'multi',
+  hideSub: true,          // the NFL team would give the player away
   groups: [
     { name: 'Quarterbacks', note: 'avg pts', items: [
       { a: 'Joe Burrow',          sub: 'CIN', hint: '32.13' },

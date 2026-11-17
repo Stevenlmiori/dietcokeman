@@ -95,7 +95,7 @@ function fmt(sec) {
 /* ---------- board ---------- */
 function buildBoard() {
   const board = $('board');
-  board.className = 'board' + (Q.cols === 'single' ? ' single' : '');
+  board.className = 'board' + (Q.cols === 'single' ? ' single' : '') + (Q.hideSub ? ' hidesub' : '');
   board.innerHTML = Q.groups.map((g, gi) => {
     const rows = g.items.map((it) => {
       const i = it._i;
