@@ -125,11 +125,37 @@ other bare middle word needs 4. Without these, `st` alone unlocked
 *Amon-Ra St. Brown* and `me` unlocked *Dont Tread On Me*. Particles only count
 inside a longer key. Do not relax these.
 
+### Fuzzy only happens on Enter
+
+**Typing never fuzzy-matches.** `onInput` fills an answer only when what you
+have typed is an exact key; `onSubmit` (Enter) is the only place `close()` is
+consulted, and a near-miss that lands there costs nothing.
+
+This is not a tuning preference, it is the fix for a real complaint. Matching
+ran on every keystroke, so every half-finished name was tested against the whole
+board — typing `Brock P` on the way to Brock Purdy silently handed over **Brock
+Bowers**, because `brockp` and `brockb` are one edit apart. Steven's words:
+"I find myself getting credit for players I'm not thinking of." Getting credit
+for someone you were not thinking of is worse than having to spell a name right,
+so typing is strict and Enter is generous.
+
 ### Fuzzy tolerance (`close`)
 
-Levenshtein distance: **1 edit at 5–7 characters, 2 at 8+. Under 5 characters
-must be exact.** That floor is what stops `base` matching `Bass` and `lam`
-matching `Lamb`. It also means `gibs` misses `Gibbs` — accepted trade.
+Four guards, all of them needed:
+
+* both strings at least **6 characters** (was 5)
+* the **first letter must match** — typos land in the middle, not the start
+* lengths within **one** of each other
+* **1 edit below 10 characters, 2 at 10+** (was 2 at 8+)
+
+`lev()` is optimal string alignment, not plain Levenshtein: swapping two
+neighbouring letters costs **one** edit. `mccaffery` for `mccaffrey` is the slip
+people actually make, and plain Levenshtein scores it as two unrelated mistakes,
+which would have forced the threshold back open.
+
+`midWord()` is the last guard. If the guess is a strict prefix of any key on the
+board, fuzzy is skipped entirely — someone five letters into a name is typing,
+not misspelling.
 
 ### Exact beats fuzzy (`findMatches`)
 
@@ -235,12 +261,23 @@ python3 -m http.server 8901
 and looked like it passed with 30/30 — but each guess had filled the answer, so
 later variants reported "already got it" rather than actually being checked.
 
-Two checks worth re-running after any matcher change:
+`findMatches` takes a second argument: `findMatches(g)` is what typing does,
+`findMatches(g, true)` is what Enter does. Its result carries `how`, either
+`'exact'` or `'fuzzy'`.
+
+Four checks worth re-running after any matcher change, on **every** quiz:
 
 1. **Self-lookup** — every `_dcm.items()` entry, searched by its own `a`, must
    return exactly itself.
 2. **Leak check** — short particles (`st`, `on`, `me`, `bay`, `the`, `iii`,
    `jr`) must return zero hits.
+3. **Typing leak** — for every answer, every prefix of it passed to
+   `findMatches(prefix)` must never return a *different* answer. The only
+   permitted hits are genuinely shared names: `brock` taking both Brocks,
+   `drew` taking Brees and Bledsoe. Anything else is the bug above coming back.
+4. **Enter fuzz** — every answer and every single word of it, passed to
+   `findMatches(g, true)`, must never fuzzy-match a *different* answer. This
+   currently returns zero across all three quizzes; it should stay zero.
 
 ---
 
@@ -319,9 +356,12 @@ reintroduce coloured variants.
 
 | Slug | Title | Answers | Modes |
 |---|---|---|---|
-| `top5-by-position` | Top 5 by Position | 30 | Timed 5:00 · Survival · Chill |
+| `top5-by-position` | NFL Fantasy Leaders | 30 | Timed 5:00 · Survival · Chill |
 | `round-one-recall` | Round 1 Recall | 12 | Survival · Timed · Chill |
 | `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · Chill |
+
+The slug stays `top5-by-position` even though the title changed, so old links
+and saved best scores keep working. Don't rename a slug to match a title.
 
 The two Astroworld quizzes are snapshots of the 2026 season — the Top 5 figures
 are averages through roughly Week 10, and Round 1 is that year's draft. They do

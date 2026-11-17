@@ -33,7 +33,7 @@ window.QUIZZES = [
 
 {
   slug: 'top5-by-position',
-  title: 'Top 5 by Position',
+  title: 'NFL Fantasy Leaders',
   sub: 'Astroworld 2026 scoring leaders',
   blurb: 'The five highest average scorers at every position this season. Average fantasy points are your clue.',
   tag: 'ASTROWORLD 2026',

@@ -12,20 +12,23 @@ and the score already set. Pick a mode in the bar at the top and press play.
 
 | Quiz | Answers | Modes |
 |---|---|---|
-| Top 5 by Position | 30 | Timed 5:00 · Survival · No pressure |
+| NFL Fantasy Leaders | 30 | Timed 5:00 · Survival · No pressure |
 | Round 1 Recall | 12 | Survival · Timed · No pressure |
 | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
 
 ## How it plays
 
 * **First name, last name or the full name** — any of them counts.
-* **Answers fill the moment you type them.** No Enter, no submit button.
-* **Enter only matters when nothing matched**, and that's the only thing that
-  can cost you a life.
+* **Answers fill the moment you spell one.** No Enter, no submit button —
+  but typing only ever fills a name you've actually got right, so working your
+  way towards "Brock Purdy" can't hand you Brock Bowers along the way.
+* **Enter forgives a near-miss.** Close but misspelled — `fitzgerld`,
+  `gonzales`, `tomlinsen` — lands on Enter and costs you nothing. Enter only
+  costs a life when nothing on the board is close.
+* **Common misspellings are built in**, so `mccaffery`, `rothlisberger`,
+  `farve`, `emmit smith` and `jamar chase` fill as you type.
 * **A shared name sweeps every match** — "Manning" takes Peyton and Eli,
   "Brown" takes Jim and Tim, even across different sections of the board.
-* **Spelling is forgiving.** `mccaffery`, `rothlisberger`, `farve`,
-  `emmit smith` and `jamar chase` all land.
 * Three modes: a countdown, ten wrong guesses, or no pressure at all.
 
 ## Adding a quiz

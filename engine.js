@@ -49,38 +49,63 @@ function keysFor(item) {
 }
 
 /* ---------- fuzzy ---------- */
+/* Optimal string alignment: Levenshtein, except that swapping two neighbouring
+   letters costs one edit instead of two. "mccaffery" for "mccaffrey" is the
+   typo people actually make, and plain Levenshtein scores it the same as two
+   unrelated mistakes. */
 function lev(a, b, cap) {
   if (a === b) return 0;
   if (Math.abs(a.length - b.length) > cap) return cap + 1;
+  let prev2 = null;
   let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
   for (let i = 1; i <= a.length; i++) {
     const cur = [i];
     let best = i;
     for (let j = 1; j <= b.length; j++) {
-      const c = Math.min(
+      let c = Math.min(
         prev[j] + 1,
         cur[j - 1] + 1,
         prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
       );
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+        c = Math.min(c, prev2[j - 2] + 1);         // transposition
+      }
       cur[j] = c;
       if (c < best) best = c;
     }
     if (best > cap) return cap + 1;
+    prev2 = prev;
     prev = cur;
   }
   return prev[b.length];
 }
-// forgiving, but tightens up on short words so "bass" can't become "base"
+
+/* Deliberately mean, and only ever consulted when you press Enter.
+
+   The old rules allowed one edit from five characters up and ran on every
+   keystroke, which meant typing "Brock P" on the way to Brock Purdy silently
+   handed you Brock Bowers — "brockp" and "brockb" are one edit apart. Credit
+   for a player you were not even thinking of is worse than having to spell one
+   correctly, so:
+
+     - both strings at least 6 characters
+     - the first letter has to be right (typos land in the middle, not the start)
+     - lengths within one of each other
+     - one edit below ten characters, two at ten and above
+
+   A transposition counts as one edit, so the genuinely common slips still land
+   while near-identical surnames no longer collide. */
 function close(guess, key) {
   if (guess === key) return true;
-  if (guess.length < 5 || key.length < 5) return false;
-  const cap = guess.length >= 8 ? 2 : 1;
-  if (Math.abs(guess.length - key.length) > cap) return false;
+  if (guess.length < 6 || key.length < 6) return false;
+  if (guess[0] !== key[0]) return false;
+  if (Math.abs(guess.length - key.length) > 1) return false;
+  const cap = guess.length >= 10 ? 2 : 1;
   return lev(guess, key, cap) <= cap;
 }
 
 /* ---------- state ---------- */
-let Q = null, items = [], mode = 'timed', total = 0;
+let Q = null, items = [], allKeys = [], mode = 'timed', total = 0;
 let filled = new Set(), wrong = 0, left = 0, timer = null, running = false, startedAt = 0;
 
 function bestKey() { return 'dcm-best-' + Q.slug + '-' + mode; }
@@ -114,27 +139,41 @@ function esc(s) {
 }
 
 /* ---------- matching ---------- */
+/* Is this the beginning of a longer answer? Someone five letters into a name
+   is typing, not misspelling, so they get no fuzzy credit for it. */
+function midWord(g) {
+  return allKeys.some(k => k.length > g.length && k.startsWith(g));
+}
+
 /* An exact key always beats a fuzzy one. Without this, typing the whole name
    "Jim Brown" came back ambiguous because "timbrown" is a single edit away, and
-   "payton" pulled in Peyton Manning alongside Walter Payton. Fuzzy is only
-   consulted when nothing matched exactly. */
-function findMatches(raw) {
+   "payton" pulled in Peyton Manning alongside Walter Payton.
+
+   `allowFuzzy` is off while you type and on when you press Enter — see the note
+   above `close()` for why. */
+function findMatches(raw, allowFuzzy) {
   const g = norm(raw);
-  if (g.length < 2) return { hits: [], already: false };
-  const exact = [], fuzzy = [];
-  let exactDone = false, fuzzyDone = false;
+  if (g.length < 2) return { hits: [], already: false, how: 'exact' };
+
+  const exact = [];
+  let exactDone = false;
   for (const it of items) {
-    let ex = false, fz = false;
-    for (const k of it._keys) {
-      if (g === k) { ex = true; break; }
-      if (!fz && close(g, k)) fz = true;
-    }
-    if (!ex && !fz) continue;
-    if (filled.has(it._i)) { if (ex) exactDone = true; else fuzzyDone = true; continue; }
-    (ex ? exact : fuzzy).push(it);
+    if (!it._keys.has(g)) continue;
+    if (filled.has(it._i)) exactDone = true; else exact.push(it);
   }
-  if (exact.length || exactDone) return { hits: exact, already: exactDone };
-  return { hits: fuzzy, already: fuzzyDone };
+  if (exact.length || exactDone) return { hits: exact, already: exactDone, how: 'exact' };
+
+  if (!allowFuzzy || midWord(g)) return { hits: [], already: false, how: 'exact' };
+
+  const fuzzy = [];
+  let fuzzyDone = false;
+  for (const it of items) {
+    let fz = false;
+    for (const k of it._keys) if (close(g, k)) { fz = true; break; }
+    if (!fz) continue;
+    if (filled.has(it._i)) fuzzyDone = true; else fuzzy.push(it);
+  }
+  return { hits: fuzzy, already: fuzzyDone, how: 'fuzzy' };
 }
 
 function reveal(it, how) {
@@ -153,34 +192,40 @@ function toast(msg, cls) {
 }
 
 /* ---------- input ---------- */
+// One name sweeps everyone who shares it, across every section of the board:
+// "Manning" takes Peyton and Eli, "Brown" takes Jim and Tim.
+function land(hits, how) {
+  const box = $('guess');
+  hits.forEach(reveal);
+  box.value = '';
+  box.classList.remove('bad'); box.classList.add('good');
+  setTimeout(() => box.classList.remove('good'), 420);
+  const lead = how === 'fuzzy' ? 'Close enough — ' : 'Got it — ';
+  toast(hits.length === 1
+    ? lead + hits[0].a
+    : 'Got ' + hits.length + ' — ' + hits.map(h => h.a).join(' + '), 'ok');
+}
+
+// Typing only ever fills an answer you have actually spelled.
 function onInput() {
   if (!running) return;
   const box = $('guess');
   const { hits, already } = findMatches(box.value);
-  // One name sweeps everyone who shares it, across every section of the board:
-  // "Manning" takes Peyton and Eli, "Brown" takes Jim and Tim.
-  if (hits.length) {
-    hits.forEach(reveal);
-    box.value = '';
-    box.classList.remove('bad'); box.classList.add('good');
-    setTimeout(() => box.classList.remove('good'), 420);
-    toast(hits.length === 1
-      ? 'Got it — ' + hits[0].a
-      : 'Got ' + hits.length + ' — ' + hits.map(h => h.a).join(' + '), 'ok');
-    return;
-  }
+  if (hits.length) { land(hits, 'exact'); return; }
   if (already && norm(box.value).length > 3) { toast('Already on the board', 'hint'); return; }
   toast('');
 }
 
+// Enter is where a near-miss gets the benefit of the doubt, and it costs
+// nothing when it lands.
 function onSubmit(e) {
   if (e) e.preventDefault();
   if (!running) return;
   const box = $('guess');
   const raw = box.value.trim();
   if (!raw) return;
-  const { hits, already } = findMatches(raw);
-  if (hits.length) { onInput(); return; }
+  const { hits, already, how } = findMatches(raw, true);
+  if (hits.length) { land(hits, how); return; }
   if (already) { toast('Already on the board', 'hint'); box.value = ''; return; }
 
   // a genuine miss
@@ -324,6 +369,8 @@ function boot() {
     it._keys = keysFor(it);
     items.push(it);
   }));
+  // one flat list, for the "are they still mid-word?" test
+  allKeys = [...new Set(items.flatMap(it => [...it._keys]))];
   // restart per-group numbering when the board is split into groups
   if (Q.cols !== 'single') { Q.groups.forEach(g => g.items.forEach((it, k) => { it._n = k + 1; })); }
   total = items.length;
@@ -408,7 +455,7 @@ else boot();
 /* exposed for the console test harness */
 window._dcm = {
   get state() { return { total, filled: filled.size, wrong, left, running, mode }; },
-  findMatches, norm, keysFor, close,
+  findMatches, norm, keysFor, close, lev,
   start,
   guess(s) { const b = $('guess'); b.value = s; onInput(); return { filled: filled.size, wrong }; },
   submit(s) { const b = $('guess'); b.value = s; onSubmit(); return { filled: filled.size, wrong }; },
