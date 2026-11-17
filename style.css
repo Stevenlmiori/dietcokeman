@@ -140,10 +140,9 @@ a{color:inherit}
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 .hero p{margin:14px 0 0;max-width:56ch;color:var(--silver);font-size:16px}
-.rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:34px 0 26px}
 
 /* ---------- quiz cards (hub) ---------- */
-.sect-h{display:flex;align-items:baseline;gap:12px;margin:0 0 16px}
+.sect-h{display:flex;align-items:baseline;gap:12px;margin:30px 0 16px}
 .sect-h h2{margin:0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver-dim);font-weight:800}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:16px}
 .card{
@@ -167,9 +166,6 @@ a{color:inherit}
   letter-spacing:.03em;padding:4px 10px;border-radius:999px;
   background:rgba(255,255,255,.055);color:var(--silver);border:1px solid var(--line);
 }
-.card .go{margin-top:12px;font-weight:800;font-size:13.5px;color:var(--white);display:flex;align-items:center;gap:7px}
-.card .go svg{transition:transform .16s}
-.card:hover .go svg{transform:translateX(4px)}
 
 /* ---------- quiz page intro ---------- */
 /* Title and subtitle only. Choosing a mode happens in the sticky bar, right on
