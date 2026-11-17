@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261117101346">
+<link rel="stylesheet" href="style.css?v=20261117125603">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -62,10 +62,11 @@
           <input id="guess" class="guess" type="text" placeholder="Type a name…"
                  autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
                  enterkeyhint="done" aria-label="Type your guess">
+          <button class="btn go" id="lock" type="submit" hidden>Lock in my lines</button>
         </form>
 
         <div class="stats">
-          <div class="stat"><b><span id="sc">0</span><span id="scTot">/0</span></b><small>Found</small></div>
+          <div class="stat"><b><span id="sc">0</span><span id="scTot">/0</span></b><small id="scLbl">Found</small></div>
           <div class="stat" id="statRight"><b>—</b><small>&nbsp;</small></div>
         </div>
 
@@ -81,7 +82,7 @@
     <button class="ghost" id="giveup" hidden>Give up &amp; reveal</button>
   </div>
 
-  <p class="fine">First or last name — either one counts · a shared name fills everyone who has it ·
+  <p class="fine" id="fine">First or last name — either one counts · a shared name fills everyone who has it ·
     answers fill the moment you spell one · press Enter and a near-miss still counts</p>
 </main>
 
@@ -101,7 +102,7 @@
   </div>
 </div>
 
-<script src="quizzes.js?v=20261117101346"></script>
-<script src="engine.js?v=20261117101346"></script>
+<script src="quizzes.js?v=20261117125603"></script>
+<script src="engine.js?v=20261117125603"></script>
 </body>
 </html>

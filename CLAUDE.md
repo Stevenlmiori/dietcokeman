@@ -366,13 +366,40 @@ reintroduce coloured variants.
 
 ---
 
-## 9. Current quizzes
+## 9. The Line Game (`type: 'lines'`)
+
+A game Steven and his brother play by text: every game of the coming NFL week
+is listed away @ home, and you guess the Vegas spread. Within **one point** of
+the real line is right, **exactly one off included**. The player is not told
+who is favored; they pick the favorite with a two-button toggle, then type the
+number (0 = pick'em).
+
+* `line` on each item is the **home** team's spread: negative = home favored,
+  positive = away favored. `aw`/`hm` are the button labels. `where` marks a
+  neutral site (Vikings @ 49ers in Mexico City).
+* Grading compares guess and line on that one signed scale, so a wrong-favorite
+  pick only survives on a game within a point of pick'em.
+* Nothing is graded until **Lock in my lines** (or the clock). The first tap
+  with blank games only warns; the second grades. The guess box, the name
+  matcher and Give up are not used; Give up reappears as **Show results**.
+* The copied result lists every pick against the line, so it can be texted.
+* Lines are a snapshot. Week 11 used bet365 as of Nov 16 (Fox Sports,
+  cross-checked against Sportsbook Review). For a new week, add a new quiz with
+  a new slug rather than overwriting, so old best scores stay meaningful.
+
+`bump.sh` uses macOS `sed -i ''`; on Linux run the same substitution with
+`sed -i -E`.
+
+---
+
+## 10. Current quizzes
 
 | Slug | Title | Answers | Modes |
 |---|---|---|---|
 | `top5-by-position` | NFL Fantasy Leaders | 30 | Timed 5:00 · No pressure |
 | `round-one-recall` | Round 1 Recall | 12 | Timed 4:00 · No pressure |
 | `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
+| `line-game-2026-w11` | NFL Line Game: Week 11 | 13 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links
 and saved best scores keep working. Don't rename a slug to match a title.

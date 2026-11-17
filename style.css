@@ -308,6 +308,40 @@ a{color:inherit}
 @keyframes flash{0%{background:rgba(59,217,126,.3)}100%{background:rgba(59,217,126,.1)}}
 .row.just{animation:flash .7s ease-out}
 
+/* ---------- line game ---------- */
+/* Each game row: matchup, then a favourite toggle and a spread box. On a phone
+   the controls drop under the matchup rather than squeezing it. */
+.board.lines{grid-template-columns:minmax(0,680px)}
+.lrow{flex-wrap:wrap;row-gap:6px}
+.lrow .mu{flex:1 1 110px;white-space:normal;overflow:visible}
+.mu i{font-style:normal;color:var(--silver-dim);font-weight:600;padding:0 2px}
+.mu .where{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--silver-dim);font-weight:800;margin-top:1px}
+.lctl{flex:none;display:flex;align-items:center;gap:6px;margin-left:auto}
+.fav{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.fv{border:0;background:rgba(255,255,255,.03);color:var(--silver-dim);font:inherit;
+  font-size:12px;font-weight:800;letter-spacing:.04em;padding:8px 0;width:48px;cursor:pointer;
+  transition:background .14s,color .14s}
+.fv + .fv{border-left:1px solid var(--line)}
+.fv:hover:not(:disabled){background:rgba(255,255,255,.07);color:var(--white)}
+.fv[aria-pressed="true"]{background:rgba(240,25,50,.16);color:var(--white);
+  box-shadow:inset 0 0 0 1px rgba(240,25,50,.45)}
+.pts{width:62px;font:inherit;font-size:16px;font-weight:800;text-align:center;
+  font-variant-numeric:tabular-nums;color:var(--white);background:rgba(255,255,255,.055);
+  border:1.5px solid var(--line);border-radius:10px;padding:6px 4px;outline:none}
+.pts::placeholder{color:#5A6673;font-weight:600;font-size:13px}
+.pts:focus{border-color:var(--ice);box-shadow:0 0 0 3px rgba(127,217,247,.14)}
+.fv:disabled,.pts:disabled{cursor:default}
+.lrow:not(.got):not(.miss) .fv:disabled,
+.lrow:not(.got):not(.miss) .pts:disabled{opacity:.5}
+.actual{flex:1 1 100%;text-align:right;font-size:12px;font-weight:800;
+  font-variant-numeric:tabular-nums;color:var(--silver)}
+.actual:empty{display:none}
+.lrow.got .actual{color:var(--good)}
+.lrow.miss .actual{color:#FF8A98}
+.lrow.miss .nm{color:var(--white)}
+.live .btn.go{flex:1}
+
 /* ---------- end modal ---------- */
 .scrim{position:fixed;inset:0;z-index:100;background:rgba(3,5,8,.82);backdrop-filter:blur(8px);
   display:grid;place-items:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}

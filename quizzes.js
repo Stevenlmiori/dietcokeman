@@ -192,6 +192,53 @@ window.QUIZZES = [
       { a: 'DeAndre Hopkins', rk: '20', hint: '13,295', alias: ['dhop', 'hopkins'] }
     ]},
   ]
+},
+
+/* -----------------------------------------------------------
+   The NFL Line Game. A different kind of quiz: `type: 'lines'`.
+   Every game shows away @ home. The player picks the favourite and
+   types the spread; within one point of the real line is right
+   (exactly one point off counts).
+
+   `line` is the HOME team's spread: negative = home favoured,
+   positive = away favoured, 0 = pick'em. `aw` / `hm` are the
+   abbreviations on the pick buttons. `where` marks a neutral site.
+
+   Week 11, 2026. bet365 lines as of Nov 16 (via Fox Sports,
+   cross-checked against Sportsbook Review). Re-pull for a new week.
+   ----------------------------------------------------------- */
+{
+  slug: 'line-game-2026-w11',
+  type: 'lines',
+  title: 'NFL Line Game: Week 11',
+  sub: 'Guess the Vegas spread on every game',
+  blurb: 'Pick the favorite and guess the spread for all 13 Week 11 games. Within one point of the real Vegas line counts. Lines as of Nov 16.',
+  tag: 'LINE GAME · 2026 WEEK 11',
+  mode: 'chill',
+  time: 300,
+  modes: ['chill', 'timed'],
+  cols: 'single',
+  groups: [
+    { name: 'Thursday', note: 'Nov 19', items: [
+      { a: 'Colts @ Texans',       away: 'Colts',      home: 'Texans',     aw: 'IND', hm: 'HOU', line: -10.5 }
+    ]},
+    { name: 'Sunday', note: 'Nov 22', items: [
+      { a: 'Cardinals @ Chiefs',   away: 'Cardinals',  home: 'Chiefs',     aw: 'ARI', hm: 'KC',  line: -16.5 },
+      { a: 'Ravens @ Panthers',    away: 'Ravens',     home: 'Panthers',   aw: 'BAL', hm: 'CAR', line: -2.5 },
+      { a: 'Dolphins @ Bills',     away: 'Dolphins',   home: 'Bills',      aw: 'MIA', hm: 'BUF', line: -16.5 },
+      { a: 'Saints @ Bears',       away: 'Saints',     home: 'Bears',      aw: 'NO',  hm: 'CHI', line: -10.5 },
+      { a: 'Steelers @ Eagles',    away: 'Steelers',   home: 'Eagles',     aw: 'PIT', hm: 'PHI', line: 4.5 },
+      { a: 'Buccaneers @ Lions',   away: 'Buccaneers', home: 'Lions',      aw: 'TB',  hm: 'DET', line: -5.5 },
+      { a: 'Titans @ Cowboys',     away: 'Titans',     home: 'Cowboys',    aw: 'TEN', hm: 'DAL', line: -7.5 },
+      { a: 'Jets @ Chargers',      away: 'Jets',       home: 'Chargers',   aw: 'NYJ', hm: 'LAC', line: -3.5 },
+      { a: 'Jaguars @ Giants',     away: 'Jaguars',    home: 'Giants',     aw: 'JAX', hm: 'NYG', line: 6.5 },
+      { a: 'Raiders @ Broncos',    away: 'Raiders',    home: 'Broncos',    aw: 'LV',  hm: 'DEN', line: -9.5 },
+      { a: 'Vikings @ 49ers',      away: 'Vikings',    home: '49ers',      aw: 'MIN', hm: 'SF',  line: -2.5, where: 'Mexico City' }
+    ]},
+    { name: 'Monday', note: 'Nov 23', items: [
+      { a: 'Bengals @ Commanders', away: 'Bengals',    home: 'Commanders', aw: 'CIN', hm: 'WAS', line: 5.5 }
+    ]}
+  ]
 }
 
 ];
