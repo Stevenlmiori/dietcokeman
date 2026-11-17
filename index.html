@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261117172036">
+<link rel="stylesheet" href="style.css?v=20261117173215">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -59,8 +59,8 @@
   </p>
 </main>
 
-<script type="module" src="account.js?v=20261117172036"></script>
-<script src="quizzes.js?v=20261117172036"></script>
+<script type="module" src="account.js?v=20261117173215"></script>
+<script src="quizzes.js?v=20261117173215"></script>
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
@@ -94,10 +94,16 @@
     return words.every(w => h.includes(w));
   }
 
+  const ICONS = TAX.icons || { tags: {}, categories: {} };
+  const iconFor = (q) => q.icon
+    || ((q.tags || []).map(t => ICONS.tags[t]).find(Boolean))
+    || ICONS.categories[q.category] || '';
+
   function render() {
     const shown = QUIZZES.filter(matches);
-    // Title and subtitle only. No tags, counts, modes or chips on the cards.
+    // Title, subtitle and one small emoji in the corner. No tags, counts, modes or chips.
     grid.innerHTML = shown.map(q => `<a class="card" href="play.html?q=${encodeURIComponent(q.slug)}">
+      <span class="card-ico" aria-hidden="true">${esc(iconFor(q))}</span>
       <h3>${esc(q.title)}</h3>
       <div class="sub">${esc(q.sub)}</div>
     </a>`).join('');

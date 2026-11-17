@@ -153,6 +153,13 @@ a{color:inherit}
   transition:transform .16s cubic-bezier(.2,.8,.3,1),border-color .16s,box-shadow .16s;
 }
 .card:hover{transform:translateY(-3px);border-color:#3D4A5A;box-shadow:0 16px 40px rgba(0,0,0,.55)}
+/* one emoji in the top-right corner, sitting in a faint frosted tile so it
+   reads as part of the card rather than a sticker on it */
+.card-ico{position:absolute;top:14px;right:14px;width:34px;height:34px;display:grid;place-items:center;
+  border-radius:10px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.06);
+  font-size:18px;line-height:1;transition:transform .16s cubic-bezier(.2,.8,.3,1),background .16s}
+.card:hover .card-ico{transform:scale(1.08) rotate(-4deg);background:rgba(255,255,255,.08)}
+.card h3{padding-right:42px}
 .card h3{margin:2px 0 0;font-size:19px;font-weight:800;letter-spacing:-.015em}
 .card .sub{color:var(--silver-dim);font-size:13.5px}
 .pill{

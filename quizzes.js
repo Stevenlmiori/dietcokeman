@@ -43,6 +43,17 @@ window.TAXONOMY = {
     market: ['S&P 500', 'Companies', 'Stocks'],
     topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars'],
     kind:   ['All-Time', 'This Season', 'Career Leaders', 'Awards', 'Champions', 'Draft', 'Fantasy', 'Betting']
+  },
+  /* The little emoji in each hub card's corner. The most specific match wins:
+     a quiz's own `icon`, then the first of its tags listed here, then its
+     category. A sports quiz shows its sport's ball, not a generic trophy. */
+  icons: {
+    tags: {
+      Football: '🏈', Basketball: '🏀', Baseball: '⚾', Hockey: '🏒', Golf: '⛳',
+      Drinks: '🥤', Restaurants: '🍔', Oscars: '🏆', 'Box Office': '🎬',
+      Stocks: '📈', 'S&P 500': '📈'
+    },
+    categories: { Sports: '🏆', Movies: '🎬', TV: '📺', Business: '💼', 'Food & Drink': '🍽️' }
   }
 };
 

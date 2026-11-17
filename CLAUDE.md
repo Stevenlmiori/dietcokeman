@@ -152,8 +152,14 @@ carrying `?q=`, `?category=` or `?tag=` open pre-filtered — e.g. `/?tag=NBA`,
 `/?q=mvp`, `/?tag=Football&q=all-time` — and the URL follows the filters, so a
 filtered view can be texted. Search matches title, subtitle, blurb, category and tags;
 it **never searches answers**, which would reveal who is on the board.
-Filters show only values some quiz actually uses. Cards still show title and
-subtitle only — tags are for finding, not decoration (see §8).
+Filters show only values some quiz actually uses. Cards show the title, the
+subtitle and **one emoji in the top-right corner** (Steven asked for it), in a
+faint frosted 34px tile that tilts slightly on hover. The emoji comes from
+`TAXONOMY.icons`: a quiz's own `icon` if set, else its first tag with an icon
+(Football 🏈, Basketball 🏀, Baseball ⚾, Golf ⛳, Drinks 🥤, Restaurants 🍔,
+Oscars 🏆, Box Office 🎬, Stocks 📈…), else its category's (Sports 🏆, Movies
+🎬, TV 📺, Business 💼, Food & Drink 🍽️). Add an icon when you add a tag or
+category. Still no tag chips on cards (see §8).
 
 ## 3. How matching works (`engine.js`)
 
