@@ -607,6 +607,81 @@ window.QUIZZES = [
 },
 
 {
+  slug: 'mlb-career-hr',
+  title: 'MLB All-Time Home Runs',
+  sub: 'The top 50 career home run hitters',
+  blurb: 'The 50 greatest home run hitters in MLB history, through the 2026 season. Career home runs are your clue.',
+  // Baseball-Reference /leaders/HR_career.shtml, "Last Updated: Monday, November 16" (2026 season final).
+  // Ties share a rank (three at 521, two at 512, 511, 493, 475, 462, 449, 434); #49-50 tie closes it at 50.
+  tag: 'MLB ALL-TIME',
+  mode: 'timed',
+  time: 480,
+  cols: 'multi',
+  groups: [
+    { name: '1–10', items: [
+      { a: 'Barry Bonds', rk: '1', hint: '762' },
+      { a: 'Hank Aaron', rk: '2', hint: '755', alias: ['henry aaron','hammerin hank','hammer','the hammer'] },
+      { a: 'Babe Ruth', rk: '3', hint: '714', alias: ['the bambino','bambino','sultan of swat','george herman ruth'] },
+      { a: 'Albert Pujols', rk: '4', hint: '703', alias: ['the machine','el hombre'] },
+      { a: 'Alex Rodriguez', rk: '5', hint: '696', alias: ['a rod','arod'] },
+      { a: 'Willie Mays', rk: '6', hint: '660', alias: ['say hey kid','the say hey kid'] },
+      { a: 'Ken Griffey Jr.', rk: '7', hint: '630', alias: ['junior','griffey jr','ken griffey'] },
+      { a: 'Jim Thome', rk: '8', hint: '612', alias: ['thom'] },
+      { a: 'Sammy Sosa', rk: '9', hint: '609', alias: ['slammin sammy'] },
+      { a: 'Frank Robinson', rk: '10', hint: '586' }
+    ]},
+    { name: '11–20', items: [
+      { a: 'Mark McGwire', rk: '11', hint: '583', alias: ['big mac'] },
+      { a: 'Harmon Killebrew', rk: '12', hint: '573', alias: ['killer'] },
+      { a: 'Rafael Palmeiro', rk: '13', hint: '569', alias: ['raffy'] },
+      { a: 'Reggie Jackson', rk: '14', hint: '563', alias: ['mr october'] },
+      { a: 'Manny Ramirez', rk: '15', hint: '555', alias: ['manny'] },
+      { a: 'Mike Schmidt', rk: '16', hint: '548' },
+      { a: 'David Ortiz', rk: '17', hint: '541', alias: ['big papi','papi'] },
+      { a: 'Mickey Mantle', rk: '18', hint: '536', alias: ['the mick','mick'] },
+      { a: 'Jimmie Foxx', rk: '19', hint: '534', alias: ['double x','jimmy foxx'] },
+      { a: 'Willie McCovey', rk: '20', hint: '521', alias: ['stretch'] }
+    ]},
+    { name: '21–30', items: [
+      { a: 'Frank Thomas', rk: '20', hint: '521', alias: ['the big hurt','big hurt'] },
+      { a: 'Ted Williams', rk: '20', hint: '521', alias: ['teddy ballgame','the splendid splinter'] },
+      { a: 'Ernie Banks', rk: '23', hint: '512', alias: ['mr cub'] },
+      { a: 'Eddie Mathews', rk: '23', hint: '512' },
+      { a: 'Miguel Cabrera', rk: '25', hint: '511', alias: ['miggy'] },
+      { a: 'Mel Ott', rk: '25', hint: '511', alias: ['master melvin'] },
+      { a: 'Gary Sheffield', rk: '27', hint: '509', alias: ['sheff'] },
+      { a: 'Eddie Murray', rk: '28', hint: '504', alias: ['steady eddie'] },
+      { a: 'Lou Gehrig', rk: '29', hint: '493', alias: ['the iron horse','iron horse'] },
+      { a: 'Fred McGriff', rk: '29', hint: '493', alias: ['crime dog','the crime dog'] }
+    ]},
+    { name: '31–40', items: [
+      { a: 'Adrian Beltré', rk: '31', hint: '477' },
+      { a: 'Stan Musial', rk: '32', hint: '475', alias: ['stan the man'] },
+      { a: 'Willie Stargell', rk: '32', hint: '475', alias: ['pops'] },
+      { a: 'Carlos Delgado', rk: '34', hint: '473' },
+      { a: 'Chipper Jones', rk: '35', hint: '468', alias: ['larry jones'] },
+      { a: 'Dave Winfield', rk: '36', hint: '465' },
+      { a: 'Nelson Cruz', rk: '37', hint: '464', alias: ['boomstick'] },
+      { a: 'José Canseco', rk: '38', hint: '462', alias: ['jose canseco'] },
+      { a: 'Adam Dunn', rk: '38', hint: '462', alias: ['big donkey'] },
+      { a: 'Giancarlo Stanton', rk: '40', hint: '456', alias: ['mike stanton'] }
+    ]},
+    { name: '41–50', items: [
+      { a: 'Carl Yastrzemski', rk: '41', hint: '452', alias: ['yaz'] },
+      { a: 'Jeff Bagwell', rk: '42', hint: '449' },
+      { a: 'Vladimir Guerrero', rk: '42', hint: '449', alias: ['vlad','vlad guerrero','vladimir guerrero sr'] },
+      { a: 'Dave Kingman', rk: '44', hint: '442', alias: ['kong'] },
+      { a: 'Jason Giambi', rk: '45', hint: '440', alias: ['the giambino','giambino'] },
+      { a: 'Paul Konerko', rk: '46', hint: '439', alias: ['paulie'] },
+      { a: 'Andre Dawson', rk: '47', hint: '438', alias: ['the hawk','hawk'] },
+      { a: 'Carlos Beltrán', rk: '48', hint: '435' },
+      { a: 'Juan González', rk: '49', hint: '434', alias: ['igor','juan gone','juan gonzalez'] },
+      { a: 'Andruw Jones', rk: '49', hint: '434' }
+    ]}
+  ]
+},
+
+{
   slug: 'line-game',               // permanent: the weekly link never changes
   scoreKey: 'line-game-2026-w11',  // per-week best scores
   type: 'lines',
