@@ -53,7 +53,7 @@ automatically; nothing else needs editing.
   title: 'Shown everywhere',
   sub:   'one-line subtitle',
   blurb: 'longer line on the start screen',
-  tag:   'NFL ALL-TIME',         // small pill on the hub card
+  tag:   'NFL ALL-TIME',         // not shown anywhere; kept for reference
   mode:  'timed',                // preselected: 'timed' | 'chill'
   time:  900,                    // seconds, for timed mode
   modes: ['timed','chill'],      // which buttons to offer; omit for both
@@ -359,8 +359,9 @@ red-to-cyan hairline on each and it read as clutter.
 
 **No multi-coloured pills.** The hub cards once carried a cyan tag chip, a red
 answer-count chip and a green best chip; Steven's verdict was "typical AI slop".
-A card now shows a muted uppercase tag, the title and the subtitle — nothing
-else. The answer count, mode/time and best score line was cut too ("these
+A card now shows the title and the subtitle — nothing else. The muted
+all-caps tag above the title went too; Steven: "duplicative ... ALL CAPS AI
+slop". Don't add small uppercase labels above headings anywhere on the site. The answer count, mode/time and best score line was cut too ("these
 aren't needed"), and so was a "Play →" row: the whole card is the link. The single `.pill` class that
 survives — used only in the result card — is deliberately neutral grey. Don't
 reintroduce coloured variants.

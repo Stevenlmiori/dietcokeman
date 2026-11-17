@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261117145944">
+<link rel="stylesheet" href="style.css?v=20261117150053">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -51,15 +51,14 @@
   </p>
 </main>
 
-<script src="quizzes.js?v=20261117145944"></script>
+<script src="quizzes.js?v=20261117150053"></script>
 <script>
 (function(){
   const grid = document.getElementById('grid');
   const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  // Tag, title, subtitle. No counts, modes or chips.
+  // Title and subtitle only. No tags, counts, modes or chips.
   grid.innerHTML = (window.QUIZZES||[]).map(q => {
     return `<a class="card" href="play.html?q=${encodeURIComponent(q.slug)}">
-      <div class="tag">${esc(q.tag||'Quiz')}</div>
       <h3>${esc(q.title)}</h3>
       <div class="sub">${esc(q.sub)}</div>
     </a>`;
