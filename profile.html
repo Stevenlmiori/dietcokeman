@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070A0E">
+<meta name="robots" content="noindex">
+<title>Profile · DietCokeMan Challenge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+<link rel="stylesheet" href="style.css?v=20261117153015">
+<link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img class="mark" src="assets/frosted-can-icon.png" width="34" height="34" alt="">
+      <span style="display:block">
+        <b>DietCokeMan</b>
+        <span>Challenge</span>
+      </span>
+    </a>
+    <div class="spacer"></div>
+    <a class="ghost" href="index.html">All quizzes</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="profile" id="profile">
+    <noscript><p class="pf-none">Profiles need JavaScript.</p></noscript>
+  </div>
+  <p class="pf-off" id="pfOff" hidden>Accounts aren’t switched on yet. Your scores are still kept on this device.</p>
+</main>
+
+<script src="quizzes.js?v=20261117153015"></script>
+<script type="module" src="account.js?v=20261117153015"></script>
+<script>
+  // If accounts never come up (no config, or Firebase blocked), say so instead of a blank page.
+  setTimeout(function () {
+    if (!document.documentElement.classList.contains('has-accounts')) document.getElementById('pfOff').hidden = false;
+  }, 2500);
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+rules_version = '2';
+
+// DietCokeMan Challenge. Everything is publicly readable (leaderboards and
+// profiles are public); every write is limited to the signed-in owner.
+// Paste this into Firebase console > Firestore > Rules whenever it changes.
+service cloud.firestore {
+  match /databases/{db}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isMe(uid) { return signedIn() && request.auth.uid == uid; }
+    function validName(n) { return n is string && n.matches('^[a-z0-9_]{3,20}$'); }
+    function nameAfter(uid) {
+      return getAfter(/databases/$(db)/documents/users/$(uid)).data.username;
+    }
+    // A score can't beat the board it was played on.
+    function validScore(d) {
+      return d.best is int && d.total is int
+        && d.best >= 0 && d.total > 0 && d.total <= 500 && d.best <= d.total;
+    }
+
+    // One doc per username is what keeps names unique: a second create fails.
+    match /usernames/{name} {
+      allow read: if true;
+      allow create: if signedIn() && validName(name)
+        && request.resource.data.keys().hasOnly(['uid'])
+        && request.resource.data.uid == request.auth.uid;
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+    }
+
+    match /users/{uid} {
+      allow read: if true;
+      allow create, update: if isMe(uid)
+        && request.resource.data.keys().hasOnly(['username', 'bio', 'created'])
+        && validName(request.resource.data.username)
+        && getAfter(/databases/$(db)/documents/usernames/$(request.resource.data.username)).data.uid == uid
+        && request.resource.data.bio is string
+        && request.resource.data.bio.size() <= 160;
+      allow delete: if isMe(uid);
+
+      match /bests/{board} {
+        allow read: if true;
+        allow create, update: if isMe(uid)
+          && request.resource.data.keys().hasOnly(['board', 'slug', 'title', 'mode', 'best', 'total', 'at'])
+          && request.resource.data.board == board
+          && validScore(request.resource.data);
+        allow delete: if isMe(uid);
+      }
+    }
+
+    match /boards/{board}/entries/{uid} {
+      allow read: if true;
+      allow create, update: if isMe(uid)
+        && request.resource.data.keys().hasOnly(['username', 'best', 'total', 'at'])
+        && request.resource.data.username == nameAfter(uid)
+        && validScore(request.resource.data);
+      allow delete: if isMe(uid);
+    }
+  }
+}

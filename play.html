@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261117150053">
+<link rel="stylesheet" href="style.css?v=20261117153015">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -24,6 +24,7 @@
       </span>
     </a>
     <div class="spacer"></div>
+    <a class="ghost acct" id="acct" href="profile.html" hidden>Sign in</a>
     <a class="ghost" href="index.html">All quizzes</a>
   </div>
 </header>
@@ -95,6 +96,7 @@
     <div class="bigscore" id="mScore">0<small>/0</small></div>
     <p class="pct" id="mPct"></p>
     <div class="statline" id="mStats"></div>
+    <div class="acctbox" id="acctBox" hidden></div>
     <button class="btn sec" id="review">See what I missed</button>
     <button class="btn" id="again">Play again</button>
     <button class="btn sec" id="copy">Copy my result</button>
@@ -102,7 +104,8 @@
   </div>
 </div>
 
-<script src="quizzes.js?v=20261117150053"></script>
-<script src="engine.js?v=20261117150053"></script>
+<script src="quizzes.js?v=20261117153015"></script>
+<script type="module" src="account.js?v=20261117153015"></script>
+<script src="engine.js?v=20261117153015"></script>
 </body>
 </html>

@@ -4,8 +4,9 @@ Sporcle-style fill-in-the-blank quizzes. Type a name and it fills itself in.
 
 **Play:** <https://challenge.dietcokeman.com/>
 
-No sign-in, no accounts, works on a phone. Scores stay on the player's own
-device. Five static files, no build step, no dependencies.
+Works on a phone, no sign-in needed. Scores stay on the player's own device;
+signing in with Google (optional) saves bests to an account and puts them on
+each quiz's leaderboard. Static files on GitHub Pages, no build step.
 
 Opening a quiz drops you straight onto the board — every answer blank, the clock
 and the score already set. Pick a mode in the bar at the top and press play.

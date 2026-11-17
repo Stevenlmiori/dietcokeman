@@ -18,8 +18,8 @@ root and keep the Cloudflare proxy off — GitHub issues the certificate.
 ## 1. What this is
 
 A Sporcle-style fill-in-the-blank quiz site Steven sends to friends. You type a
-name, it fills itself in. No sign-in, no backend, no build step — five static
-files on GitHub Pages.
+name, it fills itself in. No build step — static files on GitHub Pages. Sign-in
+is optional (Google, via Firebase) and only saves scores; see §11.
 
 It is **deliberately separate from the Astroworld fantasy tool**
 (`Stevenlmiori/astroworld-keepers`). Do not cross-link them, and do not pull
@@ -34,15 +34,18 @@ it was removed on purpose.
 | `play.html` | The player shell: intro, sticky bar, board, result modal. |
 | `engine.js` | All game logic — matching, scoring, timer, lives, persistence. |
 | `quizzes.js` | **The only file you normally touch.** All quiz content. |
-| `style.css` | Shared styling for both pages. |
+| `style.css` | Shared styling for every page. |
+| `account.js` | Optional accounts: Google sign-in, profile, saved bests, leaderboards (§11). |
+| `profile.html` | Your profile (edit) or anyone's (`?u=name`). |
+| `firestore.rules` | The server-side rules for the account data. Paste into the Firebase console when changed. |
 
 No framework, no bundler, no dependencies. Open `index.html` through a local
 server and it runs. `quizzes.js` is a plain `window.QUIZZES = [...]` so there is
 no `fetch`, which means no CORS or async failure modes.
 
-`bump.sh` stamps a fresh `?v=<timestamp>` on the `style.css`, `engine.js` and
-`quizzes.js` links in both pages. **Run it before every commit that touches one
-of those three files.** Steven's browser has served stale copies after a deploy
+`bump.sh` stamps a fresh `?v=<timestamp>` on the `style.css`, `engine.js`,
+`quizzes.js` and `account.js` links in every page. **Run it before every commit that touches one
+of those files.** Steven's browser has served stale copies after a deploy
 more than once; the stamp is the fix, not a nicety.
 
 ---
@@ -434,3 +437,55 @@ and saved best scores keep working. Don't rename a slug to match a title.
 The two Astroworld quizzes are snapshots of the 2026 season — the Top 5 figures
 are averages through roughly Week 10, and Round 1 is that year's draft. They do
 not auto-update. A removed fourth quiz, "Name the League", was cut as too easy.
+
+---
+
+## 11. Accounts (optional, Firebase)
+
+Steven's call: **playing never needs an account.** Sign-in is offered in one
+place, the result card after a quiz ("Save your score" → Continue with Google /
+Not now), plus a quiet "Sign in" / `@name` link in the top bar. "Not now" hides
+the offer for the rest of that visit. No pop-ups anywhere else.
+
+* **Stack:** Firebase Auth (Google only) + Firestore, loaded from gstatic as ES
+  modules (`firebasejs/13.1.0`). Free Spark plan, no card on file, so it can't
+  bill. Hosting stays on GitHub Pages. Sign-in uses **popup**, not redirect —
+  redirect sign-in breaks in Safari on non-Firebase hosts. If iPhone sign-in
+  ever misbehaves, the fix is moving hosting to Firebase Hosting (also free).
+* **Dormant until configured.** `firebaseConfig` at the top of `account.js` is
+  public by design (rules decide access). If it is empty, or Firebase fails to
+  load, `account.js` does nothing and the site behaves as before.
+* **Decoupled from the engine.** `end()` dispatches `dcm:end` with
+  `{slug, scoreKey, title, mode, score, total}`; `account.js` listens. The
+  engine never imports Firebase.
+* **Profile is deliberately tiny:** unique username (`a-z 0-9 _`, 3–20,
+  stored lowercase) + optional bio (160). No photos.
+* **Data:** `users/{uid}`, `usernames/{name}` (one doc per name = uniqueness),
+  `users/{uid}/bests/{board}`, `boards/{board}/entries/{uid}`. `board` is
+  `<scoreKey|slug>-<mode>`, the same key localStorage uses, so each Line Game
+  week and each mode has its own leaderboard. Bests and leaderboard rows are
+  written together in one batch; a rename rewrites the name on every row.
+* **First profile imports local bests** from localStorage so nothing already
+  earned is lost. On a shared browser that means the device's bests go to
+  whoever signs in first — acceptable for friends.
+* **Scores are client-reported.** Rules stop the obvious (score > total,
+  writing someone else's row, using someone else's name) but a determined
+  friend could fake a score. It's bragging rights, not a tournament.
+* **UI rules:** the account card's buttons are white (Google's button and
+  "Save my score"); red stays reserved for **Play again** below it.
+
+### Testing accounts locally
+
+```
+export JAVA_HOME=/opt/homebrew/opt/openjdk PATH=/opt/homebrew/opt/openjdk/bin:$PATH
+npx -y firebase-tools emulators:start --project demo-dietcokeman --only auth,firestore
+python3 -m http.server 8917        # then open any page with ?emu=1
+```
+
+The emulators enforce `firestore.rules` from `firebase.json`. With `?emu=1`,
+`window._acct.as('sub', 'Name')` signs in a fake Google user without the popup
+(the Claude browser pane can't do popups). Remember the emulator assigns its
+own random uid; `sub` is not the uid. Re-run the rules checks after any rules
+change: steal a taken name, write another user's profile/row, score > total,
+row under another name, bio > 160 — all must be denied; claiming a free name,
+saving a legit score and a 160-char bio must be allowed.
