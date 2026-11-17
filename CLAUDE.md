@@ -153,8 +153,9 @@ carrying `?q=`, `?category=` or `?tag=` open pre-filtered — e.g. `/?tag=NBA`,
 filtered view can be texted. Search matches title, subtitle, blurb, category and tags;
 it **never searches answers**, which would reveal who is on the board.
 Filters show only values some quiz actually uses. Cards show the title, the
-subtitle and **one emoji in the top-right corner** (Steven asked for it), in a
-faint frosted 34px tile that tilts slightly on hover. The emoji comes from
+subtitle and **one emoji in the top-right corner** (Steven asked for it), bare,
+no tile or border ("lose the border… you just need the icon itself"); it
+tilts slightly on hover. The emoji comes from
 `TAXONOMY.icons`: a quiz's own `icon` if set, else its first tag with an icon
 (Football 🏈, Basketball 🏀, Baseball ⚾, Golf ⛳, Drinks 🥤, Restaurants 🍔,
 Oscars 🏆, Box Office 🎬, Stocks 📈…), else its category's (Sports 🏆, Movies
