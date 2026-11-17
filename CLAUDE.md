@@ -393,8 +393,10 @@ number (0 = pick'em).
   green/red square per game in board order, and the link. It must never show a
   pick or a real line. Steven texts it as a challenge, and an earlier version
   that listed every line gave the whole quiz away.
-* Lines are a snapshot. Week 11 used bet365 as of Nov 16 (Fox Sports,
-  cross-checked against Sportsbook Review). For a new week, add a new quiz with
+* Lines are a snapshot. **Always pull the lines published that same day**, not
+  a page dated the day before: Steven caught Week 11 shipping with Nov 16
+  numbers on Nov 17, and eight of thirteen had moved. Week 11 now uses CBS
+  Sports' updated table from 9:04 a.m. ET Nov 17. Note the date in the blurb. For a new week, add a new quiz with
   a new slug rather than overwriting, so old best scores stay meaningful.
 
 `bump.sh` uses macOS `sed -i ''`; on Linux run the same substitution with
