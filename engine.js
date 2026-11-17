@@ -83,6 +83,8 @@ function keysFor(item, fullOnly) {
 
   const hadSuffix = core.length !== words(item.a).length;   // "Tim Hardaway Jr." -> "Tim Hardaway" is loose
   if (core.length) add(core.join(''), 2, hadSuffix);  // full name, suffix dropped
+  // "The Silence of the Lambs" -> "silence of the lambs": a leading article is optional
+  if (core.length > 1 && NOISE.has(core[0])) add(core.slice(1).join(''));
   if (real.length) {
     add(real.join(''), 2, hadSuffix);                 // "The Goods" -> "goods"
     if (real.length === 1) add(real[0]);              // a one-word answer is its own full name
@@ -623,7 +625,7 @@ function boot() {
   $('qTitle').textContent = Q.title;
   $('qSub').textContent = Q.blurb || Q.sub;
   $('mTime').textContent = fmt(Q.time);
-  if (Q.match === 'full') $('fine').textContent = 'Full names only · answers fill the moment you spell one · ' +
+  if (Q.match === 'full') $('fine').textContent = 'Full names or the names people actually use · answers fill the moment you spell one · ' +
     'press Enter and a near-miss still counts';
   if (isLines()) {
     $('guess').hidden = true;

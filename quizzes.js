@@ -39,10 +39,10 @@ window.TAXONOMY = {
   categories: ['Sports', 'Movies', 'TV', 'Business', 'Food & Drink'],
   tags: {
     league: ['NFL', 'NBA', 'MLB', 'NHL', 'NCAA'],
-    sport:  ['Football', 'Basketball', 'Baseball', 'Hockey'],
-    market: ['S&P 500', 'Companies'],
-    topic:  ['Drinks'],
-    kind:   ['All-Time', 'This Season', 'Career Leaders', 'Awards', 'Fantasy', 'Betting']
+    sport:  ['Football', 'Basketball', 'Baseball', 'Hockey', 'Golf'],
+    market: ['S&P 500', 'Companies', 'Stocks'],
+    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars'],
+    kind:   ['All-Time', 'This Season', 'Career Leaders', 'Awards', 'Champions', 'Draft', 'Fantasy', 'Betting']
   }
 };
 
@@ -821,6 +821,506 @@ window.QUIZZES = [
       { a: 'International Paper', hint: 'Memphis, TN', sub: 'Materials', alias: ['ip'] },
       { a: 'S&P Global', hint: 'New York, NY', sub: 'Finance', alias: ['s&p','sp global','s and p global','standard and poors','standard & poors','mcgraw hill'] },
       { a: 'PPG Industries', hint: 'Pittsburgh, PA', sub: 'Materials', alias: ['ppg','pittsburgh plate glass'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'nfl-first-overall-picks',
+  title: 'No. 1 Overall NFL Draft Picks',
+  sub: 'Every top pick since 1990',
+  blurb: 'Every first overall pick in the NFL draft from 1990 through 2026. The year, position and drafting team are your clues.',
+  // Wikipedia "List of first overall NFL draft picks", pulled 2026-11-17 (through the 2026 draft).
+  category: 'Sports',
+  tags: ['NFL', 'Football', 'Draft'],
+  mode: 'timed',
+  time: 360,
+  cols: 'multi',
+  groups: [
+    { name: '2020s', items: [
+      { a: 'Joe Burrow', rk: '2020', sub: 'QB', hint: 'Cincinnati Bengals', alias: ['joey b','joe brrr'] },
+      { a: 'Trevor Lawrence', rk: '2021', sub: 'QB', hint: 'Jacksonville Jaguars', alias: ['t law'] },
+      { a: 'Travon Walker', rk: '2022', sub: 'DE', hint: 'Jacksonville Jaguars' },
+      { a: 'Bryce Young', rk: '2023', sub: 'QB', hint: 'Carolina Panthers' },
+      { a: 'Caleb Williams', rk: '2024', sub: 'QB', hint: 'Chicago Bears' },
+      { a: 'Cam Ward', rk: '2025', sub: 'QB', hint: 'Tennessee Titans' },
+      { a: 'Fernando Mendoza', rk: '2026', sub: 'QB', hint: 'Las Vegas Raiders', alias: ['mendoza'] }
+    ]},
+    { name: '2010s', items: [
+      { a: 'Sam Bradford', rk: '2010', sub: 'QB', hint: 'St. Louis Rams' },
+      { a: 'Cam Newton', rk: '2011', sub: 'QB', hint: 'Carolina Panthers', alias: ['superman'] },
+      { a: 'Andrew Luck', rk: '2012', sub: 'QB', hint: 'Indianapolis Colts' },
+      { a: 'Eric Fisher', rk: '2013', sub: 'T', hint: 'Kansas City Chiefs' },
+      { a: 'Jadeveon Clowney', rk: '2014', sub: 'DE', hint: 'Houston Texans', alias: ['clowney'] },
+      { a: 'Jameis Winston', rk: '2015', sub: 'QB', hint: 'Tampa Bay Buccaneers' },
+      { a: 'Jared Goff', rk: '2016', sub: 'QB', hint: 'Los Angeles Rams' },
+      { a: 'Myles Garrett', rk: '2017', sub: 'DE', hint: 'Cleveland Browns' },
+      { a: 'Baker Mayfield', rk: '2018', sub: 'QB', hint: 'Cleveland Browns' },
+      { a: 'Kyler Murray', rk: '2019', sub: 'QB', hint: 'Arizona Cardinals' }
+    ]},
+    { name: '2000s', items: [
+      { a: 'Courtney Brown', rk: '2000', sub: 'DE', hint: 'Cleveland Browns' },
+      { a: 'Michael Vick', rk: '2001', sub: 'QB', hint: 'Atlanta Falcons', alias: ['mike vick'] },
+      { a: 'David Carr', rk: '2002', sub: 'QB', hint: 'Houston Texans' },
+      { a: 'Carson Palmer', rk: '2003', sub: 'QB', hint: 'Cincinnati Bengals' },
+      { a: 'Eli Manning', rk: '2004', sub: 'QB', hint: 'SD Chargers' },
+      { a: 'Alex Smith', rk: '2005', sub: 'QB', hint: 'San Francisco 49ers' },
+      { a: 'Mario Williams', rk: '2006', sub: 'DE', hint: 'Houston Texans' },
+      { a: 'JaMarcus Russell', rk: '2007', sub: 'QB', hint: 'Oakland Raiders', alias: ['jamarcus'] },
+      { a: 'Jake Long', rk: '2008', sub: 'T', hint: 'Miami Dolphins' },
+      { a: 'Matthew Stafford', rk: '2009', sub: 'QB', hint: 'Detroit Lions', alias: ['matt stafford'] }
+    ]},
+    { name: '1990s', items: [
+      { a: 'Jeff George', rk: '1990', sub: 'QB', hint: 'Indianapolis Colts' },
+      { a: 'Russell Maryland', rk: '1991', sub: 'DT', hint: 'Dallas Cowboys' },
+      { a: 'Steve Emtman', rk: '1992', sub: 'DE', hint: 'Indianapolis Colts' },
+      { a: 'Drew Bledsoe', rk: '1993', sub: 'QB', hint: 'New England Patriots' },
+      { a: 'Dan Wilkinson', rk: '1994', sub: 'DT', hint: 'Cincinnati Bengals', alias: ['big daddy wilkinson','big daddy'] },
+      { a: 'Ki-Jana Carter', rk: '1995', sub: 'HB', hint: 'Cincinnati Bengals', alias: ['kijana carter'] },
+      { a: 'Keyshawn Johnson', rk: '1996', sub: 'WR', hint: 'New York Jets', alias: ['meyshawn'] },
+      { a: 'Orlando Pace', rk: '1997', sub: 'T', hint: 'St. Louis Rams' },
+      { a: 'Peyton Manning', rk: '1998', sub: 'QB', hint: 'Indianapolis Colts', alias: ['the sheriff'] },
+      { a: 'Tim Couch', rk: '1999', sub: 'QB', hint: 'Cleveland Browns' }
+    ]}
+  ]
+},
+
+{
+  slug: 'heisman-winners',
+  title: 'Heisman Trophy Winners',
+  sub: 'Every winner since 1980',
+  blurb: 'Every Heisman Trophy winner from 1980 through 2025. The year, position and school are your clues.',
+  // Wikipedia "List of Heisman Trophy winners", pulled 2026-11-17. 2005 Reggie Bush is listed (his trophy was reinstated in 2024).
+  category: 'Sports',
+  tags: ['NCAA', 'Football', 'Awards'],
+  mode: 'timed',
+  time: 480,
+  cols: 'multi',
+  groups: [
+    { name: '2020s', items: [
+      { a: 'DeVonta Smith', rk: '2020', sub: 'WR', hint: 'Alabama', alias: ['the slim reaper'] },
+      { a: 'Bryce Young', rk: '2021', sub: 'QB', hint: 'Alabama' },
+      { a: 'Caleb Williams', rk: '2022', sub: 'QB', hint: 'USC' },
+      { a: 'Jayden Daniels', rk: '2023', sub: 'QB', hint: 'LSU' },
+      { a: 'Travis Hunter', rk: '2024', sub: 'CB/WR', hint: 'Colorado' },
+      { a: 'Fernando Mendoza', rk: '2025', sub: 'QB', hint: 'Indiana', alias: ['mendoza'] }
+    ]},
+    { name: '2010s', items: [
+      { a: 'Cam Newton', rk: '2010', sub: 'QB', hint: 'Auburn' },
+      { a: 'Robert Griffin III', rk: '2011', sub: 'QB', hint: 'Baylor', alias: ['rg3','rgiii','rg 3','robert griffin'] },
+      { a: 'Johnny Manziel', rk: '2012', sub: 'QB', hint: 'Texas A&M', alias: ['johnny football'] },
+      { a: 'Jameis Winston', rk: '2013', sub: 'QB', hint: 'Florida State' },
+      { a: 'Marcus Mariota', rk: '2014', sub: 'QB', hint: 'Oregon' },
+      { a: 'Derrick Henry', rk: '2015', sub: 'RB', hint: 'Alabama' },
+      { a: 'Lamar Jackson', rk: '2016', sub: 'QB', hint: 'Louisville', alias: ['lamar'] },
+      { a: 'Baker Mayfield', rk: '2017', sub: 'QB', hint: 'Oklahoma' },
+      { a: 'Kyler Murray', rk: '2018', sub: 'QB', hint: 'Oklahoma' },
+      { a: 'Joe Burrow', rk: '2019', sub: 'QB', hint: 'LSU', alias: ['joey b'] }
+    ]},
+    { name: '2000s', items: [
+      { a: 'Chris Weinke', rk: '2000', sub: 'QB', hint: 'Florida State' },
+      { a: 'Eric Crouch', rk: '2001', sub: 'QB', hint: 'Nebraska' },
+      { a: 'Carson Palmer', rk: '2002', sub: 'QB', hint: 'USC' },
+      { a: 'Jason White', rk: '2003', sub: 'QB', hint: 'Oklahoma' },
+      { a: 'Matt Leinart', rk: '2004', sub: 'QB', hint: 'USC' },
+      { a: 'Reggie Bush', rk: '2005', sub: 'RB', hint: 'USC' },
+      { a: 'Troy Smith', rk: '2006', sub: 'QB', hint: 'Ohio State' },
+      { a: 'Tim Tebow', rk: '2007', sub: 'QB', hint: 'Florida' },
+      { a: 'Sam Bradford', rk: '2008', sub: 'QB', hint: 'Oklahoma' },
+      { a: 'Mark Ingram II', rk: '2009', sub: 'RB', hint: 'Alabama', alias: ['mark ingram'] }
+    ]},
+    { name: '1990s', items: [
+      { a: 'Ty Detmer', rk: '1990', sub: 'QB', hint: 'BYU' },
+      { a: 'Desmond Howard', rk: '1991', sub: 'WR/PR', hint: 'Michigan', alias: ['magic man'] },
+      { a: 'Gino Torretta', rk: '1992', sub: 'QB', hint: 'Miami (FL)' },
+      { a: 'Charlie Ward', rk: '1993', sub: 'QB', hint: 'Florida State' },
+      { a: 'Rashaan Salaam', rk: '1994', sub: 'RB', hint: 'Colorado' },
+      { a: 'Eddie George', rk: '1995', sub: 'RB', hint: 'Ohio State' },
+      { a: 'Danny Wuerffel', rk: '1996', sub: 'QB', hint: 'Florida' },
+      { a: 'Charles Woodson', rk: '1997', sub: 'CB', hint: 'Michigan' },
+      { a: 'Ricky Williams', rk: '1998', sub: 'RB', hint: 'Texas' },
+      { a: 'Ron Dayne', rk: '1999', sub: 'RB', hint: 'Wisconsin' }
+    ]},
+    { name: '1980s', items: [
+      { a: 'George Rogers', rk: '1980', sub: 'RB', hint: 'South Carolina' },
+      { a: 'Marcus Allen', rk: '1981', sub: 'RB', hint: 'USC' },
+      { a: 'Herschel Walker', rk: '1982', sub: 'RB', hint: 'Georgia' },
+      { a: 'Mike Rozier', rk: '1983', sub: 'RB', hint: 'Nebraska' },
+      { a: 'Doug Flutie', rk: '1984', sub: 'QB', hint: 'Boston College' },
+      { a: 'Bo Jackson', rk: '1985', sub: 'RB', hint: 'Auburn', alias: ['bo knows'] },
+      { a: 'Vinny Testaverde', rk: '1986', sub: 'QB', hint: 'Miami (FL)', alias: ['testaverde'] },
+      { a: 'Tim Brown', rk: '1987', sub: 'WR', hint: 'Notre Dame' },
+      { a: 'Barry Sanders', rk: '1988', sub: 'RB', hint: 'Oklahoma State' },
+      { a: 'Andre Ware', rk: '1989', sub: 'QB', hint: 'Houston' }
+    ]}
+  ]
+},
+
+{
+  slug: 'world-series-champions',
+  title: 'World Series Champions',
+  sub: 'Every champion since 1980',
+  blurb: 'Every World Series champion from 1980 through 2026 (there was no Series in 1994). The year, the team they beat and the series score are your clues. A team fills every year it won.',
+  // Wikipedia "List of World Series champions", pulled 2026-11-17 (2026: Brewers over Rays). Teams use the name they won under.
+  category: 'Sports',
+  tags: ['MLB', 'Baseball', 'Champions'],
+  match: 'full',
+  mode: 'timed',
+  time: 360,
+  cols: 'multi',
+  groups: [
+    { name: '2020s', items: [
+      { a: 'Los Angeles Dodgers', rk: '2020', hint: 'beat Rays, 4–2', alias: ['dodgers','la dodgers'] },
+      { a: 'Atlanta Braves', rk: '2021', hint: 'beat Astros, 4–2', alias: ['braves','atlanta'] },
+      { a: 'Houston Astros', rk: '2022', hint: 'beat Phillies, 4–2', alias: ['astros','houston','stros'] },
+      { a: 'Texas Rangers', rk: '2023', hint: 'beat Diamondbacks, 4–1', alias: ['rangers','texas'] },
+      { a: 'Los Angeles Dodgers', rk: '2024', hint: 'beat Yankees, 4–1', alias: ['dodgers','la dodgers'] },
+      { a: 'Los Angeles Dodgers', rk: '2025', hint: 'beat Blue Jays, 4–3', alias: ['dodgers','la dodgers'] },
+      { a: 'Milwaukee Brewers', rk: '2026', hint: 'beat Rays, 4–1', alias: ['brewers','milwaukee','brew crew'] }
+    ]},
+    { name: '2010s', items: [
+      { a: 'San Francisco Giants', rk: '2010', hint: 'beat Rangers, 4–1', alias: ['giants','san francisco','sf giants'] },
+      { a: 'St. Louis Cardinals', rk: '2011', hint: 'beat Rangers, 4–3', alias: ['cardinals','st louis','cards'] },
+      { a: 'San Francisco Giants', rk: '2012', hint: 'beat Tigers, 4–0', alias: ['giants','san francisco','sf giants'] },
+      { a: 'Boston Red Sox', rk: '2013', hint: 'beat Cardinals, 4–2', alias: ['red sox','boston'] },
+      { a: 'San Francisco Giants', rk: '2014', hint: 'beat Royals, 4–3', alias: ['giants','san francisco','sf giants'] },
+      { a: 'Kansas City Royals', rk: '2015', hint: 'beat Mets, 4–1', alias: ['royals','kansas city','kc royals'] },
+      { a: 'Chicago Cubs', rk: '2016', hint: 'beat Indians, 4–3', alias: ['cubs'] },
+      { a: 'Houston Astros', rk: '2017', hint: 'beat Dodgers, 4–3', alias: ['astros','houston','stros'] },
+      { a: 'Boston Red Sox', rk: '2018', hint: 'beat Dodgers, 4–1', alias: ['red sox','boston'] },
+      { a: 'Washington Nationals', rk: '2019', hint: 'beat Astros, 4–3', alias: ['nationals','washington','nats'] }
+    ]},
+    { name: '2000s', items: [
+      { a: 'New York Yankees', rk: '2000', hint: 'beat Mets, 4–1', alias: ['yankees','yanks'] },
+      { a: 'Arizona Diamondbacks', rk: '2001', hint: 'beat Yankees, 4–3', alias: ['diamondbacks','arizona','dbacks','d backs'] },
+      { a: 'Anaheim Angels', rk: '2002', hint: 'beat Giants, 4–3', alias: ['angels','anaheim','la angels','los angeles angels'] },
+      { a: 'Florida Marlins', rk: '2003', hint: 'beat Yankees, 4–2', alias: ['marlins','florida','miami marlins'] },
+      { a: 'Boston Red Sox', rk: '2004', hint: 'beat Cardinals, 4–0', alias: ['red sox','boston'] },
+      { a: 'Chicago White Sox', rk: '2005', hint: 'beat Astros, 4–0', alias: ['white sox'] },
+      { a: 'St. Louis Cardinals', rk: '2006', hint: 'beat Tigers, 4–1', alias: ['cardinals','st louis','cards'] },
+      { a: 'Boston Red Sox', rk: '2007', hint: 'beat Rockies, 4–0', alias: ['red sox','boston'] },
+      { a: 'Philadelphia Phillies', rk: '2008', hint: 'beat Rays, 4–1', alias: ['phillies','philadelphia','phils'] },
+      { a: 'New York Yankees', rk: '2009', hint: 'beat Phillies, 4–2', alias: ['yankees','yanks'] }
+    ]},
+    { name: '1990s', items: [
+      { a: 'Cincinnati Reds', rk: '1990', hint: 'beat Athletics, 4–0', alias: ['reds','cincinnati'] },
+      { a: 'Minnesota Twins', rk: '1991', hint: 'beat Braves, 4–3', alias: ['twins','minnesota'] },
+      { a: 'Toronto Blue Jays', rk: '1992', hint: 'beat Braves, 4–2', alias: ['blue jays','toronto','jays'] },
+      { a: 'Toronto Blue Jays', rk: '1993', hint: 'beat Phillies, 4–2', alias: ['blue jays','toronto','jays'] },
+      { a: 'Atlanta Braves', rk: '1995', hint: 'beat Indians, 4–2', alias: ['braves','atlanta'] },
+      { a: 'New York Yankees', rk: '1996', hint: 'beat Braves, 4–2', alias: ['yankees','yanks'] },
+      { a: 'Florida Marlins', rk: '1997', hint: 'beat Indians, 4–3', alias: ['marlins','florida','miami marlins'] },
+      { a: 'New York Yankees', rk: '1998', hint: 'beat Padres, 4–0', alias: ['yankees','yanks'] },
+      { a: 'New York Yankees', rk: '1999', hint: 'beat Braves, 4–0', alias: ['yankees','yanks'] }
+    ]},
+    { name: '1980s', items: [
+      { a: 'Philadelphia Phillies', rk: '1980', hint: 'beat Royals, 4–2', alias: ['phillies','philadelphia','phils'] },
+      { a: 'Los Angeles Dodgers', rk: '1981', hint: 'beat Yankees, 4–2', alias: ['dodgers','la dodgers'] },
+      { a: 'St. Louis Cardinals', rk: '1982', hint: 'beat Brewers, 4–3', alias: ['cardinals','st louis','cards'] },
+      { a: 'Baltimore Orioles', rk: '1983', hint: 'beat Phillies, 4–1', alias: ['orioles','baltimore','os'] },
+      { a: 'Detroit Tigers', rk: '1984', hint: 'beat Padres, 4–1', alias: ['tigers','detroit'] },
+      { a: 'Kansas City Royals', rk: '1985', hint: 'beat Cardinals, 4–3', alias: ['royals','kansas city','kc royals'] },
+      { a: 'New York Mets', rk: '1986', hint: 'beat Red Sox, 4–3', alias: ['mets'] },
+      { a: 'Minnesota Twins', rk: '1987', hint: 'beat Cardinals, 4–3', alias: ['twins','minnesota'] },
+      { a: 'Los Angeles Dodgers', rk: '1988', hint: 'beat Athletics, 4–1', alias: ['dodgers','la dodgers'] },
+      { a: 'Oakland Athletics', rk: '1989', hint: 'beat Giants, 4–0', alias: ['athletics','oakland','as','a\'s','oakland as'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'masters-champions',
+  title: 'Masters Champions',
+  sub: 'Every green jacket since 1980',
+  blurb: 'Every Masters champion from 1980 through 2026. The year, country and winning score are your clues. A name fills every year he won.',
+  // Wikipedia "List of Masters Tournament champions", pulled 2026-11-17 (2026: Rory McIlroy, back to back). Countries added by hand (the table uses flags).
+  category: 'Sports',
+  tags: ['Golf', 'Champions'],
+  mode: 'timed',
+  time: 360,
+  cols: 'multi',
+  groups: [
+    { name: '2020s', items: [
+      { a: 'Dustin Johnson', rk: '2020', sub: 'USA', hint: '−20', alias: ['dj'] },
+      { a: 'Hideki Matsuyama', rk: '2021', sub: 'JPN', hint: '−10', alias: ['hideki'] },
+      { a: 'Scottie Scheffler', rk: '2022', sub: 'USA', hint: '−10', alias: ['scottie'] },
+      { a: 'Jon Rahm', rk: '2023', sub: 'ESP', hint: '−12', alias: ['rahmbo'] },
+      { a: 'Scottie Scheffler', rk: '2024', sub: 'USA', hint: '−11', alias: ['scottie'] },
+      { a: 'Rory McIlroy', rk: '2025', sub: 'NIR', hint: '−11', alias: ['rory'] },
+      { a: 'Rory McIlroy', rk: '2026', sub: 'NIR', hint: '−12', alias: ['rory'] }
+    ]},
+    { name: '2010s', items: [
+      { a: 'Phil Mickelson', rk: '2010', sub: 'USA', hint: '−16', alias: ['lefty'] },
+      { a: 'Charl Schwartzel', rk: '2011', sub: 'RSA', hint: '−14' },
+      { a: 'Bubba Watson', rk: '2012', sub: 'USA', hint: '−10', alias: ['bubba'] },
+      { a: 'Adam Scott', rk: '2013', sub: 'AUS', hint: '−9' },
+      { a: 'Bubba Watson', rk: '2014', sub: 'USA', hint: '−8', alias: ['bubba'] },
+      { a: 'Jordan Spieth', rk: '2015', sub: 'USA', hint: '−18' },
+      { a: 'Danny Willett', rk: '2016', sub: 'ENG', hint: '−5' },
+      { a: 'Sergio García', rk: '2017', sub: 'ESP', hint: '−9', alias: ['sergio','el nino','sergio garcia'] },
+      { a: 'Patrick Reed', rk: '2018', sub: 'USA', hint: '−15' },
+      { a: 'Tiger Woods', rk: '2019', sub: 'USA', hint: '−13', alias: ['tiger'] }
+    ]},
+    { name: '2000s', items: [
+      { a: 'Vijay Singh', rk: '2000', sub: 'FIJ', hint: '−10', alias: ['vijay'] },
+      { a: 'Tiger Woods', rk: '2001', sub: 'USA', hint: '−16', alias: ['tiger'] },
+      { a: 'Tiger Woods', rk: '2002', sub: 'USA', hint: '−12', alias: ['tiger'] },
+      { a: 'Mike Weir', rk: '2003', sub: 'CAN', hint: '−7' },
+      { a: 'Phil Mickelson', rk: '2004', sub: 'USA', hint: '−9', alias: ['lefty'] },
+      { a: 'Tiger Woods', rk: '2005', sub: 'USA', hint: '−12', alias: ['tiger'] },
+      { a: 'Phil Mickelson', rk: '2006', sub: 'USA', hint: '−7', alias: ['lefty'] },
+      { a: 'Zach Johnson', rk: '2007', sub: 'USA', hint: '+1' },
+      { a: 'Trevor Immelman', rk: '2008', sub: 'RSA', hint: '−8' },
+      { a: 'Ángel Cabrera', rk: '2009', sub: 'ARG', hint: '−12', alias: ['angel cabrera'] }
+    ]},
+    { name: '1990s', items: [
+      { a: 'Nick Faldo', rk: '1990', sub: 'ENG', hint: '−10', alias: ['sir nick'] },
+      { a: 'Ian Woosnam', rk: '1991', sub: 'WAL', hint: '−11' },
+      { a: 'Fred Couples', rk: '1992', sub: 'USA', hint: '−13', alias: ['boom boom'] },
+      { a: 'Bernhard Langer', rk: '1993', sub: 'GER', hint: '−11' },
+      { a: 'José María Olazábal', rk: '1994', sub: 'ESP', hint: '−9', alias: ['olazabal','chema','jose maria olazabal'] },
+      { a: 'Ben Crenshaw', rk: '1995', sub: 'USA', hint: '−14', alias: ['gentle ben'] },
+      { a: 'Nick Faldo', rk: '1996', sub: 'ENG', hint: '−12', alias: ['sir nick'] },
+      { a: 'Tiger Woods', rk: '1997', sub: 'USA', hint: '−18', alias: ['tiger'] },
+      { a: 'Mark O\'Meara', rk: '1998', sub: 'USA', hint: '−9', alias: ['omeara'] },
+      { a: 'José María Olazábal', rk: '1999', sub: 'ESP', hint: '−8', alias: ['olazabal','chema','jose maria olazabal'] }
+    ]},
+    { name: '1980s', items: [
+      { a: 'Seve Ballesteros', rk: '1980', sub: 'ESP', hint: '−13', alias: ['seve'] },
+      { a: 'Tom Watson', rk: '1981', sub: 'USA', hint: '−8' },
+      { a: 'Craig Stadler', rk: '1982', sub: 'USA', hint: '−4' },
+      { a: 'Seve Ballesteros', rk: '1983', sub: 'ESP', hint: '−8', alias: ['seve'] },
+      { a: 'Ben Crenshaw', rk: '1984', sub: 'USA', hint: '−11', alias: ['gentle ben'] },
+      { a: 'Bernhard Langer', rk: '1985', sub: 'GER', hint: '−6' },
+      { a: 'Jack Nicklaus', rk: '1986', sub: 'USA', hint: '−9', alias: ['the golden bear','golden bear'] },
+      { a: 'Larry Mize', rk: '1987', sub: 'USA', hint: '−3' },
+      { a: 'Sandy Lyle', rk: '1988', sub: 'SCO', hint: '−7' },
+      { a: 'Nick Faldo', rk: '1989', sub: 'ENG', hint: '−5', alias: ['sir nick'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'highest-grossing-movies',
+  title: 'Highest-Grossing Movies',
+  sub: 'The worldwide top 25 of all time',
+  blurb: 'The 25 biggest movies ever at the worldwide box office, as of November 8, 2026. The release year and worldwide gross are your clues. Two 2026 releases are still in theaters and still climbing.',
+  // Wikipedia "List of highest-grossing films" (Box Office Mojo with Wikipedia's corrections), "as of November 8, 2026".
+  // Still in release when pulled: Spider-Man: Brand New Day (#3) and The Odyssey (#11). Re-pull later.
+  category: 'Movies',
+  tags: ['Box Office', 'All-Time'],
+  match: 'full',
+  mode: 'timed',
+  time: 360,
+  cols: 'two',
+  groups: [
+    { name: 'Top 10', items: [
+      { a: 'Avengers: Endgame', rk: '1', sub: '2019', hint: '$2.94B', alias: ['endgame','avengers endgame'] },
+      { a: 'Avatar', rk: '2', sub: '2009', hint: '$2.92B', alias: ['avatar 1'] },
+      { a: 'Spider-Man: Brand New Day', rk: '3', sub: '2026', hint: '$2.52B', alias: ['brand new day','spider man brand new day','spiderman 4'] },
+      { a: 'Avatar: The Way of Water', rk: '4', sub: '2022', hint: '$2.33B', alias: ['the way of water','way of water','avatar 2','avatar way of water'] },
+      { a: 'Titanic', rk: '5', sub: '1997', hint: '$2.26B' },
+      { a: 'Ne Zha 2', rk: '6', sub: '2025', hint: '$2.22B', alias: ['nezha 2','ne zha','nezha'] },
+      { a: 'Star Wars: The Force Awakens', rk: '7', sub: '2015', hint: '$2.07B', alias: ['the force awakens','force awakens','star wars force awakens','star wars episode vii','episode vii','star wars 7'] },
+      { a: 'Avengers: Infinity War', rk: '8', sub: '2018', hint: '$2.05B', alias: ['infinity war','avengers infinity war'] },
+      { a: 'Spider-Man: No Way Home', rk: '9', sub: '2021', hint: '$1.92B', alias: ['no way home','spider man no way home'] },
+      { a: 'Zootopia 2', rk: '10', sub: '2025', hint: '$1.87B', alias: ['zootopia two'] }
+    ]},
+    { name: '11 to 25', items: [
+      { a: 'The Odyssey', rk: '11', sub: '2026', hint: '$1.80B' },
+      { a: 'Inside Out 2', rk: '12', sub: '2024', hint: '$1.70B', alias: ['inside out two'] },
+      { a: 'Jurassic World', rk: '13', sub: '2015', hint: '$1.67B' },
+      { a: 'The Lion King', rk: '14', sub: '2019', hint: '$1.66B' },
+      { a: 'The Avengers', rk: '15', sub: '2012', hint: '$1.52B', alias: ['avengers 1'] },
+      { a: 'Furious 7', rk: '16', sub: '2015', hint: '$1.52B', alias: ['fast and furious 7','fast 7','furious seven','fast & furious 7'] },
+      { a: 'Top Gun: Maverick', rk: '17', sub: '2022', hint: '$1.50B', alias: ['top gun maverick','maverick'] },
+      { a: 'Avatar: Fire and Ash', rk: '18', sub: '2025', hint: '$1.49B', alias: ['fire and ash','avatar 3','avatar fire and ash'] },
+      { a: 'Frozen 2', rk: '19', sub: '2019', hint: '$1.45B', alias: ['frozen ii','frozen two'] },
+      { a: 'Barbie', rk: '20', sub: '2023', hint: '$1.45B' },
+      { a: 'Avengers: Age of Ultron', rk: '21', sub: '2015', hint: '$1.40B', alias: ['age of ultron','avengers age of ultron'] },
+      { a: 'The Super Mario Bros. Movie', rk: '22', sub: '2023', hint: '$1.36B', alias: ['super mario bros movie','super mario bros','super mario','mario movie','mario'] },
+      { a: 'Black Panther', rk: '23', sub: '2018', hint: '$1.35B' },
+      { a: 'Harry Potter and the Deathly Hallows – Part 2', rk: '24', sub: '2011', hint: '$1.34B', alias: ['deathly hallows part 2','deathly hallows 2','deathly hallows','harry potter deathly hallows part 2','harry potter and the deathly hallows part 2','harry potter 8'] },
+      { a: 'Deadpool & Wolverine', rk: '25', sub: '2024', hint: '$1.34B', alias: ['deadpool and wolverine','deadpool wolverine','deadpool 3'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'best-picture-winners',
+  title: 'Best Picture Winners',
+  sub: 'Every Oscar winner since 1990',
+  blurb: 'Every Academy Award for Best Picture from the films of 1990 through 2025. The film year and director are your clues.',
+  // Wikipedia "Academy Award for Best Picture" (winner = the bold row), pulled 2026-11-17; 2025 confirmed on "98th Academy Awards".
+  category: 'Movies',
+  tags: ['Oscars', 'Awards'],
+  match: 'full',
+  mode: 'timed',
+  time: 420,
+  cols: 'multi',
+  groups: [
+    { name: '2020s', items: [
+      { a: 'Nomadland', rk: '2020', hint: 'Chloé Zhao' },
+      { a: 'CODA', rk: '2021', hint: 'Siân Heder' },
+      { a: 'Everything Everywhere All at Once', rk: '2022', hint: 'Daniels', alias: ['everything everywhere','eeaao'] },
+      { a: 'Oppenheimer', rk: '2023', hint: 'Christopher Nolan' },
+      { a: 'Anora', rk: '2024', hint: 'Sean Baker' },
+      { a: 'One Battle After Another', rk: '2025', hint: 'Paul Thomas Anderson', alias: ['one battle'] }
+    ]},
+    { name: '2010s', items: [
+      { a: 'The King\'s Speech', rk: '2010', hint: 'Tom Hooper', alias: ['kings speech'] },
+      { a: 'The Artist', rk: '2011', hint: 'Michel Hazanavicius' },
+      { a: 'Argo', rk: '2012', hint: 'Ben Affleck' },
+      { a: '12 Years a Slave', rk: '2013', hint: 'Steve McQueen', alias: ['twelve years a slave'] },
+      { a: 'Birdman', rk: '2014', hint: 'Alejandro G. Iñárritu', alias: ['birdman or the unexpected virtue of ignorance'] },
+      { a: 'Spotlight', rk: '2015', hint: 'Tom McCarthy' },
+      { a: 'Moonlight', rk: '2016', hint: 'Barry Jenkins' },
+      { a: 'The Shape of Water', rk: '2017', hint: 'Guillermo del Toro' },
+      { a: 'Green Book', rk: '2018', hint: 'Peter Farrelly' },
+      { a: 'Parasite', rk: '2019', hint: 'Bong Joon Ho' }
+    ]},
+    { name: '2000s', items: [
+      { a: 'Gladiator', rk: '2000', hint: 'Ridley Scott' },
+      { a: 'A Beautiful Mind', rk: '2001', hint: 'Ron Howard' },
+      { a: 'Chicago', rk: '2002', hint: 'Rob Marshall' },
+      { a: 'The Lord of the Rings: The Return of the King', rk: '2003', hint: 'Peter Jackson', alias: ['return of the king','lord of the rings return of the king','lotr return of the king','lotr','the lord of the rings','lord of the rings'] },
+      { a: 'Million Dollar Baby', rk: '2004', hint: 'Clint Eastwood' },
+      { a: 'Crash', rk: '2005', hint: 'Paul Haggis' },
+      { a: 'The Departed', rk: '2006', hint: 'Martin Scorsese' },
+      { a: 'No Country for Old Men', rk: '2007', hint: 'Joel & Ethan Coen', alias: ['no country'] },
+      { a: 'Slumdog Millionaire', rk: '2008', hint: 'Danny Boyle', alias: ['slumdog'] },
+      { a: 'The Hurt Locker', rk: '2009', hint: 'Kathryn Bigelow' }
+    ]},
+    { name: '1990s', items: [
+      { a: 'Dances With Wolves', rk: '1990', hint: 'Kevin Costner', alias: ['dances with wolfs'] },
+      { a: 'The Silence of the Lambs', rk: '1991', hint: 'Jonathan Demme' },
+      { a: 'Unforgiven', rk: '1992', hint: 'Clint Eastwood' },
+      { a: 'Schindler\'s List', rk: '1993', hint: 'Steven Spielberg', alias: ['schindlers list'] },
+      { a: 'Forrest Gump', rk: '1994', hint: 'Robert Zemeckis' },
+      { a: 'Braveheart', rk: '1995', hint: 'Mel Gibson' },
+      { a: 'The English Patient', rk: '1996', hint: 'Anthony Minghella' },
+      { a: 'Titanic', rk: '1997', hint: 'James Cameron' },
+      { a: 'Shakespeare in Love', rk: '1998', hint: 'John Madden' },
+      { a: 'American Beauty', rk: '1999', hint: 'Sam Mendes' }
+    ]}
+  ]
+},
+
+{
+  slug: 'biggest-us-companies',
+  title: 'Biggest US Companies Right Now',
+  sub: 'The top 25 by market value',
+  blurb: 'The 25 most valuable U.S. companies by stock market value on November 17, 2026. Their market value is your clue.',
+  // companiesmarketcap.com/usa/largest-companies-in-the-usa-by-market-cap/, pulled 2026-11-17. This one goes stale fast: re-pull and change the date in the blurb.
+  category: 'Business',
+  tags: ['Companies', 'Stocks'],
+  match: 'full',
+  mode: 'timed',
+  time: 300,
+  cols: 'two',
+  groups: [
+    { name: 'Worth $1 trillion or more', items: [
+      { a: 'Apple', rk: '1', hint: '$5.11T' },
+      { a: 'Microsoft', rk: '2', hint: '$3.76T' },
+      { a: 'Nvidia', rk: '3', hint: '$3.75T' },
+      { a: 'Alphabet', rk: '4', hint: '$3.41T', alias: ['google','alphabet google'] },
+      { a: 'Amazon', rk: '5', hint: '$2.79T' },
+      { a: 'SpaceX', rk: '6', hint: '$1.92T', alias: ['space x'] },
+      { a: 'Broadcom', rk: '7', hint: '$1.63T' },
+      { a: 'Meta', rk: '8', hint: '$1.58T', alias: ['facebook','meta platforms'] },
+      { a: 'Tesla', rk: '9', hint: '$1.50T' },
+      { a: 'Eli Lilly', rk: '10', hint: '$1.26T', alias: ['lilly','eli lilly and company'] },
+      { a: 'Berkshire Hathaway', rk: '11', hint: '$1.25T', alias: ['berkshire'] },
+      { a: 'Walmart', rk: '12', hint: '$1.01T', alias: ['wal mart'] }
+    ]},
+    { name: 'Under $1 trillion', items: [
+      { a: 'JPMorgan Chase', rk: '13', hint: '$876B', alias: ['jp morgan','jpmorgan','chase','jp morgan chase','jpm'] },
+      { a: 'AMD', rk: '14', hint: '$833B', alias: ['advanced micro devices'] },
+      { a: 'Micron', rk: '15', hint: '$806B', alias: ['micron technology'] },
+      { a: 'Visa', rk: '16', hint: '$778B' },
+      { a: 'ExxonMobil', rk: '17', hint: '$682B', alias: ['exxon','exxon mobil'] },
+      { a: 'Johnson & Johnson', rk: '18', hint: '$671B', alias: ['j&j','jnj','johnson and johnson'] },
+      { a: 'Mastercard', rk: '19', hint: '$563B', alias: ['master card'] },
+      { a: 'AbbVie', rk: '20', hint: '$518B', alias: ['abbvie'] },
+      { a: 'Costco', rk: '21', hint: '$492B', alias: ['costco wholesale'] },
+      { a: 'Coca-Cola', rk: '22', hint: '$425B', alias: ['coke','coca cola','the coca cola company'] },
+      { a: 'Chevron', rk: '23', hint: '$422B' },
+      { a: 'Procter & Gamble', rk: '24', hint: '$398B', alias: ['p&g','procter and gamble','proctor and gamble','proctor & gamble'] },
+      { a: 'Palantir', rk: '25', hint: '$377B' }
+    ]}
+  ]
+},
+
+{
+  slug: 'best-selling-sodas',
+  title: 'America\'s Best-Selling Sodas',
+  sub: 'The top 10 soft drinks in the U.S.',
+  blurb: 'The 10 best-selling soft drinks in America by volume, per Beverage Digest. The company that makes each one is your clue.',
+  // Beverage Digest via AJC (Apr 2026) and others: 2025 top 5 = Coca-Cola 18.5%, Dr Pepper 8.8%, Pepsi, Diet Coke, Sprite.
+  // 6-10 (Mountain Dew, Coke Zero, Diet Pepsi, Fanta, Canada Dry) are the last fully published order (2024), matching secondary 2025 lists.
+  category: 'Food & Drink',
+  tags: ['Drinks', 'Companies'],
+  match: 'full',
+  mode: 'timed',
+  time: 120,
+  cols: 'single',
+  groups: [
+    { name: 'Top 10', items: [
+      { a: 'Coca-Cola', rk: '1', hint: 'The Coca-Cola Company', alias: ['coke','coca cola','coke classic','classic coke','coca cola classic','regular coke'] },
+      { a: 'Dr Pepper', rk: '2', hint: 'Keurig Dr Pepper', alias: ['dr. pepper','doctor pepper','drpepper'] },
+      { a: 'Pepsi', rk: '3', hint: 'PepsiCo', alias: ['pepsi cola'] },
+      { a: 'Diet Coke', rk: '4', hint: 'The Coca-Cola Company', alias: ['diet coca cola','diet coca-cola'] },
+      { a: 'Sprite', rk: '5', hint: 'The Coca-Cola Company' },
+      { a: 'Mountain Dew', rk: '6', hint: 'PepsiCo', alias: ['mtn dew','dew','mt dew'] },
+      { a: 'Coke Zero', rk: '7', hint: 'The Coca-Cola Company', alias: ['coke zero sugar','coca cola zero','coca-cola zero sugar','coca cola zero sugar'] },
+      { a: 'Diet Pepsi', rk: '8', hint: 'PepsiCo' },
+      { a: 'Fanta', rk: '9', hint: 'The Coca-Cola Company', alias: ['fanta orange'] },
+      { a: 'Canada Dry', rk: '10', hint: 'Keurig Dr Pepper', alias: ['canada dry ginger ale'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'biggest-fast-food-chains',
+  title: 'Biggest Fast-Food Chains',
+  sub: 'The top 25 by U.S. sales',
+  blurb: 'The 25 biggest fast-food chains in America by 2025 U.S. systemwide sales, from the 2026 QSR 50. The food type and sales are your clues.',
+  // QSR Magazine "QSR 50 2026" (2025 U.S. systemwide sales; Starbucks, Chick-fil-A, Subway, Panera, Papa Johns are QSR estimates).
+  category: 'Food & Drink',
+  tags: ['Restaurants', 'Companies'],
+  match: 'full',
+  mode: 'timed',
+  time: 300,
+  cols: 'two',
+  groups: [
+    { name: 'Top 10', items: [
+      { a: 'McDonald\'s', rk: '1', sub: 'Burgers', hint: '$55.1B', alias: ['mcdonalds','mickey ds','mcds','mickey d'] },
+      { a: 'Starbucks', rk: '2', sub: 'Coffee', hint: '$30.2B', alias: ['starbies'] },
+      { a: 'Chick-fil-A', rk: '3', sub: 'Chicken', hint: '$23.9B', alias: ['chick fil a','chickfila','cfa','chikfila'] },
+      { a: 'Taco Bell', rk: '4', sub: 'Mexican', hint: '$17.2B' },
+      { a: 'Dunkin\'', rk: '5', sub: 'Coffee', hint: '$13.1B', alias: ['dunkin','dunkin donuts'] },
+      { a: 'Wendy\'s', rk: '6', sub: 'Burgers', hint: '$11.9B', alias: ['wendys'] },
+      { a: 'Chipotle', rk: '7', sub: 'Mexican', hint: '$11.7B', alias: ['chipotle mexican grill'] },
+      { a: 'Burger King', rk: '8', sub: 'Burgers', hint: '$11.1B', alias: ['bk'] },
+      { a: 'Domino\'s', rk: '9', sub: 'Pizza', hint: '$10.0B', alias: ['dominos','dominos pizza'] },
+      { a: 'Subway', rk: '10', sub: 'Sandwiches', hint: '$9.2B' }
+    ]},
+    { name: '11 to 25', items: [
+      { a: 'Panda Express', rk: '11', sub: 'Chinese', hint: '$6.4B', alias: ['panda'] },
+      { a: 'Panera', rk: '12', sub: 'Bakery-café', hint: '$5.9B', alias: ['panera bread'] },
+      { a: 'Popeyes', rk: '13', sub: 'Chicken', hint: '$5.7B', alias: ['popeyes louisiana kitchen','popeye'] },
+      { a: 'Raising Cane\'s', rk: '14', sub: 'Chicken', hint: '$5.5B', alias: ['canes','raising canes'] },
+      { a: 'Wingstop', rk: '15', sub: 'Wings', hint: '$5.3B', alias: ['wing stop'] },
+      { a: 'Sonic', rk: '16', sub: 'Burgers', hint: '$5.2B', alias: ['sonic drive in','sonic drive-in'] },
+      { a: 'Pizza Hut', rk: '17', sub: 'Pizza', hint: '$5.1B' },
+      { a: 'Dairy Queen', rk: '18', sub: 'Burgers', hint: '$5.0B', alias: ['dq'] },
+      { a: 'KFC', rk: '19', sub: 'Chicken', hint: '$4.7B', alias: ['kentucky fried chicken'] },
+      { a: 'Whataburger', rk: '20', sub: 'Burgers', hint: '$4.3B', alias: ['what a burger'] },
+      { a: 'Arby\'s', rk: '21', sub: 'Sandwiches', hint: '$4.2B', alias: ['arbys'] },
+      { a: 'Jersey Mike\'s', rk: '22', sub: 'Sandwiches', hint: '$4.2B', alias: ['jersey mikes','jersey mikes subs'] },
+      { a: 'Jack in the Box', rk: '23', sub: 'Burgers', hint: '$4.2B', alias: ['jack in the box'] },
+      { a: 'Culver\'s', rk: '24', sub: 'Burgers', hint: '$4.2B', alias: ['culvers'] },
+      { a: 'Papa Johns', rk: '25', sub: 'Pizza', hint: '$3.7B', alias: ['papa john\'s','papa john'] }
     ]}
   ]
 },

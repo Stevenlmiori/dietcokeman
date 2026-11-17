@@ -202,7 +202,8 @@ listed in several sections (LeBron on seven NBA lists) is one player and keeps
 his keys.
 
 **`match: 'full'` on a quiz** drops the last-name shortcut too: full name or an
-alias only. No quiz uses it yet. It is the next step if surname spraying
+alias only. Every non-person quiz uses it (companies, teams, titles, drinks); the
+fine print then reads "Full names or the names people actually use". It is also the next step if surname spraying
 (`smith, brown, jones…` still fills ~19 of 60 on All-Time Top 20) turns out to
 matter once leaderboards are live. The fine print switches to "Full names
 only" automatically.
@@ -519,6 +520,15 @@ number (0 = pick'em).
 | `nba-mvps` | NBA MVPs (1955-56 – 2025-26, by decade) | 71 | Timed 10:00 · No pressure |
 | `mlb-career-hr` | MLB All-Time Home Runs (top 50, through 2026) | 50 | Timed 8:00 · No pressure |
 | `sp500-since-1957` | Still in the S&P 500 Since 1957 (52, full names) | 52 | Timed 10:00 · No pressure |
+| `nfl-first-overall-picks` | No. 1 Overall NFL Draft Picks (1990–2026) | 37 | Timed 6:00 · No pressure |
+| `heisman-winners` | Heisman Trophy Winners (1980–2025) | 46 | Timed 8:00 · No pressure |
+| `world-series-champions` | World Series Champions (1980–2026, full) | 46 | Timed 6:00 · No pressure |
+| `masters-champions` | Masters Champions (1980–2026) | 47 | Timed 6:00 · No pressure |
+| `highest-grossing-movies` | Highest-Grossing Movies (top 25, Nov 8 2026, full) | 25 | Timed 6:00 · No pressure |
+| `best-picture-winners` | Best Picture Winners (1990–2025, full) | 36 | Timed 7:00 · No pressure |
+| `biggest-us-companies` | Biggest US Companies Right Now (Nov 17 2026, full) | 25 | Timed 5:00 · No pressure |
+| `best-selling-sodas` | America's Best-Selling Sodas (top 10, full) | 10 | Timed 2:00 · No pressure |
+| `biggest-fast-food-chains` | Biggest Fast-Food Chains (QSR 50 2026, full) | 25 | Timed 5:00 · No pressure |
 | `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links
@@ -570,6 +580,23 @@ on the hub. `match: 'full'` so plain "coke" doesn't land. It uses **`nope`**, a
 per-quiz map of normalised wrong guesses to custom replies (pepsi →
 "Absolutely not.", coke zero → "The impostor. Try again."). Any quiz can use
 `nope`; keep the replies short and without em dashes.
+
+**Batch of nine, 2026-11-17** — sources and what goes stale:
+* No. 1 picks, Heisman, World Series, Masters, box office, Best Picture:
+  Wikipedia via the API (`action=parse&prop=wikitext`). A reusable table parser
+  lives in the session scratchpad pattern: split on `\n|-`, clean templates;
+  World Series years are `{{wsy|YYYY}}`, Best Picture winners are the bold
+  (`'''''`) row, box-office grosses can be `{{formatnum:{{#expr:...}}}}`
+  arithmetic (Wikipedia's corrections to Box Office Mojo) — evaluate it.
+  Heisman 2022 (Caleb Williams) failed to parse and was added by hand; Masters
+  countries are added by hand (the table is flags).
+* **Stale-fast ones:** Biggest US Companies (companiesmarketcap.com, re-pull and
+  change the date in the blurb), Highest-Grossing Movies (two 2026 films still
+  in release when pulled), Fast-Food (QSR 50, annual each summer), Sodas
+  (Beverage Digest, annual each spring; 2025 top 5 confirmed, 6–10 are the
+  last fully published order).
+* A leading "The" is optional in every answer ("Silence of the Lambs",
+  "Lion King", "Odyssey").
 
 **Enter never forgives a typo onto a different answer when the guess is a
 word that's part of answers' names** (`parts` in engine.js): "energy" (Xcel

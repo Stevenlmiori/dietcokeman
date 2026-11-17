@@ -21,6 +21,15 @@ and the score already set. Pick a mode in the bar at the top and press play.
 | NBA MVPs | 71 | Timed 10:00 · No pressure |
 | MLB All-Time Home Runs | 50 | Timed 8:00 · No pressure |
 | Still in the S&P 500 Since 1957 | 52 | Timed 10:00 · No pressure |
+| No. 1 Overall NFL Draft Picks | 37 | Timed 6:00 · No pressure |
+| Heisman Trophy Winners | 46 | Timed 8:00 · No pressure |
+| World Series Champions | 46 | Timed 6:00 · No pressure |
+| Masters Champions | 47 | Timed 6:00 · No pressure |
+| Highest-Grossing Movies | 25 | Timed 6:00 · No pressure |
+| Best Picture Winners | 36 | Timed 7:00 · No pressure |
+| Biggest US Companies Right Now | 25 | Timed 5:00 · No pressure |
+| America's Best-Selling Sodas | 10 | Timed 2:00 · No pressure |
+| Biggest Fast-Food Chains | 25 | Timed 5:00 · No pressure |
 | NFL Line Game: Week 11 | 13 games | No pressure · Timed 5:00 |
 
 ## How it plays
