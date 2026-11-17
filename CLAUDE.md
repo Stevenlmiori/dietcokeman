@@ -86,8 +86,8 @@ themselves. `alias` adds spellings the name itself doesn't imply.
 
 **Set `hideSub: true` whenever the sub-label would give the answer away.** On
 *Top 5 by Position* the `sub` is the NFL team, and "CIN" beside a blank
-quarterback is a free answer. On *Round 1 Recall* the `sub` is the drafting
-manager, which **is** the clue, so that quiz leaves it visible.
+quarterback is a free answer. Leave it visible only when the `sub` **is** the
+clue (the removed *Round 1 Recall* showed each pick's drafting manager).
 
 **There is no wrong-guess mode, and there must not be one.** A quiz that fills
 itself in as you type cannot charge you for a guess, because a *correct* guess
@@ -458,7 +458,6 @@ number (0 = pick'em).
 | Slug | Title | Answers | Modes |
 |---|---|---|---|
 | `top5-by-position` | NFL Fantasy Leaders (QB/RB/WR/TE through Week 10, 2026) | 20 | Timed 5:00 · No pressure |
-| `round-one-recall` | Round 1 Recall | 12 | Timed 4:00 · No pressure |
 | `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
 | `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 
@@ -470,9 +469,10 @@ and delete the old Firestore rows (`boards/<old>-<mode>/entries/*`,
 `users/*/bests/<old>-<mode>`) — Steven: "it won't be apples to apples."
 That was done for the 30-answer version (one row, @dietcokeman 23/30).
 
-The two Astroworld quizzes are snapshots of the 2026 season — the Top 5 figures
-are averages through roughly Week 10, and Round 1 is that year's draft. They do
-not auto-update. A removed fourth quiz, "Name the League", was cut as too easy.
+NFL Fantasy Leaders is a snapshot of the 2026 season through Week 10 and does
+not auto-update. Removed quizzes: "Name the League" (too easy) and "Round 1
+Recall" (a test/placeholder, deleted 2026-11-17 along with its saved scores).
+An old `?q=` link to a removed quiz falls through to the first quiz.
 
 ---
 

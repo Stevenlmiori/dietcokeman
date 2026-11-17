@@ -77,34 +77,6 @@ window.QUIZZES = [
 },
 
 {
-  slug: 'round-one-recall',
-  title: 'Round 1 Recall',
-  sub: 'Every first-round pick, 2026 draft',
-  blurb: 'Twelve picks, twelve managers. Name who went where in the first round of the Astroworld draft.',
-  tag: 'ASTROWORLD 2026',
-  mode: 'timed',
-  time: 240,
-  cols: 'single',
-  groups: [
-    { name: 'Round 1', note: 'drafted by', items: [
-      { a: 'Jahmyr Gibbs',        rk: '1.01', sub: 'Big Oil' },
-      { a: 'Bijan Robinson',      rk: '1.02', sub: 'Dont Tread On Me' },
-      { a: "Ja'Marr Chase",       rk: '1.03', sub: 'KT', alias: ['jamar chase','jamarr'] },
-      { a: 'Puka Nacua',          rk: '1.04', sub: 'law dawgs' },
-      { a: 'Amon-Ra St. Brown',   rk: '1.05', sub: 'The Goods', alias: ['amon ra','st brown','saint brown'] },
-      { a: 'Christian McCaffrey', rk: '1.06', sub: 'Freak Heads', alias: ['cmc','mccaffery'] },
-      { a: 'Jonathan Taylor',     rk: '1.07', sub: 'Prestige Worldwide', alias: ['jt'] },
-      { a: 'James Cook III',      rk: '1.08', sub: 'The Crew', alias: ['james cook'] },
-      { a: 'Saquon Barkley',      rk: '1.09', sub: 'Next Year', alias: ['saquon','barkley'] },
-      { a: 'CeeDee Lamb',         rk: '1.10', sub: 'DietCokeMan', alias: ['cd lamb','ceedee'] },
-      { a: 'Justin Jefferson',    rk: '1.11', sub: 'makeAOCbartender', alias: ['jj','jettas'] },
-      { a: 'Kenneth Walker III',  rk: '1.12', sub: 'BuckNuts', alias: ['kenneth walker','kenny walker'] }
-    ]}
-  ]
-}
-,
-
-{
   slug: 'nfl-all-time-top20',
   title: 'NFL All-Time Top 20',
   sub: 'Passing, rushing and receiving yards',
