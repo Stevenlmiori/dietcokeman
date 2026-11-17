@@ -24,7 +24,10 @@
 // grant access. Access is decided by firestore.rules.
 const firebaseConfig = {
   apiKey: 'AIzaSyBWx2KzEx2UINGXYY397TZkX7xclQTC1Lw',
-  authDomain: 'dietcokeman-12f1e.firebaseapp.com',
+  // Our own domain, not dietcokeman-12f1e.firebaseapp.com, so Google's sign-in
+  // screen names challenge.dietcokeman.com. The helper it needs is served
+  // from /__/auth/ (see __/auth/README.md).
+  authDomain: 'challenge.dietcokeman.com',
   projectId: 'dietcokeman-12f1e',
   appId: '1:76413971963:web:3f70772061749d0dc86f5e'
 };

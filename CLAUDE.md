@@ -480,6 +480,18 @@ the offer for the rest of that visit. No pop-ups anywhere else.
 * **Project:** `dietcokeman-12f1e` (console: console.firebase.google.com/project/dietcokeman-12f1e),
   Spark plan, Firestore `(default)` in nam5, Google provider on, public-facing
   name "DietCokeMan Challenge", `challenge.dietcokeman.com` authorized.
+* **Sign-in runs from our own domain.** `authDomain` is
+  `challenge.dietcokeman.com`, not `dietcokeman-12f1e.firebaseapp.com` — with
+  the default, Google's consent screen said "dietcokeman-12f1e.firebaseapp.com
+  wants to access your Google Account" (Steven: not very lovely). Firebase's
+  helper is self-hosted in `__/auth/` (copied unmodified from the
+  firebaseapp.com domain; `handler`/`iframe` saved as `.html`), `.nojekyll`
+  lets Pages serve the underscore folder, and the Google Cloud OAuth client
+  "Web client (auto created by Google Service)" lists
+  `https://challenge.dietcokeman.com` as an origin and
+  `https://challenge.dietcokeman.com/__/auth/handler` as a redirect URI.
+  Showing the name **"DietCokeMan Challenge"** instead of the domain needs
+  Google brand verification (Google Auth Platform → Branding), not done yet.
 * **Owner:** the Firebase project lives on **sylvanmiori@gmail.com** (Steven's
   choice; same account as the Cloudflare DNS), not stevenlmiori.
 * **Stack:** Firebase Auth (Google only) + Firestore, loaded from gstatic as ES
