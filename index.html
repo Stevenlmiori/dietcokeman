@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070A0E">
+<meta name="robots" content="noindex">
+<title>DietCokeMan Challenge</title>
+<meta property="og:title" content="DietCokeMan Challenge">
+<meta property="og:description" content="Ice-cold fantasy football trivia. How many can you name before the clock runs out?">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23F01932'/><rect x='34' y='18' width='32' height='64' rx='9' fill='%23E8EDF2'/></svg>">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="cn2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#F7FAFD"/><stop offset=".45" stop-color="#C3CEDA"/>
+            <stop offset=".55" stop-color="#EDF3F8"/><stop offset="1" stop-color="#9AA8B6"/>
+          </linearGradient>
+        </defs>
+        <rect x="18" y="6" width="28" height="52" rx="8" fill="url(#cn2)"/>
+        <rect x="18" y="24" width="28" height="15" fill="#F01932"/>
+        <rect x="18" y="6" width="7" height="52" rx="8" fill="#fff" opacity=".35"/>
+        <circle cx="51" cy="15" r="4" fill="#7FD9F7" opacity=".85"/>
+        <circle cx="57" cy="26" r="2.6" fill="#7FD9F7" opacity=".6"/>
+        <circle cx="50" cy="35" r="2" fill="#7FD9F7" opacity=".5"/>
+      </svg>
+      <span style="display:block">
+        <b>DietCokeMan</b>
+        <span>Challenge</span>
+      </span>
+    </a>
+    <div class="spacer"></div>
+    <a class="ghost" href="https://stevenlmiori.github.io/astroworld-keepers/draft.html">Draft Room ↗</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <!-- drop a real banner in later: add class "on" and set src -->
+    <img class="banner" id="banner" alt="">
+
+    <svg class="can" viewBox="0 0 120 180" aria-hidden="true">
+      <defs>
+        <linearGradient id="body" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#8E9DAD"/><stop offset=".16" stop-color="#E9F0F6"/>
+          <stop offset=".38" stop-color="#FFFFFF"/><stop offset=".62" stop-color="#C3CFDB"/>
+          <stop offset=".84" stop-color="#E9F0F6"/><stop offset="1" stop-color="#7D8C9C"/>
+        </linearGradient>
+        <linearGradient id="band" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#9E0E1C"/><stop offset=".25" stop-color="#F01932"/>
+          <stop offset=".55" stop-color="#FF4257"/><stop offset="1" stop-color="#A5101E"/>
+        </linearGradient>
+        <linearGradient id="lid" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#7E8D9D"/><stop offset=".4" stop-color="#E4EBF2"/>
+          <stop offset="1" stop-color="#8B99A8"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="60" cy="160" rx="34" ry="8" fill="#000" opacity=".4"/>
+      <rect x="26" y="26" width="68" height="128" rx="15" fill="url(#body)"/>
+      <rect x="26" y="68" width="68" height="44" fill="url(#band)"/>
+      <rect x="26" y="66" width="68" height="3" fill="#fff" opacity=".65"/>
+      <rect x="26" y="111" width="68" height="3" fill="#fff" opacity=".5"/>
+      <ellipse cx="60" cy="27" rx="34" ry="9" fill="url(#lid)"/>
+      <ellipse cx="60" cy="27" rx="27" ry="6.5" fill="#6F7E8E" opacity=".55"/>
+      <rect x="34" y="34" width="9" height="112" rx="5" fill="#fff" opacity=".4"/>
+      <text x="60" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="19" font-weight="900" fill="#fff" letter-spacing="1.5">DCM</text>
+      <circle cx="101" cy="40" r="6" fill="#7FD9F7" opacity=".75"/>
+      <circle cx="110" cy="62" r="3.6" fill="#7FD9F7" opacity=".55"/>
+      <circle cx="99" cy="78" r="2.6" fill="#7FD9F7" opacity=".45"/>
+      <circle cx="16" cy="54" r="4.6" fill="#7FD9F7" opacity=".6"/>
+      <circle cx="9" cy="80" r="2.8" fill="#7FD9F7" opacity=".4"/>
+    </svg>
+
+    <h1>DietCokeMan <em>Challenge</em></h1>
+    <p>Ice-cold fantasy trivia. Type a name and it fills itself in — first name, last name, either one works. Beat the clock, or see how far you get before you strike out.</p>
+  </section>
+
+  <div class="rule"></div>
+
+  <div class="sect-h"><h2>Pick your challenge</h2></div>
+  <div class="grid" id="grid"></div>
+
+  <p style="text-align:center;color:#6C7A8A;font-size:12.5px;margin:48px 0 40px">
+    Built for the Astroworld league · scores stay on your own device<br>
+    An independent fan project — not affiliated with, sponsored by, or endorsed by any beverage company.
+  </p>
+</main>
+
+<script src="quizzes.js"></script>
+<script>
+(function(){
+  const grid = document.getElementById('grid');
+  const arrow = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  const modeName = { timed:'Timed', lives:'Survival', chill:'No pressure' };
+  grid.innerHTML = (window.QUIZZES||[]).map(q => {
+    const n = q.groups.reduce((a,g)=>a+g.items.length,0);
+    let best = 0;
+    try { best = parseInt(localStorage.getItem('dcm-best-'+q.slug+'-'+(q.mode||'timed'))||'0',10)||0; } catch(e){}
+    return `<a class="card" href="play.html?q=${encodeURIComponent(q.slug)}">
+      <div class="meta"><span class="pill">${q.tag||'QUIZ'}</span></div>
+      <h3>${q.title}</h3>
+      <div class="sub">${q.sub}</div>
+      <div class="meta">
+        <span class="pill red">${n} answers</span>
+        <span class="pill">${modeName[q.mode]||'Timed'}</span>
+        ${best ? `<span class="pill best">Best ${best}/${n}</span>` : ''}
+      </div>
+      <div class="go">Play ${arrow}</div>
+    </a>`;
+  }).join('');
+})();
+</script>
+</body>
+</html>
