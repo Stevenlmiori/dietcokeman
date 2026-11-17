@@ -24,6 +24,7 @@
 }
 
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{
@@ -82,18 +83,52 @@ a{color:inherit}
 .ghost:hover{background:rgba(255,255,255,.07);color:var(--white);border-color:#3A4756}
 
 /* ---------- hero ---------- */
-/* Bleed the banner to the window edges even though .hero sits inside .wrap,
-   then fade its bottom into the page so there is no visible seam. */
+/* The hero bleeds to the window edges even though it sits inside .wrap.
+   Two separate photographs, and only ONE is ever downloaded: a background image
+   inside an unmatched media query, or on a display:none element, is not fetched. */
 .hero{
-  position:relative;text-align:center;
+  position:relative;text-align:left;
   margin-inline:calc(50% - 50vw);
-  padding:54px calc(50vw - 50%) 18px;
-  background:
-    linear-gradient(180deg,rgba(7,10,14,.55) 0%,rgba(7,10,14,.15) 26%,rgba(7,10,14,.8) 76%,#070A0E 100%),
-    url("assets/ice-banner.webp") center top / cover no-repeat;
+  padding:0;
 }
-.hero .can{width:clamp(104px,16vw,146px);height:auto;margin:0 auto 16px;display:block;
-  filter:drop-shadow(0 18px 34px rgba(0,0,0,.72)) drop-shadow(0 0 26px rgba(127,217,247,.2))}
+/* .hero is stretched to the full window, so a percentage padding here would
+   resolve against 100vw and collapse to zero. Mirror .wrap's own sizing instead
+   so the headline lines up with the cards below it. */
+.herotext{width:min(1140px,100% - 32px);margin-inline:auto;padding:20px 0 10px;
+  position:relative;z-index:1}
+
+/* phone — the photograph sits above the words */
+.heroshot{
+  display:block;height:clamp(200px,54vw,280px);
+  background:url("assets/hero-ice-mobile.webp") center 40% / cover no-repeat;
+  position:relative;
+}
+.heroshot::after{
+  content:"";position:absolute;inset:auto 0 -1px 0;height:50%;
+  background:linear-gradient(180deg,rgba(7,10,14,0),rgba(7,10,14,.78) 60%,#070A0E);
+}
+
+/* desktop — the photograph IS the hero, words in its dark left side */
+@media (min-width:721px){
+  .heroshot{display:none}
+  .hero{
+    display:flex;align-items:center;
+    min-height:clamp(330px,32vw,440px);
+    background:url("assets/hero-ice-desktop.webp") right center / cover no-repeat;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg,#070A0E 0%,rgba(7,10,14,.95) 22%,
+      rgba(7,10,14,.66) 42%,rgba(7,10,14,.14) 62%,transparent 73%);
+  }
+  .hero::after{
+    content:"";position:absolute;inset:auto 0 -1px 0;height:32%;
+    background:linear-gradient(180deg,transparent,#070A0E);
+  }
+  .herotext{padding-block:0}
+  .hero h1{max-width:min(13ch,52%)}
+  .hero p{max-width:min(44ch,48%)}
+}
 .hero h1{
   margin:0;font-size:clamp(34px,6.6vw,62px);line-height:1.02;font-weight:900;letter-spacing:-.025em;
   background:linear-gradient(180deg,#FFFFFF 0%,#D6E2EE 46%,#93A3B4 100%);
@@ -104,7 +139,7 @@ a{color:inherit}
   background:linear-gradient(180deg,#FF5468 0%,var(--red) 55%,var(--red-dk) 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-.hero p{margin:14px auto 0;max-width:56ch;color:var(--silver);font-size:16px}
+.hero p{margin:14px 0 0;max-width:56ch;color:var(--silver);font-size:16px}
 .rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:34px 0 26px}
 
 /* ---------- quiz cards (hub) ---------- */
@@ -121,35 +156,45 @@ a{color:inherit}
 .card:hover{transform:translateY(-3px);border-color:#3D4A5A;box-shadow:0 16px 40px rgba(0,0,0,.55)}
 .card h3{margin:2px 0 0;font-size:19px;font-weight:800;letter-spacing:-.015em}
 .card .sub{color:var(--silver-dim);font-size:13.5px}
-.card .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px}
+.card .tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:800;color:#5F6D7C}
+.card .meta{margin-top:auto;padding-top:14px;font-size:12.5px;color:var(--silver-dim);
+  font-weight:600;font-variant-numeric:tabular-nums}
+.card .meta i{font-style:normal;color:#4C5866;padding:0 5px}
+.card .meta em{font-style:normal;color:var(--silver)}
 .pill{
   display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;
-  letter-spacing:.04em;padding:4px 9px;border-radius:999px;
-  background:rgba(127,217,247,.12);color:var(--ice);border:1px solid rgba(127,217,247,.22);
+  letter-spacing:.03em;padding:4px 10px;border-radius:999px;
+  background:rgba(255,255,255,.055);color:var(--silver);border:1px solid var(--line);
 }
-.pill.best{background:rgba(59,217,126,.12);color:var(--good);border-color:rgba(59,217,126,.25)}
-.pill.red{background:rgba(240,25,50,.13);color:#FF6476;border-color:rgba(240,25,50,.28)}
 .card .go{margin-top:12px;font-weight:800;font-size:13.5px;color:var(--white);display:flex;align-items:center;gap:7px}
 .card .go svg{transition:transform .16s}
 .card:hover .go svg{transform:translateX(4px)}
 
-/* ---------- start screen ---------- */
-.start{max-width:620px;margin:0 auto;text-align:center;padding:30px 0 60px}
-.start h1{font-size:clamp(28px,5vw,42px);margin:0 0 10px;font-weight:900;letter-spacing:-.02em}
-.start .sub{color:var(--silver);margin:0 0 26px}
-.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 22px}
-@media (max-width:520px){.modes{grid-template-columns:1fr}}
+/* ---------- quiz page intro ---------- */
+/* Title and subtitle only. Choosing a mode happens in the sticky bar, right on
+   top of the board, so the first thing you see is the quiz itself. */
+.qintro{padding:22px 0 16px}
+.qintro h1{margin:0;font-size:clamp(24px,4.2vw,36px);font-weight:900;letter-spacing:-.025em;line-height:1.08}
+.qsub{margin:7px 0 0;color:var(--silver);font-size:14.5px;max-width:70ch}
+.bestline{margin:6px 0 0;font-size:12px;font-weight:700;color:var(--ice);letter-spacing:.01em}
+.bestline:empty{display:none}
+
+.modes{display:flex;gap:6px;flex:0 1 auto;min-width:0}
 .mode{
-  border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:13px;
-  padding:14px 12px;cursor:pointer;text-align:center;transition:.14s;color:var(--silver);
+  flex:0 0 auto;min-width:104px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:11px;
+  padding:7px 9px;cursor:pointer;text-align:center;transition:.14s;color:var(--silver);
 }
 .mode:hover{background:rgba(255,255,255,.06)}
 .mode[aria-pressed="true"]{
   border-color:var(--red);background:rgba(240,25,50,.12);color:var(--white);
   box-shadow:0 0 0 1px rgba(240,25,50,.35) inset;
 }
-.mode b{display:block;font-size:15px;font-weight:800;margin-bottom:2px}
-.mode small{font-size:12px;color:var(--silver-dim);display:block;line-height:1.35}
+.mode b{display:block;font-size:12.5px;font-weight:800;line-height:1.25;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mode small{font-size:10.5px;color:var(--silver-dim);display:block;line-height:1.3;
+  font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mode[aria-pressed="true"] small{color:#E9B9BF}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%;
@@ -175,9 +220,14 @@ a{color:inherit}
   background:rgba(7,10,14,.9);backdrop-filter:saturate(1.5) blur(16px);
   border-bottom:1px solid var(--line);padding:10px 0 11px;
 }
-.hudrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hudrow{display:flex;align-items:center;gap:10px}
+.pre{flex:1;min-width:0;display:flex;align-items:center;gap:8px}
+.live{flex:1;min-width:0;display:flex}
+/* the Start button shrinks to sit in the bar instead of spanning a start screen */
+.btn.go{flex:none;width:auto;padding:11px 17px;font-size:14.5px;border-radius:12px;
+  box-shadow:0 6px 18px rgba(240,25,50,.28),inset 0 1px 0 rgba(255,255,255,.22)}
 .guess{
-  flex:1 1 260px;min-width:0;
+  flex:1;min-width:0;
   background:rgba(255,255,255,.055);border:1.5px solid var(--line);
   border-radius:13px;padding:14px 16px;color:var(--white);
   font:inherit;font-size:16px;font-weight:600;outline:none;
@@ -193,6 +243,7 @@ a{color:inherit}
   38%{transform:translateX(6px)} 58%{transform:translateX(-4px)} 78%{transform:translateX(3px)}
 }
 .stats{display:flex;align-items:center;gap:8px;flex:none}
+.stat #scTot{font-size:13px;color:var(--silver-dim);font-weight:800}
 .stat{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   min-width:76px;padding:7px 12px;border-radius:12px;
@@ -281,11 +332,17 @@ a{color:inherit}
 
 @media (max-width:640px){
   .wrap{width:calc(100% - 22px)}
-  .hero{padding:30px 0 6px}
-  .stat{min-width:62px;padding:6px 9px}
+  .hudrow{flex-wrap:wrap;gap:8px}
+  /* score and clock first, so they are the thing you glance at */
+  .stats{order:-1;flex:1 1 100%}
+  .stat{flex:1;min-width:0;padding:6px 9px}
   .stat b{font-size:17px}
-  .guess{flex:1 1 100%;order:-1}
-  .hudrow{gap:8px}
+  .pre{flex:1 1 100%;flex-wrap:wrap}
+  .modes{flex:1 1 100%}
+  .mode{flex:1}
+  .btn.go{flex:1 1 100%;width:100%;padding:13px 17px;font-size:15.5px}
+  .live{flex:1 1 100%}
+  .qintro{padding:16px 0 12px}
   .row{padding:9px 11px;gap:9px}
   .brand span{display:none}
   .topbar{position:static}

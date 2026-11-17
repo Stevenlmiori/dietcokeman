@@ -26,7 +26,7 @@ it was removed on purpose.
 | File | What it is |
 |---|---|
 | `index.html` | The hub. Lists every quiz as a card. Reads `QUIZZES` directly. |
-| `play.html` | The player shell: start screen, HUD, board, result modal. |
+| `play.html` | The player shell: intro, sticky bar, board, result modal. |
 | `engine.js` | All game logic — matching, scoring, timer, lives, persistence. |
 | `quizzes.js` | **The only file you normally touch.** All quiz content. |
 | `style.css` | Shared styling for both pages. |
@@ -34,6 +34,11 @@ it was removed on purpose.
 No framework, no bundler, no dependencies. Open `index.html` through a local
 server and it runs. `quizzes.js` is a plain `window.QUIZZES = [...]` so there is
 no `fetch`, which means no CORS or async failure modes.
+
+`bump.sh` stamps a fresh `?v=<timestamp>` on the `style.css`, `engine.js` and
+`quizzes.js` links in both pages. **Run it before every commit that touches one
+of those three files.** Steven's browser has served stale copies after a deploy
+more than once; the stamp is the fix, not a nicety.
 
 ---
 
@@ -150,7 +155,37 @@ prompt, which Steven found to be friction for no gain. Keep the sweep.
 
 ---
 
-## 4. Layout rules that took a few tries
+## 4. The quiz page is one page
+
+There is **no separate start screen**. Opening a quiz shows the board straight
+away — every row blank — with the score and the clock already reading their
+starting values. Steven asked for this explicitly after comparing it to Sporcle:
+you should see what you are about to play before you commit to a mode.
+
+The sticky bar has two states and swaps only its left half:
+
+| | Left half | Right half |
+|---|---|---|
+| Before | `#pre` — the three mode chips, then **Play quiz** | the score and the clock |
+| During | `#live` — the guess box | the score and the clock |
+
+`boot()` builds the board and calls `updateStats()`; `start()` hides `#pre`,
+shows `#live` and `#giveup`; `reset()` (wired to **Play again**) puts it all
+back and rebuilds the board blank. The score and clock chips never move between
+states, which is the whole point.
+
+Two things to keep in mind if you touch this:
+
+* **`[hidden]{display:none!important}` is required.** `.pre`, `.live` and
+  `.mode` all set `display`, which beats the UA stylesheet's rule for the
+  `hidden` attribute. Without it both halves of the bar render at once.
+* **The guess box's form is `#live`, not `#form`.** Renaming it once left
+  `$('form').addEventListener` throwing inside `boot()`, which silently killed
+  every listener registered after it — typing, Enter and Give up all did
+  nothing while the page still looked fine. Check the console after any change
+  to `boot()`.
+
+## 5. Layout rules that took a few tries
 
 **The blank is an overlay, not a shrunken name.** `.nm` always spans the same
 width; `.nm.blank::after` draws the grey bar. Originally the blank had
@@ -178,7 +213,7 @@ missed**, the backdrop and Escape — and `Give up & reveal` becomes
 **Show results** afterwards so the card can be brought back. If you touch
 `end()` or the modal, keep all of them.
 
-## 5. Testing
+## 6. Testing
 
 Serve the folder — `file://` works but a server matches production:
 
@@ -209,10 +244,10 @@ Two checks worth re-running after any matcher change:
 
 ---
 
-## 6. Deploying
+## 7. Deploying
 
 ```
-git add -A && git commit -m "..." && git push origin main
+./bump.sh && git add -A && git commit -m "..." && git push origin main
 ```
 
 GitHub Pages serves from `main` at root. It takes 30–60 seconds. Verify with a
@@ -227,7 +262,7 @@ if something looks wrong, confirm the live file with `curl` before debugging.
 
 ---
 
-## 7. Branding
+## 8. Branding
 
 Icy chrome and crisp red, evoking a cold soda can. "DietCokeMan" is Steven's own
 fantasy-team handle.
@@ -242,15 +277,28 @@ Real photography lives in `assets/`, supplied by Steven (generated with ImageGen
 
 | File | Used as |
 |---|---|
-| `frosted-can.webp` | The hero can on the hub. 600×600, transparent. |
+| `hero-ice-desktop.webp` | The hub hero at ≥721px. 1920×640, anchored right, text in its dark left side. |
+| `hero-ice-mobile.webp` | The hub hero below 721px. 960×720, a band above the title. |
 | `frosted-can-icon.png` | Top-bar mark on both pages, and the favicon. 96×96. |
-| `ice-banner.webp` | `.hero` background. 1800×600, dark through the middle so the title reads. |
 | `football-ice.jpg` | `og:image` link preview. 1200×630. |
+| `frosted-can.webp`, `ice-banner.webp` | Unused since the photo hero landed. Kept in case a quiz wants them. |
 
-`.hero` bleeds the banner past `.wrap` with `margin-inline: calc(50% - 50vw)`
-and fades its bottom into `#070A0E`. If you touch that, re-check
+**Only one hero image is ever downloaded.** The mobile one lives on `.heroshot`,
+which is `display:none` above 721px; the desktop one lives inside the
+`min-width:721px` media query. A background image on a hidden element, or inside
+an unmatched query, is never fetched. Verify on a *clean* load — revisiting in a
+tab that already saw the other size shows a cached revalidation and looks like a
+double download when it isn't.
+
+`.hero` bleeds past `.wrap` with `margin-inline: calc(50% - 50vw)` and fades its
+bottom into `#070A0E`. If you touch that, re-check
 `scrollWidth - clientWidth === 0` at 375px — the bleed is the easiest way to
 introduce a horizontal scrollbar.
+
+`.herotext` cannot use a percentage inline padding to line up with the cards: it
+sits inside the full-width `.hero`, so `50%` resolves against `100vw` and
+collapses to nothing. It mirrors `.wrap`'s own sizing instead
+(`width:min(1140px,100% - 32px);margin-inline:auto`).
 
 The can images show a real Diet Coke label. Steven supplied them knowing that;
 keep the non-affiliation line in the footer.
@@ -258,9 +306,16 @@ keep the non-affiliation line in the footer.
 Cards deliberately have **no** gradient top border — an earlier version had a
 red-to-cyan hairline on each and it read as clutter.
 
+**No multi-coloured pills.** The hub cards once carried a cyan tag chip, a red
+answer-count chip and a green best chip; Steven's verdict was "typical AI slop".
+A card now shows a muted uppercase tag, the title, the subtitle and one quiet
+line of `30 answers · Timed 5:00 · Best 10`. The single `.pill` class that
+survives — used only in the result card — is deliberately neutral grey. Don't
+reintroduce coloured variants.
+
 ---
 
-## 8. Current quizzes
+## 9. Current quizzes
 
 | Slug | Title | Answers | Modes |
 |---|---|---|---|

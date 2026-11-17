@@ -7,6 +7,9 @@ Sporcle-style fill-in-the-blank quizzes. Type a name and it fills itself in.
 No sign-in, no accounts, works on a phone. Scores stay on the player's own
 device. Five static files, no build step, no dependencies.
 
+Opening a quiz drops you straight onto the board — every answer blank, the clock
+and the score already set. Pick a mode in the bar at the top and press play.
+
 | Quiz | Answers | Modes |
 |---|---|---|
 | Top 5 by Position | 30 | Timed 5:00 · Survival · No pressure |
@@ -37,8 +40,10 @@ python3 -m http.server 8901
 ```
 
 `window._dcm` drives the game from the browser console (`findMatches`, `guess`,
-`submit`, `state`). Push to `main` to deploy; GitHub Pages picks it up in under
-a minute.
+`submit`, `state`). Run `./bump.sh` before committing a change to `style.css`,
+`engine.js` or `quizzes.js` — it re-stamps the `?v=` on both pages so nobody
+gets a stale copy. Push to `main` to deploy; GitHub Pages picks it up in under a
+minute.
 
 See [`CLAUDE.md`](CLAUDE.md) for the full brief: how the name matcher works, the
 layout rules, and the mistakes already made and fixed.

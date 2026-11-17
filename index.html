@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=20261117092131">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -34,10 +34,12 @@
 
 <main class="wrap">
   <section class="hero">
-    <img class="can" src="assets/frosted-can.webp" width="600" height="600" alt="" fetchpriority="high">
-
-    <h1>DietCokeMan <em>Challenge</em></h1>
-    <p>Ice-cold fantasy trivia. Type a name and it fills itself in — first name, last name, either one works. Beat the clock, or see how far you get before you strike out.</p>
+    <div class="heroshot" role="img"
+         aria-label="A frosted Diet Coke can buried in ice beside a football"></div>
+    <div class="herotext">
+      <h1>DietCokeMan <em>Challenge</em></h1>
+      <p>Ice-cold fantasy trivia. Type a name and it fills itself in — first name, last name, either one works. Beat the clock, or see how far you get before you strike out.</p>
+    </div>
   </section>
 
   <div class="rule"></div>
@@ -51,25 +53,29 @@
   </p>
 </main>
 
-<script src="quizzes.js"></script>
+<script src="quizzes.js?v=20261117092131"></script>
 <script>
 (function(){
   const grid = document.getElementById('grid');
   const arrow = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   const modeName = { timed:'Timed', lives:'Survival', chill:'No pressure' };
+  const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const mmss = (t) => Math.floor(t/60) + ':' + String(t%60).padStart(2,'0');
+  // One quiet line of metadata, not a row of coloured chips.
   grid.innerHTML = (window.QUIZZES||[]).map(q => {
     const n = q.groups.reduce((a,g)=>a+g.items.length,0);
     let best = 0;
     try { best = parseInt(localStorage.getItem('dcm-best-'+q.slug+'-'+(q.mode||'timed'))||'0',10)||0; } catch(e){}
+    const meta = [
+      n + ' answers',
+      (modeName[q.mode]||'Timed') + (q.mode==='timed' && q.time ? ' ' + mmss(q.time) : '')
+    ].map(esc);
+    if (best) meta.push('<em>Best ' + best + '</em>');
     return `<a class="card" href="play.html?q=${encodeURIComponent(q.slug)}">
-      <div class="meta"><span class="pill">${q.tag||'QUIZ'}</span></div>
-      <h3>${q.title}</h3>
-      <div class="sub">${q.sub}</div>
-      <div class="meta">
-        <span class="pill red">${n} answers</span>
-        <span class="pill">${modeName[q.mode]||'Timed'}${q.mode==='timed'&&q.time?' '+Math.floor(q.time/60)+':'+String(q.time%60).padStart(2,'0'):''}</span>
-        ${best ? `<span class="pill best">Best ${best}/${n}</span>` : ''}
-      </div>
+      <div class="tag">${esc(q.tag||'Quiz')}</div>
+      <h3>${esc(q.title)}</h3>
+      <div class="sub">${esc(q.sub)}</div>
+      <div class="meta">${meta.join('<i>&middot;</i>')}</div>
       <div class="go">Play ${arrow}</div>
     </a>`;
   }).join('');

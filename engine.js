@@ -216,9 +216,10 @@ function updateStats() {
 /* ---------- lifecycle ---------- */
 function start() {
   filled = new Set(); wrong = 0; left = Q.time; running = true; startedAt = Date.now();
-  $('start').hidden = true;
-  $('game').hidden = false;
-  buildBoard();
+  $('pre').hidden = true;
+  $('live').hidden = false;
+  $('giveup').hidden = false;
+  buildBoard();                      // clears anything a previous run revealed
   updateStats();
   toast('');
   const gu = $('giveup');
@@ -237,6 +238,25 @@ function start() {
       if (left <= 0) end('time');
     }, 1000);
   }
+}
+
+/* Back to "pick a mode and press play", with the board blank again. */
+function reset() {
+  running = false;
+  clearInterval(timer);
+  filled = new Set(); wrong = 0; left = Q.time;
+  $('pre').hidden = false;
+  $('live').hidden = true;
+  const gu = $('giveup');
+  gu.hidden = true;
+  gu.textContent = 'Give up & reveal';
+  delete gu.dataset.done;
+  const box = $('guess');
+  box.value = ''; box.disabled = false;
+  buildBoard();
+  updateStats();
+  toast('');
+  showBest();
 }
 
 function end(reason) {
@@ -274,9 +294,9 @@ function end(reason) {
 
   const bits = [];
   if (mode === 'timed') bits.push(`<span class="pill">${reason === 'time' ? 'Full ' + fmt(Q.time) : fmt(elapsed) + ' used'}</span>`);
-  if (mode === 'lives') bits.push(`<span class="pill red">${wrong} miss${wrong === 1 ? '' : 'es'}</span>`);
-  if (mode === 'chill') bits.push(`<span class="pill">${fmt(elapsed)}</span>`, `<span class="pill red">${wrong} miss${wrong === 1 ? '' : 'es'}</span>`);
-  if (isBest) bits.push('<span class="pill best">Personal best</span>');
+  if (mode === 'lives') bits.push(`<span class="pill">${wrong} miss${wrong === 1 ? '' : 'es'}</span>`);
+  if (mode === 'chill') bits.push(`<span class="pill">${fmt(elapsed)}</span>`, `<span class="pill">${wrong} miss${wrong === 1 ? '' : 'es'}</span>`);
+  if (isBest) bits.push('<span class="pill">Personal best</span>');
   $('mStats').innerHTML = bits.join('');
 
   window._share = `DietCokeMan Challenge — ${Q.title}\n${score}/${total} (${Math.round((score / total) * 100)}%)` +
@@ -310,10 +330,7 @@ function boot() {
 
   document.title = Q.title + ' · DietCokeMan Challenge';
   $('qTitle').textContent = Q.title;
-  $('qSub').textContent = Q.sub;
-  $('qBlurb').textContent = Q.blurb;
-  $('qCount').textContent = total;
-  $('hudTitle').textContent = Q.title;
+  $('qSub').textContent = Q.blurb || Q.sub;
   $('mTime').textContent = fmt(Q.time);
   $('mLives').textContent = Q.lives;
 
@@ -324,15 +341,23 @@ function boot() {
     b.hidden = !allowed.includes(b.dataset.m);
     b.setAttribute('aria-pressed', String(b.dataset.m === mode));
     b.addEventListener('click', () => {
+      if (running) return;
       mode = b.dataset.m;
       document.querySelectorAll('.mode').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+      updateStats();                 // the right-hand chip follows the chosen mode
       showBest();
     });
   });
+
+  // The whole point: the board is on screen before anything is pressed, with the
+  // score and the clock already reading their starting values.
+  left = Q.time;
+  buildBoard();
+  updateStats();
   showBest();
 
   $('go').addEventListener('click', start);
-  $('form').addEventListener('submit', onSubmit);
+  $('live').addEventListener('submit', onSubmit);
   $('guess').addEventListener('input', onInput);
   $('giveup').addEventListener('click', () => {
     if (running) end('gave');
@@ -356,9 +381,8 @@ function boot() {
   });
   $('again').addEventListener('click', () => {
     $('scrim').classList.remove('on');
-    $('game').hidden = true;
-    $('start').hidden = false;
-    window.scrollTo({ top: 0 });
+    reset();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
   $('copy').addEventListener('click', async () => {
     try {
@@ -385,6 +409,7 @@ else boot();
 window._dcm = {
   get state() { return { total, filled: filled.size, wrong, left, running, mode }; },
   findMatches, norm, keysFor, close,
+  start,
   guess(s) { const b = $('guess'); b.value = s; onInput(); return { filled: filled.size, wrong }; },
   submit(s) { const b = $('guess'); b.value = s; onSubmit(); return { filled: filled.size, wrong }; },
   setMode(m) { mode = m; },

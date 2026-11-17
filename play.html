@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=20261117092131">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -30,60 +30,62 @@
 
 <main class="wrap">
 
-  <!-- ============ START ============ -->
-  <section id="start" class="start">
+  <section class="qintro">
     <h1 id="qTitle">—</h1>
-    <p class="sub" id="qSub">—</p>
-    <p class="sub" id="qBlurb" style="margin-top:-16px"></p>
-
-    <div class="modes">
-      <button class="mode" data-m="timed" aria-pressed="false">
-        <b>Timed</b><small><span id="mTime">5:00</span> on the clock</small>
-      </button>
-      <button class="mode" data-m="lives" aria-pressed="false">
-        <b>Survival</b><small><span id="mLives">10</span> wrong and you're out</small>
-      </button>
-      <button class="mode" data-m="chill" aria-pressed="false">
-        <b>No pressure</b><small>Take as long as you like</small>
-      </button>
-    </div>
-
-    <button class="btn" id="go">
-      Start — <span id="qCount">0</span> to find
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </button>
-    <p class="pct" id="bestLine" style="min-height:18px"></p>
-
-    <p class="fine">First or last name — either one counts · a shared name fills everyone who has it ·
-      spelling is forgiving · answers fill as you type · Enter only costs you on a miss</p>
+    <p class="qsub" id="qSub">—</p>
+    <p class="bestline" id="bestLine"></p>
   </section>
 
-  <!-- ============ GAME ============ -->
-  <section id="game" hidden>
-    <div class="hud">
-      <div class="wrap" style="width:100%">
-        <div class="hudrow">
-          <form id="form" style="display:contents" autocomplete="off">
-            <input id="guess" class="guess" type="text" placeholder="Type a name…"
-                   autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-                   enterkeyhint="done" aria-label="Type your guess">
-          </form>
-          <div class="stats">
-            <div class="stat"><b><span id="sc">0</span><span id="scTot" style="font-size:13px;color:#8A97A6">/0</span></b><small>Found</small></div>
-            <div class="stat" id="statRight"><b>—</b><small>&nbsp;</small></div>
+  <!-- One sticky bar. The board is already on screen behind it, so the bar only
+       swaps its left half: pick-a-mode-and-start before the run, the guess box
+       during it. The score and clock never move. -->
+  <div class="hud">
+    <div class="wrap">
+      <div class="hudrow">
+
+        <div class="pre" id="pre">
+          <div class="modes">
+            <button class="mode" data-m="timed" aria-pressed="false">
+              <b>Timed</b><small id="mTime">5:00</small>
+            </button>
+            <button class="mode" data-m="lives" aria-pressed="false">
+              <b>Survival</b><small><span id="mLives">10</span> wrong</small>
+            </button>
+            <button class="mode" data-m="chill" aria-pressed="false">
+              <b>No pressure</b><small>no limit</small>
+            </button>
           </div>
+          <button class="btn go" id="go">
+            Play quiz
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
         </div>
-        <div class="pbar"><i id="pbar"></i></div>
-        <div class="toast" id="toast"></div>
-      </div>
-    </div>
 
-    <h2 id="hudTitle" style="font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#8A97A6;margin:22px 0 0;font-weight:800"></h2>
-    <div id="board" class="board"></div>
-    <div style="text-align:center;margin:0 0 56px">
-      <button class="ghost" id="giveup">Give up &amp; reveal</button>
+        <form class="live" id="live" autocomplete="off" hidden>
+          <input id="guess" class="guess" type="text" placeholder="Type a name…"
+                 autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                 enterkeyhint="done" aria-label="Type your guess">
+        </form>
+
+        <div class="stats">
+          <div class="stat"><b><span id="sc">0</span><span id="scTot">/0</span></b><small>Found</small></div>
+          <div class="stat" id="statRight"><b>—</b><small>&nbsp;</small></div>
+        </div>
+
+      </div>
+      <div class="pbar"><i id="pbar"></i></div>
+      <div class="toast" id="toast"></div>
     </div>
-  </section>
+  </div>
+
+  <div id="board" class="board"></div>
+
+  <div style="text-align:center;margin:0 0 10px">
+    <button class="ghost" id="giveup" hidden>Give up &amp; reveal</button>
+  </div>
+
+  <p class="fine">First or last name — either one counts · a shared name fills everyone who has it ·
+    spelling is forgiving · answers fill as you type · Enter only costs you on a miss</p>
 </main>
 
 <!-- ============ RESULT ============ -->
@@ -102,7 +104,7 @@
   </div>
 </div>
 
-<script src="quizzes.js"></script>
-<script src="engine.js"></script>
+<script src="quizzes.js?v=20261117092131"></script>
+<script src="engine.js?v=20261117092131"></script>
 </body>
 </html>
