@@ -403,6 +403,210 @@ window.QUIZZES = [
 },
 
 {
+  slug: 'nfl-mvps',
+  title: 'NFL MVPs',
+  sub: 'Every AP MVP since 1957',
+  blurb: 'Every AP NFL MVP from 1957 through the 2025 season. The year, position and team are your clues. A name fills every year he won.',
+  // Pro-Football-Reference's AP MVP list, checked 2026-11-17 against Wikipedia's
+  // "AP NFL Most Valuable Player". PFR skips 1960; Wikipedia lists Norm Van Brocklin,
+  // so he is in. Sources disagree on 1958-60 (Marchetti, Conerly, Joe Schmidt).
+  tag: 'NFL ALL-TIME',
+  mode: 'timed',
+  time: 600,
+  cols: 'multi',
+  groups: [
+    { name: '2020s', items: [
+      { a: 'Matthew Stafford', rk: '2025', sub: 'QB', hint: 'Rams', alias: ['matt stafford'] },
+      { a: 'Josh Allen', rk: '2024', sub: 'QB', hint: 'Bills' },
+      { a: 'Lamar Jackson', rk: '2023', sub: 'QB', hint: 'Ravens', alias: ['lamar'] },
+      { a: 'Patrick Mahomes', rk: '2022', sub: 'QB', hint: 'Chiefs', alias: ['pat mahomes'] },
+      { a: 'Aaron Rodgers', rk: '2021', sub: 'QB', hint: 'Packers', alias: ['a rod','arod'] },
+      { a: 'Aaron Rodgers', rk: '2020', sub: 'QB', hint: 'Packers', alias: ['a rod','arod'] }
+    ]},
+    { name: '2010s', items: [
+      { a: 'Lamar Jackson', rk: '2019', sub: 'QB', hint: 'Ravens', alias: ['lamar'] },
+      { a: 'Patrick Mahomes', rk: '2018', sub: 'QB', hint: 'Chiefs', alias: ['pat mahomes'] },
+      { a: 'Tom Brady', rk: '2017', sub: 'QB', hint: 'Patriots', alias: ['tb12'] },
+      { a: 'Matt Ryan', rk: '2016', sub: 'QB', hint: 'Falcons', alias: ['matty ice'] },
+      { a: 'Cam Newton', rk: '2015', sub: 'QB', hint: 'Panthers', alias: ['superman'] },
+      { a: 'Aaron Rodgers', rk: '2014', sub: 'QB', hint: 'Packers', alias: ['a rod','arod'] },
+      { a: 'Peyton Manning', rk: '2013', sub: 'QB', hint: 'Broncos', alias: ['the sheriff'] },
+      { a: 'Adrian Peterson', rk: '2012', sub: 'RB', hint: 'Vikings', alias: ['ap','all day'] },
+      { a: 'Aaron Rodgers', rk: '2011', sub: 'QB', hint: 'Packers', alias: ['a rod','arod'] },
+      { a: 'Tom Brady', rk: '2010', sub: 'QB', hint: 'Patriots', alias: ['tb12'] }
+    ]},
+    { name: '2000s', items: [
+      { a: 'Peyton Manning', rk: '2009', sub: 'QB', hint: 'Colts', alias: ['the sheriff'] },
+      { a: 'Peyton Manning', rk: '2008', sub: 'QB', hint: 'Colts', alias: ['the sheriff'] },
+      { a: 'Tom Brady', rk: '2007', sub: 'QB', hint: 'Patriots', alias: ['tb12'] },
+      { a: 'LaDainian Tomlinson', rk: '2006', sub: 'RB', hint: 'Chargers', alias: ['ladanian tomlinson','ldt'] },
+      { a: 'Shaun Alexander', rk: '2005', sub: 'RB', hint: 'Seahawks', alias: ['shawn alexander'] },
+      { a: 'Peyton Manning', rk: '2004', sub: 'QB', hint: 'Colts', alias: ['the sheriff'] },
+      { a: 'Steve McNair', rk: '2003', sub: 'QB', hint: 'Titans', alias: ['air mcnair'] },
+      { a: 'Peyton Manning', rk: '2003', sub: 'QB', hint: 'Colts', alias: ['the sheriff'] },
+      { a: 'Rich Gannon', rk: '2002', sub: 'QB', hint: 'Raiders' },
+      { a: 'Kurt Warner', rk: '2001', sub: 'QB', hint: 'Rams' },
+      { a: 'Marshall Faulk', rk: '2000', sub: 'RB', hint: 'Rams', alias: ['the marshall plan'] }
+    ]},
+    { name: '1990s', items: [
+      { a: 'Kurt Warner', rk: '1999', sub: 'QB', hint: 'Rams' },
+      { a: 'Terrell Davis', rk: '1998', sub: 'RB', hint: 'Broncos', alias: ['td'] },
+      { a: 'Barry Sanders', rk: '1997', sub: 'RB', hint: 'Lions' },
+      { a: 'Brett Favre', rk: '1997', sub: 'QB', hint: 'Packers', alias: ['farve'] },
+      { a: 'Brett Favre', rk: '1996', sub: 'QB', hint: 'Packers', alias: ['farve'] },
+      { a: 'Brett Favre', rk: '1995', sub: 'QB', hint: 'Packers', alias: ['farve'] },
+      { a: 'Steve Young', rk: '1994', sub: 'QB', hint: '49ers' },
+      { a: 'Emmitt Smith', rk: '1993', sub: 'RB', hint: 'Cowboys', alias: ['emmit smith'] },
+      { a: 'Steve Young', rk: '1992', sub: 'QB', hint: '49ers' },
+      { a: 'Thurman Thomas', rk: '1991', sub: 'RB', hint: 'Bills' },
+      { a: 'Joe Montana', rk: '1990', sub: 'QB', hint: '49ers', alias: ['joe cool'] }
+    ]},
+    { name: '1980s', items: [
+      { a: 'Joe Montana', rk: '1989', sub: 'QB', hint: '49ers', alias: ['joe cool'] },
+      { a: 'Boomer Esiason', rk: '1988', sub: 'QB', hint: 'Bengals', alias: ['esiason'] },
+      { a: 'John Elway', rk: '1987', sub: 'QB', hint: 'Broncos' },
+      { a: 'Lawrence Taylor', rk: '1986', sub: 'LB', hint: 'Giants' },
+      { a: 'Marcus Allen', rk: '1985', sub: 'RB', hint: 'Raiders' },
+      { a: 'Dan Marino', rk: '1984', sub: 'QB', hint: 'Dolphins' },
+      { a: 'Joe Theismann', rk: '1983', sub: 'QB', hint: 'Washington', alias: ['theisman','joe theisman'] },
+      { a: 'Mark Moseley', rk: '1982', sub: 'K', hint: 'Washington' },
+      { a: 'Ken Anderson', rk: '1981', sub: 'QB', hint: 'Bengals', alias: ['kenny anderson'] },
+      { a: 'Brian Sipe', rk: '1980', sub: 'QB', hint: 'Browns' }
+    ]},
+    { name: '1970s', items: [
+      { a: 'Earl Campbell', rk: '1979', sub: 'RB', hint: 'Oilers', alias: ['the tyler rose'] },
+      { a: 'Terry Bradshaw', rk: '1978', sub: 'QB', hint: 'Steelers' },
+      { a: 'Walter Payton', rk: '1977', sub: 'RB', hint: 'Bears', alias: ['sweetness'] },
+      { a: 'Bert Jones', rk: '1976', sub: 'QB', hint: 'Colts' },
+      { a: 'Fran Tarkenton', rk: '1975', sub: 'QB', hint: 'Vikings', alias: ['scramblin fran'] },
+      { a: 'Ken Stabler', rk: '1974', sub: 'QB', hint: 'Raiders', alias: ['the snake','snake'] },
+      { a: 'O.J. Simpson', rk: '1973', sub: 'RB', hint: 'Bills', alias: ['oj','o j','the juice','juice'] },
+      { a: 'Larry Brown', rk: '1972', sub: 'RB', hint: 'Washington' },
+      { a: 'Alan Page', rk: '1971', sub: 'DT', hint: 'Vikings' },
+      { a: 'John Brodie', rk: '1970', sub: 'QB', hint: '49ers' }
+    ]},
+    { name: '1960s', items: [
+      { a: 'Roman Gabriel', rk: '1969', sub: 'QB', hint: 'Rams' },
+      { a: 'Earl Morrall', rk: '1968', sub: 'QB', hint: 'Colts' },
+      { a: 'Johnny Unitas', rk: '1967', sub: 'QB', hint: 'Colts', alias: ['johnny u'] },
+      { a: 'Bart Starr', rk: '1966', sub: 'QB', hint: 'Packers' },
+      { a: 'Jim Brown', rk: '1965', sub: 'FB', hint: 'Browns' },
+      { a: 'Johnny Unitas', rk: '1964', sub: 'QB', hint: 'Colts', alias: ['johnny u'] },
+      { a: 'Y.A. Tittle', rk: '1963', sub: 'QB', hint: 'Giants', alias: ['ya tittle','y a tittle'] },
+      { a: 'Jim Taylor', rk: '1962', sub: 'FB', hint: 'Packers' },
+      { a: 'Paul Hornung', rk: '1961', sub: 'HB', hint: 'Packers', alias: ['golden boy'] },
+      { a: 'Norm Van Brocklin', rk: '1960', sub: 'QB', hint: 'Eagles', alias: ['the dutchman','dutchman'] }
+    ]},
+    { name: '1950s', items: [
+      { a: 'Johnny Unitas', rk: '1959', sub: 'QB', hint: 'Colts', alias: ['johnny u'] },
+      { a: 'Jim Brown', rk: '1958', sub: 'FB', hint: 'Browns' },
+      { a: 'Jim Brown', rk: '1957', sub: 'FB', hint: 'Browns' }
+    ]}
+  ]
+},
+
+{
+  slug: 'nba-mvps',
+  title: 'NBA MVPs',
+  sub: 'Every MVP since 1955-56',
+  blurb: 'Every NBA MVP from 1955-56 through 2025-26. The season, team and points per game are your clues. A name fills every season he won.',
+  // Basketball-Reference /awards/mvp.html, pulled 2026-11-17; matches Steven's list exactly.
+  tag: 'NBA ALL-TIME',
+  mode: 'timed',
+  time: 600,
+  cols: 'multi',
+  groups: [
+    { name: '2020s', items: [
+      { a: 'Shai Gilgeous-Alexander', rk: '2025-26', sub: 'OKC', hint: '31.1 ppg', alias: ['sga','gilgeous alexander'] },
+      { a: 'Shai Gilgeous-Alexander', rk: '2024-25', sub: 'OKC', hint: '32.7 ppg', alias: ['sga','gilgeous alexander'] },
+      { a: 'Nikola Jokić', rk: '2023-24', sub: 'DEN', hint: '26.4 ppg', alias: ['joker','the joker','jokic'] },
+      { a: 'Joel Embiid', rk: '2022-23', sub: 'PHI', hint: '33.1 ppg', alias: ['the process'] },
+      { a: 'Nikola Jokić', rk: '2021-22', sub: 'DEN', hint: '27.1 ppg', alias: ['joker','the joker','jokic'] },
+      { a: 'Nikola Jokić', rk: '2020-21', sub: 'DEN', hint: '26.4 ppg', alias: ['joker','the joker','jokic'] }
+    ]},
+    { name: '2010s', items: [
+      { a: 'Giannis Antetokounmpo', rk: '2019-20', sub: 'MIL', hint: '29.5 ppg', alias: ['greek freak','the greek freak'] },
+      { a: 'Giannis Antetokounmpo', rk: '2018-19', sub: 'MIL', hint: '27.7 ppg', alias: ['greek freak','the greek freak'] },
+      { a: 'James Harden', rk: '2017-18', sub: 'HOU', hint: '30.4 ppg', alias: ['the beard'] },
+      { a: 'Russell Westbrook', rk: '2016-17', sub: 'OKC', hint: '31.6 ppg', alias: ['russ','brodie'] },
+      { a: 'Stephen Curry', rk: '2015-16', sub: 'GSW', hint: '30.1 ppg', alias: ['steph','steph curry','chef curry'] },
+      { a: 'Stephen Curry', rk: '2014-15', sub: 'GSW', hint: '23.8 ppg', alias: ['steph','steph curry','chef curry'] },
+      { a: 'Kevin Durant', rk: '2013-14', sub: 'OKC', hint: '32.0 ppg', alias: ['kd','slim reaper'] },
+      { a: 'LeBron James', rk: '2012-13', sub: 'MIA', hint: '26.8 ppg', alias: ['king james','bron'] },
+      { a: 'LeBron James', rk: '2011-12', sub: 'MIA', hint: '27.1 ppg', alias: ['king james','bron'] },
+      { a: 'Derrick Rose', rk: '2010-11', sub: 'CHI', hint: '25.0 ppg', alias: ['d rose','drose'] }
+    ]},
+    { name: '2000s', items: [
+      { a: 'LeBron James', rk: '2009-10', sub: 'CLE', hint: '29.7 ppg', alias: ['king james','bron'] },
+      { a: 'LeBron James', rk: '2008-09', sub: 'CLE', hint: '28.4 ppg', alias: ['king james','bron'] },
+      { a: 'Kobe Bryant', rk: '2007-08', sub: 'LAL', hint: '28.3 ppg', alias: ['black mamba','mamba'] },
+      { a: 'Dirk Nowitzki', rk: '2006-07', sub: 'DAL', hint: '24.6 ppg', alias: ['nowitski'] },
+      { a: 'Steve Nash', rk: '2005-06', sub: 'PHO', hint: '18.8 ppg' },
+      { a: 'Steve Nash', rk: '2004-05', sub: 'PHO', hint: '15.5 ppg' },
+      { a: 'Kevin Garnett', rk: '2003-04', sub: 'MIN', hint: '24.2 ppg', alias: ['kg','the big ticket'] },
+      { a: 'Tim Duncan', rk: '2002-03', sub: 'SAS', hint: '23.3 ppg', alias: ['the big fundamental','timmy d'] },
+      { a: 'Tim Duncan', rk: '2001-02', sub: 'SAS', hint: '25.5 ppg', alias: ['the big fundamental','timmy d'] },
+      { a: 'Allen Iverson', rk: '2000-01', sub: 'PHI', hint: '31.1 ppg', alias: ['ai','the answer'] }
+    ]},
+    { name: '1990s', items: [
+      { a: 'Shaquille O\'Neal', rk: '1999-00', sub: 'LAL', hint: '29.7 ppg', alias: ['shaq','diesel'] },
+      { a: 'Karl Malone', rk: '1998-99', sub: 'UTA', hint: '23.8 ppg', alias: ['the mailman','mailman'] },
+      { a: 'Michael Jordan', rk: '1997-98', sub: 'CHI', hint: '28.7 ppg', alias: ['mj','air jordan'] },
+      { a: 'Karl Malone', rk: '1996-97', sub: 'UTA', hint: '27.4 ppg', alias: ['the mailman','mailman'] },
+      { a: 'Michael Jordan', rk: '1995-96', sub: 'CHI', hint: '30.4 ppg', alias: ['mj','air jordan'] },
+      { a: 'David Robinson', rk: '1994-95', sub: 'SAS', hint: '27.6 ppg', alias: ['the admiral','admiral'] },
+      { a: 'Hakeem Olajuwon', rk: '1993-94', sub: 'HOU', hint: '27.3 ppg', alias: ['the dream','olajuwan'] },
+      { a: 'Charles Barkley', rk: '1992-93', sub: 'PHO', hint: '25.6 ppg', alias: ['sir charles','chuck'] },
+      { a: 'Michael Jordan', rk: '1991-92', sub: 'CHI', hint: '30.1 ppg', alias: ['mj','air jordan'] },
+      { a: 'Michael Jordan', rk: '1990-91', sub: 'CHI', hint: '31.5 ppg', alias: ['mj','air jordan'] }
+    ]},
+    { name: '1980s', items: [
+      { a: 'Magic Johnson', rk: '1989-90', sub: 'LAL', hint: '22.3 ppg', alias: ['magic','earvin johnson'] },
+      { a: 'Magic Johnson', rk: '1988-89', sub: 'LAL', hint: '22.5 ppg', alias: ['magic','earvin johnson'] },
+      { a: 'Michael Jordan', rk: '1987-88', sub: 'CHI', hint: '35.0 ppg', alias: ['mj','air jordan'] },
+      { a: 'Magic Johnson', rk: '1986-87', sub: 'LAL', hint: '23.9 ppg', alias: ['magic','earvin johnson'] },
+      { a: 'Larry Bird', rk: '1985-86', sub: 'BOS', hint: '25.8 ppg', alias: ['larry legend'] },
+      { a: 'Larry Bird', rk: '1984-85', sub: 'BOS', hint: '28.7 ppg', alias: ['larry legend'] },
+      { a: 'Larry Bird', rk: '1983-84', sub: 'BOS', hint: '24.2 ppg', alias: ['larry legend'] },
+      { a: 'Moses Malone', rk: '1982-83', sub: 'PHI', hint: '24.5 ppg', alias: ['chairman of the boards'] },
+      { a: 'Moses Malone', rk: '1981-82', sub: 'HOU', hint: '31.1 ppg', alias: ['chairman of the boards'] },
+      { a: 'Julius Erving', rk: '1980-81', sub: 'PHI', hint: '24.6 ppg', alias: ['dr j','doctor j','dr. j'] }
+    ]},
+    { name: '1970s', items: [
+      { a: 'Kareem Abdul-Jabbar', rk: '1979-80', sub: 'LAL', hint: '24.8 ppg', alias: ['abdul jabbar','jabbar','kaj','lew alcindor','alcindor'] },
+      { a: 'Moses Malone', rk: '1978-79', sub: 'HOU', hint: '24.8 ppg', alias: ['chairman of the boards'] },
+      { a: 'Bill Walton', rk: '1977-78', sub: 'POR', hint: '18.9 ppg' },
+      { a: 'Kareem Abdul-Jabbar', rk: '1976-77', sub: 'LAL', hint: '26.2 ppg', alias: ['abdul jabbar','jabbar','kaj','lew alcindor','alcindor'] },
+      { a: 'Kareem Abdul-Jabbar', rk: '1975-76', sub: 'LAL', hint: '27.7 ppg', alias: ['abdul jabbar','jabbar','kaj','lew alcindor','alcindor'] },
+      { a: 'Bob McAdoo', rk: '1974-75', sub: 'BUF', hint: '34.5 ppg', alias: ['mcadoo'] },
+      { a: 'Kareem Abdul-Jabbar', rk: '1973-74', sub: 'MIL', hint: '27.0 ppg', alias: ['abdul jabbar','jabbar','kaj','lew alcindor','alcindor'] },
+      { a: 'Dave Cowens', rk: '1972-73', sub: 'BOS', hint: '20.5 ppg', alias: ['big red'] },
+      { a: 'Kareem Abdul-Jabbar', rk: '1971-72', sub: 'MIL', hint: '34.8 ppg', alias: ['abdul jabbar','jabbar','kaj','lew alcindor','alcindor'] },
+      { a: 'Kareem Abdul-Jabbar', rk: '1970-71', sub: 'MIL', hint: '31.7 ppg', alias: ['abdul jabbar','jabbar','kaj','lew alcindor','alcindor'] }
+    ]},
+    { name: '1960s', items: [
+      { a: 'Willis Reed', rk: '1969-70', sub: 'NYK', hint: '21.7 ppg', alias: ['the captain'] },
+      { a: 'Wes Unseld', rk: '1968-69', sub: 'BAL', hint: '13.8 ppg' },
+      { a: 'Wilt Chamberlain', rk: '1967-68', sub: 'PHI', hint: '24.3 ppg', alias: ['the stilt','wilt the stilt'] },
+      { a: 'Wilt Chamberlain', rk: '1966-67', sub: 'PHI', hint: '24.1 ppg', alias: ['the stilt','wilt the stilt'] },
+      { a: 'Wilt Chamberlain', rk: '1965-66', sub: 'PHI', hint: '33.5 ppg', alias: ['the stilt','wilt the stilt'] },
+      { a: 'Bill Russell', rk: '1964-65', sub: 'BOS', hint: '14.1 ppg' },
+      { a: 'Oscar Robertson', rk: '1963-64', sub: 'CIN', hint: '31.4 ppg', alias: ['big o','the big o'] },
+      { a: 'Bill Russell', rk: '1962-63', sub: 'BOS', hint: '16.8 ppg' },
+      { a: 'Bill Russell', rk: '1961-62', sub: 'BOS', hint: '18.9 ppg' },
+      { a: 'Bill Russell', rk: '1960-61', sub: 'BOS', hint: '16.9 ppg' }
+    ]},
+    { name: '1950s', items: [
+      { a: 'Wilt Chamberlain', rk: '1959-60', sub: 'PHW', hint: '37.6 ppg', alias: ['the stilt','wilt the stilt'] },
+      { a: 'Bob Pettit', rk: '1958-59', sub: 'STL', hint: '29.2 ppg' },
+      { a: 'Bill Russell', rk: '1957-58', sub: 'BOS', hint: '16.6 ppg' },
+      { a: 'Bob Cousy', rk: '1956-57', sub: 'BOS', hint: '20.6 ppg', alias: ['the cooz','cooz'] },
+      { a: 'Bob Pettit', rk: '1955-56', sub: 'STL', hint: '25.7 ppg' }
+    ]}
+  ]
+},
+
+{
   slug: 'line-game',               // permanent: the weekly link never changes
   scoreKey: 'line-game-2026-w11',  // per-week best scores
   type: 'lines',

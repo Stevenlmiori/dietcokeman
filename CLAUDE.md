@@ -478,6 +478,8 @@ number (0 = pick'em).
 | `top5-by-position` | NFL Fantasy Leaders (QB/RB/WR/TE through Week 10, 2026) | 20 | Timed 5:00 · No pressure |
 | `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
 | `nba-top25-by-category` | NBA Top 25 by Category (8 career stats) | 200 | Timed 15:00 · No pressure |
+| `nfl-mvps` | NFL MVPs (AP, 1957–2025, by decade) | 71 | Timed 10:00 · No pressure |
+| `nba-mvps` | NBA MVPs (1955-56 – 2025-26, by decade) | 71 | Timed 10:00 · No pressure |
 | `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links
@@ -495,7 +497,18 @@ pulled 2026-11-17 through games of Nov 16; active players' totals move
 nightly, so re-pull (`basketball-reference.com/leaders/<stat>_career.html`,
 table `#nba`) before trusting it. Basketball-Reference does answer curl with a
 browser user agent; the Wikipedia list pages are redirects. A name fills every
-list it is on, and the toast says "LeBron James ×6" rather than repeating it. Removed quizzes: "Name the League" (too easy) and "Round 1
+list it is on, and the toast says "LeBron James ×6" rather than repeating it.
+
+**NFL MVPs** is Pro-Football-Reference's AP list (Steven's paste), checked
+against Wikipedia's "AP NFL Most Valuable Player". PFR skips **1960**;
+Wikipedia lists Norm Van Brocklin, so he is in. Sources disagree on 1958–60
+(Gino Marchetti, Charlie Conerly, Joe Schmidt); co-MVPs 1997 (Favre, Sanders)
+and 2003 (Manning, McNair) each get a row. PFR returns 403 to curl too.
+**NBA MVPs** is Basketball-Reference `/awards/mvp.html` (table `#mvp_NBA`) and
+matched Steven's paste exactly; clues are team and points per game. Both use
+the year/season as the row badge (`rk`), which is why `.rk` now grows to fit
+instead of being a fixed 22px square. A common first name never lands a
+forgiven typo on Enter either ("walter" is not Walker). Removed quizzes: "Name the League" (too easy) and "Round 1
 Recall" (a test/placeholder, deleted 2026-11-17 along with its saved scores).
 An old `?q=` link to a removed quiz falls through to the first quiz.
 

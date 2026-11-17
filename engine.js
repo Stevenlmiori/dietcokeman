@@ -37,7 +37,7 @@ const COMMON_FIRST = new Set((
   'stuart ted terrance terrell terrence terry theodore thomas tim timothy todd tom tommy tony travis trevor troy ' +
   'tyler tyrone vernon victor vince vincent wade walt walter warren wayne wes wesley will william willie zach ' +
   'zachary dwayne deandre demarcus derek tyrell jaylen marquis tre trey ty cj jj aj tj dj jr ' +
-  'barry karl lenny guy rudy theo damian buddy carson dominic jesus moses'
+  'barry karl lenny guy rudy theo damian buddy carson dominic jesus moses rich kurt bert norm'
 ).split(' '));
 
 /* ---------- text normalising ---------- */
@@ -352,7 +352,8 @@ function findMatches(raw, allowFuzzy) {
   }
   if (exact.length || exactDone) return { hits: exact, already: exactDone, how: 'exact' };
 
-  if (!allowFuzzy || midWord(g)) return { hits: [], already: false, how: 'exact' };
+  // A common first name is never a typo of a surname ("walter" is not Walker).
+  if (!allowFuzzy || midWord(g) || COMMON_FIRST.has(g)) return { hits: [], already: false, how: 'exact' };
 
   const fuzzy = [];
   let fuzzyDone = false;
