@@ -340,7 +340,18 @@ a{color:inherit}
 .lrow.got .actual{color:var(--good)}
 .lrow.miss .actual{color:#FF8A98}
 .lrow.miss .nm{color:var(--white)}
-.live .btn.go{flex:1}
+.lgo{width:38px;height:38px;flex:none;border:0;border-radius:10px;cursor:pointer;color:#fff;
+  display:grid;place-items:center;
+  background:linear-gradient(180deg,#FF3148,var(--red) 48%,var(--red-dk));
+  box-shadow:0 4px 12px rgba(240,25,50,.25),inset 0 1px 0 rgba(255,255,255,.22)}
+.lgo:hover:not(:disabled){filter:brightness(1.08)}
+.lgo:disabled{background:rgba(255,255,255,.06);box-shadow:none;color:var(--silver-dim)}
+.lrow.got .lgo{color:var(--good)} .lrow.miss .lgo{color:#FF6476}
+.lrow.got .fv[aria-pressed="true"],.lrow.miss .fv[aria-pressed="true"]{background:rgba(255,255,255,.1);box-shadow:none}
+@keyframes nudge{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(4px)}75%{transform:translateX(-2px)}}
+.lrow.nudge .fav{animation:nudge .32s;border-color:var(--warn)}
+.lstat{flex:1;display:flex;align-items:center;font-size:14px;font-weight:800;color:var(--silver);
+  letter-spacing:.01em;font-variant-numeric:tabular-nums;min-height:44px}
 
 /* ---------- end modal ---------- */
 .scrim{position:fixed;inset:0;z-index:100;background:rgba(3,5,8,.82);backdrop-filter:blur(8px);

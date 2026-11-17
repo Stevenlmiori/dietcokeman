@@ -110,11 +110,15 @@ let filled = new Set(), wrong = 0, left = 0, spent = 0, timer = null, running = 
 
 /* ---------- line game ----------
    `type: 'lines'` quizzes do not use the name matcher at all. Each game gets a
-   pair of favourite buttons and a spread box; nothing is graded until the
-   player locks in (or the clock runs out). A guess is right when it lands
-   within one point of the real line, measured from the home side, so picking
-   the wrong favourite only survives on a game that is close to a pick'em. */
-let picks = {}, graded = false, lockArmed = false;
+   pair of favourite buttons, a spread box and a submit check. A game is graded
+   the moment it is submitted (the check, or Enter in its box): hit or miss and
+   the real line appear on that row, it locks, and focus moves to the next open
+   game. The run ends when every game is in, the clock runs out, or Stop.
+
+   A guess is right when it lands within one point of the real line (exactly
+   one off counts), measured from the home side, so picking the wrong favourite
+   only survives on a game that is close to a pick'em. */
+let picks = {}, graded = false;
 const isLines = () => !!(Q && Q.type === 'lines');
 
 function parsePts(raw) {
@@ -124,11 +128,12 @@ function parsePts(raw) {
   const n = parseFloat(s.replace(/^[+-]/, ''));
   return isNaN(n) ? null : Math.abs(n);
 }
+function pickOf(i) { return picks[i] || (picks[i] = { fav: null, pts: null, done: false }); }
 function isPicked(i) {
   const p = picks[i];
   return !!(p && p.pts != null && (p.pts === 0 || p.fav));
 }
-function pickedCount() { return items.filter(it => isPicked(it._i)).length; }
+function doneCount() { return items.filter(it => picks[it._i] && picks[it._i].done).length; }
 // home-side spread: negative = home favoured
 function guessLine(it) {
   const p = picks[it._i];
@@ -143,8 +148,12 @@ function fmtLine(it, homeLine) {
 function lineRight(it) {
   return isPicked(it._i) && Math.abs(guessLine(it) - it.line) <= 1 + 1e-9;
 }
+function setRowLocked(i, locked) {
+  document.querySelectorAll('#row-' + i + ' .fv, #row-' + i + ' .pts, #row-' + i + ' .lgo')
+    .forEach(el => { el.disabled = locked; });
+}
 function setLocked(locked) {
-  document.querySelectorAll('#board .fv, #board .pts').forEach(el => { el.disabled = locked; });
+  items.forEach(it => setRowLocked(it._i, locked || !!(picks[it._i] && picks[it._i].done)));
 }
 function buildLinesBoard() {
   const board = $('board');
@@ -161,7 +170,10 @@ function buildLinesBoard() {
             <button type="button" class="fv" data-i="${i}" data-t="${esc(it.hm)}" aria-pressed="false">${esc(it.hm)}</button>
           </span>
           <input class="pts" id="pts-${i}" data-i="${i}" type="text" inputmode="decimal" placeholder="pts"
-                 maxlength="5" autocomplete="off" aria-label="Spread for ${esc(it.a)}">
+                 maxlength="5" autocomplete="off" enterkeyhint="go" aria-label="Spread for ${esc(it.a)}">
+          <button type="button" class="lgo" data-i="${i}" aria-label="Submit ${esc(it.a)}" title="Submit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+          </button>
         </span>
         <span class="actual" id="act-${i}"></span>
       </div>`;
@@ -170,45 +182,56 @@ function buildLinesBoard() {
   }).join('');
   setLocked(!running);
 }
+function nextOpen(after) {
+  const open = items.filter(it => !(picks[it._i] && picks[it._i].done));
+  return open.find(it => it._i > after) || open[0];
+}
+function submitGame(i) {
+  if (!running) return;
+  const it = items[i], p = pickOf(i), row = $('row-' + i);
+  if (p.done) return;
+  if (p.pts == null) { toast('Type a spread for ' + it.a + ' first', 'hint'); $('pts-' + i).focus(); return; }
+  if (!isPicked(i)) {
+    toast('Pick who’s favored in ' + it.a + ' first', 'hint');
+    row.classList.remove('nudge'); void row.offsetWidth; row.classList.add('nudge');
+    return;
+  }
+  p.done = true;
+  const ok = lineRight(it);
+  if (ok) filled.add(i);
+  row.classList.add(ok ? 'got' : 'miss'); if (ok) row.classList.add('just');
+  setRowLocked(i, true);
+  $('act-' + i).textContent = (ok ? 'Hit' : 'Miss') + ' · line ' + fmtLine(it, it.line);
+  toast((ok ? 'Hit. ' : 'Miss. ') + it.a + ' line is ' + fmtLine(it, it.line), ok ? 'ok' : 'no');
+  updateStats();
+  if (doneCount() === total) { setTimeout(() => end('locked'), 700); return; }
+  const nx = nextOpen(i);
+  if (nx) $('pts-' + nx._i).focus({ preventScroll: false });
+}
 function wireLinesBoard() {
   const board = $('board');
   board.addEventListener('click', (e) => {
+    if (!running) return;
+    const go = e.target.closest('.lgo');
+    if (go) { submitGame(+go.dataset.i); return; }
     const b = e.target.closest('.fv');
-    if (!b || !running) return;
-    const i = +b.dataset.i;
-    const p = picks[i] || (picks[i] = { fav: null, pts: null });
+    if (!b) return;
+    const i = +b.dataset.i, p = pickOf(i);
+    if (p.done) return;
     p.fav = p.fav === b.dataset.t ? null : b.dataset.t;
     b.parentNode.querySelectorAll('.fv').forEach(o => o.setAttribute('aria-pressed', String(o.dataset.t === p.fav)));
-    lockArmed = false;
-    updateStats();
   });
   board.addEventListener('input', (e) => {
     const box = e.target.closest('.pts');
     if (!box || !running) return;
-    const i = +box.dataset.i;
-    const p = picks[i] || (picks[i] = { fav: null, pts: null });
-    p.pts = parsePts(box.value);
-    lockArmed = false;
-    updateStats();
+    pickOf(+box.dataset.i).pts = parsePts(box.value);
   });
-  // Enter jumps to the next game's box, so a whole slate can be typed straight down
+  // Enter in a spread box submits that game
   board.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter' || !e.target.classList.contains('pts')) return;
     e.preventDefault();
-    const all = [...document.querySelectorAll('#board .pts')];
-    const next = all[all.indexOf(e.target) + 1];
-    if (next) next.focus(); else e.target.blur();
+    submitGame(+e.target.dataset.i);
   });
-}
-function lockIn() {
-  if (!running) return;
-  const blank = total - pickedCount();
-  if (blank && !lockArmed) {
-    lockArmed = true;
-    toast(blank + (blank === 1 ? ' game is' : ' games are') + ' missing a favorite or a number. Tap Lock in again to grade anyway.', 'hint');
-    return;
-  }
-  end('locked');
 }
 
 function bestKey() { return 'dcm-best-' + Q.slug + '-' + mode; }
@@ -324,7 +347,7 @@ function onInput() {
 // nothing when it lands.
 function onSubmit(e) {
   if (e) e.preventDefault();
-  if (isLines()) { lockIn(); return; }
+  if (isLines()) return;
   if (!running) return;
   const box = $('guess');
   const raw = box.value.trim();
@@ -344,11 +367,11 @@ function onSubmit(e) {
 
 /* ---------- stats ---------- */
 function updateStats() {
-  const shown = isLines() && !graded ? pickedCount() : filled.size;
-  $('sc').textContent = shown;
+  $('sc').textContent = filled.size;
   $('scTot').textContent = '/' + total;
-  $('scLbl').textContent = isLines() ? (graded ? 'Right' : 'Picked') : 'Found';
-  const pct = total ? (shown / total) * 100 : 0;
+  $('scLbl').textContent = isLines() ? 'Hits' : 'Found';
+  if (isLines()) $('lstat').textContent = doneCount() + ' of ' + total + ' games in';
+  const pct = total ? ((isLines() ? doneCount() : filled.size) / total) * 100 : 0;
   $('pbar').style.width = pct + '%';
 
   const box = $('statRight');
@@ -365,10 +388,10 @@ function updateStats() {
 /* ---------- lifecycle ---------- */
 function start() {
   filled = new Set(); wrong = 0; left = Q.time; spent = 0; running = true; startedAt = Date.now();
-  picks = {}; graded = false; lockArmed = false;
+  picks = {}; graded = false;
   $('pre').hidden = true;
   $('live').hidden = false;
-  $('giveup').hidden = isLines();      // the line game finishes with Lock in, not Give up
+  $('giveup').hidden = false;
   buildBoard();                      // clears anything a previous run revealed
   updateStats();
   toast('');
@@ -379,7 +402,8 @@ function start() {
   box.value = '';
   box.disabled = false;
   // a tick of delay keeps iOS from fighting the keyboard
-  if (!isLines()) setTimeout(() => box.focus({ preventScroll: true }), 60);
+  if (isLines()) { gu.textContent = 'Stop & finish'; setTimeout(() => $('pts-0').focus({ preventScroll: true }), 60); }
+  else setTimeout(() => box.focus({ preventScroll: true }), 60);
   clearInterval(timer);
   timer = setInterval(() => {
     spent += 1;
@@ -394,7 +418,7 @@ function reset() {
   running = false;
   clearInterval(timer);
   filled = new Set(); wrong = 0; left = Q.time; spent = 0;
-  picks = {}; graded = false; lockArmed = false;
+  picks = {}; graded = false;
   $('pre').hidden = false;
   $('live').hidden = true;
   const gu = $('giveup');
@@ -419,12 +443,11 @@ function end(reason) {
   if (isLines()) {
     setLocked(true);
     $('live').hidden = true;
+    // anything never submitted is a miss, and its real line is shown
     items.forEach(it => {
-      const ok = lineRight(it);
-      if (ok) filled.add(it._i);
-      $('row-' + it._i).classList.add(ok ? 'got' : 'miss');
-      $('act-' + it._i).textContent = 'Line ' + fmtLine(it, it.line) +
-        (isPicked(it._i) ? '' : ' · no pick');
+      if (picks[it._i] && picks[it._i].done) return;
+      $('row-' + it._i).classList.add('miss');
+      $('act-' + it._i).textContent = 'Not submitted · line ' + fmtLine(it, it.line);
     });
     graded = true;
     $('giveup').hidden = false;
@@ -466,7 +489,7 @@ function end(reason) {
   window._share = `DietCokeMan Challenge — ${Q.title}\n${score}/${total} (${Math.round((score / total) * 100)}%)` +
     ` in ${fmt(elapsed)}` +
     (isLines() ? '\n\n' + items.map(it =>
-      `${it.aw} @ ${it.hm}: ${isPicked(it._i) ? fmtLine(it, guessLine(it)) : 'no pick'}` +
+      `${it.aw} @ ${it.hm}: ${picks[it._i] && picks[it._i].done ? fmtLine(it, guessLine(it)) : 'no pick'}` +
       ` (line ${fmtLine(it, it.line)}) ${filled.has(it._i) ? '✓' : '✗'}`).join('\n') + '\n' : '') +
     `\n${location.origin}${location.pathname}?q=${Q.slug}`;
 
@@ -503,9 +526,10 @@ function boot() {
   $('mTime').textContent = fmt(Q.time);
   if (isLines()) {
     $('guess').hidden = true;
-    $('lock').hidden = false;
-    $('fine').textContent = 'Pick the favorite, then type the spread · within one point of the real line counts, ' +
-      'exactly one off included · type 0 for a pick’em · lines are a snapshot and will move before kickoff';
+    $('lstat').hidden = false;
+    $('fine').textContent = 'Pick the favorite, type the spread, then hit the check or Enter · each game is graded ' +
+      'as you submit it · within one point of the real line counts, exactly one off included · type 0 for a pick’em · ' +
+      'lines are a snapshot and will move before kickoff';
     wireLinesBoard();
   }
 
@@ -587,9 +611,8 @@ window._dcm = {
   guess(s) { const b = $('guess'); b.value = s; onInput(); return { filled: filled.size, wrong }; },
   submit(s) { const b = $('guess'); b.value = s; onSubmit(); return { filled: filled.size, wrong }; },
   setMode(m) { mode = m; },
-  pick(i, fav, pts) { picks[i] = { fav, pts }; updateStats(); },
-  lineRight: (i) => lineRight(items[i]),
-  lockIn,
+  pick(i, fav, pts) { picks[i] = { fav, pts, done: false }; },
+  submitGame,
   items: () => items
 };
 })();

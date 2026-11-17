@@ -379,9 +379,16 @@ number (0 = pick'em).
   neutral site (Vikings @ 49ers in Mexico City).
 * Grading compares guess and line on that one signed scale, so a wrong-favorite
   pick only survives on a game within a point of pick'em.
-* Nothing is graded until **Lock in my lines** (or the clock). The first tap
-  with blank games only warns; the second grades. The guess box, the name
-  matcher and Give up are not used; Give up reappears as **Show results**.
+* **Each game is graded the moment it is submitted** (the red check, or Enter
+  in its spread box). Steven asked for this over grading the whole slate at
+  the end. The row turns green or red, shows `Hit · line HOU -10.5`, locks,
+  and focus jumps to the next open game. A submit with no favorite picked
+  nudges the toggle instead of grading.
+* The HUD shows Hits and the clock; its left half reads `N of 13 games in`.
+  The run ends by itself once all games are in, or on the clock, or with
+  **Stop & finish** (the Give up button), which marks unsubmitted games as
+  misses and reveals their lines. It then becomes **Show results** as usual.
+* The guess box and the name matcher are not used.
 * The copied result lists every pick against the line, so it can be texted.
 * Lines are a snapshot. Week 11 used bet365 as of Nov 16 (Fox Sports,
   cross-checked against Sportsbook Review). For a new week, add a new quiz with
