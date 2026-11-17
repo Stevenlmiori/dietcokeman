@@ -327,10 +327,10 @@ function land(hits, how) {
   box.value = '';
   box.classList.remove('bad'); box.classList.add('good');
   setTimeout(() => box.classList.remove('good'), 420);
-  const lead = how === 'fuzzy' ? 'Close enough — ' : 'Got it — ';
+  const lead = how === 'fuzzy' ? 'Close enough: ' : 'Got it: ';
   toast(hits.length === 1
     ? lead + hits[0].a
-    : 'Got ' + hits.length + ' — ' + hits.map(h => h.a).join(' + '), 'ok');
+    : 'Got ' + hits.length + ': ' + hits.map(h => h.a).join(' + '), 'ok');
 }
 
 // Typing only ever fills an answer you have actually spelled.
@@ -486,12 +486,16 @@ function end(reason) {
   if (isBest) bits.push('<span class="pill">Personal best</span>');
   $('mStats').innerHTML = bits.join('');
 
-  window._share = `DietCokeMan Challenge — ${Q.title}\n${score}/${total} (${Math.round((score / total) * 100)}%)` +
-    ` in ${fmt(elapsed)}` +
-    (isLines() ? '\n\n' + items.map(it =>
-      `${it.aw} @ ${it.hm}: ${picks[it._i] && picks[it._i].done ? fmtLine(it, guessLine(it)) : 'no pick'}` +
-      ` (line ${fmtLine(it, it.line)}) ${filled.has(it._i) ? '✓' : '✗'}`).join('\n') + '\n' : '') +
-    `\n${location.origin}${location.pathname}?q=${Q.slug}`;
+  const link = `${location.origin}${location.pathname}?q=${Q.slug}`;
+  if (isLines()) {
+    // Spoiler-free on purpose: this gets texted to someone who has not played
+    // yet, so it shows hit or miss per game and never a pick or a real line.
+    const grid = items.map(it => filled.has(it._i) ? '🟩' : '🟥').join('');
+    window._share = `${Q.title}\n${score}/${total} within a point\n${grid}\n\nYour turn: ${link}`;
+  } else {
+    window._share = `DietCokeMan Challenge: ${Q.title}\n${score}/${total} (${Math.round((score / total) * 100)}%)` +
+      ` in ${fmt(elapsed)}\n${link}`;
+  }
 
   const gu = $('giveup');
   gu.textContent = 'Show results';

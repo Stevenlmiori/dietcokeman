@@ -389,7 +389,10 @@ number (0 = pick'em).
   **Stop & finish** (the Give up button), which marks unsubmitted games as
   misses and reveals their lines. It then becomes **Show results** as usual.
 * The guess box and the name matcher are not used.
-* The copied result lists every pick against the line, so it can be texted.
+* **Copy my result is spoiler-free**: title, `N/13 within a point`, one
+  green/red square per game in board order, and the link. It must never show a
+  pick or a real line. Steven texts it as a challenge, and an earlier version
+  that listed every line gave the whole quiz away.
 * Lines are a snapshot. Week 11 used bet365 as of Nov 16 (Fox Sports,
   cross-checked against Sportsbook Review). For a new week, add a new quiz with
   a new slug rather than overwriting, so old best scores stay meaningful.
