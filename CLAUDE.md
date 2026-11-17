@@ -447,6 +447,8 @@ place, the result card after a quiz ("Save your score" → Continue with Google 
 Not now), plus a quiet "Sign in" / `@name` link in the top bar. "Not now" hides
 the offer for the rest of that visit. No pop-ups anywhere else.
 
+* **Owner:** the Firebase project lives on **sylvanmiori@gmail.com** (Steven's
+  choice; same account as the Cloudflare DNS), not stevenlmiori.
 * **Stack:** Firebase Auth (Google only) + Firestore, loaded from gstatic as ES
   modules (`firebasejs/13.1.0`). Free Spark plan, no card on file, so it can't
   bill. Hosting stays on GitHub Pages. Sign-in uses **popup**, not redirect —
