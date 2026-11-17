@@ -15,13 +15,15 @@ and the score already set. Pick a mode in the bar at the top and press play.
 |---|---|---|
 | NFL Fantasy Leaders | 20 | Timed 5:00 · No pressure |
 | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
+| NBA Top 25 by Category | 200 | Timed 15:00 · No pressure |
 | NFL Line Game: Week 11 | 13 games | No pressure · Timed 5:00 |
 
 ## How it plays
 
-* **Last name or the full name** counts. A first name on its own doesn't, so
-  typing a list of common first names gets you nothing. A quiz can also be set
-  to full names only.
+* **Last name, full name, an unusual first name or a nickname** counts —
+  Puka, Shaq, CeeDee, Amon-Ra, the Mailman. A common first name on its own
+  (Tom, James, Kevin) doesn't, so typing a list of ordinary first names gets
+  you nothing. A quiz can also be set to full names only.
 * **Answers fill the moment you spell one.** No Enter, no submit button —
   but typing only ever fills a name you've actually got right, so working your
   way towards "Brock Purdy" can't hand you anyone else along the way.

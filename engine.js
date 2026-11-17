@@ -8,6 +8,38 @@ const $ = (id) => document.getElementById(id);
 const SUFFIX = new Set(['jr', 'sr', 'ii', 'iii', 'iv', 'v']);
 const NOISE  = new Set(['the', 'a', 'an', 'of', 'and']);
 
+/* First names that are too common to count on their own. Anything NOT on this
+   list (Puka, Brock, Luka, Yao, Amon-Ra, CeeDee, Kareem, Dirk) is accepted by
+   itself, because only someone who knows the player would type it. Anything
+   on it (tom, tim, john, jim, james...) needs the last name, or else typing a
+   list of ordinary first names fills the board. Steven asked for both halves:
+   first-name spraying was "getting right answers they didn't earn", but
+   "unique first names and even nicknames should be accepted". Nicknames
+   (Shaq, Penny, Magic) can't be derived from the name, so they go in `alias`.
+   When in doubt, put a name on this list: a missed unusual name costs the
+   player one extra word; a missed common name hands out free answers. */
+const COMMON_FIRST = new Set((
+  'aaron adam adrian al alan albert alex alexander alfred allen alvin andre andrew andy angel anthony antonio arthur ' +
+  'austin ben benjamin bernard bill billy bob bobby brad bradley brandon brendan brent brett brian bruce bryan bryant ' +
+  'buck bud byron calvin cameron carl carlos carlton cedric chad charles charlie chase chester chris christian ' +
+  'christopher chuck clarence clark clifford clint clyde cody cole colin corey cory craig curtis dale dan daniel danny ' +
+  'darius darnell darrell darren daryl dave david dean dennis derek derrick devin devon dewayne dick don donald ' +
+  'donnie donovan doug douglas drew duane dustin dwayne dwight earl ed eddie edward edwin eli elijah elvin emmanuel ' +
+  'eric erik ernest ernie eugene evan frank frankie fred freddie gary gene george gerald glen glenn gordon grant ' +
+  'greg gregory harold harry henry herman howard hugh ian isaac isaiah jack jackie jacob jake jalen james jamal ' +
+  'jamie jared jason jay jayden jeff jeffrey jeremy jermaine jerome jerry jesse jim jimmy joe joel joey john johnny ' +
+  'jon jonathan jordan jose joseph josh joshua juan julian julius justin keith kelly ken kenneth kenny kent kevin ' +
+  'kirk kurt kyle lamar lance larry lawrence lee leo leon leonard leroy lewis lloyd lonnie louis lou luis luke ' +
+  'malcolm marc marcus mario mark marshall martin marvin matt matthew maurice max michael mike miles mitchell ' +
+  'morris nate nathan nathaniel neil nicholas nick noah norman oscar patrick paul pete peter phil philip phillip ' +
+  'ralph randy ray raymond reggie richard rick ricky rob robert roberto robin rod rodney roger roland ron ronald ' +
+  'ronnie roy russ russell ryan sam samuel scott sean shane shawn sidney stan stanley stephen steve steven ' +
+  'stuart ted terrance terrell terrence terry theodore thomas tim timothy todd tom tommy tony travis trevor troy ' +
+  'tyler tyrone vernon victor vince vincent wade walt walter warren wayne wes wesley will william willie zach ' +
+  'zachary dwayne deandre demarcus derek tyrell jaylen marquis tre trey ty cj jj aj tj dj jr ' +
+  'barry karl lenny guy rudy theo damian buddy carson dominic jesus moses'
+).split(' '));
+
 /* ---------- text normalising ---------- */
 // "Amon-Ra St. Brown" -> "amonrastbrown"
 function norm(s) {
@@ -20,14 +52,16 @@ function words(s) {
     .toLowerCase().split(/\s+/).map(w => w.replace(/[^a-z0-9]+/g, '')).filter(Boolean);
 }
 
-/* Every spelling we will accept for one answer: the full name, or the last
-   name. Never a first name on its own.
+/* Every spelling we will accept for one answer: the full name, the last
+   name, or an unusual first name (see COMMON_FIRST). Never a common first
+   name on its own.
 
    First names used to count, and they were a free pass: typing tom, tim, john,
    jim, drew, tony... filled 27 of the 60 on NFL All-Time Top 20 without
    knowing a single surname. Steven: "people can start typing tom, tim, john,
-   jim and start getting right answers they didn't earn." A first name that
-   is genuinely how a player is known (Saquon, CeeDee) goes in `alias`.
+   jim and start getting right answers they didn't earn." Unusual first names
+   came back on 2026-11-17 behind the COMMON_FIRST list; nicknames go in
+   `alias`.
 
    A quiz with `match: 'full'` drops the last name too: full name (or an
    alias) only.
@@ -38,17 +72,21 @@ function words(s) {
    of a larger key now; a bare word has to be long enough to be a real guess. */
 function keysFor(item, fullOnly) {
   const keys = new Set();
-  const add = (s, min) => { const k = norm(s); if (k.length >= (min || 2)) keys.add(k); };
+  // `loose` keys are only fair if no one else on the board shares them; boot() prunes them.
+  keys.loose = new Set();
+  const add = (s, min, loose) => { const k = norm(s); if (k.length >= (min || 2)) { keys.add(k); if (loose) keys.loose.add(k); } };
 
   add(item.a);                                        // exactly as written, suffix included
   const core = words(item.a).filter(x => !SUFFIX.has(x));
   const real = core.filter(x => !NOISE.has(x));       // drop "the", "of", "and"...
 
-  if (core.length) add(core.join(''));                // full name, suffix dropped
+  const hadSuffix = core.length !== words(item.a).length;   // "Tim Hardaway Jr." -> "Tim Hardaway" is loose
+  if (core.length) add(core.join(''), 2, hadSuffix);  // full name, suffix dropped
   if (real.length) {
-    add(real.join(''));                               // "The Goods" -> "goods"
+    add(real.join(''), 2, hadSuffix);                 // "The Goods" -> "goods"
     if (real.length === 1) add(real[0]);              // a one-word answer is its own full name
     else if (!fullOnly) {
+      if (!COMMON_FIRST.has(real[0])) add(real[0], 3, true);   // an unusual first name: Puka, Luka, Yao
       const rest = real.slice(1);
       add(rest.join(''));                             // surname, compounds kept whole
       add(rest[rest.length - 1], 3);                  // final word alone, if it isn't a particle
@@ -260,7 +298,7 @@ function fmt(sec) {
 function buildBoard() {
   if (isLines()) { buildLinesBoard(); return; }
   const board = $('board');
-  board.className = 'board' + (Q.cols === 'single' ? ' single' : Q.cols === 'two' ? ' two' : '') + (Q.hideSub ? ' hidesub' : '');
+  board.className = 'board' + (Q.cols === 'single' ? ' single' : Q.cols === 'two' ? ' two' : Q.cols === 'four' ? ' four' : '') + (Q.hideSub ? ' hidesub' : '');
   board.innerHTML = Q.groups.map((g, gi) => {
     const rows = g.items.map((it) => {
       const i = it._i;
@@ -352,9 +390,11 @@ function land(hits, how) {
   box.classList.remove('bad'); box.classList.add('good');
   setTimeout(() => box.classList.remove('good'), 420);
   const lead = how === 'fuzzy' ? 'Close enough: ' : 'Got it: ';
-  toast(hits.length === 1
-    ? lead + hits[0].a
-    : 'Got ' + hits.length + ': ' + hits.map(h => h.a).join(' + '), 'ok');
+  // One player on several lists (LeBron on seven) reads "LeBron James ×7", not his name seven times.
+  const count = new Map();
+  hits.forEach(h => count.set(h.a, (count.get(h.a) || 0) + 1));
+  const named = [...count].map(([a, n]) => n > 1 ? a + ' ×' + n : a);
+  toast(count.size === 1 ? lead + named[0] : 'Got ' + hits.length + ': ' + named.join(' + '), 'ok');
 }
 
 // Typing only ever fills an answer you have actually spelled.
@@ -551,6 +591,18 @@ function boot() {
     it._n = (++n);
     it._keys = keysFor(it, Q.match === 'full');
     items.push(it);
+  }));
+  /* A loose key that belongs to two different players is a clue to neither.
+     "brock" was Brock Purdy's and Brock Bowers's, so typing it filled both and
+     handed over Bowers on the way to Purdy. And "Tim Hardaway Jr." minus the
+     Jr. is Tim Hardaway, his father, also on the NBA board. Drop the key from
+     both; the full names and the last name still work. The same player listed
+     in several sections (LeBron in seven) is one player, so his keys stay. */
+  const who = new Map();
+  const names = new Set(items.map(it => norm(it.a)));
+  items.forEach(it => it._keys.loose.forEach(k => { if (!who.has(k)) who.set(k, new Set()); who.get(k).add(norm(it.a)); }));
+  items.forEach(it => it._keys.loose.forEach(k => {
+    if (who.get(k).size > 1 || (k !== norm(it.a) && names.has(k))) it._keys.delete(k);
   }));
   // one flat list, for the "are they still mid-word?" test
   allKeys = [...new Set(items.flatMap(it => [...it._keys]))];

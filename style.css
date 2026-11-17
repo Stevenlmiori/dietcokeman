@@ -258,6 +258,8 @@ a{color:inherit}
 .board.single{grid-template-columns:minmax(0,640px);justify-content:start}
 /* cols:'two' — four sections read as a 2x2, not three plus an orphan */
 @media (min-width:721px){.board.two{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* cols:'four' — eight 25-row lists read as two rows of four, like the printed sheet */
+@media (min-width:1000px){.board.four{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}}
 .grp{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
   background:linear-gradient(170deg,rgba(255,255,255,.055),rgba(255,255,255,.018))}
 .grp > h4{

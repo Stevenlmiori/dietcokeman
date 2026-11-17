@@ -65,7 +65,7 @@ automatically; nothing else needs editing.
   mode:  'timed',                // preselected: 'timed' | 'chill'
   time:  900,                    // seconds, for timed mode
   modes: ['timed','chill'],      // which buttons to offer; omit for both
-  cols:  'multi',                // 'multi' = responsive columns, 'single' = one, 'two' = 2 on desktop
+  cols:  'multi',                // 'multi' = responsive columns, 'single' = one, 'two'/'four' = fixed columns on desktop
   hideSub: true,                 // hide each item's `sub` until that row solves
   groups: [{
     name: 'Group heading',
@@ -135,22 +135,37 @@ splits on whitespace only, so a hyphenated surname stays one word:
 
 ### Which spellings are accepted (`keysFor`)
 
-**Last name or full name. Never a first name on its own.** For each answer it
-generates: the name exactly as written, the name with any suffix (`Jr`, `Sr`,
-`II`–`V`) dropped, the same minus noise words (`the`, `a`, `an`, `of`, `and`),
-the surname group (everything after the first word, joined), the final word,
-and any later single word — **plus every `alias`**. A one-word answer is its
-own full name.
+**Full name, last name, an unusual first name, or a nickname. Never a common
+first name on its own.** For each answer it generates: the name exactly as
+written, the name with any suffix (`Jr`, `Sr`, `II`–`V`) dropped, the same
+minus noise words, the first name **if it is not on `COMMON_FIRST`**, the
+surname group (everything after the first word, joined), the final word, any
+later single word — **plus every `alias`**.
 
-First names were accepted until 2026-11-17 and were a free pass: spraying
-`tom, tim, john, jim, drew, tony…` filled **27 of 60** on NFL All-Time Top 20.
-Steven: "people can start typing tom, tim, john, jim and start getting right
-answers they didn't earn." Don't add first names back. When a first name really
-is how someone is known (`saquon`, `ceedee`, `jamarr`, `amon ra`, `kaimi`), put
-it in that item's `alias` — a distinctive one-off can't be sprayed. Team
-answers carry their city as an alias (`minnesota`, `seattle`…) for the same
-reason the rule exists: the city is the first word. (None today — kickers and
-defenses were cut from NFL Fantasy Leaders on 2026-11-17.)
+The history, because both halves were Steven's asks:
+
+1. First names used to count, and they were a free pass: spraying
+   `tom, tim, john, jim, drew, tony…` filled **27 of 60** on NFL All-Time
+   Top 20 ("getting right answers they didn't earn"). So first names were cut.
+2. Then: "unique first names and even nicknames should be accepted" — Puka,
+   Shaq, Luka, Penny, Yao, Brock, Amon-Ra, CeeDee. So an unusual first name
+   counts again, gated by **`COMMON_FIRST`** in `engine.js` (~330 ordinary
+   first names: tom, james, kevin, barry, karl…). Only names *not* on the list
+   count alone. When in doubt, add a name to the list: a missed unusual name
+   costs one extra word, a missed common name hands out free answers.
+3. **Nicknames are always an `alias`** (shaq, penny, magic, melo, kd, cp3,
+   the mailman, big ben, tb12…). They can't be derived from the name. **Add
+   them whenever you build a quiz** — this is now a standing rule for every
+   quiz, not a nice-to-have.
+
+**A loose key that two different players share is dropped from both**
+(`keys.loose`, pruned in `boot()`). Unusual first names and suffix-dropped
+names are loose. "brock" is Brock Purdy *and* Brock Bowers on NFL Fantasy
+Leaders, so it counts for neither there (it would hand over Bowers on the way
+to Purdy); on a board with one Brock it works. "Tim Hardaway Jr." minus the Jr.
+is his father, also on the NBA board, so the son needs his Jr. The same player
+listed in several sections (LeBron on seven NBA lists) is one player and keeps
+his keys.
 
 **`match: 'full'` on a quiz** drops the last-name shortcut too: full name or an
 alias only. No quiz uses it yet. It is the next step if surname spraying
@@ -315,7 +330,7 @@ later variants reported "already got it" rather than actually being checked.
 `findMatches(g, true)` is what Enter does. Its result carries `how`, either
 `'exact'` or `'fuzzy'`.
 
-Five checks worth re-running after any matcher change, on **every** quiz:
+Six checks worth re-running after any matcher change, on **every** quiz:
 
 1. **Self-lookup** — every `_dcm.items()` entry, searched by its own `a`, must
    return exactly itself.
@@ -327,7 +342,10 @@ Five checks worth re-running after any matcher change, on **every** quiz:
    Eli, `brown` taking Jim and Tim. Anything else is the bug above coming back.
 5. **First-name spray** — common first names (`tom`, `tim`, `john`, `jim`,
    `drew`, `tony`, `josh`, `justin`…) passed to `findMatches(g, true)` must
-   return zero hits, except a first name someone deliberately aliased.
+   return zero hits, except where the name is also someone's *surname* on
+   that board (`james` → LeBron James, `paul` → Chris Paul) — that's legit.
+6. **Shared loose keys** — no unusual first name or Jr.-less name may fill two
+   different players (`brock`, `tim hardaway`).
 4. **Enter fuzz** — every answer and every single word of it, passed to
    `findMatches(g, true)`, must never fuzzy-match a *different* answer. This
    currently returns zero across all three name quizzes; it should stay zero.
@@ -459,6 +477,7 @@ number (0 = pick'em).
 |---|---|---|---|
 | `top5-by-position` | NFL Fantasy Leaders (QB/RB/WR/TE through Week 10, 2026) | 20 | Timed 5:00 · No pressure |
 | `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
+| `nba-top25-by-category` | NBA Top 25 by Category (8 career stats) | 200 | Timed 15:00 · No pressure |
 | `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links
@@ -470,7 +489,13 @@ and delete the old Firestore rows (`boards/<old>-<mode>/entries/*`,
 That was done for the 30-answer version (one row, @dietcokeman 23/30).
 
 NFL Fantasy Leaders is a snapshot of the 2026 season through Week 10 and does
-not auto-update. Removed quizzes: "Name the League" (too easy) and "Round 1
+not auto-update. NBA Top 25 by Category is Basketball-Reference's **NBA-only**
+career leaders (not NBA+ABA — Moses Malone's 27,409 points, not 29,580),
+pulled 2026-11-17 through games of Nov 16; active players' totals move
+nightly, so re-pull (`basketball-reference.com/leaders/<stat>_career.html`,
+table `#nba`) before trusting it. Basketball-Reference does answer curl with a
+browser user agent; the Wikipedia list pages are redirects. A name fills every
+list it is on, and the toast says "LeBron James ×6" rather than repeating it. Removed quizzes: "Name the League" (too easy) and "Round 1
 Recall" (a test/placeholder, deleted 2026-11-17 along with its saved scores).
 An old `?q=` link to a removed quiz falls through to the first quiz.
 
