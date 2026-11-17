@@ -1,59 +1,49 @@
 # DietCokeMan Challenge
 
-Sporcle-style fill-in-the-blank quizzes for the Astroworld fantasy league.
-Live: https://stevenlmiori.github.io/dietcokeman/
+Sporcle-style fill-in-the-blank quizzes. Type a name and it fills itself in.
+
+**Play:** <https://stevenlmiori.github.io/dietcokeman/>
+
+No sign-in, no accounts, works on a phone. Scores stay on the player's own
+device. Five static files, no build step, no dependencies.
+
+| Quiz | Answers | Modes |
+|---|---|---|
+| Top 5 by Position | 30 | Timed 5:00 · Survival · No pressure |
+| Round 1 Recall | 12 | Survival · Timed · No pressure |
+| NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
+
+## How it plays
+
+* **First name, last name or the full name** — any of them counts.
+* **Answers fill the moment you type them.** No Enter, no submit button.
+* **Enter only matters when nothing matched**, and that's the only thing that
+  can cost you a life.
+* **A shared name sweeps every match** — "Manning" takes Peyton and Eli,
+  "Brown" takes Jim and Tim, even across different sections of the board.
+* **Spelling is forgiving.** `mccaffery`, `rothlisberger`, `farve`,
+  `emmit smith` and `jamar chase` all land.
+* Three modes: a countdown, ten wrong guesses, or no pressure at all.
 
 ## Adding a quiz
 
-Everything lives in `quizzes.js`. Append an object to `QUIZZES` and it shows up
-on the hub automatically — no other file needs touching.
+Everything lives in `quizzes.js` — append one object to `QUIZZES` and it shows
+up on the hub automatically. The shape is documented at the top of that file.
 
-```js
-{
-  slug: 'url-safe-id',
-  title: 'Shown everywhere',
-  sub:   'one-line subtitle',
-  blurb: 'longer line on the start screen',
-  tag:   'ASTROWORLD',
-  mode:  'timed' | 'lives' | 'chill',   // preselected mode
-  time:  300,                            // seconds for timed mode
-  lives: 10,                             // wrong guesses allowed in survival
-  cols:  'multi' | 'single',             // board layout
-  groups: [{
-    name: 'Group heading',
-    note: 'right-side label',
-    items: [{ a:'Correct Answer', hint:'32.13', sub:'CIN', rk:'1.01', alias:['nickname'] }]
-  }]
-}
-```
+## Developing
 
-`a` is the answer. First name, last name, the full name and any `alias` are all
-accepted automatically — you only add an `alias` for nicknames or initials the
-name itself doesn't imply (`cmc`, `jsn`, `bucs`).
-
-## How matching works (`engine.js`)
-
-* Accents stripped, case and punctuation ignored — `Ka'imi` == `kaimi`.
-* Suffixes dropped, so `Kenneth Walker` matches `Kenneth Walker III`.
-* Compound surnames stay joined: `Smith-Njigba` → `smithnjigba`, and `njigba` also works.
-* Levenshtein fuzz: 1 edit at 5–7 characters, 2 at 8+. Words under 5 characters
-  must be exact, which is what stops `base` from matching `Bass`.
-* Answers fill the instant you type them. **Enter** is only needed to commit a
-  guess that didn't match, and only that costs a life.
-* A guess matching two unfilled answers asks you to be more specific and costs
-  nothing. Same for re-guessing something already on the board.
-
-## Testing
-
-Serve the folder and drive it from the console via `window._dcm`:
-
-```
+```bash
 python3 -m http.server 8901
 ```
 
-* `_dcm.findMatches('mccaffery')` — pure, doesn't mutate state
-* `_dcm.guess('burrow')` — simulates typing
-* `_dcm.submit('wrong')` — simulates Enter, can cost a life
-* `_dcm.state` — score, lives, timer, mode
+`window._dcm` drives the game from the browser console (`findMatches`, `guess`,
+`submit`, `state`). Push to `main` to deploy; GitHub Pages picks it up in under
+a minute.
 
-Not affiliated with, sponsored by, or endorsed by any beverage company.
+See [`CLAUDE.md`](CLAUDE.md) for the full brief: how the name matcher works, the
+layout rules, and the mistakes already made and fixed.
+
+---
+
+An independent fan project. Not affiliated with, sponsored by, or endorsed by
+any beverage company. All artwork is original.
