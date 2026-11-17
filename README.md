@@ -14,6 +14,7 @@ and the score already set. Pick a mode in the bar at the top and press play.
 | Quiz | Answers | Modes |
 |---|---|---|
 | Best Drink of All Time | 1 | Timed 0:30 · No pressure |
+| DietCokeMan's Favorite Movies | 64 | Timed 10:00 · No pressure |
 | NFL Fantasy Leaders | 20 | Timed 5:00 · No pressure |
 | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
 | NBA Top 25 by Category | 200 | Timed 15:00 · No pressure |

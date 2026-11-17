@@ -136,7 +136,7 @@ works well." The single source of truth is `window.TAXONOMY` at the top of
   * league — `NFL`, `NBA`, `MLB`, `NHL`, `NCAA`
   * sport — `Football`, `Basketball`, `Baseball`, `Hockey`
   * market — `S&P 500`, `Companies`
-  * topic — `Drinks`
+  * topic — `Drinks`, `Restaurants`, `Box Office`, `Oscars`, `Favorites`
   * kind — `All-Time`, `This Season`, `Career Leaders`, `Awards`, `Fantasy`, `Betting`
 
 Every quiz must carry a category and tags. The hub warns in the browser
@@ -520,6 +520,7 @@ number (0 = pick'em).
 | Slug | Title | Answers | Modes |
 |---|---|---|---|
 | `best-drink` | Best Drink of All Time — **always first on the hub** | 1 (Diet Coke) | Timed 0:30 · No pressure |
+| `dietcokeman-favorite-movies` | DietCokeMan's Favorite Movies — Steven's own ranked 64, **second on the hub**; years from Wikipedia short descriptions | 64 | Timed 10:00 · No pressure |
 | `top5-by-position` | NFL Fantasy Leaders (QB/RB/WR/TE through Week 10, 2026) | 20 | Timed 5:00 · No pressure |
 | `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
 | `nba-top25-by-category` | NBA Top 25 by Category (8 career stats) | 200 | Timed 15:00 · No pressure |

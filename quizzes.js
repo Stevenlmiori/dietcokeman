@@ -41,7 +41,7 @@ window.TAXONOMY = {
     league: ['NFL', 'NBA', 'MLB', 'NHL', 'NCAA'],
     sport:  ['Football', 'Basketball', 'Baseball', 'Hockey', 'Golf'],
     market: ['S&P 500', 'Companies', 'Stocks'],
-    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars'],
+    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites'],
     kind:   ['All-Time', 'This Season', 'Career Leaders', 'Awards', 'Champions', 'Draft', 'Fantasy', 'Betting']
   },
   /* The little emoji in each hub card's corner. The most specific match wins:
@@ -93,6 +93,96 @@ window.QUIZZES = [
   groups: [
     { name: 'The Greatest Drink Ever Made', items: [
       { a: 'Diet Coke', rk: '1', hint: 'Ice cold', alias: ['diet coca cola', 'diet coca-cola', 'dc', 'diet coke can', 'a diet coke'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'dietcokeman-favorite-movies',
+  title: "DietCokeMan's Favorite Movies",
+  sub: '64 favorites, in his order',
+  blurb: "DietCokeMan's 64 favorite movies, ranked by the man himself. The year each one came out is your clue.",
+  // Steven's own list and order (2026-11-17). Years from each film's Wikipedia short description
+  // ("1994 film by Frank Darabont"). The Place Beyond the Pines is 2012 per Wikipedia (US release March 2013).
+  category: 'Movies',
+  tags: ['Favorites'],
+  icon: '🍿',
+  match: 'full',
+  mode: 'timed',
+  time: 600,
+  cols: 'two',
+  groups: [
+    { name: '1–16', items: [
+      { a: 'The Shawshank Redemption', rk: '1', hint: '1994', alias: ['shawshank'] },
+      { a: 'Interstellar', rk: '2', hint: '2014' },
+      { a: 'Saving Private Ryan', rk: '3', hint: '1998', alias: ['private ryan'] },
+      { a: 'Good Will Hunting', rk: '4', hint: '1997' },
+      { a: 'There Will Be Blood', rk: '5', hint: '2007' },
+      { a: 'Forrest Gump', rk: '6', hint: '1994', alias: ['forest gump'] },
+      { a: 'No Country for Old Men', rk: '7', hint: '2007', alias: ['no country'] },
+      { a: 'Inception', rk: '8', hint: '2010' },
+      { a: 'The Truman Show', rk: '9', hint: '1998', alias: ['truman'] },
+      { a: 'Braveheart', rk: '10', hint: '1995', alias: ['brave heart'] },
+      { a: 'Mystic River', rk: '11', hint: '2003' },
+      { a: 'The Dark Knight', rk: '12', hint: '2008', alias: ['batman','the dark knight batman'] },
+      { a: 'The Empire Strikes Back', rk: '13', hint: '1980', alias: ['empire strikes back','star wars empire strikes back','star wars the empire strikes back','star wars episode v','episode v','star wars','empire'] },
+      { a: 'Cast Away', rk: '14', hint: '2000', alias: ['castaway'] },
+      { a: 'The Departed', rk: '15', hint: '2006' },
+      { a: 'Gladiator', rk: '16', hint: '2000' }
+    ]},
+    { name: '17–32', items: [
+      { a: 'Se7en', rk: '17', hint: '1995', alias: ['seven'] },
+      { a: 'Rounders', rk: '18', hint: '1998' },
+      { a: 'Fight Club', rk: '19', hint: '1999' },
+      { a: 'Ocean\'s Eleven', rk: '20', hint: '2001', alias: ['oceans 11','oceans eleven','oceans'] },
+      { a: 'Jurassic Park', rk: '21', hint: '1993' },
+      { a: 'Signs', rk: '22', hint: '2002' },
+      { a: 'Catch Me If You Can', rk: '23', hint: '2002', alias: ['catch me if you can'] },
+      { a: 'Dead Poets Society', rk: '24', hint: '1989', alias: ['dead poets'] },
+      { a: 'Man on Fire', rk: '25', hint: '2004' },
+      { a: 'The Prestige', rk: '26', hint: '2006' },
+      { a: 'The Matrix', rk: '27', hint: '1999' },
+      { a: 'Elf', rk: '28', hint: '2003' },
+      { a: 'Independence Day', rk: '29', hint: '1996', alias: ['id4'] },
+      { a: 'The Big Short', rk: '30', hint: '2015' },
+      { a: 'The Patriot', rk: '31', hint: '2000' },
+      { a: 'Sicario', rk: '32', hint: '2015' }
+    ]},
+    { name: '33–48', items: [
+      { a: 'The Sandlot', rk: '33', hint: '1993', alias: ['sand lot'] },
+      { a: 'Mission: Impossible', rk: '34', hint: '1996', alias: ['mission impossible','mi'] },
+      { a: 'Gangs of New York', rk: '35', hint: '2002' },
+      { a: 'Anchorman: The Legend of Ron Burgundy', rk: '36', hint: '2004', alias: ['anchorman','ron burgundy','anchorman the legend of ron burgundy'] },
+      { a: 'Office Space', rk: '37', hint: '1999' },
+      { a: 'Dumb and Dumber', rk: '38', hint: '1994', alias: ['dumb & dumber','dumb n dumber'] },
+      { a: 'Tommy Boy', rk: '39', hint: '1995' },
+      { a: 'Billy Madison', rk: '40', hint: '1995' },
+      { a: 'Happy Gilmore', rk: '41', hint: '1996' },
+      { a: 'The Social Network', rk: '42', hint: '2010' },
+      { a: 'Heat', rk: '43', hint: '1995' },
+      { a: 'Moneyball', rk: '44', hint: '2011', alias: ['money ball'] },
+      { a: 'The Princess Bride', rk: '45', hint: '1987' },
+      { a: 'The Royal Tenenbaums', rk: '46', hint: '2001', alias: ['tenenbaums'] },
+      { a: 'The Fugitive', rk: '47', hint: '1993' },
+      { a: 'Air Force One', rk: '48', hint: '1997', alias: ['af1'] }
+    ]},
+    { name: '49–64', items: [
+      { a: 'Clear and Present Danger', rk: '49', hint: '1994', alias: ['clear & present danger'] },
+      { a: 'Patriot Games', rk: '50', hint: '1992' },
+      { a: 'Arrival', rk: '51', hint: '2016' },
+      { a: 'Zoolander', rk: '52', hint: '2001' },
+      { a: 'Step Brothers', rk: '53', hint: '2008', alias: ['stepbrothers'] },
+      { a: 'Apollo 13', rk: '54', hint: '1995', alias: ['apollo thirteen'] },
+      { a: 'A Time to Kill', rk: '55', hint: '1996' },
+      { a: 'Remember the Titans', rk: '56', hint: '2000' },
+      { a: 'Rudy', rk: '57', hint: '1993' },
+      { a: 'Training Day', rk: '58', hint: '2001' },
+      { a: 'Inglourious Basterds', rk: '59', hint: '2009', alias: ['inglorious basterds','inglorious bastards','inglourious bastards'] },
+      { a: 'The Town', rk: '60', hint: '2010' },
+      { a: 'Toy Story', rk: '61', hint: '1995' },
+      { a: 'War of the Worlds', rk: '62', hint: '2005' },
+      { a: 'The Place Beyond the Pines', rk: '63', hint: '2012' },
+      { a: 'Arlington Road', rk: '64', hint: '1999' }
     ]}
   ]
 },
