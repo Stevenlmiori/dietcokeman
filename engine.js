@@ -114,19 +114,27 @@ function esc(s) {
 }
 
 /* ---------- matching ---------- */
+/* An exact key always beats a fuzzy one. Without this, typing the whole name
+   "Jim Brown" came back ambiguous because "timbrown" is a single edit away, and
+   "payton" pulled in Peyton Manning alongside Walter Payton. Fuzzy is only
+   consulted when nothing matched exactly. */
 function findMatches(raw) {
   const g = norm(raw);
   if (g.length < 2) return { hits: [], already: false };
-  let already = false;
-  const hits = [];
+  const exact = [], fuzzy = [];
+  let exactDone = false, fuzzyDone = false;
   for (const it of items) {
-    let ok = false;
-    for (const k of it._keys) { if (close(g, k)) { ok = true; break; } }
-    if (!ok) continue;
-    if (filled.has(it._i)) { already = true; continue; }
-    hits.push(it);
+    let ex = false, fz = false;
+    for (const k of it._keys) {
+      if (g === k) { ex = true; break; }
+      if (!fz && close(g, k)) fz = true;
+    }
+    if (!ex && !fz) continue;
+    if (filled.has(it._i)) { if (ex) exactDone = true; else fuzzyDone = true; continue; }
+    (ex ? exact : fuzzy).push(it);
   }
-  return { hits, already };
+  if (exact.length || exactDone) return { hits: exact, already: exactDone };
+  return { hits: fuzzy, already: fuzzyDone };
 }
 
 function reveal(it, how) {
@@ -301,8 +309,11 @@ function boot() {
   $('mTime').textContent = fmt(Q.time);
   $('mLives').textContent = Q.lives;
 
-  mode = Q.mode || 'timed';
+  // A quiz can offer only some modes — survival makes no sense on a 60-answer list.
+  const allowed = Q.modes || ['timed', 'lives', 'chill'];
+  mode = allowed.includes(Q.mode) ? Q.mode : allowed[0];
   document.querySelectorAll('.mode').forEach(b => {
+    b.hidden = !allowed.includes(b.dataset.m);
     b.setAttribute('aria-pressed', String(b.dataset.m === mode));
     b.addEventListener('click', () => {
       mode = b.dataset.m;

@@ -112,7 +112,7 @@
       <div class="sub">${q.sub}</div>
       <div class="meta">
         <span class="pill red">${n} answers</span>
-        <span class="pill">${modeName[q.mode]||'Timed'}</span>
+        <span class="pill">${modeName[q.mode]||'Timed'}${q.mode==='timed'&&q.time?' '+Math.floor(q.time/60)+':'+String(q.time%60).padStart(2,'0'):''}</span>
         ${best ? `<span class="pill best">Best ${best}/${n}</span>` : ''}
       </div>
       <div class="go">Play ${arrow}</div>

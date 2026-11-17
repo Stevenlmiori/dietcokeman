@@ -14,6 +14,7 @@
      lives: 10,                    // wrong guesses allowed, lives mode
      cols:  'multi'|'single',      // board layout
      hideSub: true,                // hide each item's `sub` until that row is solved
+     modes: ['timed','chill'],     // which mode buttons to offer (default: all three)
      groups: [{
        name: 'Group heading',
        note: 'right-side label',   // optional
@@ -113,33 +114,86 @@ window.QUIZZES = [
       { a: 'Kenneth Walker III',  rk: '1.12', sub: 'BuckNuts', alias: ['kenneth walker','kenny walker'] }
     ]}
   ]
-},
+}
+,
 
 {
-  slug: 'name-the-league',
-  title: 'Name the League',
-  sub: 'All 12 Astroworld managers',
-  blurb: 'Can you name every team in the league? One word of the team name is enough.',
-  tag: 'ASTROWORLD',
-  mode: 'chill',
-  time: 180,
-  lives: 10,
-  cols: 'single',
+  slug: 'nfl-all-time-top20',
+  title: 'NFL All-Time Top 20',
+  sub: 'Passing, rushing and receiving yards',
+  blurb: 'The twenty biggest career totals in each of the three great counting stats. Career yards are your clue.',
+  tag: 'NFL ALL-TIME',
+  mode: 'timed',
+  time: 900,
+  modes: ['timed', 'chill'],
+  cols: 'multi',
   groups: [
-    { name: 'The 12 Teams', note: 'draft slot', items: [
-      { a: 'Big Oil',             rk: '1',  alias: ['oil'] },
-      { a: 'Dont Tread On Me',    rk: '2',  alias: ["don't tread on me",'dont tread','tread','gadsden'] },
-      { a: 'KT',                  rk: '3',  alias: ['k t'] },
-      { a: 'law dawgs',           rk: '4',  alias: ['lawdawgs','dawgs','law'] },
-      { a: 'The Goods',           rk: '5',  alias: ['goods'] },
-      { a: 'Freak Heads',         rk: '6',  alias: ['freakheads','freaks','freak'] },
-      { a: 'Prestige Worldwide',  rk: '7',  alias: ['prestige','worldwide'] },
-      { a: 'The Crew',            rk: '8',  alias: ['crew'] },
-      { a: 'Next Year',           rk: '9',  alias: ['nextyear'] },
-      { a: 'DietCokeMan',         rk: '10', alias: ['diet coke man','miori','dietcoke','diet coke'] },
-      { a: 'makeAOCbartender',    rk: '11', alias: ['make aoc bartender','aoc','bartender','makeaoc'] },
-      { a: 'BuckNuts',            rk: '12', alias: ['buck nuts','buckeyes','nuts'] }
-    ]}
+    { name: 'Passing Yards', note: 'career yards', items: [
+      { a: 'Tom Brady', rk: '1', hint: '89,214' },
+      { a: 'Drew Brees', rk: '2', hint: '80,358' },
+      { a: 'Peyton Manning', rk: '3', hint: '71,940' },
+      { a: 'Brett Favre', rk: '4', hint: '71,838', alias: ['farve', 'favre'] },
+      { a: 'Aaron Rodgers', rk: '5', hint: '68,288' },
+      { a: 'Matthew Stafford', rk: '6', hint: '67,139', alias: ['matt stafford'] },
+      { a: 'Ben Roethlisberger', rk: '7', hint: '64,088', alias: ['big ben', 'rothlisberger', 'roethlisburger', 'roethlisberger'] },
+      { a: 'Philip Rivers', rk: '8', hint: '63,984', alias: ['phillip rivers'] },
+      { a: 'Matt Ryan', rk: '9', hint: '62,792', alias: ['matty ice'] },
+      { a: 'Dan Marino', rk: '10', hint: '61,361' },
+      { a: 'Eli Manning', rk: '11', hint: '57,023' },
+      { a: 'John Elway', rk: '12', hint: '51,475' },
+      { a: 'Warren Moon', rk: '13', hint: '49,325' },
+      { a: 'Joe Flacco', rk: '14', hint: '48,176' },
+      { a: 'Kirk Cousins', rk: '15', hint: '47,247' },
+      { a: 'Fran Tarkenton', rk: '16', hint: '47,003', alias: ['tarkenton'] },
+      { a: 'Russell Wilson', rk: '17', hint: '46,966', alias: ['russ'] },
+      { a: 'Carson Palmer', rk: '18', hint: '46,247' },
+      { a: 'Vinny Testaverde', rk: '19', hint: '46,233', alias: ['testaverde'] },
+      { a: 'Drew Bledsoe', rk: '20', hint: '44,611', alias: ['bledsoe'] }
+    ]},
+    { name: 'Rushing Yards', note: 'career yards', items: [
+      { a: 'Emmitt Smith', rk: '1', hint: '18,355', alias: ['emmit smith'] },
+      { a: 'Walter Payton', rk: '2', hint: '16,726', alias: ['sweetness'] },
+      { a: 'Frank Gore', rk: '3', hint: '16,000' },
+      { a: 'Barry Sanders', rk: '4', hint: '15,269' },
+      { a: 'Adrian Peterson', rk: '5', hint: '14,918', alias: ['ap', 'all day'] },
+      { a: 'Curtis Martin', rk: '6', hint: '14,101' },
+      { a: 'Derrick Henry', rk: '7', hint: '13,707', alias: ['king henry'] },
+      { a: 'LaDainian Tomlinson', rk: '8', hint: '13,684', alias: ['ladanian tomlinson', 'ldt', 'tomlinson'] },
+      { a: 'Jerome Bettis', rk: '9', hint: '13,662', alias: ['the bus', 'bettis'] },
+      { a: 'Eric Dickerson', rk: '10', hint: '13,259', alias: ['dickerson'] },
+      { a: 'Tony Dorsett', rk: '11', hint: '12,739', alias: ['dorsett'] },
+      { a: 'Jim Brown', rk: '12', hint: '12,312' },
+      { a: 'Marshall Faulk', rk: '13', hint: '12,279', alias: ['faulk'] },
+      { a: 'Edgerrin James', rk: '14', hint: '12,246', alias: ['edgerin james'] },
+      { a: 'Marcus Allen', rk: '15', hint: '12,243' },
+      { a: 'Franco Harris', rk: '16', hint: '12,120' },
+      { a: 'Thurman Thomas', rk: '17', hint: '12,074' },
+      { a: 'Fred Taylor', rk: '18', hint: '11,695' },
+      { a: 'Steven Jackson', rk: '19', hint: '11,438', alias: ['sjax'] },
+      { a: 'John Riggins', rk: '20', hint: '11,352', alias: ['riggins'] }
+    ]},
+    { name: 'Receiving Yards', note: 'career yards', items: [
+      { a: 'Jerry Rice', rk: '1', hint: '22,895' },
+      { a: 'Larry Fitzgerald', rk: '2', hint: '17,492', alias: ['fitz', 'fitzgerald'] },
+      { a: 'Terrell Owens', rk: '3', hint: '15,934', alias: ['terrel owens', 'owens'] },
+      { a: 'Randy Moss', rk: '4', hint: '15,292' },
+      { a: 'Isaac Bruce', rk: '5', hint: '15,208' },
+      { a: 'Tony Gonzalez', rk: '6', hint: '15,127', alias: ['gonzalez'] },
+      { a: 'Tim Brown', rk: '7', hint: '14,934' },
+      { a: 'Steve Smith Sr.', rk: '8', hint: '14,731', alias: ['steve smith'] },
+      { a: 'Marvin Harrison', rk: '9', hint: '14,580' },
+      { a: 'Reggie Wayne', rk: '10', hint: '14,345' },
+      { a: 'Andre Johnson', rk: '11', hint: '14,185' },
+      { a: 'James Lofton', rk: '12', hint: '14,004', alias: ['lofton'] },
+      { a: 'Cris Carter', rk: '13', hint: '13,899', alias: ['chris carter', 'carter'] },
+      { a: 'Anquan Boldin', rk: '14', hint: '13,779', alias: ['boldin', 'anquon boldin'] },
+      { a: 'Henry Ellard', rk: '15', hint: '13,777', alias: ['ellard'] },
+      { a: 'Julio Jones', rk: '16', hint: '13,703' },
+      { a: 'Travis Kelce', rk: '17', hint: '13,484', alias: ['kelce'] },
+      { a: 'Mike Evans', rk: '18', hint: '13,472' },
+      { a: 'Torry Holt', rk: '19', hint: '13,382', alias: ['tory holt', 'holt'] },
+      { a: 'DeAndre Hopkins', rk: '20', hint: '13,295', alias: ['dhop', 'hopkins'] }
+    ]},
   ]
 }
 

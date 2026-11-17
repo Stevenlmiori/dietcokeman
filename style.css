@@ -135,7 +135,7 @@ a{color:inherit}
 .start{max-width:620px;margin:0 auto;text-align:center;padding:30px 0 60px}
 .start h1{font-size:clamp(28px,5vw,42px);margin:0 0 10px;font-weight:900;letter-spacing:-.02em}
 .start .sub{color:var(--silver);margin:0 0 26px}
-.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 22px}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 22px}
 @media (max-width:520px){.modes{grid-template-columns:1fr}}
 .mode{
   border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:13px;
