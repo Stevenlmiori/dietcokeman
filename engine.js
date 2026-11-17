@@ -221,6 +221,9 @@ function start() {
   buildBoard();
   updateStats();
   toast('');
+  const gu = $('giveup');
+  gu.textContent = 'Give up & reveal';
+  delete gu.dataset.done;
   const box = $('guess');
   box.value = '';
   box.disabled = false;
@@ -280,6 +283,9 @@ function end(reason) {
     (mode === 'timed' ? ` in ${fmt(elapsed)}` : mode === 'lives' ? ` · ${wrong} misses` : '') +
     `\n${location.origin}${location.pathname}?q=${Q.slug}`;
 
+  const gu = $('giveup');
+  gu.textContent = 'Show results';
+  gu.dataset.done = '1';
   $('scrim').classList.add('on');
 }
 
@@ -330,6 +336,23 @@ function boot() {
   $('guess').addEventListener('input', onInput);
   $('giveup').addEventListener('click', () => {
     if (running) end('gave');
+    else if ($('giveup').dataset.done) $('scrim').classList.add('on');   // bring the card back
+  });
+  // The result card sits on top of the very board it is talking about, so there has
+  // to be a way past it: the X, the review button, the backdrop and Escape all step
+  // aside and leave the revealed answers on screen.
+  const closeModal = (scrollToMiss) => {
+    $('scrim').classList.remove('on');
+    if (scrollToMiss) {
+      const first = document.querySelector('.row.miss');
+      if (first) first.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+  };
+  $('mclose').addEventListener('click', () => closeModal(false));
+  $('review').addEventListener('click', () => closeModal(true));
+  $('scrim').addEventListener('click', (e) => { if (e.target === $('scrim')) closeModal(false); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && $('scrim').classList.contains('on')) closeModal(false);
   });
   $('again').addEventListener('click', () => {
     $('scrim').classList.remove('on');

@@ -170,6 +170,14 @@ from the sibling Astroworld project; if you add a table here, remember that
 
 ---
 
+### The result card must be dismissable
+
+It sits on top of the board it is describing, so "Here's everything you missed"
+is a lie unless you can get past it. Four ways out — the X, **See what I
+missed**, the backdrop and Escape — and `Give up & reveal` becomes
+**Show results** afterwards so the card can be brought back. If you touch
+`end()` or the modal, keep all of them.
+
 ## 5. Testing
 
 Serve the folder — `file://` works but a server matches production:
