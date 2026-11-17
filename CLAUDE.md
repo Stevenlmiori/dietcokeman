@@ -228,8 +228,27 @@ fantasy-team handle.
 logo, wordmark or trade dress, and do not imply affiliation. The footer carries
 a one-line disclaimer — keep it, especially if real images are ever dropped in.
 
-There is a hidden banner slot on the hub: `<img class="banner" id="banner">`.
-Add a file, set its `src`, add `on` to its class and it appears.
+### Assets
+
+Real photography lives in `assets/`, supplied by Steven (generated with ImageGen):
+
+| File | Used as |
+|---|---|
+| `frosted-can.webp` | The hero can on the hub. 600×600, transparent. |
+| `frosted-can-icon.png` | Top-bar mark on both pages, and the favicon. 96×96. |
+| `ice-banner.webp` | `.hero` background. 1800×600, dark through the middle so the title reads. |
+| `football-ice.jpg` | `og:image` link preview. 1200×630. |
+
+`.hero` bleeds the banner past `.wrap` with `margin-inline: calc(50% - 50vw)`
+and fades its bottom into `#070A0E`. If you touch that, re-check
+`scrollWidth - clientWidth === 0` at 375px — the bleed is the easiest way to
+introduce a horizontal scrollbar.
+
+The can images show a real Diet Coke label. Steven supplied them knowing that;
+keep the non-affiliation line in the footer.
+
+Cards deliberately have **no** gradient top border — an earlier version had a
+red-to-cyan hairline on each and it read as clutter.
 
 ---
 
