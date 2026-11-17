@@ -155,7 +155,7 @@ function close(guess, key) {
 }
 
 /* ---------- state ---------- */
-let Q = null, items = [], allKeys = [], mode = 'timed', total = 0;
+let Q = null, items = [], allKeys = [], parts = new Set(), mode = 'timed', total = 0;
 let filled = new Set(), wrong = 0, left = 0, spent = 0, timer = null, running = false, startedAt = 0;
 
 /* ---------- line game ----------
@@ -353,8 +353,10 @@ function findMatches(raw, allowFuzzy) {
   }
   if (exact.length || exactDone) return { hits: exact, already: exactDone, how: 'exact' };
 
-  // A common first name is never a typo of a surname ("walter" is not Walker).
-  if (!allowFuzzy || midWord(g) || COMMON_FIRST.has(g)) return { hits: [], already: false, how: 'exact' };
+  // A common first name is never a typo of a surname ("walter" is not Walker),
+  // and a plain word that is part of answers' names is never a typo of a
+  // different one ("energy", from Xcel Energy and CMS Energy, is not Entergy).
+  if (!allowFuzzy || midWord(g) || COMMON_FIRST.has(g) || parts.has(g)) return { hits: [], already: false, how: 'exact' };
 
   const fuzzy = [];
   let fuzzyDone = false;
@@ -428,7 +430,10 @@ function onSubmit(e) {
   box.classList.remove('good'); box.classList.add('bad');
   setTimeout(() => box.classList.remove('bad'), 360);
   box.value = '';
-  toast('“' + raw + '” isn’t on the board', 'no');
+  // A quiz can answer particular wrong guesses itself (`nope`, keyed by the
+  // normalised guess); everything else gets the standard line.
+  const nope = Q.nope && Q.nope[norm(raw)];
+  toast(nope || '“' + raw + '” isn’t on the board', 'no');
   updateStats();
 }
 
@@ -608,6 +613,8 @@ function boot() {
   }));
   // one flat list, for the "are they still mid-word?" test
   allKeys = [...new Set(items.flatMap(it => [...it._keys]))];
+  // every single word of every answer, for the fuzzy guard in findMatches
+  parts = new Set(items.flatMap(it => words(it.a)));
   // restart per-group numbering when the board is split into groups
   if (Q.cols !== 'single') { Q.groups.forEach(g => g.items.forEach((it, k) => { it._n = k + 1; })); }
   total = items.length;

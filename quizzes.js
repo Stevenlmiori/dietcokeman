@@ -33,17 +33,58 @@
 /* The one list of categories and tags. Every quiz names one category and a
    few tags from here; the hub's search and filters are built from them, and
    it warns in the console about anything not on this list. Add a new
-   category or tag here first, then use it. Tags go league, sport, then kind. */
+   category or tag here first, then use it. Sports tags go league, sport,
+   then kind; business tags go market, then kind. */
 window.TAXONOMY = {
-  categories: ['Sports', 'Movies'],
+  categories: ['Sports', 'Movies', 'TV', 'Business', 'Food & Drink'],
   tags: {
     league: ['NFL', 'NBA', 'MLB', 'NHL', 'NCAA'],
     sport:  ['Football', 'Basketball', 'Baseball', 'Hockey'],
+    market: ['S&P 500', 'Companies'],
+    topic:  ['Drinks'],
     kind:   ['All-Time', 'This Season', 'Career Leaders', 'Awards', 'Fantasy', 'Betting']
   }
 };
 
 window.QUIZZES = [
+
+{
+  slug: 'best-drink',
+  title: 'Best Drink of All Time',
+  sub: 'One answer. You know it.',
+  blurb: 'Name the greatest drink ever made. There is exactly one correct answer.',
+  // Steven's request: a one-answer quiz whose only answer is Diet Coke. Full
+  // names only, so plain "coke" (or "diet") doesn't get there by accident.
+  category: 'Food & Drink',
+  tags: ['Drinks', 'All-Time'],
+  match: 'full',
+  mode: 'timed',
+  time: 30,
+  cols: 'single',
+  // wrong guesses that deserve their own reply (keys are normalised: lowercase, letters and digits only)
+  nope: {
+    pepsi: 'Absolutely not.',
+    dietpepsi: 'Wrong cola. Wrong company. Wrong everything.',
+    pepsizero: 'Not even close.',
+    coke: 'Close. Which Coke, though?',
+    cocacola: 'Close. Which Coke, though?',
+    cokeclassic: 'Respectable. Still wrong.',
+    cokezero: 'The impostor. Try again.',
+    cokezerosugar: 'The impostor. Try again.',
+    drpepper: 'Bold. Wrong.',
+    dietdrpepper: 'So close and yet so far.',
+    sprite: 'No.',
+    water: 'Technically healthy. Still wrong.',
+    coffee: 'A fine drink. Not the best drink.',
+    beer: 'Not on this site.',
+    tab: 'Respect the ancestor. Still wrong.'
+  },
+  groups: [
+    { name: 'The Greatest Drink Ever Made', items: [
+      { a: 'Diet Coke', rk: '1', hint: 'Ice cold', alias: ['diet coca cola', 'diet coca-cola', 'dc', 'diet coke can', 'a diet coke'] }
+    ]}
+  ]
+},
 
 {
   slug: 'top5-by-position',
@@ -697,6 +738,89 @@ window.QUIZZES = [
       { a: 'Carlos Beltrán', rk: '48', hint: '435' },
       { a: 'Juan González', rk: '49', hint: '434', alias: ['igor','juan gone','juan gonzalez'] },
       { a: 'Andruw Jones', rk: '49', hint: '434' }
+    ]}
+  ]
+},
+
+{
+  slug: 'sp500-since-1957',
+  title: 'Still in the S&P 500 Since 1957',
+  sub: 'The original members that never left',
+  blurb: 'When the S&P 500 launched on March 4, 1957, these 52 companies (or the companies they grew out of) were in it, and they still are. The sector and headquarters are your clues.',
+  // Wikipedia "List of S&P 500 companies" (S&P data), 'Date added' 1957-03-04, pulled 2026-11-17.
+  // Several are there through a predecessor: Altria (Philip Morris), RTX (United Aircraft), S&P Global
+  // (McGraw-Hill), Exelon (Commonwealth Edison), Honeywell (Allied). Next-oldest member: Sherwin-Williams, 1964.
+  // Company names need full names: 'general' or 'energy' alone must not count. Aliases carry the everyday names.
+  category: 'Business',
+  tags: ['S&P 500', 'Companies', 'All-Time'],
+  match: 'full',
+  mode: 'timed',
+  time: 600,
+  cols: 'multi',
+  groups: [
+    { name: 'Industrials', items: [
+      { a: 'Boeing', hint: 'Arlington, VA', alias: ['the boeing company'] },
+      { a: 'Norfolk Southern', hint: 'Atlanta, GA', alias: ['norfolk'] },
+      { a: 'Lockheed Martin', hint: 'Bethesda, MD', alias: ['lockheed','martin marietta'] },
+      { a: 'Honeywell', hint: 'Charlotte, NC', alias: ['honeywell international','allied signal','alliedsignal'] },
+      { a: 'Eaton', hint: 'Dublin, Ireland', alias: ['eaton corporation'] },
+      { a: 'GE Aerospace', hint: 'Evendale, OH', alias: ['ge','general electric'] },
+      { a: 'Caterpillar', hint: 'Irving, TX', alias: ['cat'] },
+      { a: 'CSX', hint: 'Jacksonville, FL', alias: ['csx corporation','csx transportation'] },
+      { a: 'John Deere', hint: 'Moline, IL', alias: ['deere','deere and company','deere & company'] },
+      { a: 'Union Pacific', hint: 'Omaha, NE', alias: ['union pacific railroad'] },
+      { a: 'General Dynamics', hint: 'Reston, VA', alias: ['gd'] },
+      { a: '3M', hint: 'Saint Paul, MN', alias: ['mmm','three m','minnesota mining'] },
+      { a: 'RTX', hint: 'Waltham, MA', alias: ['raytheon','rtx corporation','raytheon technologies','united technologies','united aircraft'] },
+      { a: 'Northrop Grumman', hint: 'West Falls Church, VA', alias: ['northrop'] }
+    ]},
+    { name: 'Consumer Staples', items: [
+      { a: 'Coca-Cola', hint: 'Atlanta, GA', alias: ['coke','coca cola','the coca cola company','coca cola company'] },
+      { a: 'Archer Daniels Midland', hint: 'Chicago, IL', alias: ['adm','archer daniels'] },
+      { a: 'Kroger', hint: 'Cincinnati, OH', alias: ['the kroger company'] },
+      { a: 'Procter & Gamble', hint: 'Cincinnati, OH', alias: ['p&g','p and g','pg','procter and gamble','proctor and gamble','proctor & gamble','proctor gamble'] },
+      { a: 'General Mills', hint: 'Golden Valley, MN' },
+      { a: 'Hershey', hint: 'Hershey, PA', alias: ['hersheys','the hershey company','hershey company','hershey foods'] },
+      { a: 'Kimberly-Clark', hint: 'Irving, TX', alias: ['kimberly clark'] },
+      { a: 'Colgate-Palmolive', hint: 'New York, NY', alias: ['colgate','colgate palmolive'] },
+      { a: 'PepsiCo', hint: 'Purchase, NY', alias: ['pepsi','pepsi co'] },
+      { a: 'Altria', hint: 'Richmond, VA', alias: ['philip morris','altria group'] }
+    ]},
+    { name: 'Utilities', items: [
+      { a: 'Southern Company', hint: 'Atlanta, GA', alias: ['the southern company','georgia power'] },
+      { a: 'Exelon', hint: 'Chicago, IL', alias: ['commonwealth edison','comed'] },
+      { a: 'American Electric Power', hint: 'Columbus, OH', alias: ['aep'] },
+      { a: 'DTE Energy', hint: 'Detroit, MI', alias: ['dte','detroit edison'] },
+      { a: 'CMS Energy', hint: 'Jackson, MI', alias: ['cms','consumers energy','consumers power'] },
+      { a: 'Xcel Energy', hint: 'Minneapolis, MN', alias: ['xcel','excel energy','northern states power'] },
+      { a: 'Entergy', hint: 'New Orleans, LA', alias: ['entergy corporation'] },
+      { a: 'Consolidated Edison', hint: 'New York, NY', alias: ['con ed','coned','con edison'] },
+      { a: 'Public Service Enterprise Group', hint: 'Newark, NJ', alias: ['pseg','pse&g','public service'] },
+      { a: 'Edison International', hint: 'Rosemead, CA', alias: ['southern california edison','socal edison','sce'] }
+    ]},
+    { name: 'Energy', items: [
+      { a: 'Chevron', hint: 'Houston, TX', alias: ['chevron corporation','chevron texaco'] },
+      { a: 'ConocoPhillips', hint: 'Houston, TX', alias: ['conoco','conoco phillips','phillips petroleum'] },
+      { a: 'Halliburton', hint: 'Houston, TX' },
+      { a: 'Occidental Petroleum', hint: 'Houston, TX', alias: ['occidental','oxy'] },
+      { a: 'Schlumberger', hint: 'Houston, TX', alias: ['slb'] },
+      { a: 'ExxonMobil', hint: 'Irving, TX', alias: ['exxon','exxon mobil','mobil','standard oil of new jersey'] }
+    ]},
+    { name: 'Health Care', items: [
+      { a: 'Merck', hint: 'Kenilworth, NJ', alias: ['merck and co','merck & co'] },
+      { a: 'Bristol Myers Squibb', hint: 'New York, NY', alias: ['bms','bristol myers','bristol-myers squibb'] },
+      { a: 'Pfizer', hint: 'New York, NY' },
+      { a: 'Abbott Laboratories', hint: 'North Chicago, IL', alias: ['abbott','abbott labs'] },
+      { a: 'CVS Health', hint: 'Woonsocket, RI', alias: ['cvs','cvs pharmacy'] }
+    ]},
+    { name: 'Everything Else', items: [
+      { a: 'IBM', hint: 'Armonk, NY', sub: 'Tech', alias: ['international business machines','big blue'] },
+      { a: 'Motorola Solutions', hint: 'Chicago, IL', sub: 'Tech', alias: ['motorola'] },
+      { a: 'Ford', hint: 'Dearborn, MI', sub: 'Autos', alias: ['ford motor','ford motor company'] },
+      { a: 'The Hartford', hint: 'Hartford, CT', sub: 'Finance', alias: ['hartford','hartford financial'] },
+      { a: 'International Paper', hint: 'Memphis, TN', sub: 'Materials', alias: ['ip'] },
+      { a: 'S&P Global', hint: 'New York, NY', sub: 'Finance', alias: ['s&p','sp global','s and p global','standard and poors','standard & poors','mcgraw hill'] },
+      { a: 'PPG Industries', hint: 'Pittsburgh, PA', sub: 'Materials', alias: ['ppg','pittsburgh plate glass'] }
     ]}
   ]
 },

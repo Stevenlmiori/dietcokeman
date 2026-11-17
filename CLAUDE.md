@@ -129,11 +129,14 @@ tags… so that when there's a ton of quizzes someday, search and filtering
 works well." The single source of truth is `window.TAXONOMY` at the top of
 `quizzes.js`:
 
-* **Categories** (exactly one per quiz): `Sports`, `Movies` — more as the
-  site grows (TV, Music, Geography…). Add it to the list before using it.
+* **Categories** (exactly one per quiz): `Sports`, `Movies`, `TV`,
+  `Business`, `Food & Drink` — more as the site grows. Add it to the list
+  before using it.
 * **Tags** (a few per quiz), in three groups, written in this order:
   * league — `NFL`, `NBA`, `MLB`, `NHL`, `NCAA`
   * sport — `Football`, `Basketball`, `Baseball`, `Hockey`
+  * market — `S&P 500`, `Companies`
+  * topic — `Drinks`
   * kind — `All-Time`, `This Season`, `Career Leaders`, `Awards`, `Fantasy`, `Betting`
 
 Every quiz must carry a category and tags. The hub warns in the browser
@@ -508,12 +511,14 @@ number (0 = pick'em).
 
 | Slug | Title | Answers | Modes |
 |---|---|---|---|
+| `best-drink` | Best Drink of All Time — **always first on the hub** | 1 (Diet Coke) | Timed 0:30 · No pressure |
 | `top5-by-position` | NFL Fantasy Leaders (QB/RB/WR/TE through Week 10, 2026) | 20 | Timed 5:00 · No pressure |
 | `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
 | `nba-top25-by-category` | NBA Top 25 by Category (8 career stats) | 200 | Timed 15:00 · No pressure |
 | `nfl-mvps` | NFL MVPs (AP, 1957–2025, by decade) | 71 | Timed 10:00 · No pressure |
 | `nba-mvps` | NBA MVPs (1955-56 – 2025-26, by decade) | 71 | Timed 10:00 · No pressure |
 | `mlb-career-hr` | MLB All-Time Home Runs (top 50, through 2026) | 50 | Timed 8:00 · No pressure |
+| `sp500-since-1957` | Still in the S&P 500 Since 1957 (52, full names) | 52 | Timed 10:00 · No pressure |
 | `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links
@@ -548,9 +553,30 @@ forgiven typo on Enter either ("walter" is not Walker).
 (table `#leader_standard_HR`, curl works with a browser UA), top 50 through
 the 2026 season — a tie at #49 lands it on exactly 50. Ties share a rank.
 B-R lists "Henry Aaron"; the quiz shows Hank Aaron (Henry is an alias).
-Active players to re-pull next season: Giancarlo Stanton (456). Removed quizzes: "Name the League" (too easy) and "Round 1
+Active players to re-pull next season: Giancarlo Stanton (456).
+
+**Still in the S&P 500 Since 1957** — Wikipedia "List of S&P 500 companies"
+(S&P's data), every member whose Date added is 1957-03-04: 52 companies, some
+through a predecessor (Altria = Philip Morris, RTX = United Aircraft, S&P
+Global = McGraw-Hill, Exelon = Commonwealth Edison, Honeywell = Allied). Next
+oldest is Sherwin-Williams (1964). **Company quizzes use `match: 'full'`**:
+"general", "energy", "southern" must not count, so the everyday names (coke,
+p&g, exxon, ge, big blue, john deere, con ed) are aliases. Re-pull when S&P
+drops one of them. Rows are sorted by headquarters within each sector so the
+order gives nothing away.
+
+**Best Drink of All Time** — Steven's joke quiz: one answer, Diet Coke, first
+on the hub. `match: 'full'` so plain "coke" doesn't land. It uses **`nope`**, a
+per-quiz map of normalised wrong guesses to custom replies (pepsi →
+"Absolutely not.", coke zero → "The impostor. Try again."). Any quiz can use
+`nope`; keep the replies short and without em dashes.
+
+**Enter never forgives a typo onto a different answer when the guess is a
+word that's part of answers' names** (`parts` in engine.js): "energy" (Xcel
+Energy, CMS Energy) is not Entergy. Removed quizzes: "Name the League" (too easy) and "Round 1
 Recall" (a test/placeholder, deleted 2026-11-17 along with its saved scores).
-An old `?q=` link to a removed quiz falls through to the first quiz.
+An old `?q=` link to a removed quiz falls through to the first quiz, which
+is Best Drink of All Time.
 
 ---
 
