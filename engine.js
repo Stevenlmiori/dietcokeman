@@ -157,15 +157,18 @@ function onInput() {
   if (!running) return;
   const box = $('guess');
   const { hits, already } = findMatches(box.value);
-  if (hits.length === 1) {
-    reveal(hits[0]);
+  // One name sweeps everyone who shares it, across every section of the board:
+  // "Manning" takes Peyton and Eli, "Brown" takes Jim and Tim.
+  if (hits.length) {
+    hits.forEach(reveal);
     box.value = '';
     box.classList.remove('bad'); box.classList.add('good');
     setTimeout(() => box.classList.remove('good'), 420);
-    toast('Got it — ' + hits[0].a, 'ok');
+    toast(hits.length === 1
+      ? 'Got it — ' + hits[0].a
+      : 'Got ' + hits.length + ' — ' + hits.map(h => h.a).join(' + '), 'ok');
     return;
   }
-  if (hits.length > 1) { toast('More than one — add a first or last name', 'hint'); return; }
   if (already && norm(box.value).length > 3) { toast('Already on the board', 'hint'); return; }
   toast('');
 }
@@ -177,8 +180,7 @@ function onSubmit(e) {
   const raw = box.value.trim();
   if (!raw) return;
   const { hits, already } = findMatches(raw);
-  if (hits.length === 1) { onInput(); return; }
-  if (hits.length > 1) { toast('More than one — add a first or last name', 'hint'); return; }
+  if (hits.length) { onInput(); return; }
   if (already) { toast('Already on the board', 'hint'); box.value = ''; return; }
 
   // a genuine miss
