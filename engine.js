@@ -20,26 +20,31 @@ function words(s) {
     .toLowerCase().split(/\s+/).map(w => w.replace(/[^a-z0-9]+/g, '')).filter(Boolean);
 }
 
-/* Every spelling we will accept for one answer. */
+/* Every spelling we will accept for one answer.
+
+   Length floors matter here. An earlier version accepted *any* word of a
+   multi-word answer, which meant "st" alone unlocked Amon-Ra St. Brown and
+   "me" unlocked Dont Tread On Me. Particles and connectors only count as part
+   of a larger key now; a bare word has to be long enough to be a real guess. */
 function keysFor(item) {
   const keys = new Set();
-  const add = (s) => { const k = norm(s); if (k.length > 1) keys.add(k); };
+  const add = (s, min) => { const k = norm(s); if (k.length >= (min || 2)) keys.add(k); };
 
-  add(item.a);
-  const w = words(item.a);
-  const core = w.filter(x => !SUFFIX.has(x));
+  add(item.a);                                        // exactly as written, suffix included
+  const core = words(item.a).filter(x => !SUFFIX.has(x));
+  const real = core.filter(x => !NOISE.has(x));       // drop "the", "of", "and"...
 
-  if (core.length) {
-    add(core.join(''));                       // full name without a suffix
-    add(core[0]);                             // first name
-    if (core.length > 1) {
-      add(core.slice(1).join(''));            // last name (compound stays joined)
-      add(core[core.length - 1]);             // final word on its own
+  if (core.length) add(core.join(''));                // full name, suffix dropped
+  if (real.length) {
+    add(real.join(''));                               // "The Goods" -> "goods"
+    add(real[0]);                                     // first name / first word
+    if (real.length > 1) {
+      add(real.slice(1).join(''));                    // surname, compounds kept whole
+      add(real[real.length - 1], 3);                  // final word alone, if it isn't a particle
+      real.forEach(x => add(x, 4));                   // any other word, only if it stands on its own
     }
-    // multi-word titles: accept any single meaningful word
-    if (core.length > 1) core.forEach(x => { if (!NOISE.has(x)) add(x); });
   }
-  (item.alias || []).forEach(add);
+  (item.alias || []).forEach(a => add(a));
   return keys;
 }
 

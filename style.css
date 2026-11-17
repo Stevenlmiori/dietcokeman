@@ -228,11 +228,17 @@ a{color:inherit}
 .rk{flex:none;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;
   font-size:11px;font-weight:800;background:rgba(255,255,255,.07);color:var(--silver-dim);
   font-variant-numeric:tabular-nums}
-.nm{flex:1;min-width:0;font-weight:700;font-size:14.5px;letter-spacing:-.01em;
+.nm{flex:1;min-width:0;position:relative;font-weight:700;font-size:14.5px;letter-spacing:-.01em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nm.blank{color:transparent;background:rgba(255,255,255,.07);border-radius:6px;height:15px;
-  max-width:140px}
-.sub2{flex:none;font-size:11.5px;color:var(--silver-dim);font-weight:700;letter-spacing:.02em}
+/* The placeholder is drawn as an overlay rather than by shrinking .nm, so the team
+   and the score sit in exactly the same place before and after a row is solved. */
+.nm.blank{color:transparent}
+.nm.blank::after{
+  content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:min(150px,100%);height:14px;border-radius:7px;background:rgba(255,255,255,.08);
+}
+.sub2{flex:none;min-width:34px;text-align:right;font-size:11.5px;color:var(--silver-dim);
+  font-weight:700;letter-spacing:.02em}
 .hintv{flex:none;font-size:12.5px;font-weight:800;color:var(--silver);font-variant-numeric:tabular-nums;
   min-width:46px;text-align:right}
 .row.got{background:rgba(59,217,126,.1)}
