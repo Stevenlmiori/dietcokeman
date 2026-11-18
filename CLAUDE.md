@@ -520,6 +520,7 @@ number (0 = pick'em).
 | Slug | Title | Answers | Modes |
 |---|---|---|---|
 | `best-drink` | Best Drink of All Time — **always first on the hub** | 1 (Diet Coke) | Timed 0:30 · No pressure |
+| `disney-princesses` | Disney Princesses — **for Jamesyn (Steven's daughter, 10)**; 13 official + Anna & Elsa bonus; opens in No pressure | 15 | No pressure · Timed 3:00 |
 | `dietcokeman-favorite-movies` | DietCokeMan's Favorite Movies — Steven's own ranked 64, **second on the hub**; years from Wikipedia short descriptions | 64 | Timed 10:00 · No pressure |
 | `top5-by-position` | NFL Fantasy Leaders (QB/RB/WR/TE through Week 10, 2026) | 20 | Timed 5:00 · No pressure |
 | `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
@@ -582,6 +583,14 @@ oldest is Sherwin-Williams (1964). **Company quizzes use `match: 'full'`**:
 p&g, exxon, ge, big blue, john deere, con ed) are aliases. Re-pull when S&P
 drops one of them. Rows are sorted by headquarters within each sector so the
 order gives nothing away.
+
+**Kids' quizzes (for Jamesyn, 10).** Tag them `Kids` (+ `Disney` etc.). They
+open in **No pressure** (`mode: 'chill'`), use clues that don't give the answer
+away (Disney Princesses shows year + sidekick, not the movie title, which
+*is* the answer for Mulan, Moana, Raya…), carry generous misspelling aliases
+(rapunzle, jasmeen, pocahantas) plus "princess X", and use `nope` for friendly
+replies to near-misses (Princess Peach → "Wrong castle! Peach is from Mario.").
+Keep all copy kind and simple.
 
 **Best Drink of All Time** — Steven's joke quiz: one answer, Diet Coke, first
 on the hub. `match: 'full'` so plain "coke" doesn't land. It uses **`nope`**, a

@@ -41,7 +41,7 @@ window.TAXONOMY = {
     league: ['NFL', 'NBA', 'MLB', 'NHL', 'NCAA'],
     sport:  ['Football', 'Basketball', 'Baseball', 'Hockey', 'Golf'],
     market: ['S&P 500', 'Companies', 'Stocks'],
-    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites'],
+    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Kids'],
     kind:   ['All-Time', 'This Season', 'Career Leaders', 'Awards', 'Champions', 'Draft', 'Fantasy', 'Betting']
   },
   /* The little emoji in each hub card's corner. The most specific match wins:
@@ -183,6 +183,59 @@ window.QUIZZES = [
       { a: 'War of the Worlds', rk: '62', hint: '2005' },
       { a: 'The Place Beyond the Pines', rk: '63', hint: '2012' },
       { a: 'Arlington Road', rk: '64', hint: '1999' }
+    ]}
+  ]
+},
+
+{
+  slug: 'disney-princesses',
+  title: 'Disney Princesses',
+  sub: 'Name every princess',
+  blurb: "Can you name all 13 official Disney Princesses, plus the two Frozen sisters? Each row shows the year her movie came out and her sidekick.",
+  // Built for Jamesyn (10). The 13 official members per Wikipedia "Disney Princess" (Raya, 2021, is the 13th;
+  // Anna and Elsa were considered but never joined, so they're a bonus section). Clues are the year and the
+  // sidekick, not the movie title, which would give away Mulan, Moana, Raya, Cinderella and Pocahontas.
+  category: 'Movies',
+  tags: ['Disney', 'Kids'],
+  icon: '👑',
+  match: 'full',
+  mode: 'chill',
+  time: 180,
+  cols: 'single',
+  nope: {
+    barbie: 'Barbie is awesome, but she is not a Disney princess!',
+    fiona: 'Fiona is a princess from Shrek, not Disney!',
+    princessfiona: 'Fiona is a princess from Shrek, not Disney!',
+    peach: 'Wrong castle! Peach is from Mario.',
+    princesspeach: 'Wrong castle! Peach is from Mario.',
+    leia: 'Disney owns Star Wars, but Leia is not on this list!',
+    princessleia: 'Disney owns Star Wars, but Leia is not on this list!',
+    tinkerbell: 'She is a fairy, not a princess!',
+    vanellope: 'She is a princess, but not an official Disney one!',
+    sofia: 'Sofia the First is a TV princess, not one of these!',
+    olaf: 'Olaf is a snowman! Try the people who made him.',
+    mushu: 'Mushu is the sidekick! Who is his princess?',
+    elena: 'Elena of Avalor is a TV princess, not one of these!'
+  },
+  groups: [
+    { name: 'The Official Princesses', items: [
+      { a: 'Snow White', rk: '1', sub: '1937', hint: 'Seven Dwarfs', alias: ['snow','snowwhite','princess snow white'] },
+      { a: 'Cinderella', rk: '2', sub: '1950', hint: 'Gus & Jaq', alias: ['cinderelly','cinderela','cindy','princess cinderella'] },
+      { a: 'Aurora', rk: '3', sub: '1959', hint: 'Three good fairies', alias: ['sleeping beauty','briar rose','arora','princess aurora'] },
+      { a: 'Ariel', rk: '4', sub: '1989', hint: 'Flounder', alias: ['little mermaid','the little mermaid','ariell','arial','princess ariel'] },
+      { a: 'Belle', rk: '5', sub: '1991', hint: 'Chip', alias: ['bell','bella','princess belle'] },
+      { a: 'Jasmine', rk: '6', sub: '1992', hint: 'Rajah the tiger', alias: ['jasmin','jazmine','jazmin','jasmeen','jazmeen','jasmene','princess jasmine'] },
+      { a: 'Pocahontas', rk: '7', sub: '1995', hint: 'Meeko', alias: ['pocahantas','pocohontas','pocahontus','princess pocahontas'] },
+      { a: 'Mulan', rk: '8', sub: '1998', hint: 'Mushu', alias: ['fa mulan','hua mulan','moolan','princess mulan'] },
+      { a: 'Tiana', rk: '9', sub: '2009', hint: 'Louis', alias: ['tianna','tiyana','princess tiana'] },
+      { a: 'Rapunzel', rk: '10', sub: '2010', hint: 'Pascal', alias: ['repunzel','rapunzle','rapunsel','rapunzell','princess rapunzel'] },
+      { a: 'Merida', rk: '11', sub: '2012', hint: 'Angus the horse', alias: ['marida','meridah','princess merida'] },
+      { a: 'Moana', rk: '12', sub: '2016', hint: 'Heihei', alias: ['moanna','mowana','moanah','muana','princess moana'] },
+      { a: 'Raya', rk: '13', sub: '2021', hint: 'Sisu', alias: ['raia','princess raya'] }
+    ]},
+    { name: 'Royalty Too', items: [
+      { a: 'Anna', rk: '14', sub: '2013', hint: 'Kristoff & Sven', alias: ['ana','anah','princess anna'] },
+      { a: 'Elsa', rk: '15', sub: '2013', hint: 'Olaf', alias: ['elssa','else','elza','princess elsa'] }
     ]}
   ]
 },
