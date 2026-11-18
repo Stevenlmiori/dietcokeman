@@ -37,12 +37,12 @@
    category or tag here first, then use it. Sports tags go league, sport,
    then kind; business tags go market, then kind. */
 window.TAXONOMY = {
-  categories: ['Sports', 'Movies', 'TV', 'Business', 'Food & Drink'],
+  categories: ['Sports', 'Movies', 'TV', 'Games', 'Business', 'Food & Drink'],
   tags: {
     league: ['NFL', 'NBA', 'MLB', 'NHL', 'NCAA'],
     sport:  ['Football', 'Basketball', 'Baseball', 'Hockey', 'Golf'],
     market: ['S&P 500', 'Companies', 'Stocks'],
-    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Kids'],
+    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Minecraft', 'Kids'],
     kind:   ['All-Time', 'This Season', 'Throwback', 'Career Leaders', 'Awards', 'Champions', 'Draft', 'Fantasy', 'Betting']
   },
   /* The little emoji in each hub card's corner. The most specific match wins:
@@ -52,9 +52,9 @@ window.TAXONOMY = {
     tags: {
       Football: '🏈', Basketball: '🏀', Baseball: '⚾', Hockey: '🏒', Golf: '⛳',
       Drinks: '🥤', Restaurants: '🍔', Oscars: '🏆', 'Box Office': '🎬',
-      Stocks: '📈', 'S&P 500': '📈'
+      Stocks: '📈', 'S&P 500': '📈', Minecraft: '⛏️', Disney: '👑'
     },
-    categories: { Sports: '🏆', Movies: '🎬', TV: '📺', Business: '💼', 'Food & Drink': '🍽️' }
+    categories: { Sports: '🏆', Movies: '🎬', TV: '📺', Games: '🎮', Business: '💼', 'Food & Drink': '🍽️' }
   }
 };
 
@@ -237,6 +237,133 @@ window.QUIZZES = [
     { name: 'Royalty Too', items: [
       { a: 'Anna', rk: '14', sub: '2013', hint: 'Kristoff & Sven', alias: ['ana','anah','princess anna'] },
       { a: 'Elsa', rk: '15', sub: '2013', hint: 'Olaf', alias: ['elssa','else','elza','princess elsa'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'minecraft-mobs',
+  title: 'Minecraft Mobs',
+  sub: 'Name every mob in the game',
+  blurb: "How many of Minecraft's 88 mobs can you name? Every row has a hint. Passive, neutral, hostile, and the two bosses.",
+  // For Steven's boys. The current list from minecraft.wiki "Mob" (passive/neutral/hostile/boss),
+  // pulled 2026-11-17, through the Sulfur Cube. Full names only: "spider" must not also fill Cave Spider,
+  // "zombie" must not fill four zombies. Old names and kid spellings are aliases (zombie pigman, snowman).
+  // Upcoming mobs (Blub, Frostbite) are left out until they ship; re-pull when they do.
+  category: 'Games',
+  tags: ['Minecraft', 'Kids'],
+  match: 'full',
+  mode: 'chill',
+  time: 600,
+  cols: 'single',          // sentence-long hints need the full row
+  nope: {
+    herobrine: "Herobrine isn't real... or is he?",
+    steve: "That's you, the player! Mobs only.",
+    alex: "That's you, the player! Mobs only.",
+    killerbunny: 'The killer bunny is a rare rabbit! Try rabbit.',
+    giant: 'Giants are in the code but never spawn. Try another!',
+    illusioner: 'The illusioner never spawns on its own. Try another!',
+    notch: 'Notch made the game! Mobs only.',
+    jeb: 'A sheep named jeb_ is a rainbow sheep! Try sheep.',
+    dinnerbone: 'Name a mob Dinnerbone and it flips upside down! Try another.',
+    chickenjockey: 'A chicken jockey is a baby zombie on a chicken! Name them one at a time.'
+  },
+  groups: [
+    { name: 'Passive', items: [
+      { a: 'Allay', hint: 'Blue flier that collects items for you', alias: ['allays','ally'] },
+      { a: 'Armadillo', hint: 'Rolls into a ball; drops scutes', alias: ['armadilo'] },
+      { a: 'Axolotl', hint: 'Cute swimmer in lush caves', alias: ['axolottl','axolotel','axalotl','axlotl','axolotls','axolatl'] },
+      { a: 'Bat', hint: 'Squeaks around in dark caves', alias: ['bats'] },
+      { a: 'Camel', hint: 'Desert ride for two players', alias: ['camels'] },
+      { a: 'Camel Husk', hint: 'Undead camel ridden in the desert', alias: ['zombie camel'] },
+      { a: 'Cat', hint: 'Scares away creepers', alias: ['kitty','kitten','cats'] },
+      { a: 'Chicken', hint: 'Lays eggs', alias: ['chickens','chick'] },
+      { a: 'Cod', hint: 'Plain ocean fish' },
+      { a: 'Copper Golem', hint: 'Sorts your items into chests', alias: ['copper golems'] },
+      { a: 'Cow', hint: 'Milk and leather', alias: ['cows'] },
+      { a: 'Donkey', hint: 'Can carry a chest on its back', alias: ['donkeys'] },
+      { a: 'Frog', hint: 'Eats tiny magma cubes', alias: ['frogs'] },
+      { a: 'Glow Squid', hint: 'Its ink makes signs glow', alias: ['glowsquid','glowing squid'] },
+      { a: 'Happy Ghast', hint: 'Friendly floating ride for four', alias: ['happy ghasts'] },
+      { a: 'Horse', hint: 'Fast ride with a saddle', alias: ['horses'] },
+      { a: 'Mooshroom', hint: 'Mushroom-covered cow', alias: ['mushroom cow','moshroom','mooshroom cow'] },
+      { a: 'Mule', hint: 'Half horse, half donkey', alias: ['mules'] },
+      { a: 'Ocelot', hint: 'Shy jungle cat', alias: ['ocelots','ocelet'] },
+      { a: 'Parrot', hint: 'Dances to music', alias: ['parrots','parot'] },
+      { a: 'Pig', hint: 'Ride it with a carrot on a stick', alias: ['pigs','piggy'] },
+      { a: 'Rabbit', hint: 'Hops around; lucky foot', alias: ['bunny','rabbits'] },
+      { a: 'Salmon', hint: 'Swims up rivers' },
+      { a: 'Sheep', hint: 'Gives wool', alias: ['sheeps'] },
+      { a: 'Skeleton Horse', hint: 'Shows up when lightning strikes', alias: ['skeleton horses'] },
+      { a: 'Sniffer', hint: 'Ancient mob that digs up seeds', alias: ['sniffers'] },
+      { a: 'Snow Golem', hint: 'Pumpkin head, throws snowballs', alias: ['snowman','snow man','snowgolem'] },
+      { a: 'Squid', hint: 'Gives ink sacs', alias: ['squids'] },
+      { a: 'Strider', hint: 'Walks on lava', alias: ['striders'] },
+      { a: 'Sulfur Cube', hint: 'Bouncy cube from sulfur caves', alias: ['sulphur cube'] },
+      { a: 'Tadpole', hint: 'Grows up into a frog', alias: ['tadpoles'] },
+      { a: 'Tropical Fish', hint: 'Colorful reef fish', alias: ['tropical fishes'] },
+      { a: 'Turtle', hint: 'Lays eggs on the beach', alias: ['turtles','sea turtle'] },
+      { a: 'Villager', hint: 'Trades for emeralds', alias: ['villagers','villiger','vilager'] },
+      { a: 'Wandering Trader', hint: 'Shows up with two llamas', alias: ['wandering traders'] },
+      { a: 'Zombie Horse', hint: 'Undead horse', alias: ['zombie horses'] }
+    ]},
+    { name: 'Neutral', items: [
+      { a: 'Bee', hint: 'Makes honey; stings if you bother it', alias: ['bees'] },
+      { a: 'Cave Spider', hint: 'Poison bite in mineshafts', alias: ['cave spiders'] },
+      { a: 'Dolphin', hint: 'Gives you a swimming boost', alias: ['dolphins'] },
+      { a: 'Drowned', hint: 'Underwater zombie with a trident', alias: ['drowned zombie','drown'] },
+      { a: 'Enderman', hint: 'Don\'t look it in the eyes!', alias: ['endermen','ender man','endermans'] },
+      { a: 'Fox', hint: 'Carries things in its mouth', alias: ['foxes','fox'] },
+      { a: 'Goat', hint: 'Rams you off mountains', alias: ['goats'] },
+      { a: 'Iron Golem', hint: 'Protects villages', alias: ['iron golems','irongolem'] },
+      { a: 'Llama', hint: 'Spits at you', alias: ['lama','llamas'] },
+      { a: 'Nautilus', hint: 'Underwater ride you can tame' },
+      { a: 'Panda', hint: 'Munches bamboo', alias: ['pandas'] },
+      { a: 'Piglin', hint: 'Loves gold', alias: ['piglins'] },
+      { a: 'Polar Bear', hint: 'Lives in snowy places', alias: ['polar bears'] },
+      { a: 'Pufferfish', hint: 'Puffs up and poisons you', alias: ['puffer fish','blowfish'] },
+      { a: 'Spider', hint: 'Climbs walls; angry at night', alias: ['spiders'] },
+      { a: 'Trader Llama', hint: 'Follows the wandering trader', alias: ['trader llamas'] },
+      { a: 'Wolf', hint: 'Tame it with a bone', alias: ['dog','wolves','puppy'] },
+      { a: 'Zombie Nautilus', hint: 'Undead ride for a drowned' },
+      { a: 'Zombified Piglin', hint: 'Gold sword; the whole group attacks', alias: ['zombie pigman','zombie piglin','zombified piglins','pigman'] }
+    ]},
+    { name: 'Hostile', items: [
+      { a: 'Blaze', hint: 'Fire flier in Nether fortresses', alias: ['blazes'] },
+      { a: 'Bogged', hint: 'Mossy skeleton with poison arrows' },
+      { a: 'Breeze', hint: 'Windy mob in trial chambers', alias: ['breezes'] },
+      { a: 'Creaking', hint: 'Only moves when you look away', alias: ['creakings'] },
+      { a: 'Creeper', hint: 'Ssss... BOOM', alias: ['creepers','creper'] },
+      { a: 'Elder Guardian', hint: 'Boss of the ocean monument', alias: ['elder guardians'] },
+      { a: 'Endermite', hint: 'Tiny bug from ender pearls', alias: ['endermites'] },
+      { a: 'Evoker', hint: 'Summons fangs and vexes', alias: ['evokers','evocation illager'] },
+      { a: 'Ghast', hint: 'Cries and shoots fireballs', alias: ['ghasts'] },
+      { a: 'Guardian', hint: 'Laser fish in ocean monuments', alias: ['guardians'] },
+      { a: 'Hoglin', hint: 'Giant Nether pig beast', alias: ['hoglins'] },
+      { a: 'Husk', hint: 'Desert zombie', alias: ['husks'] },
+      { a: 'Magma Cube', hint: 'Bouncy Nether slime', alias: ['magma cubes','magma slime'] },
+      { a: 'Parched', hint: 'Desert skeleton with weakness arrows' },
+      { a: 'Phantom', hint: 'Swoops at you if you skip sleep', alias: ['phantoms'] },
+      { a: 'Piglin Brute', hint: 'Bastion guard with a golden axe', alias: ['brute','piglin brutes'] },
+      { a: 'Pillager', hint: 'Crossbow raider', alias: ['pillagers'] },
+      { a: 'Ravager', hint: 'Huge beast in raids', alias: ['ravagers'] },
+      { a: 'Shulker', hint: 'Hides in a box in End cities', alias: ['shulkers'] },
+      { a: 'Silverfish', hint: 'Hides inside stone blocks', alias: ['silver fish'] },
+      { a: 'Skeleton', hint: 'Shoots arrows', alias: ['skeletons','skelly'] },
+      { a: 'Slime', hint: 'Splits into smaller ones', alias: ['slimes'] },
+      { a: 'Stray', hint: 'Frozen skeleton; slowness arrows', alias: ['strays'] },
+      { a: 'Vex', hint: 'Tiny flying ghost with a sword', alias: ['vexes'] },
+      { a: 'Vindicator', hint: 'Axe-swinging illager', alias: ['vindicators'] },
+      { a: 'Warden', hint: 'Blind giant of the Deep Dark', alias: ['wardens'] },
+      { a: 'Witch', hint: 'Throws potions', alias: ['witches'] },
+      { a: 'Wither Skeleton', hint: 'Black skeleton; drops skulls', alias: ['wither skeletons'] },
+      { a: 'Zoglin', hint: 'Zombified hoglin', alias: ['zoglins'] },
+      { a: 'Zombie', hint: 'Groans and burns in the sun', alias: ['zombies'] },
+      { a: 'Zombie Villager', hint: 'Cure it with a golden apple', alias: ['zombie villagers'] }
+    ]},
+    { name: 'Bosses', items: [
+      { a: 'Ender Dragon', hint: 'Final boss of the End', alias: ['enderdragon','the ender dragon','dragon'] },
+      { a: 'Wither', hint: 'Three heads; you build it yourself', alias: ['the wither'] }
     ]}
   ]
 },

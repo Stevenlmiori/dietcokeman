@@ -129,14 +129,14 @@ tags… so that when there's a ton of quizzes someday, search and filtering
 works well." The single source of truth is `window.TAXONOMY` at the top of
 `quizzes.js`:
 
-* **Categories** (exactly one per quiz): `Sports`, `Movies`, `TV`,
+* **Categories** (exactly one per quiz): `Sports`, `Movies`, `TV`, `Games`,
   `Business`, `Food & Drink` — more as the site grows. Add it to the list
   before using it.
 * **Tags** (a few per quiz), in three groups, written in this order:
   * league — `NFL`, `NBA`, `MLB`, `NHL`, `NCAA`
   * sport — `Football`, `Basketball`, `Baseball`, `Hockey`
   * market — `S&P 500`, `Companies`
-  * topic — `Drinks`, `Restaurants`, `Box Office`, `Oscars`, `Favorites`
+  * topic — `Drinks`, `Restaurants`, `Box Office`, `Oscars`, `Favorites`, `Disney`, `Minecraft`, `Kids`
   * kind — `All-Time`, `This Season`, `Throwback` (a past season), `Career Leaders`, `Awards`, `Fantasy`, `Betting`
 
 Every quiz must carry a category and tags. The hub warns in the browser
@@ -536,6 +536,7 @@ number (0 = pick'em).
 |---|---|---|---|
 | `best-drink` | Best Drink of All Time — **always first on the hub** | 1 (Diet Coke) | Timed 0:30 · No pressure |
 | `disney-princesses` | Disney Princesses — **for Jamesyn (Steven's daughter, 10)**; 13 official + Anna & Elsa bonus; opens in No pressure | 15 | No pressure · Timed 3:00 |
+| `minecraft-mobs` | Minecraft Mobs — **for Steven's boys**; all 88 from minecraft.wiki "Mob" (through the Sulfur Cube), passive/neutral/hostile/bosses, kid clue per row, full names | 88 | No pressure · Timed 10:00 |
 | `dietcokeman-favorite-movies` | DietCokeMan's Favorite Movies — Steven's own ranked 64, **second on the hub**; years from Wikipedia short descriptions | 64 | Timed 10:00 · No pressure |
 | `top5-by-position` | NFL Fantasy Leaders (QB/RB/WR/TE through Week 10, 2026) | 20 | Timed 5:00 · No pressure |
 | `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
@@ -600,7 +601,12 @@ p&g, exxon, ge, big blue, john deere, con ed) are aliases. Re-pull when S&P
 drops one of them. Rows are sorted by headquarters within each sector so the
 order gives nothing away.
 
-**Kids' quizzes (for Jamesyn, 10).** Tag them `Kids` (+ `Disney` etc.). They
+**Long hints.** A row's hint may be a short sentence (Minecraft Mobs: "Don't look
+it in the eyes!"). `.hintv` wraps at 58% of the row and `.nm` keeps at least 38%,
+so names don't get squeezed to "Al…"; a quiz with sentence hints should use
+`cols: 'single'`.
+
+**Kids' quizzes (for Jamesyn, 10, and Steven's boys).** Tag them `Kids` (+ `Disney` etc.). They
 open in **No pressure** (`mode: 'chill'`), use clues that don't give the answer
 away (Disney Princesses shows year + sidekick, not the movie title, which
 *is* the answer for Mulan, Moana, Raya…), carry generous misspelling aliases
