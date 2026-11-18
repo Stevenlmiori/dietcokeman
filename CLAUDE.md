@@ -145,6 +145,14 @@ quiz. **Don't invent a near-duplicate** ("NBA Basketball", "Alltime"): use the
 existing word or add a new one to `TAXONOMY` deliberately. The weekly Line Game
 rewrite must keep `category`/`tags`.
 
+**"This week" (featured).** A quiz with `featured: true` leaves the evergreen
+grid and sits in its own **This week** section above "Pick your challenge", as
+one wide card with a faint red tint that also shows its blurb. Steven: the Line
+Game "doesn't make sense … in the mix with those other ones that aren't changing
+every week." Use it for weekly or seasonal quizzes; drop the flag when one stops
+being current. While searching or filtering, the section steps aside and
+featured quizzes appear in the results like any other.
+
 **The hub's search and filters** (search box, category row, tag row) are
 always shown — Steven chose that over hiding them until the hub grew ("Show it
 now"). The category row only appears once two categories are in use. Links

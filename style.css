@@ -153,6 +153,19 @@ a{color:inherit}
   transition:transform .16s cubic-bezier(.2,.8,.3,1),border-color .16s,box-shadow .16s;
 }
 .card:hover{transform:translateY(-3px);border-color:#3D4A5A;box-shadow:0 16px 40px rgba(0,0,0,.55)}
+/* "This week": time-sensitive quizzes, one wide card each, above the evergreen grid */
+.featured{margin-bottom:30px}
+.feature-grid{display:grid;gap:16px}
+.card.feature{padding:24px 24px 22px;
+  background:linear-gradient(120deg,rgba(240,25,50,.13),rgba(255,255,255,.03) 55%);
+  border-color:rgba(240,25,50,.28)}
+.card.feature:hover{border-color:rgba(240,25,50,.5)}
+.card.feature h3{font-size:clamp(21px,2.4vw,26px);letter-spacing:-.02em}
+.card.feature .sub{font-size:14.5px;color:var(--silver)}
+.card.feature .blurb{margin:6px 0 0;max-width:70ch;font-size:13.5px;line-height:1.5;color:var(--silver-dim)}
+.card.feature .card-ico{top:22px;right:22px;font-size:26px}
+.card.feature h3{padding-right:44px}
+
 /* one emoji in the top-right corner, on its own: no tile or border (Steven) */
 .card-ico{position:absolute;top:18px;right:18px;font-size:20px;line-height:1;
   transition:transform .16s cubic-bezier(.2,.8,.3,1)}

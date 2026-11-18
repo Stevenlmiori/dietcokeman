@@ -16,6 +16,7 @@
      hideSub: true,                // hide each item's `sub` until that row is solved
      modes: ['timed','chill'],     // which mode buttons to offer (default: both)
      match: 'full',                // optional: full names only (no last-name shortcut)
+     featured: true,               // optional: time-sensitive, shown in the hub's "This week" section
      groups: [{
        name: 'Group heading',
        note: 'right-side label',   // optional
@@ -1658,6 +1659,7 @@ window.QUIZZES = [
 
 {
   slug: 'line-game',               // permanent: the weekly link never changes
+  featured: true,                  // weekly and time-sensitive: shown in the hub's "This week" section
   scoreKey: 'line-game-2026-w11',  // per-week best scores
   type: 'lines',
   title: 'NFL Line Game: Week 11',

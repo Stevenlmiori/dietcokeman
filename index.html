@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261117200913">
+<link rel="stylesheet" href="style.css?v=20261117202731">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -43,6 +43,13 @@
     </div>
   </section>
 
+  <!-- Time-sensitive quizzes (featured: true) get their own section above the
+       evergreen ones. It steps aside while you search or filter. -->
+  <section class="featured" id="featured" hidden>
+    <div class="sect-h"><h2>This week</h2></div>
+    <div class="feature-grid" id="featureGrid"></div>
+  </section>
+
   <div class="sect-h"><h2>Pick your challenge</h2></div>
   <!-- Search and filters. Always on (Steven: "Show it now"). -->
   <div class="finder" id="finder" hidden>
@@ -59,8 +66,8 @@
   </p>
 </main>
 
-<script type="module" src="account.js?v=20261117200913"></script>
-<script src="quizzes.js?v=20261117200913"></script>
+<script type="module" src="account.js?v=20261117202731"></script>
+<script src="quizzes.js?v=20261117202731"></script>
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
@@ -99,15 +106,24 @@
     || ((q.tags || []).map(t => ICONS.tags[t]).find(Boolean))
     || ICONS.categories[q.category] || '';
 
-  function render() {
-    const shown = QUIZZES.filter(matches);
-    // Title, subtitle and one small emoji in the corner. No tags, counts, modes or chips.
-    grid.innerHTML = shown.map(q => `<a class="card" href="play.html?q=${encodeURIComponent(q.slug)}">
+  // Title, subtitle and one small emoji in the corner. No tags, counts, modes or chips.
+  const card = (q, cls) => `<a class="card${cls ? ' ' + cls : ''}" href="play.html?q=${encodeURIComponent(q.slug)}">
       <span class="card-ico" aria-hidden="true">${esc(iconFor(q))}</span>
       <h3>${esc(q.title)}</h3>
       <div class="sub">${esc(q.sub)}</div>
-    </a>`).join('');
-    $('nomatch').hidden = shown.length > 0;
+      ${cls && q.blurb ? `<p class="blurb">${esc(q.blurb)}</p>` : ''}
+    </a>`;
+
+  function render() {
+    // Featured (weekly, time-sensitive) quizzes sit in "This week" until you
+    // search or filter; then everything is just results in one grid.
+    const browsing = !state.q && !state.category && !state.tag;
+    const featured = browsing ? QUIZZES.filter(q => q.featured) : [];
+    $('featured').hidden = !featured.length;
+    $('featureGrid').innerHTML = featured.map(q => card(q, 'feature')).join('');
+    const shown = QUIZZES.filter(q => matches(q) && !featured.includes(q));
+    grid.innerHTML = shown.map(q => card(q)).join('');
+    $('nomatch').hidden = shown.length + featured.length > 0;
     if (finderOn) paintFacets();
   }
 
