@@ -137,7 +137,7 @@ works well." The single source of truth is `window.TAXONOMY` at the top of
   * sport — `Football`, `Basketball`, `Baseball`, `Hockey`
   * market — `S&P 500`, `Companies`
   * topic — `Drinks`, `Restaurants`, `Box Office`, `Oscars`, `Favorites`
-  * kind — `All-Time`, `This Season`, `Career Leaders`, `Awards`, `Fantasy`, `Betting`
+  * kind — `All-Time`, `This Season`, `Throwback` (a past season), `Career Leaders`, `Awards`, `Fantasy`, `Betting`
 
 Every quiz must carry a category and tags. The hub warns in the browser
 console about a missing or unknown one, so check the console after adding a
@@ -529,6 +529,7 @@ number (0 = pick'em).
 | `nba-mvps` | NBA MVPs (1955-56 – 2025-26, by decade) | 71 | Timed 10:00 · No pressure |
 | `mlb-career-hr` | MLB All-Time Home Runs (top 50, through 2026) | 50 | Timed 8:00 · No pressure |
 | `sp500-since-1957` | Still in the S&P 500 Since 1957 (52, full names) | 52 | Timed 10:00 · No pressure |
+| `nfl-top3-wr-2010` | NFL Top 3 WRs: 2010 — Steven's sheet; one box per team (32), jersey # clue | 96 | Timed 12:00 · No pressure |
 | `nfl-first-overall-picks` | No. 1 Overall NFL Draft Picks (1990–2026) | 37 | Timed 6:00 · No pressure |
 | `heisman-winners` | Heisman Trophy Winners (1980–2025) | 46 | Timed 8:00 · No pressure |
 | `world-series-champions` | World Series Champions (1980–2026, full) | 46 | Timed 6:00 · No pressure |

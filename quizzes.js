@@ -42,7 +42,7 @@ window.TAXONOMY = {
     sport:  ['Football', 'Basketball', 'Baseball', 'Hockey', 'Golf'],
     market: ['S&P 500', 'Companies', 'Stocks'],
     topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Kids'],
-    kind:   ['All-Time', 'This Season', 'Career Leaders', 'Awards', 'Champions', 'Draft', 'Fantasy', 'Betting']
+    kind:   ['All-Time', 'This Season', 'Throwback', 'Career Leaders', 'Awards', 'Champions', 'Draft', 'Fantasy', 'Betting']
   },
   /* The little emoji in each hub card's corner. The most specific match wins:
      a quiz's own `icon`, then the first of its tags listed here, then its
@@ -975,6 +975,183 @@ window.QUIZZES = [
       { a: 'International Paper', hint: 'Memphis, TN', sub: 'Materials', alias: ['ip'] },
       { a: 'S&P Global', hint: 'New York, NY', sub: 'Finance', alias: ['s&p','sp global','s and p global','standard and poors','standard & poors','mcgraw hill'] },
       { a: 'PPG Industries', hint: 'Pittsburgh, PA', sub: 'Materials', alias: ['ppg','pittsburgh plate glass'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'nfl-top3-wr-2010',
+  title: 'NFL Top 3 WRs: 2010',
+  sub: "Every team's top three receivers",
+  blurb: 'Can you name the top 3 wide receivers for each 2010 NFL team? Their jersey numbers are your clue.',
+  // Steven's list (2026-11-17), from a Sporcle-style sheet; team names as they were in 2010
+  // (Redskins, Rams in St. Louis, Chargers in San Diego). Two Steve Smiths and two Mike Williamses:
+  // one name fills both. Common surnames (Johnson x4, Williams x4) sweep several rows by design.
+  category: 'Sports',
+  tags: ['NFL', 'Football', 'Throwback'],
+  mode: 'timed',
+  time: 720,
+  cols: 'four',
+  groups: [
+    { name: 'Bills', items: [
+      { a: 'Lee Evans', rk: '1', hint: '#83' },
+      { a: 'Steve Johnson', rk: '2', hint: '#13', alias: ['stevie johnson'] },
+      { a: 'David Nelson', rk: '3', hint: '#86' }
+    ]},
+    { name: 'Dolphins', items: [
+      { a: 'Brandon Marshall', rk: '1', hint: '#19' },
+      { a: 'Davone Bess', rk: '2', hint: '#15' },
+      { a: 'Brian Hartline', rk: '3', hint: '#82' }
+    ]},
+    { name: 'Patriots', items: [
+      { a: 'Wes Welker', rk: '1', hint: '#83' },
+      { a: 'Deion Branch', rk: '2', hint: '#84' },
+      { a: 'Brandon Tate', rk: '3', hint: '#19' }
+    ]},
+    { name: 'Jets', items: [
+      { a: 'Braylon Edwards', rk: '1', hint: '#17' },
+      { a: 'Santonio Holmes', rk: '2', hint: '#10' },
+      { a: 'Jerricho Cotchery', rk: '3', hint: '#89', alias: ['jericho cotchery'] }
+    ]},
+    { name: 'Ravens', items: [
+      { a: 'Anquan Boldin', rk: '1', hint: '#81' },
+      { a: 'T.J. Houshmandzadeh', rk: '2', hint: '#84', alias: ['tj houshmandzadeh','housh','houshmandzadeh'] },
+      { a: 'Derrick Mason', rk: '3', hint: '#85' }
+    ]},
+    { name: 'Bengals', items: [
+      { a: 'Terrell Owens', rk: '1', hint: '#81', alias: ['to','t.o.'] },
+      { a: 'Chad Ochocinco', rk: '2', hint: '#85', alias: ['ochocinco','ocho','chad johnson','ocho cinco','chad ocho cinco'] },
+      { a: 'Jordan Shipley', rk: '3', hint: '#11' }
+    ]},
+    { name: 'Browns', items: [
+      { a: 'Mohamed Massaquoi', rk: '1', hint: '#11' },
+      { a: 'Joshua Cribbs', rk: '2', hint: '#16', alias: ['josh cribbs'] },
+      { a: 'Chansi Stuckey', rk: '3', hint: '#83' }
+    ]},
+    { name: 'Steelers', items: [
+      { a: 'Hines Ward', rk: '1', hint: '#86' },
+      { a: 'Mike Wallace', rk: '2', hint: '#17' },
+      { a: 'Antwaan Randle El', rk: '3', hint: '#82', alias: ['randle el','antwaan randle-el'] }
+    ]},
+    { name: 'Texans', items: [
+      { a: 'Andre Johnson', rk: '1', hint: '#80', alias: ['dre'] },
+      { a: 'Kevin Walter', rk: '2', hint: '#83' },
+      { a: 'Jacoby Jones', rk: '3', hint: '#12' }
+    ]},
+    { name: 'Colts', items: [
+      { a: 'Reggie Wayne', rk: '1', hint: '#87' },
+      { a: 'Austin Collie', rk: '2', hint: '#17' },
+      { a: 'Pierre Garçon', rk: '3', hint: '#85', alias: ['pierre garcon','garcon'] }
+    ]},
+    { name: 'Jaguars', items: [
+      { a: 'Mike Sims-Walker', rk: '1', hint: '#11', alias: ['sims walker','simswalker'] },
+      { a: 'Mike Thomas', rk: '2', hint: '#80' },
+      { a: 'Tiquan Underwood', rk: '3', hint: '#19' }
+    ]},
+    { name: 'Titans', items: [
+      { a: 'Randy Moss', rk: '1', hint: '#84' },
+      { a: 'Kenny Britt', rk: '2', hint: '#18' },
+      { a: 'Nate Washington', rk: '3', hint: '#85' }
+    ]},
+    { name: 'Broncos', items: [
+      { a: 'Brandon Lloyd', rk: '1', hint: '#84' },
+      { a: 'Eddie Royal', rk: '2', hint: '#19' },
+      { a: 'Jabar Gaffney', rk: '3', hint: '#10' }
+    ]},
+    { name: 'Chiefs', items: [
+      { a: 'Dwayne Bowe', rk: '1', hint: '#82' },
+      { a: 'Verran Tucker', rk: '2', hint: '#15' },
+      { a: 'Dexter McCluster', rk: '3', hint: '#22' }
+    ]},
+    { name: 'Raiders', items: [
+      { a: 'Darrius Heyward-Bey', rk: '1', hint: '#85', alias: ['dhb','heyward bey','heywardbey'] },
+      { a: 'Louis Murphy', rk: '2', hint: '#18' },
+      { a: 'Chaz Schilens', rk: '3', hint: '#81' }
+    ]},
+    { name: 'Chargers', items: [
+      { a: 'Vincent Jackson', rk: '1', hint: '#83' },
+      { a: 'Malcolm Floyd', rk: '2', hint: '#80' },
+      { a: 'Patrick Crayton', rk: '3', hint: '#12' }
+    ]},
+    { name: 'Cowboys', items: [
+      { a: 'Miles Austin', rk: '1', hint: '#19' },
+      { a: 'Roy Williams', rk: '2', hint: '#11' },
+      { a: 'Dez Bryant', rk: '3', hint: '#88', alias: ['dez'] }
+    ]},
+    { name: 'Giants', items: [
+      { a: 'Hakeem Nicks', rk: '1', hint: '#88' },
+      { a: 'Steve Smith', rk: '2', hint: '#12' },
+      { a: 'Mario Manningham', rk: '3', hint: '#82', alias: ['manningham'] }
+    ]},
+    { name: 'Eagles', items: [
+      { a: 'DeSean Jackson', rk: '1', hint: '#10', alias: ['desean','djax'] },
+      { a: 'Jeremy Maclin', rk: '2', hint: '#18' },
+      { a: 'Jason Avant', rk: '3', hint: '#81' }
+    ]},
+    { name: 'Redskins', items: [
+      { a: 'Santana Moss', rk: '1', hint: '#89' },
+      { a: 'Anthony Armstrong', rk: '2', hint: '#13' },
+      { a: 'Roydell Williams', rk: '3', hint: '#87' }
+    ]},
+    { name: 'Bears', items: [
+      { a: 'Devin Hester', rk: '1', hint: '#23', alias: ['windy city flyer'] },
+      { a: 'Johnny Knox', rk: '2', hint: '#13' },
+      { a: 'Earl Bennett', rk: '3', hint: '#80' }
+    ]},
+    { name: 'Lions', items: [
+      { a: 'Calvin Johnson', rk: '1', hint: '#81', alias: ['megatron'] },
+      { a: 'Nate Burleson', rk: '2', hint: '#13' },
+      { a: 'Bryant Johnson', rk: '3', hint: '#80' }
+    ]},
+    { name: 'Packers', items: [
+      { a: 'Greg Jennings', rk: '1', hint: '#85' },
+      { a: 'Donald Driver', rk: '2', hint: '#80' },
+      { a: 'James Jones', rk: '3', hint: '#89' }
+    ]},
+    { name: 'Vikings', items: [
+      { a: 'Sidney Rice', rk: '1', hint: '#18' },
+      { a: 'Percy Harvin', rk: '2', hint: '#12' },
+      { a: 'Bernard Berrian', rk: '3', hint: '#87' }
+    ]},
+    { name: 'Falcons', items: [
+      { a: 'Roddy White', rk: '1', hint: '#84' },
+      { a: 'Michael Jenkins', rk: '2', hint: '#12' },
+      { a: 'Harry Douglas', rk: '3', hint: '#83' }
+    ]},
+    { name: 'Panthers', items: [
+      { a: 'Steve Smith', rk: '1', hint: '#89' },
+      { a: 'David Gettis', rk: '2', hint: '#12' },
+      { a: 'Brandon LaFell', rk: '3', hint: '#11', alias: ['lafell','brandon lafelle'] }
+    ]},
+    { name: 'Saints', items: [
+      { a: 'Marques Colston', rk: '1', hint: '#12' },
+      { a: 'Robert Meachem', rk: '2', hint: '#17' },
+      { a: 'Lance Moore', rk: '3', hint: '#16' }
+    ]},
+    { name: 'Buccaneers', items: [
+      { a: 'Mike Williams', rk: '1', hint: '#19' },
+      { a: 'Arrelious Benn', rk: '2', hint: '#17' },
+      { a: 'Sammie Stroughter', rk: '3', hint: '#18' }
+    ]},
+    { name: '49ers', items: [
+      { a: 'Michael Crabtree', rk: '1', hint: '#15', alias: ['crabs'] },
+      { a: 'Josh Morgan', rk: '2', hint: '#84' },
+      { a: 'Ted Ginn Jr.', rk: '3', hint: '#19', alias: ['ted ginn'] }
+    ]},
+    { name: 'Seahawks', items: [
+      { a: 'Mike Williams', rk: '1', hint: '#17' },
+      { a: 'Deon Butler', rk: '2', hint: '#11' },
+      { a: 'Ben Obomanu', rk: '3', hint: '#87', alias: ['benjamin obomanu','obomanu'] }
+    ]},
+    { name: 'Cardinals', items: [
+      { a: 'Larry Fitzgerald', rk: '1', hint: '#11', alias: ['fitz'] },
+      { a: 'Steve Breaston', rk: '2', hint: '#15' },
+      { a: 'Early Doucet', rk: '3', hint: '#80' }
+    ]},
+    { name: 'Rams', items: [
+      { a: 'Danny Amendola', rk: '1', hint: '#16' },
+      { a: 'Brandon Gibson', rk: '2', hint: '#11' },
+      { a: 'Laurent Robinson', rk: '3', hint: '#19' }
     ]}
   ]
 },
