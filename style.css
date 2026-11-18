@@ -153,6 +153,12 @@ a{color:inherit}
   transition:transform .16s cubic-bezier(.2,.8,.3,1),border-color .16s,box-shadow .16s;
 }
 .card:hover{transform:translateY(-3px);border-color:#3D4A5A;box-shadow:0 16px 40px rgba(0,0,0,.55)}
+/* your best score, bottom-right of a hub card (signed in only): gray, green at 100% */
+.card-best{position:absolute;right:18px;bottom:16px;font-size:13px;font-weight:700;
+  color:var(--silver-dim);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.card-best.full{color:var(--good)}
+.card.has-best .sub,.card.has-best .blurb{padding-right:64px}
+
 /* "This week": time-sensitive quizzes, one wide card each, above the evergreen grid */
 .featured{margin-bottom:30px}
 .feature-grid{display:grid;gap:16px}

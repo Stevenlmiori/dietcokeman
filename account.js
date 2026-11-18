@@ -90,6 +90,7 @@ async function load() {
       paintTopbar();
       if (pending) paintSave();
       if ($('profile')) paintProfilePage();
+      paintBests();
     });
   } catch (e) {
     console.warn('Accounts unavailable:', e);
@@ -112,6 +113,24 @@ async function signIn() {
     if (e && (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request')) return false;
     throw e;
   }
+}
+
+/* ---------- hub: your best on each card ----------
+   Signed in with a profile, the hub shows your best score on every card.
+   This hands the hub a map of board id -> { best, total } (or null when
+   signed out); index.html draws it. Board ids are `<scoreKey|slug>-<mode>`. */
+async function paintBests() {
+  if (!$('grid')) return;
+  let map = null;
+  if (user && profile) {
+    try {
+      const snap = await fb.getDocs(fb.collection(fb.db, 'users', user.uid, 'bests'));
+      map = {};
+      snap.forEach(d => { const x = d.data(); map[d.id] = { best: x.best, total: x.total }; });
+    } catch (e) { console.warn(e); }
+  }
+  window._dcmBests = map;
+  window.dispatchEvent(new CustomEvent('dcm:bests', { detail: map }));
 }
 
 /* ---------- top bar ---------- */

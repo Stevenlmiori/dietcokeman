@@ -145,6 +145,13 @@ quiz. **Don't invent a near-duplicate** ("NBA Basketball", "Alltime"): use the
 existing word or add a new one to `TAXONOMY` deliberately. The weekly Line Game
 rewrite must keep `category`/`tags`.
 
+**Your best on each card (signed in).** With a profile, the hub shows your
+best score bottom-right of every card you've played — gray, **green at 100%**
+(Steven's spec). account.js reads `users/{uid}/bests` and dispatches
+`dcm:bests` (board id → `{best,total}`, or null signed out); index.html takes
+the better of a quiz's two modes by percentage. The Line Game shows this week's
+best only, because its `scoreKey` changes weekly. Signed out: nothing.
+
 **"This week" (featured).** A quiz with `featured: true` leaves the evergreen
 grid and sits in its own **This week** section above "Pick your challenge", as
 one wide card with a faint red tint that also shows its blurb. Steven: the Line

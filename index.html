@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261117202731">
+<link rel="stylesheet" href="style.css?v=20261117205147">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -66,8 +66,8 @@
   </p>
 </main>
 
-<script type="module" src="account.js?v=20261117202731"></script>
-<script src="quizzes.js?v=20261117202731"></script>
+<script type="module" src="account.js?v=20261117205147"></script>
+<script src="quizzes.js?v=20261117205147"></script>
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
@@ -106,13 +106,29 @@
     || ((q.tags || []).map(t => ICONS.tags[t]).find(Boolean))
     || ICONS.categories[q.category] || '';
 
-  // Title, subtitle and one small emoji in the corner. No tags, counts, modes or chips.
-  const card = (q, cls) => `<a class="card${cls ? ' ' + cls : ''}" href="play.html?q=${encodeURIComponent(q.slug)}">
+  // Signed in, account.js hands over your saved bests (board id -> {best,total});
+  // a card shows the higher of its two modes. Signed out, nothing is shown.
+  let bests = window._dcmBests || null;
+  window.addEventListener('dcm:bests', (e) => { bests = e.detail; render(); });
+  function bestFor(q) {
+    if (!bests) return null;
+    const key = q.scoreKey || q.slug;
+    const runs = ['timed', 'chill'].map(m => bests[key + '-' + m]).filter(Boolean);
+    return runs.length ? runs.reduce((a, b) => (b.best / b.total > a.best / a.total ? b : a)) : null;
+  }
+
+  // Title, subtitle, one small emoji in the corner, and your best if you're signed in.
+  const card = (q, cls) => {
+    const b = bestFor(q);
+    const best = b ? `<span class="card-best${b.best >= b.total ? ' full' : ''}" title="Your best">${b.best}/${b.total}</span>` : '';
+    return `<a class="card${cls ? ' ' + cls : ''}${b ? ' has-best' : ''}" href="play.html?q=${encodeURIComponent(q.slug)}">
       <span class="card-ico" aria-hidden="true">${esc(iconFor(q))}</span>
       <h3>${esc(q.title)}</h3>
       <div class="sub">${esc(q.sub)}</div>
       ${cls && q.blurb ? `<p class="blurb">${esc(q.blurb)}</p>` : ''}
+      ${best}
     </a>`;
+  };
 
   function render() {
     // Featured (weekly, time-sensitive) quizzes sit in "This week" until you
