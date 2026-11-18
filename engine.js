@@ -38,7 +38,7 @@ const COMMON_FIRST = new Set((
   'tyler tyrone vernon victor vince vincent wade walt walter warren wayne wes wesley will william willie zach ' +
   'zachary dwayne deandre demarcus derek tyrell jaylen marquis tre trey ty cj jj aj tj dj jr ' +
   'barry karl lenny guy rudy theo damian buddy carson dominic jesus moses rich kurt bert norm ' +
-  'hank mel sammy rafael miguel jimmie jimmy lee miles roy harry benjamin dexter pierre mohamed sammie deon'
+  'hank mel sammy rafael miguel jimmie jimmy lee miles roy harry benjamin dexter pierre mohamed sammie deon franklin herbert'
 ).split(' '));
 
 /* ---------- text normalising ---------- */
@@ -93,7 +93,10 @@ function keysFor(item, fullOnly) {
       const rest = real.slice(1);
       add(rest.join(''));                             // surname, compounds kept whole
       add(rest[rest.length - 1], 3);                  // final word alone, if it isn't a particle
-      rest.forEach(x => add(x, 4));                   // any other later word, only if it stands on its own
+      // any other later word, if it stands on its own; a middle name that is a common
+      // first name doesn't ("henry" is not William Henry Harrison)
+      rest.slice(0, -1).forEach(x => { if (!COMMON_FIRST.has(x)) add(x, 4); });
+      add(rest[rest.length - 1], 4);
     }
   }
   (item.alias || []).forEach(a => add(a));

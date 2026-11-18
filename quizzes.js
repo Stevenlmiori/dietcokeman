@@ -37,12 +37,12 @@
    category or tag here first, then use it. Sports tags go league, sport,
    then kind; business tags go market, then kind. */
 window.TAXONOMY = {
-  categories: ['Sports', 'Movies', 'TV', 'Games', 'Business', 'Food & Drink'],
+  categories: ['Sports', 'Movies', 'TV', 'Games', 'Business', 'Food & Drink', 'History'],
   tags: {
     league: ['NFL', 'NBA', 'MLB', 'NHL', 'NCAA'],
     sport:  ['Football', 'Basketball', 'Baseball', 'Hockey', 'Golf'],
     market: ['S&P 500', 'Companies', 'Stocks'],
-    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Minecraft', 'Kids'],
+    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Minecraft', 'Kids', 'Presidents'],
     kind:   ['All-Time', 'This Season', 'Throwback', 'Career Leaders', 'Awards', 'Champions', 'Draft', 'Fantasy', 'Betting']
   },
   /* The little emoji in each hub card's corner. The most specific match wins:
@@ -52,9 +52,9 @@ window.TAXONOMY = {
     tags: {
       Football: '🏈', Basketball: '🏀', Baseball: '⚾', Hockey: '🏒', Golf: '⛳',
       Drinks: '🥤', Restaurants: '🍔', Oscars: '🏆', 'Box Office': '🎬',
-      Stocks: '📈', 'S&P 500': '📈', Minecraft: '⛏️', Disney: '👑'
+      Stocks: '📈', 'S&P 500': '📈', Minecraft: '⛏️', Disney: '👑', Presidents: '🇺🇸'
     },
-    categories: { Sports: '🏆', Movies: '🎬', TV: '📺', Games: '🎮', Business: '💼', 'Food & Drink': '🍽️' }
+    categories: { Sports: '🏆', Movies: '🎬', TV: '📺', Games: '🎮', Business: '💼', 'Food & Drink': '🍽️', History: '🏛️' }
   }
 };
 
@@ -1780,6 +1780,75 @@ window.QUIZZES = [
       { a: 'Jack in the Box', rk: '23', sub: 'Burgers', hint: '$4.2B', alias: ['jack in the box'] },
       { a: 'Culver\'s', rk: '24', sub: 'Burgers', hint: '$4.2B', alias: ['culvers'] },
       { a: 'Papa Johns', rk: '25', sub: 'Pizza', hint: '$3.7B', alias: ['papa john\'s','papa john'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'us-presidents',
+  title: 'US Presidents',
+  sub: 'All 47 presidencies, in order',
+  blurb: 'Name every president from Washington to today. The years in office are your clue. Two men served twice, non-consecutively.',
+  category: 'History',
+  tags: ['Presidents', 'All-Time'],
+  mode: 'timed',
+  time: 600,
+  cols: 'multi',
+  groups: [
+    { name: 'The founders and the frontier', note: '1789–1850', items: [
+      { a: 'George Washington', rk: '1', hint: '1789–1797' },
+      { a: 'John Adams', rk: '2', hint: '1797–1801' },
+      { a: 'Thomas Jefferson', rk: '3', hint: '1801–1809' },
+      { a: 'James Madison', rk: '4', hint: '1809–1817' },
+      { a: 'James Monroe', rk: '5', hint: '1817–1825' },
+      { a: 'John Quincy Adams', rk: '6', hint: '1825–1829', alias: ['jqa'] },
+      { a: 'Andrew Jackson', rk: '7', hint: '1829–1837', alias: ['old hickory'] },
+      { a: 'Martin Van Buren', rk: '8', hint: '1837–1841', alias: ['vanburen'] },
+      { a: 'William Henry Harrison', rk: '9', hint: '1841', alias: ['tippecanoe'] },
+      { a: 'John Tyler', rk: '10', hint: '1841–1845' },
+      { a: 'James K. Polk', rk: '11', hint: '1845–1849', alias: ['james polk'] },
+      { a: 'Zachary Taylor', rk: '12', hint: '1849–1850' }
+    ]},
+    { name: 'Civil War and the Gilded Age', note: '1850–1897', items: [
+      { a: 'Millard Fillmore', rk: '13', hint: '1850–1853' },
+      { a: 'Franklin Pierce', rk: '14', hint: '1853–1857' },
+      { a: 'James Buchanan', rk: '15', hint: '1857–1861' },
+      { a: 'Abraham Lincoln', rk: '16', hint: '1861–1865', alias: ['abe','abe lincoln','honest abe'] },
+      { a: 'Andrew Johnson', rk: '17', hint: '1865–1869' },
+      { a: 'Ulysses S. Grant', rk: '18', hint: '1869–1877', alias: ['ulysses grant'] },
+      { a: 'Rutherford B. Hayes', rk: '19', hint: '1877–1881', alias: ['rutherford hayes'] },
+      { a: 'James A. Garfield', rk: '20', hint: '1881', alias: ['james garfield'] },
+      { a: 'Chester A. Arthur', rk: '21', hint: '1881–1885', alias: ['chester arthur'] },
+      { a: 'Grover Cleveland', rk: '22', hint: '1885–1889' },
+      { a: 'Benjamin Harrison', rk: '23', hint: '1889–1893' },
+      { a: 'Grover Cleveland', rk: '24', hint: '1893–1897' }
+    ]},
+    { name: 'World wars and the American century', note: '1897–1969', items: [
+      { a: 'William McKinley', rk: '25', hint: '1897–1901', alias: ['mckinly','mckinnley'] },
+      { a: 'Theodore Roosevelt', rk: '26', hint: '1901–1909', alias: ['teddy','teddy roosevelt','tr'] },
+      { a: 'William Howard Taft', rk: '27', hint: '1909–1913', alias: ['william taft'] },
+      { a: 'Woodrow Wilson', rk: '28', hint: '1913–1921' },
+      { a: 'Warren G. Harding', rk: '29', hint: '1921–1923', alias: ['warren harding'] },
+      { a: 'Calvin Coolidge', rk: '30', hint: '1923–1929', alias: ['silent cal','cal coolidge'] },
+      { a: 'Herbert Hoover', rk: '31', hint: '1929–1933' },
+      { a: 'Franklin D. Roosevelt', rk: '32', hint: '1933–1945', alias: ['fdr','franklin roosevelt','franklin delano roosevelt'] },
+      { a: 'Harry S. Truman', rk: '33', hint: '1945–1953', alias: ['harry truman'] },
+      { a: 'Dwight D. Eisenhower', rk: '34', hint: '1953–1961', alias: ['ike','dwight eisenhower','eisenhour'] },
+      { a: 'John F. Kennedy', rk: '35', hint: '1961–1963', alias: ['jfk','john kennedy'] },
+      { a: 'Lyndon B. Johnson', rk: '36', hint: '1963–1969', alias: ['lbj','lyndon johnson'] }
+    ]},
+    { name: 'Modern era', note: '1969–now', items: [
+      { a: 'Richard Nixon', rk: '37', hint: '1969–1974', alias: ['tricky dick'] },
+      { a: 'Gerald Ford', rk: '38', hint: '1974–1977', alias: ['jerry ford'] },
+      { a: 'Jimmy Carter', rk: '39', hint: '1977–1981', alias: ['james carter'] },
+      { a: 'Ronald Reagan', rk: '40', hint: '1981–1989', alias: ['the gipper','reagen'] },
+      { a: 'George H. W. Bush', rk: '41', hint: '1989–1993', alias: ['george hw bush','bush 41','bush sr','george bush sr','poppy bush'] },
+      { a: 'Bill Clinton', rk: '42', hint: '1993–2001', alias: ['william clinton'] },
+      { a: 'George W. Bush', rk: '43', hint: '2001–2009', alias: ['dubya','bush 43','bush jr','george bush jr'] },
+      { a: 'Barack Obama', rk: '44', hint: '2009–2017', alias: ['barak obama','obama'] },
+      { a: 'Donald Trump', rk: '45', hint: '2017–2021', alias: ['the donald'] },
+      { a: 'Joe Biden', rk: '46', hint: '2021–2025', alias: ['joseph biden'] },
+      { a: 'Donald Trump', rk: '47', hint: '2025–present', alias: ['the donald'] }
     ]}
   ]
 },

@@ -130,13 +130,13 @@ works well." The single source of truth is `window.TAXONOMY` at the top of
 `quizzes.js`:
 
 * **Categories** (exactly one per quiz): `Sports`, `Movies`, `TV`, `Games`,
-  `Business`, `Food & Drink` — more as the site grows. Add it to the list
+  `Business`, `Food & Drink`, `History` — more as the site grows. Add it to the list
   before using it.
 * **Tags** (a few per quiz), in three groups, written in this order:
   * league — `NFL`, `NBA`, `MLB`, `NHL`, `NCAA`
   * sport — `Football`, `Basketball`, `Baseball`, `Hockey`
   * market — `S&P 500`, `Companies`
-  * topic — `Drinks`, `Restaurants`, `Box Office`, `Oscars`, `Favorites`, `Disney`, `Minecraft`, `Kids`
+  * topic — `Drinks`, `Restaurants`, `Box Office`, `Oscars`, `Favorites`, `Disney`, `Minecraft`, `Kids`, `Presidents`
   * kind — `All-Time`, `This Season`, `Throwback` (a past season), `Career Leaders`, `Awards`, `Fantasy`, `Betting`
 
 Every quiz must carry a category and tags. The hub warns in the browser
@@ -196,7 +196,8 @@ first name on its own.** For each answer it generates: the name exactly as
 written, the name with any suffix (`Jr`, `Sr`, `II`–`V`) dropped, the same
 minus noise words, the first name **if it is not on `COMMON_FIRST`**, the
 surname group (everything after the first word, joined), the final word, any
-later single word — **plus every `alias`**.
+later single word (but not a middle name that is on `COMMON_FIRST`: "henry" is
+not William Henry Harrison, "howard" is not Taft) — **plus every `alias`**.
 
 The history, because both halves were Steven's asks:
 
@@ -555,6 +556,7 @@ number (0 = pick'em).
 | `biggest-us-companies` | Biggest US Companies Right Now (Nov 17 2026, full) | 25 | Timed 5:00 · No pressure |
 | `best-selling-sodas` | America's Best-Selling Sodas (top 10, full) | 10 | Timed 2:00 · No pressure |
 | `biggest-fast-food-chains` | Biggest Fast-Food Chains (QSR 50 2026, full) | 25 | Timed 5:00 · No pressure |
+| `us-presidents` | US Presidents — all 47 presidencies in order, years in office always shown as the clue; Cleveland and Trump each have two rows (one name fills both) | 47 | Timed 10:00 · No pressure |
 | `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links
