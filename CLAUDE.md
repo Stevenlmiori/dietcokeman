@@ -130,13 +130,13 @@ works well." The single source of truth is `window.TAXONOMY` at the top of
 `quizzes.js`:
 
 * **Categories** (exactly one per quiz): `Sports`, `Movies`, `TV`, `Games`,
-  `Business`, `Food & Drink`, `History` — more as the site grows. Add it to the list
+  `Business`, `Food & Drink`, `History`, `Geography` — more as the site grows. Add it to the list
   before using it.
 * **Tags** (a few per quiz), in three groups, written in this order:
   * league — `NFL`, `NBA`, `MLB`, `NHL`, `NCAA`
   * sport — `Football`, `Basketball`, `Baseball`, `Hockey`
   * market — `S&P 500`, `Companies`
-  * topic — `Drinks`, `Restaurants`, `Box Office`, `Oscars`, `Favorites`, `Disney`, `Minecraft`, `Kids`, `Presidents`
+  * topic — `Drinks`, `Restaurants`, `Box Office`, `Oscars`, `Favorites`, `Disney`, `Minecraft`, `Kids`, `Presidents`, `US States`
   * kind — `All-Time`, `This Season`, `Throwback` (a past season), `Career Leaders`, `Awards`, `Fantasy`, `Betting`
 
 Every quiz must carry a category and tags. The hub warns in the browser
@@ -557,6 +557,7 @@ number (0 = pick'em).
 | `best-selling-sodas` | America's Best-Selling Sodas (top 10, full) | 10 | Timed 2:00 · No pressure |
 | `biggest-fast-food-chains` | Biggest Fast-Food Chains (QSR 50 2026, full) | 25 | Timed 5:00 · No pressure |
 | `us-presidents` | US Presidents — all 47 presidencies in order, years in office always shown as the clue; Cleveland and Trump each have two rows (one name fills both) | 47 | Timed 10:00 · No pressure |
+| `us-state-capitals` | US State Capitals — all 50 by Census region, state shown as the clue, full names (`match: 'full'`, carson/jefferson/salt lake/st paul/okc as aliases); `nope` answers ~60 big-city traps (Houston, Chicago, NYC…) with "Big city, but not the capital." | 50 | Timed 8:00 · No pressure |
 | `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links

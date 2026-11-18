@@ -35,6 +35,7 @@ and the score already set. Pick a mode in the bar at the top and press play.
 | America's Best-Selling Sodas | 10 | Timed 2:00 · No pressure |
 | Biggest Fast-Food Chains | 25 | Timed 5:00 · No pressure |
 | US Presidents | 47 | Timed 10:00 · No pressure |
+| US State Capitals | 50 | Timed 8:00 · No pressure |
 | NFL Line Game: Week 11 | 13 games | No pressure · Timed 5:00 |
 
 ## How it plays

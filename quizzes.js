@@ -37,12 +37,12 @@
    category or tag here first, then use it. Sports tags go league, sport,
    then kind; business tags go market, then kind. */
 window.TAXONOMY = {
-  categories: ['Sports', 'Movies', 'TV', 'Games', 'Business', 'Food & Drink', 'History'],
+  categories: ['Sports', 'Movies', 'TV', 'Games', 'Business', 'Food & Drink', 'History', 'Geography'],
   tags: {
     league: ['NFL', 'NBA', 'MLB', 'NHL', 'NCAA'],
     sport:  ['Football', 'Basketball', 'Baseball', 'Hockey', 'Golf'],
     market: ['S&P 500', 'Companies', 'Stocks'],
-    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Minecraft', 'Kids', 'Presidents'],
+    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Minecraft', 'Kids', 'Presidents', 'US States'],
     kind:   ['All-Time', 'This Season', 'Throwback', 'Career Leaders', 'Awards', 'Champions', 'Draft', 'Fantasy', 'Betting']
   },
   /* The little emoji in each hub card's corner. The most specific match wins:
@@ -54,7 +54,7 @@ window.TAXONOMY = {
       Drinks: '🥤', Restaurants: '🍔', Oscars: '🏆', 'Box Office': '🎬',
       Stocks: '📈', 'S&P 500': '📈', Minecraft: '⛏️', Disney: '👑', Presidents: '🇺🇸'
     },
-    categories: { Sports: '🏆', Movies: '🎬', TV: '📺', Games: '🎮', Business: '💼', 'Food & Drink': '🍽️', History: '🏛️' }
+    categories: { Sports: '🏆', Movies: '🎬', TV: '📺', Games: '🎮', Business: '💼', 'Food & Drink': '🍽️', History: '🏛️', Geography: '🗺️' }
   }
 };
 
@@ -1849,6 +1849,138 @@ window.QUIZZES = [
       { a: 'Donald Trump', rk: '45', hint: '2017–2021', alias: ['the donald'] },
       { a: 'Joe Biden', rk: '46', hint: '2021–2025', alias: ['joseph biden'] },
       { a: 'Donald Trump', rk: '47', hint: '2025–present', alias: ['the donald'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'us-state-capitals',
+  title: 'US State Capitals',
+  sub: 'All 50, state by state',
+  blurb: 'Name the capital of every state. The state is your clue. Careful: the biggest city is usually not the answer.',
+  category: 'Geography',
+  tags: ['US States'],
+  match: 'full',
+  mode: 'timed',
+  time: 480,
+  cols: 'multi',
+  nope: {
+    losangeles: 'Big city, but not the capital.',
+    sanfrancisco: 'Big city, but not the capital.',
+    sandiego: 'Big city, but not the capital.',
+    sanjose: 'Big city, but not the capital.',
+    newyork: 'Big city, but not the capital.',
+    newyorkcity: 'Big city, but not the capital.',
+    nyc: 'Big city, but not the capital.',
+    chicago: 'Big city, but not the capital.',
+    houston: 'Big city, but not the capital.',
+    dallas: 'Big city, but not the capital.',
+    sanantonio: 'Big city, but not the capital.',
+    philadelphia: 'Big city, but not the capital.',
+    philly: 'Big city, but not the capital.',
+    pittsburgh: 'Big city, but not the capital.',
+    miami: 'Big city, but not the capital.',
+    jacksonville: 'Big city, but not the capital.',
+    tampa: 'Big city, but not the capital.',
+    orlando: 'Big city, but not the capital.',
+    seattle: 'Big city, but not the capital.',
+    spokane: 'Big city, but not the capital.',
+    lasvegas: 'Big city, but not the capital.',
+    vegas: 'Big city, but not the capital.',
+    detroit: 'Big city, but not the capital.',
+    portland: 'Big city, but not the capital.',
+    louisville: 'Big city, but not the capital.',
+    lexington: 'Big city, but not the capital.',
+    neworleans: 'Big city, but not the capital.',
+    kansascity: 'Big city, but not the capital.',
+    stlouis: 'Big city, but not the capital.',
+    milwaukee: 'Big city, but not the capital.',
+    baltimore: 'Big city, but not the capital.',
+    burlington: 'Big city, but not the capital.',
+    wilmington: 'Big city, but not the capital.',
+    anchorage: 'Big city, but not the capital.',
+    birmingham: 'Big city, but not the capital.',
+    memphis: 'Big city, but not the capital.',
+    charlotte: 'Big city, but not the capital.',
+    omaha: 'Big city, but not the capital.',
+    wichita: 'Big city, but not the capital.',
+    albuquerque: 'Big city, but not the capital.',
+    tucson: 'Big city, but not the capital.',
+    siouxfalls: 'Big city, but not the capital.',
+    fargo: 'Big city, but not the capital.',
+    billings: 'Big city, but not the capital.',
+    cleveland: 'Big city, but not the capital.',
+    cincinnati: 'Big city, but not the capital.',
+    minneapolis: 'Big city, but not the capital.',
+    newark: 'Big city, but not the capital.',
+    manchester: 'Big city, but not the capital.',
+    boulder: 'Big city, but not the capital.',
+    chattanooga: 'Big city, but not the capital.',
+    savannah: 'Big city, but not the capital.',
+    tulsa: 'Big city, but not the capital.',
+    provo: 'Big city, but not the capital.',
+    reno: 'Big city, but not the capital.',
+    washingtondc: 'That one is the nation\'s capital. Washington State has its own.',
+    dc: 'That one is the nation\'s capital. Washington State has its own.'
+  },
+  groups: [
+    { name: 'Northeast', note: '9 states', items: [
+      { a: 'Hartford', hint: 'Connecticut' },
+      { a: 'Augusta', hint: 'Maine' },
+      { a: 'Boston', hint: 'Massachusetts' },
+      { a: 'Concord', hint: 'New Hampshire' },
+      { a: 'Trenton', hint: 'New Jersey' },
+      { a: 'Albany', hint: 'New York' },
+      { a: 'Harrisburg', hint: 'Pennsylvania', alias: ['harrisberg'] },
+      { a: 'Providence', hint: 'Rhode Island' },
+      { a: 'Montpelier', hint: 'Vermont', alias: ['montpellier'] }
+    ]},
+    { name: 'Midwest', note: '12 states', items: [
+      { a: 'Springfield', hint: 'Illinois' },
+      { a: 'Indianapolis', hint: 'Indiana', alias: ['indy'] },
+      { a: 'Des Moines', hint: 'Iowa', alias: ['des moine','desmoines'] },
+      { a: 'Topeka', hint: 'Kansas' },
+      { a: 'Lansing', hint: 'Michigan' },
+      { a: 'Saint Paul', hint: 'Minnesota', alias: ['st paul','st. paul'] },
+      { a: 'Jefferson City', hint: 'Missouri', alias: ['jefferson'] },
+      { a: 'Lincoln', hint: 'Nebraska' },
+      { a: 'Bismarck', hint: 'North Dakota', alias: ['bismark'] },
+      { a: 'Columbus', hint: 'Ohio' },
+      { a: 'Pierre', hint: 'South Dakota', alias: ['peer'] },
+      { a: 'Madison', hint: 'Wisconsin' }
+    ]},
+    { name: 'South', note: '16 states', items: [
+      { a: 'Montgomery', hint: 'Alabama' },
+      { a: 'Little Rock', hint: 'Arkansas' },
+      { a: 'Dover', hint: 'Delaware' },
+      { a: 'Tallahassee', hint: 'Florida', alias: ['talahassee','tallahasee'] },
+      { a: 'Atlanta', hint: 'Georgia', alias: ['hotlanta'] },
+      { a: 'Frankfort', hint: 'Kentucky', alias: ['frankfurt'] },
+      { a: 'Baton Rouge', hint: 'Louisiana' },
+      { a: 'Annapolis', hint: 'Maryland' },
+      { a: 'Jackson', hint: 'Mississippi' },
+      { a: 'Raleigh', hint: 'North Carolina', alias: ['raleigh nc'] },
+      { a: 'Oklahoma City', hint: 'Oklahoma', alias: ['okc','ok city'] },
+      { a: 'Columbia', hint: 'South Carolina' },
+      { a: 'Nashville', hint: 'Tennessee' },
+      { a: 'Austin', hint: 'Texas' },
+      { a: 'Richmond', hint: 'Virginia' },
+      { a: 'Charleston', hint: 'West Virginia' }
+    ]},
+    { name: 'West', note: '13 states', items: [
+      { a: 'Juneau', hint: 'Alaska' },
+      { a: 'Phoenix', hint: 'Arizona' },
+      { a: 'Sacramento', hint: 'California' },
+      { a: 'Denver', hint: 'Colorado' },
+      { a: 'Honolulu', hint: 'Hawaii' },
+      { a: 'Boise', hint: 'Idaho' },
+      { a: 'Helena', hint: 'Montana' },
+      { a: 'Carson City', hint: 'Nevada', alias: ['carson'] },
+      { a: 'Santa Fe', hint: 'New Mexico', alias: ['santafe'] },
+      { a: 'Salem', hint: 'Oregon' },
+      { a: 'Salt Lake City', hint: 'Utah', alias: ['salt lake','slc'] },
+      { a: 'Olympia', hint: 'Washington' },
+      { a: 'Cheyenne', hint: 'Wyoming', alias: ['cheyene'] }
     ]}
   ]
 },
