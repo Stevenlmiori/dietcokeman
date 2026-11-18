@@ -557,6 +557,7 @@ number (0 = pick'em).
 | `best-selling-sodas` | America's Best-Selling Sodas (top 10, full) | 10 | Timed 2:00 · No pressure |
 | `biggest-fast-food-chains` | Biggest Fast-Food Chains (QSR 50 2026, full) | 25 | Timed 5:00 · No pressure |
 | `us-presidents` | US Presidents — all 47 presidencies in order, years in office always shown as the clue; Cleveland and Trump each have two rows (one name fills both) | 47 | Timed 10:00 · No pressure |
+| `us-states` | US States — Steven's spec: just the 50 names, alphabetical 1–50, no clue column; four numbered columns on desktop (`cols: 'four'`), full names; DC/Puerto Rico/Guam get `nope` replies | 50 | Timed 10:00 · No pressure |
 | `us-state-capitals` | US State Capitals — all 50 by Census region, state shown as the clue, full names (`match: 'full'`, carson/jefferson/salt lake/st paul/okc as aliases); `nope` answers ~60 big-city traps (Houston, Chicago, NYC…) with "Big city, but not the capital." | 50 | Timed 8:00 · No pressure |
 | `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 

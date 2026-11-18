@@ -1854,6 +1854,86 @@ window.QUIZZES = [
 },
 
 {
+  slug: 'us-states',
+  title: 'US States',
+  sub: 'Name all 50',
+  blurb: 'Every state, A to Z. No clues, just 50 blanks.',
+  category: 'Geography',
+  tags: ['US States'],
+  match: 'full',
+  mode: 'timed',
+  time: 600,
+  cols: 'four',      // four columns on desktop so 50 blanks aren't one long strip
+  nope: {
+    puertorico: 'A territory, not a state.',
+    guam: 'A territory, not a state.',
+    dc: 'Not a state.',
+    washingtondc: 'Not a state.',
+    districtofcolumbia: 'Not a state.'
+  },
+  groups: [
+    { name: '1 to 13', items: [
+      { a: 'Alabama', rk: '1' },
+      { a: 'Alaska', rk: '2' },
+      { a: 'Arizona', rk: '3' },
+      { a: 'Arkansas', rk: '4' },
+      { a: 'California', rk: '5' },
+      { a: 'Colorado', rk: '6' },
+      { a: 'Connecticut', rk: '7' },
+      { a: 'Delaware', rk: '8' },
+      { a: 'Florida', rk: '9' },
+      { a: 'Georgia', rk: '10' },
+      { a: 'Hawaii', rk: '11', alias: ['hawai','hawii'] },
+      { a: 'Idaho', rk: '12' },
+      { a: 'Illinois', rk: '13' }
+    ]},
+    { name: '14 to 25', items: [
+      { a: 'Indiana', rk: '14' },
+      { a: 'Iowa', rk: '15' },
+      { a: 'Kansas', rk: '16' },
+      { a: 'Kentucky', rk: '17' },
+      { a: 'Louisiana', rk: '18' },
+      { a: 'Maine', rk: '19' },
+      { a: 'Maryland', rk: '20' },
+      { a: 'Massachusetts', rk: '21' },
+      { a: 'Michigan', rk: '22' },
+      { a: 'Minnesota', rk: '23' },
+      { a: 'Mississippi', rk: '24' },
+      { a: 'Missouri', rk: '25' }
+    ]},
+    { name: '26 to 38', items: [
+      { a: 'Montana', rk: '26' },
+      { a: 'Nebraska', rk: '27' },
+      { a: 'Nevada', rk: '28' },
+      { a: 'New Hampshire', rk: '29' },
+      { a: 'New Jersey', rk: '30' },
+      { a: 'New Mexico', rk: '31' },
+      { a: 'New York', rk: '32' },
+      { a: 'North Carolina', rk: '33' },
+      { a: 'North Dakota', rk: '34' },
+      { a: 'Ohio', rk: '35' },
+      { a: 'Oklahoma', rk: '36' },
+      { a: 'Oregon', rk: '37' },
+      { a: 'Pennsylvania', rk: '38' }
+    ]},
+    { name: '39 to 50', items: [
+      { a: 'Rhode Island', rk: '39' },
+      { a: 'South Carolina', rk: '40' },
+      { a: 'South Dakota', rk: '41' },
+      { a: 'Tennessee', rk: '42' },
+      { a: 'Texas', rk: '43' },
+      { a: 'Utah', rk: '44' },
+      { a: 'Vermont', rk: '45' },
+      { a: 'Virginia', rk: '46' },
+      { a: 'Washington', rk: '47' },
+      { a: 'West Virginia', rk: '48' },
+      { a: 'Wisconsin', rk: '49' },
+      { a: 'Wyoming', rk: '50' }
+    ]}
+  ]
+},
+
+{
   slug: 'us-state-capitals',
   title: 'US State Capitals',
   sub: 'All 50, state by state',
