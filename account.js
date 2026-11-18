@@ -82,6 +82,9 @@ async function load() {
     document.documentElement.classList.add('has-accounts');
     auth.onAuthStateChanged(fb.auth, async (u) => {
       user = u;
+      // On the hub, ask for the bests alongside the profile instead of after it.
+      const bestsP = u && $('grid') ? fetchBests(u.uid) : null;
+      if (bestsP) bestsP.catch(() => {});
       try { profile = u ? await readProfile(u.uid) : null; }
       catch (e) { profile = null; console.warn(e); }
       ready = true;
@@ -90,7 +93,7 @@ async function load() {
       paintTopbar();
       if (pending) paintSave();
       if ($('profile')) paintProfilePage();
-      paintBests();
+      paintBests(bestsP);
     });
   } catch (e) {
     console.warn('Accounts unavailable:', e);
@@ -118,19 +121,37 @@ async function signIn() {
 /* ---------- hub: your best on each card ----------
    Signed in with a profile, the hub shows your best score on every card.
    This hands the hub a map of board id -> { best, total } (or null when
-   signed out); index.html draws it. Board ids are `<scoreKey|slug>-<mode>`. */
-async function paintBests() {
+   signed out); index.html draws it. Board ids are `<scoreKey|slug>-<mode>`.
+   Waiting on Firebase (download, restore the sign-in, read the profile, read
+   the bests) took a few seconds, so the hub first draws the bests it showed
+   last time from localStorage, then swaps in the fresh ones. Signing out
+   clears the copy. */
+const BESTS_CACHE = 'dcm-bests-cache';
+function sendBests(map) {
+  window._dcmBests = map;
+  window.dispatchEvent(new CustomEvent('dcm:bests', { detail: map }));
+}
+if ($('grid')) {
+  try { const c = JSON.parse(localStorage.getItem(BESTS_CACHE) || 'null'); if (c && c.map) sendBests(c.map); } catch (e) {}
+}
+async function fetchBests(uid) {
+  const snap = await fb.getDocs(fb.collection(fb.db, 'users', uid, 'bests'));
+  const map = {};
+  snap.forEach(d => { const x = d.data(); map[d.id] = { best: x.best, total: x.total }; });
+  return map;
+}
+async function paintBests(bestsP) {
   if (!$('grid')) return;
   let map = null;
   if (user && profile) {
-    try {
-      const snap = await fb.getDocs(fb.collection(fb.db, 'users', user.uid, 'bests'));
-      map = {};
-      snap.forEach(d => { const x = d.data(); map[d.id] = { best: x.best, total: x.total }; });
-    } catch (e) { console.warn(e); }
+    try { map = await (bestsP || fetchBests(user.uid)); }
+    catch (e) { console.warn(e); return; }   // keep whatever is on screen
   }
-  window._dcmBests = map;
-  window.dispatchEvent(new CustomEvent('dcm:bests', { detail: map }));
+  try {
+    if (map) localStorage.setItem(BESTS_CACHE, JSON.stringify({ uid: user.uid, map }));
+    else localStorage.removeItem(BESTS_CACHE);
+  } catch (e) {}
+  sendBests(map);
 }
 
 /* ---------- top bar ---------- */

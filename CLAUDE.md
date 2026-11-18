@@ -151,6 +151,13 @@ best score bottom-right of every card you've played — gray, **green at 100%**
 `dcm:bests` (board id → `{best,total}`, or null signed out); index.html takes
 the better of a quiz's two modes by percentage. The Line Game shows this week's
 best only, because its `scoreKey` changes weekly. Signed out: nothing.
+**They show instantly.** Firebase is a chain (download the SDK, restore the
+sign-in, read the profile, read the bests) and the scores used to pop in
+seconds late (Steven noticed). Now: account.js paints the last bests it saw
+from localStorage (`dcm-bests-cache`) before Firebase even loads, fetches the
+bests alongside the profile instead of after it, and swaps in the fresh map;
+signing out clears the copy. index.html `modulepreload`s the three SDK files
+and preconnects to Firestore so the download starts with the page.
 
 **"This week" (featured).** A quiz with `featured: true` leaves the evergreen
 grid and sits in its own **This week** section above "Pick your challenge", as
