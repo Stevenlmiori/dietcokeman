@@ -38,7 +38,7 @@ const COMMON_FIRST = new Set((
   'tyler tyrone vernon victor vince vincent wade walt walter warren wayne wes wesley will william willie zach ' +
   'zachary dwayne deandre demarcus derek tyrell jaylen marquis tre trey ty cj jj aj tj dj jr ' +
   'barry karl lenny guy rudy theo damian buddy carson dominic jesus moses rich kurt bert norm ' +
-  'hank mel sammy rafael miguel jimmie jimmy lee miles roy harry benjamin dexter pierre mohamed sammie deon franklin herbert'
+  'hank mel sammy rafael miguel jimmie jimmy lee miles roy harry benjamin dexter pierre mohamed sammie deon franklin herbert cam malik bryce caleb cooper cal owen'
 ).split(' '));
 
 /* ---------- text normalising ---------- */

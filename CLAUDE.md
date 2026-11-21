@@ -136,7 +136,7 @@ works well." The single source of truth is `window.TAXONOMY` at the top of
   * league — `NFL`, `NBA`, `MLB`, `NHL`, `NCAA`
   * sport — `Football`, `Basketball`, `Baseball`, `Hockey`
   * market — `S&P 500`, `Companies`
-  * topic — `Drinks`, `Restaurants`, `Box Office`, `Oscars`, `Favorites`, `Disney`, `Minecraft`, `Kids`, `Presidents`, `US States`
+  * topic — `Drinks`, `Restaurants`, `Box Office`, `Oscars`, `Favorites`, `Disney`, `Minecraft`, `Kids`, `Presidents`, `US States`, `World`, `Sitcoms`, `Pokémon`
   * kind — `All-Time`, `This Season`, `Throwback` (a past season), `Career Leaders`, `Awards`, `Fantasy`, `Betting`
 
 Every quiz must carry a category and tags. The hub warns in the browser
@@ -574,6 +574,16 @@ number (0 = pick'em).
 | `us-presidents` | US Presidents — all 47 presidencies in order, years in office always shown as the clue; Cleveland and Trump each have two rows (one name fills both) | 47 | Timed 10:00 · No pressure |
 | `us-states` | US States — Steven's spec: just the 50 names, alphabetical 1–50, no clue column; four numbered columns on desktop (`cols: 'four'`), full names; DC/Puerto Rico/Guam get `nope` replies | 50 | Timed 10:00 · No pressure |
 | `us-state-capitals` | US State Capitals — all 50 by Census region, state shown as the clue, full names (`match: 'full'`, carson/jefferson/salt lake/st paul/okc as aliases); `nope` answers ~60 big-city traps (Houston, Chicago, NYC…) with "Big city, but not the capital." | 50 | Timed 8:00 · No pressure |
+| `nfl-career-passing-tds` | NFL Career Passing TDs — Wikipedia list (through Week 11 Thursday, 2026), top 25, TDs as clue. Active: Rodgers 542, Stafford 442, Cousins 320, Mahomes 286, Goff 274, Flacco 272, Dak 264 | 25 | Timed 6:00 · No pressure |
+| `texans-all-time-leaders` | Texans All-Time Leaders — StatMuse, top 5 passing/rushing/receiving yards + sacks, through the Week 11 Thursday win over IND. Re-pull: Stroud, Collins, Will Anderson Jr. climb weekly | 20 | Timed 5:00 · No pressure |
+| `nfl-week1-qbs-2026` | NFL Week 1 Starting QBs: 2026 — ESPN box scores + play-by-play; first-snap QB, not the passing leader (Darnold SEA and Kyler MIN started, hurt in Q1) | 32 | Timed 5:00 · No pressure |
+| `nba-50-40-90-club` | NBA 50-40-90 Club — Wikipedia, 14 seasons by 9 players; verified no 2025-26 qualifier from B-Ref totals | 14 | Timed 3:00 · No pressure |
+| `mlb-3000-hit-club` | MLB 3,000-Hit Club — Wikipedia + B-Ref, 33 members through 2026 (Freeman closest, 2,598) | 33 | Timed 7:00 · No pressure |
+| `pixar-movies` | Every Pixar Movie — Wikipedia, 31 through Toy Story 5 (June 2026), year as clue, kids, full titles. Next: Gatto (March 2027) | 31 | No pressure · Timed 7:00 |
+| `the-office-cast` | The Office Main Cast — the 25 "Regular cast" characters on Wikipedia, job as clue. **First names are aliases on purpose** (everyone knows them as Jim, Pam, Kevin) | 25 | Timed 5:00 · No pressure |
+| `pokemon-starters` | Pokémon Starters — Bulbapedia, Gens 1–9 plus the Winds and Waves trio (revealed Feb 2026, game out 2027) as a labeled bonus row; type as clue; `nope` for Pikachu/Eevee/evolutions | 30 | No pressure · Timed 5:00 |
+| `south-america-countries` | Countries of South America — 12, A to Z, no clue; `nope` for French Guiana, Falklands, Central America | 12 | Timed 2:00 · No pressure |
+| `famous-slogans` | Name the Company by Its Slogan — Steven's idea; slogan is the clue (never containing the brand; Red Bull/State Farm show ___), full names, 4 groups | 48 | Timed 8:00 · No pressure |
 | `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links

@@ -38,6 +38,16 @@ and the score already set. Pick a mode in the bar at the top and press play.
 | US Presidents | 47 | Timed 10:00 · No pressure |
 | US States | 50 | Timed 10:00 · No pressure |
 | US State Capitals | 50 | Timed 8:00 · No pressure |
+| NFL Career Passing TDs | 25 | Timed 6:00 · No pressure |
+| Texans All-Time Leaders | 20 | Timed 5:00 · No pressure |
+| NFL Week 1 Starting QBs: 2026 | 32 | Timed 5:00 · No pressure |
+| NBA 50-40-90 Club | 14 | Timed 3:00 · No pressure |
+| MLB 3,000-Hit Club | 33 | Timed 7:00 · No pressure |
+| Every Pixar Movie | 31 | No pressure · Timed 7:00 |
+| The Office Main Cast | 25 | Timed 5:00 · No pressure |
+| Pokémon Starters | 30 | No pressure · Timed 5:00 |
+| Countries of South America | 12 | Timed 2:00 · No pressure |
+| Name the Company by Its Slogan | 48 | Timed 8:00 · No pressure |
 | NFL Line Game: Week 11 | 13 games | No pressure · Timed 5:00 |
 
 ## How it plays

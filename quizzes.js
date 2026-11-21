@@ -43,7 +43,7 @@ window.TAXONOMY = {
     league: ['NFL', 'NBA', 'MLB', 'NHL', 'NCAA'],
     sport:  ['Football', 'Basketball', 'Baseball', 'Hockey', 'Golf'],
     market: ['S&P 500', 'Companies', 'Stocks'],
-    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Minecraft', 'Kids', 'Presidents', 'US States'],
+    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Minecraft', 'Kids', 'Presidents', 'US States', 'World', 'Sitcoms', 'Pokémon'],
     kind:   ['All-Time', 'This Season', 'Throwback', 'Career Leaders', 'Awards', 'Champions', 'Draft', 'Fantasy', 'Betting']
   },
   /* The little emoji in each hub card's corner. The most specific match wins:
@@ -53,7 +53,7 @@ window.TAXONOMY = {
     tags: {
       Football: '🏈', Basketball: '🏀', Baseball: '⚾', Hockey: '🏒', Golf: '⛳',
       Drinks: '🥤', Restaurants: '🍔', Oscars: '🏆', 'Box Office': '🎬',
-      Stocks: '📈', 'S&P 500': '📈', Minecraft: '⛏️', Disney: '👑', Presidents: '🇺🇸'
+      Stocks: '📈', 'S&P 500': '📈', Minecraft: '⛏️', Disney: '👑', Presidents: '🇺🇸', World: '🌎', Pokémon: '⚡'
     },
     categories: { Sports: '🏆', Movies: '🎬', TV: '📺', Games: '🎮', Business: '💼', 'Food & Drink': '🍽️', History: '🏛️', Geography: '🗺️' }
   }
@@ -2104,6 +2104,499 @@ window.QUIZZES = [
       { a: 'Salt Lake City', hint: 'Utah', alias: ['salt lake','slc'] },
       { a: 'Olympia', hint: 'Washington' },
       { a: 'Cheyenne', hint: 'Wyoming', alias: ['cheyene'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'nfl-career-passing-tds',
+  title: 'NFL Career Passing TDs',
+  sub: 'The top 25 of all time',
+  blurb: 'The 25 quarterbacks with the most career passing touchdowns, regular season, through the Thursday game of Week 11, 2026. Touchdowns are your clue.',
+  category: 'Sports',
+  tags: ['NFL', 'Football', 'Career Leaders'],
+  mode: 'timed',
+  time: 360,
+  cols: 'two',
+  groups: [
+    { name: 'Top 10', items: [
+      { a: 'Tom Brady', rk: '1', hint: '649', alias: ['tb12', 'brady'] },
+      { a: 'Drew Brees', rk: '2', hint: '571' },
+      { a: 'Aaron Rodgers', rk: '3', hint: '542', alias: ['a-rod qb'] },
+      { a: 'Peyton Manning', rk: '4', hint: '539' },
+      { a: 'Brett Favre', rk: '5', hint: '508' },
+      { a: 'Matthew Stafford', rk: '6', hint: '442', alias: ['matt stafford'] },
+      { a: 'Philip Rivers', rk: '7', hint: '425', alias: ['phillip rivers'] },
+      { a: 'Dan Marino', rk: '8', hint: '420' },
+      { a: 'Ben Roethlisberger', rk: '9', hint: '418', alias: ['big ben'] },
+      { a: 'Matt Ryan', rk: '10', hint: '381', alias: ['matty ice'] }
+    ]},
+    { name: '11 to 25', items: [
+      { a: 'Eli Manning', rk: '11', hint: '366' },
+      { a: 'Russell Wilson', rk: '12', hint: '353', alias: ['russ', 'dangeruss'] },
+      { a: 'Fran Tarkenton', rk: '13', hint: '342' },
+      { a: 'Kirk Cousins', rk: '14', hint: '320' },
+      { a: 'John Elway', rk: '15', hint: '300' },
+      { a: 'Carson Palmer', rk: '16', hint: '294' },
+      { a: 'Warren Moon', rk: '17', hint: '291' },
+      { a: 'Johnny Unitas', rk: '18', hint: '290', alias: ['johnny u'] },
+      { a: 'Patrick Mahomes', rk: '19', hint: '286', alias: ['pat mahomes'] },
+      { a: 'Vinny Testaverde', rk: '20', hint: '275' },
+      { a: 'Jared Goff', rk: '21', hint: '274' },
+      { a: 'Joe Montana', rk: '22', hint: '273', alias: ['joe cool'] },
+      { a: 'Joe Flacco', rk: '23', hint: '272' },
+      { a: 'Dak Prescott', rk: '24', hint: '264' },
+      { a: 'Dave Krieg', rk: '25', hint: '261' }
+    ]}
+  ]
+},
+
+{
+  slug: 'texans-all-time-leaders',
+  title: 'Texans All-Time Leaders',
+  sub: 'Top 5 in passing, rushing, receiving and sacks',
+  blurb: 'The Houston Texans franchise leaders, through the Thursday win over the Colts in Week 11, 2026. The numbers are your clue.',
+  category: 'Sports',
+  tags: ['NFL', 'Football', 'Career Leaders'],
+  mode: 'timed',
+  time: 300,
+  cols: 'four',
+  groups: [
+    { name: 'Passing yards', items: [
+      { a: 'Matt Schaub', rk: '1', hint: '23,221' },
+      { a: 'Deshaun Watson', rk: '2', hint: '14,539' },
+      { a: 'C.J. Stroud', rk: '3', hint: '13,532', alias: ['cj stroud'] },
+      { a: 'David Carr', rk: '4', hint: '13,391' },
+      { a: 'Davis Mills', rk: '5', hint: '7,088' }
+    ]},
+    { name: 'Rushing yards', items: [
+      { a: 'Arian Foster', rk: '1', hint: '6,472' },
+      { a: 'Domanick Williams', rk: '2', hint: '3,195', alias: ['domanick davis'] },
+      { a: 'Lamar Miller', rk: '3', hint: '2,934' },
+      { a: 'Alfred Blue', rk: '4', hint: '2,407' },
+      { a: 'Ben Tate', rk: '5', hint: '1,992' }
+    ]},
+    { name: 'Receiving yards', items: [
+      { a: 'Andre Johnson', rk: '1', hint: '13,597', alias: ['dre'] },
+      { a: 'DeAndre Hopkins', rk: '2', hint: '8,602', alias: ['nuk', 'd hop', 'dhop', 'deandre hopkins'] },
+      { a: 'Nico Collins', rk: '3', hint: '4,883' },
+      { a: 'Owen Daniels', rk: '4', hint: '4,617' },
+      { a: 'Kevin Walter', rk: '5', hint: '4,083' }
+    ]},
+    { name: 'Sacks', items: [
+      { a: 'J.J. Watt', rk: '1', hint: '101', alias: ['jj watt'] },
+      { a: 'Whitney Mercilus', rk: '2', hint: '57' },
+      { a: 'Mario Williams', rk: '3', hint: '53' },
+      { a: 'Will Anderson Jr.', rk: '4', hint: '41.5', alias: ['will anderson'] },
+      { a: 'Jadeveon Clowney', rk: '5', hint: '34.5', alias: ['clowney'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'nfl-week1-qbs-2026',
+  title: 'NFL Week 1 Starting QBs: 2026',
+  sub: 'Every team\'s opening-day starter',
+  blurb: 'The quarterback who took the first snap for every team in Week 1 of the 2026 season. The team is your clue. (Sam Darnold and Kyler Murray started but were hurt in the first quarter.)',
+  category: 'Sports',
+  tags: ['NFL', 'Football', 'This Season'],
+  mode: 'timed',
+  time: 300,
+  cols: 'four',
+  groups: [
+    { name: 'AFC East', items: [
+      { a: 'Josh Allen', hint: 'Bills' },
+      { a: 'Malik Willis', hint: 'Dolphins' },
+      { a: 'Drake Maye', hint: 'Patriots' },
+      { a: 'Geno Smith', hint: 'Jets' }
+    ]},
+    { name: 'AFC North', items: [
+      { a: 'Lamar Jackson', hint: 'Ravens' },
+      { a: 'Joe Burrow', hint: 'Bengals' },
+      { a: 'Deshaun Watson', hint: 'Browns' },
+      { a: 'Aaron Rodgers', hint: 'Steelers' }
+    ]},
+    { name: 'AFC South', items: [
+      { a: 'C.J. Stroud', hint: 'Texans', alias: ['cj stroud'] },
+      { a: 'Daniel Jones', hint: 'Colts', alias: ['danny dimes'] },
+      { a: 'Trevor Lawrence', hint: 'Jaguars' },
+      { a: 'Cam Ward', hint: 'Titans' }
+    ]},
+    { name: 'AFC West', items: [
+      { a: 'Bo Nix', hint: 'Broncos' },
+      { a: 'Patrick Mahomes', hint: 'Chiefs', alias: ['pat mahomes'] },
+      { a: 'Kirk Cousins', hint: 'Raiders' },
+      { a: 'Justin Herbert', hint: 'Chargers' }
+    ]},
+    { name: 'NFC East', items: [
+      { a: 'Dak Prescott', hint: 'Cowboys' },
+      { a: 'Jaxson Dart', hint: 'Giants', alias: ['jackson dart'] },
+      { a: 'Jalen Hurts', hint: 'Eagles' },
+      { a: 'Jayden Daniels', hint: 'Commanders' }
+    ]},
+    { name: 'NFC North', items: [
+      { a: 'Caleb Williams', hint: 'Bears' },
+      { a: 'Jared Goff', hint: 'Lions' },
+      { a: 'Jordan Love', hint: 'Packers' },
+      { a: 'Kyler Murray', hint: 'Vikings' }
+    ]},
+    { name: 'NFC South', items: [
+      { a: 'Cooper Rush', hint: 'Falcons' },
+      { a: 'Bryce Young', hint: 'Panthers' },
+      { a: 'Tyler Shough', hint: 'Saints' },
+      { a: 'Baker Mayfield', hint: 'Buccaneers' }
+    ]},
+    { name: 'NFC West', items: [
+      { a: 'Jacoby Brissett', hint: 'Cardinals' },
+      { a: 'Matthew Stafford', hint: 'Rams', alias: ['matt stafford'] },
+      { a: 'Brock Purdy', hint: '49ers' },
+      { a: 'Sam Darnold', hint: 'Seahawks' }
+    ]}
+  ]
+},
+
+{
+  slug: 'nba-50-40-90-club',
+  title: 'NBA 50-40-90 Club',
+  sub: 'Every 50-40-90 season in NBA history',
+  blurb: 'Shoot 50% from the field, 40% from three and 90% from the line in one season. Only nine players have done it, 14 times in all (none in 2025-26). The season and team are your clue.',
+  category: 'Sports',
+  tags: ['NBA', 'Basketball', 'All-Time'],
+  mode: 'timed',
+  time: 180,
+  cols: 'single',
+  groups: [
+    { name: 'Every 50-40-90 season', note: '9 players', items: [
+      { a: 'Larry Bird', rk: '1986-87', hint: 'Celtics', alias: ['larry legend'] },
+      { a: 'Larry Bird', rk: '1987-88', hint: 'Celtics', alias: ['larry legend'] },
+      { a: 'Mark Price', rk: '1988-89', hint: 'Cavaliers' },
+      { a: 'Reggie Miller', rk: '1993-94', hint: 'Pacers' },
+      { a: 'Steve Nash', rk: '2005-06', hint: 'Suns', alias: ['nash'] },
+      { a: 'Dirk Nowitzki', rk: '2006-07', hint: 'Mavericks', alias: ['dirk', 'nowitski'] },
+      { a: 'Steve Nash', rk: '2007-08', hint: 'Suns', alias: ['nash'] },
+      { a: 'Steve Nash', rk: '2008-09', hint: 'Suns', alias: ['nash'] },
+      { a: 'Steve Nash', rk: '2009-10', hint: 'Suns', alias: ['nash'] },
+      { a: 'Kevin Durant', rk: '2012-13', hint: 'Thunder', alias: ['kd', 'durantula', 'slim reaper'] },
+      { a: 'Stephen Curry', rk: '2015-16', hint: 'Warriors', alias: ['steph', 'steph curry', 'chef curry'] },
+      { a: 'Malcolm Brogdon', rk: '2018-19', hint: 'Bucks' },
+      { a: 'Kyrie Irving', rk: '2020-21', hint: 'Nets', alias: ['uncle drew'] },
+      { a: 'Kevin Durant', rk: '2022-23', hint: 'Nets', alias: ['kd', 'durantula', 'slim reaper'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'mlb-3000-hit-club',
+  title: 'MLB 3,000-Hit Club',
+  sub: 'All 33 members',
+  blurb: 'Every player with 3,000 career hits, through the 2026 season. No one joined this year; Freddie Freeman is closest among active players. Career hits are your clue.',
+  category: 'Sports',
+  tags: ['MLB', 'Baseball', 'Career Leaders'],
+  mode: 'timed',
+  time: 420,
+  cols: 'multi',
+  groups: [
+    { name: '3,500 or more', items: [
+      { a: 'Pete Rose', rk: '1', hint: '4,256', alias: ['charlie hustle'] },
+      { a: 'Ty Cobb', rk: '2', hint: '4,189' },
+      { a: 'Hank Aaron', rk: '3', hint: '3,771', alias: ['henry aaron', 'hammerin hank'] },
+      { a: 'Stan Musial', rk: '4', hint: '3,630', alias: ['stan the man'] },
+      { a: 'Tris Speaker', rk: '5', hint: '3,514' },
+      { a: 'Derek Jeter', rk: '6', hint: '3,465', alias: ['the captain'] },
+      { a: 'Honus Wagner', rk: '7', hint: '3,430' }
+    ]},
+    { name: '3,100 to 3,499', items: [
+      { a: 'Carl Yastrzemski', rk: '8', hint: '3,419', alias: ['yaz'] },
+      { a: 'Albert Pujols', rk: '9', hint: '3,384' },
+      { a: 'Paul Molitor', rk: '10', hint: '3,319' },
+      { a: 'Eddie Collins', rk: '11', hint: '3,315' },
+      { a: 'Willie Mays', rk: '12', hint: '3,293', alias: ['say hey kid'] },
+      { a: 'Eddie Murray', rk: '13', hint: '3,255' },
+      { a: 'Nap Lajoie', rk: '14', hint: '3,252' },
+      { a: 'Cal Ripken Jr.', rk: '15', hint: '3,184', alias: ['cal ripken', 'iron man'] },
+      { a: 'Miguel Cabrera', rk: '16', hint: '3,174', alias: ['miggy'] },
+      { a: 'Adrián Beltré', rk: '17', hint: '3,166', alias: ['adrian beltre'] },
+      { a: 'George Brett', rk: '18', hint: '3,154' },
+      { a: 'Paul Waner', rk: '19', hint: '3,152', alias: ['big poison'] },
+      { a: 'Robin Yount', rk: '20', hint: '3,142' },
+      { a: 'Tony Gwynn', rk: '21', hint: '3,141' },
+      { a: 'Alex Rodriguez', rk: '22', hint: '3,115', alias: ['a-rod', 'arod'] },
+      { a: 'Dave Winfield', rk: '23', hint: '3,110' },
+      { a: 'Ichiro Suzuki', rk: '24', hint: '3,089', alias: ['ichiro'] }
+    ]},
+    { name: '3,000 to 3,099', items: [
+      { a: 'Craig Biggio', rk: '25', hint: '3,060' },
+      { a: 'Rickey Henderson', rk: '26', hint: '3,055' },
+      { a: 'Rod Carew', rk: '27', hint: '3,053' },
+      { a: 'Lou Brock', rk: '28', hint: '3,023' },
+      { a: 'Rafael Palmeiro', rk: '29', hint: '3,020' },
+      { a: 'Cap Anson', rk: '30', hint: '3,011' },
+      { a: 'Wade Boggs', rk: '31', hint: '3,010' },
+      { a: 'Al Kaline', rk: '32', hint: '3,007' },
+      { a: 'Roberto Clemente', rk: '33', hint: '3,000' }
+    ]}
+  ]
+},
+
+{
+  slug: 'pixar-movies',
+  title: 'Every Pixar Movie',
+  sub: 'All 31, in order',
+  blurb: 'Every Pixar feature film, from Toy Story to Toy Story 5. The year it came out is your clue.',
+  category: 'Movies',
+  tags: ['Disney', 'Kids'],
+  icon: '🧸',
+  match: 'full',
+  mode: 'chill',
+  time: 420,
+  cols: 'two',
+  groups: [
+    { name: '1995 to 2010', items: [
+      { a: 'Toy Story', hint: '1995' },
+      { a: 'A Bug\'s Life', hint: '1998', alias: ['bugs life', 'a bugs life'] },
+      { a: 'Toy Story 2', hint: '1999', alias: ['toy story two'] },
+      { a: 'Monsters, Inc.', hint: '2001', alias: ['monsters inc', 'monsters incorporated'] },
+      { a: 'Finding Nemo', hint: '2003', alias: ['nemo'] },
+      { a: 'The Incredibles', hint: '2004' },
+      { a: 'Cars', hint: '2006' },
+      { a: 'Ratatouille', hint: '2007', alias: ['ratatoui', 'ratatooie'] },
+      { a: 'WALL-E', hint: '2008', alias: ['walle', 'wall e'] },
+      { a: 'Up', hint: '2009' },
+      { a: 'Toy Story 3', hint: '2010', alias: ['toy story three'] }
+    ]},
+    { name: '2011 to 2026', items: [
+      { a: 'Cars 2', hint: '2011', alias: ['cars two'] },
+      { a: 'Brave', hint: '2012' },
+      { a: 'Monsters University', hint: '2013', alias: ['monsters u'] },
+      { a: 'Inside Out', hint: '2015' },
+      { a: 'The Good Dinosaur', hint: '2015' },
+      { a: 'Finding Dory', hint: '2016', alias: ['dory'] },
+      { a: 'Cars 3', hint: '2017', alias: ['cars three'] },
+      { a: 'Coco', hint: '2017' },
+      { a: 'Incredibles 2', hint: '2018', alias: ['incredibles two', 'the incredibles 2'] },
+      { a: 'Toy Story 4', hint: '2019', alias: ['toy story four'] },
+      { a: 'Onward', hint: '2020' },
+      { a: 'Soul', hint: '2020' },
+      { a: 'Luca', hint: '2021' },
+      { a: 'Turning Red', hint: '2022' },
+      { a: 'Lightyear', hint: '2022', alias: ['light year', 'buzz lightyear'] },
+      { a: 'Elemental', hint: '2023' },
+      { a: 'Inside Out 2', hint: '2024', alias: ['inside out two'] },
+      { a: 'Elio', hint: '2025' },
+      { a: 'Hoppers', hint: '2026' },
+      { a: 'Toy Story 5', hint: '2026', alias: ['toy story five'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'the-office-cast',
+  title: 'The Office Main Cast',
+  sub: 'Every regular at Dunder Mifflin Scranton',
+  blurb: 'All 25 regular characters from The Office. First names count here, since that\'s how everyone knows them. Their job is your clue.',
+  category: 'TV',
+  tags: ['Sitcoms'],
+  icon: '📄',
+  mode: 'timed',
+  time: 300,
+  cols: 'two',
+  groups: [
+    { name: 'Dunder Mifflin originals', items: [
+      { a: 'Michael Scott', hint: 'Regional manager', alias: ['michael', 'worlds best boss'] },
+      { a: 'Dwight Schrute', hint: 'Assistant (to the) regional manager', alias: ['dwight'] },
+      { a: 'Jim Halpert', hint: 'Salesman and prankster', alias: ['jim', 'big tuna'] },
+      { a: 'Pam Beesly', hint: 'Receptionist turned artist', alias: ['pam', 'pam halpert', 'pam beesley'] },
+      { a: 'Ryan Howard', hint: 'The temp', alias: ['ryan'] },
+      { a: 'Stanley Hudson', hint: 'Salesman, loves crosswords and pretzel day', alias: ['stanley'] },
+      { a: 'Kevin Malone', hint: 'Accountant, famous chili', alias: ['kevin'] },
+      { a: 'Angela Martin', hint: 'Head of accounting, loves her cats', alias: ['angela'] },
+      { a: 'Oscar Martinez', hint: 'Accountant, the smart one', alias: ['oscar'] },
+      { a: 'Phyllis Vance', hint: 'Saleswoman, married to Bob Vance', alias: ['phyllis', 'phyllis lapin'] },
+      { a: 'Meredith Palmer', hint: 'Supplier relations', alias: ['meredith'] },
+      { a: 'Creed Bratton', hint: 'Quality assurance', alias: ['creed'] },
+      { a: 'Kelly Kapoor', hint: 'Customer service, loves gossip', alias: ['kelly'] },
+      { a: 'Toby Flenderson', hint: 'Human resources', alias: ['toby'] },
+      { a: 'Darryl Philbin', hint: 'Warehouse foreman', alias: ['darryl', 'daryl'] },
+      { a: 'Roy Anderson', hint: 'Warehouse, Pam\'s ex-fiancé', alias: ['roy'] },
+      { a: 'Jan Levinson', hint: 'Corporate VP, Michael\'s ex', alias: ['jan', 'jan levinson gould'] }
+    ]},
+    { name: 'Later arrivals', items: [
+      { a: 'Andy Bernard', hint: 'Cornell grad, the Nard Dog', alias: ['andy', 'nard dog', 'the nard dog'] },
+      { a: 'Erin Hannon', hint: 'Receptionist after Pam', alias: ['erin'] },
+      { a: 'Holly Flax', hint: 'HR, the love of Michael\'s life', alias: ['holly'] },
+      { a: 'Gabe Lewis', hint: 'Sabre corporate liaison', alias: ['gabe'] },
+      { a: 'Robert California', hint: 'Sabre CEO, the Lizard King', alias: ['robert', 'lizard king', 'the lizard king'] },
+      { a: 'Nellie Bertram', hint: 'From Sabre\'s British side', alias: ['nellie'] },
+      { a: 'Clark Green', hint: '"New Dwight"', alias: ['clark'] },
+      { a: 'Pete Miller', hint: '"New Jim", nicknamed Plop', alias: ['pete', 'plop'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'pokemon-starters',
+  title: 'Pokémon Starters',
+  sub: 'Every first partner, region by region',
+  blurb: 'Every starter Pokémon from every main game, plus the three just revealed for Pokémon Winds and Waves (2027). The type is your clue.',
+  category: 'Games',
+  tags: ['Pokémon', 'Kids'],
+  match: 'full',
+  nope: { pikachu: 'Pikachu is the starter in Yellow, but not a Grass, Fire or Water one!', eevee: 'Eevee is a partner in Let\'s Go Eevee, not a regular starter.', charizard: 'That\'s the evolved form. Name the first stage!', venusaur: 'That\'s the evolved form. Name the first stage!', blastoise: 'That\'s the evolved form. Name the first stage!', ivysaur: 'That\'s an evolution. Name the first stage!', wartortle: 'That\'s an evolution. Name the first stage!', charmeleon: 'That\'s an evolution. Name the first stage!' },
+  mode: 'chill',
+  time: 300,
+  cols: 'multi',
+  groups: [
+    { name: 'Kanto', note: 'Gen 1', items: [
+      { a: 'Bulbasaur', hint: 'Grass', alias: ['bulbasoar', 'bulbasor'] },
+      { a: 'Charmander', hint: 'Fire', alias: ['charmandar', 'charmeleon'] },
+      { a: 'Squirtle', hint: 'Water', alias: ['squirtel'] }
+    ]},
+    { name: 'Johto', note: 'Gen 2', items: [
+      { a: 'Chikorita', hint: 'Grass' },
+      { a: 'Cyndaquil', hint: 'Fire', alias: ['cindaquil', 'cyndaquill'] },
+      { a: 'Totodile', hint: 'Water' }
+    ]},
+    { name: 'Hoenn', note: 'Gen 3', items: [
+      { a: 'Treecko', hint: 'Grass' },
+      { a: 'Torchic', hint: 'Fire' },
+      { a: 'Mudkip', hint: 'Water' }
+    ]},
+    { name: 'Sinnoh', note: 'Gen 4', items: [
+      { a: 'Turtwig', hint: 'Grass' },
+      { a: 'Chimchar', hint: 'Fire' },
+      { a: 'Piplup', hint: 'Water' }
+    ]},
+    { name: 'Unova', note: 'Gen 5', items: [
+      { a: 'Snivy', hint: 'Grass' },
+      { a: 'Tepig', hint: 'Fire' },
+      { a: 'Oshawott', hint: 'Water', alias: ['oshawot'] }
+    ]},
+    { name: 'Kalos', note: 'Gen 6', items: [
+      { a: 'Chespin', hint: 'Grass' },
+      { a: 'Fennekin', hint: 'Fire' },
+      { a: 'Froakie', hint: 'Water' }
+    ]},
+    { name: 'Alola', note: 'Gen 7', items: [
+      { a: 'Rowlet', hint: 'Grass' },
+      { a: 'Litten', hint: 'Fire' },
+      { a: 'Popplio', hint: 'Water' }
+    ]},
+    { name: 'Galar', note: 'Gen 8', items: [
+      { a: 'Grookey', hint: 'Grass' },
+      { a: 'Scorbunny', hint: 'Fire' },
+      { a: 'Sobble', hint: 'Water' }
+    ]},
+    { name: 'Paldea', note: 'Gen 9', items: [
+      { a: 'Sprigatito', hint: 'Grass', alias: ['sprigatitto'] },
+      { a: 'Fuecoco', hint: 'Fire', alias: ['fuecocco'] },
+      { a: 'Quaxly', hint: 'Water' }
+    ]},
+    { name: 'Winds and Waves', note: 'Bonus: coming 2027', items: [
+      { a: 'Browt', hint: 'Grass' },
+      { a: 'Pombon', hint: 'Fire' },
+      { a: 'Gecqua', hint: 'Water' }
+    ]}
+  ]
+},
+
+{
+  slug: 'south-america-countries',
+  title: 'Countries of South America',
+  sub: 'Name all 12',
+  blurb: 'Every independent country in South America, A to Z. No clues.',
+  category: 'Geography',
+  tags: ['World'],
+  match: 'full',
+  nope: { frenchguiana: 'Close! It\'s part of France, not its own country.', guiana: 'Close! French Guiana is part of France.', falklandislands: 'A British territory, not a country.', falklands: 'A British territory, not a country.', panama: 'Central America!', mexico: 'North America!', costarica: 'Central America!', cuba: 'The Caribbean!', trinidadandtobago: 'Caribbean islands, not South America.', trinidad: 'Caribbean islands, not South America.' },
+  mode: 'timed',
+  time: 120,
+  cols: 'single',
+  groups: [
+    { name: 'A to Z', note: '12 countries', items: [
+      { a: 'Argentina', rk: '1' },
+      { a: 'Bolivia', rk: '2' },
+      { a: 'Brazil', rk: '3', alias: ['brasil'] },
+      { a: 'Chile', rk: '4' },
+      { a: 'Colombia', rk: '5', alias: ['columbia'] },
+      { a: 'Ecuador', rk: '6' },
+      { a: 'Guyana', rk: '7' },
+      { a: 'Paraguay', rk: '8' },
+      { a: 'Peru', rk: '9' },
+      { a: 'Suriname', rk: '10', alias: ['surinam'] },
+      { a: 'Uruguay', rk: '11' },
+      { a: 'Venezuela', rk: '12', alias: ['venezuala'] }
+    ]}
+  ]
+},
+
+{
+  slug: 'famous-slogans',
+  title: 'Name the Company by Its Slogan',
+  sub: '48 slogans you\'ve heard a thousand times',
+  blurb: 'Famous ad slogans, past and present. The slogan is your clue; name the company or brand behind it.',
+  category: 'Business',
+  tags: ['Companies'],
+  icon: '📣',
+  match: 'full',
+  mode: 'timed',
+  time: 480,
+  cols: 'single',
+  groups: [
+    { name: 'Food and drink', items: [
+      { a: 'McDonald\'s', hint: 'I\'m Lovin\' It', alias: ['mcdonalds', 'mickey ds'] },
+      { a: 'Burger King', hint: 'Have It Your Way', alias: ['bk'] },
+      { a: 'Subway', hint: 'Eat Fresh' },
+      { a: 'KFC', hint: 'Finger Lickin\' Good', alias: ['kentucky fried chicken'] },
+      { a: 'Taco Bell', hint: 'Think Outside the Bun' },
+      { a: 'Wendy\'s', hint: 'Where\'s the Beef?', alias: ['wendys'] },
+      { a: 'Chick-fil-A', hint: 'Eat Mor Chikin', alias: ['chickfila', 'chick fil a'] },
+      { a: 'Little Caesars', hint: 'Pizza! Pizza!', alias: ['little caesar', 'little caesars pizza'] },
+      { a: 'Papa John\'s', hint: 'Better Ingredients. Better Pizza.', alias: ['papa johns'] },
+      { a: 'M&M\'s', hint: 'Melts in your mouth, not in your hands', alias: ['mms', 'm and ms', 'm ms', 'm&m'] },
+      { a: 'Skittles', hint: 'Taste the Rainbow' },
+      { a: 'Kit Kat', hint: 'Gimme a Break', alias: ['kitkat'] },
+      { a: 'Lay\'s', hint: 'Betcha Can\'t Eat Just One', alias: ['lays'] },
+      { a: 'Frosted Flakes', hint: 'They\'re Gr-r-reat!', alias: ['tony the tiger'] },
+      { a: 'Rice Krispies', hint: 'Snap! Crackle! Pop!', alias: ['rice crispies'] },
+      { a: 'Wheaties', hint: 'Breakfast of Champions' },
+      { a: 'Maxwell House', hint: 'Good to the Last Drop' },
+      { a: 'Folgers', hint: 'The Best Part of Wakin\' Up' },
+      { a: 'Coca-Cola', hint: 'The Pause That Refreshes', alias: ['coke', 'coca cola'] },
+      { a: 'Red Bull', hint: '___ Gives You Wings', alias: ['redbull'] },
+      { a: 'Sprite', hint: 'Obey Your Thirst' },
+      { a: 'Budweiser', hint: 'The King of Beers', alias: ['bud'] },
+      { a: 'Morton Salt', hint: 'When It Rains It Pours', alias: ['morton'] }
+    ]},
+    { name: 'Money and insurance', items: [
+      { a: 'State Farm', hint: 'Like a good neighbor, ___ is there' },
+      { a: 'Allstate', hint: 'You\'re in Good Hands' },
+      { a: 'GEICO', hint: '15 minutes could save you 15% or more on car insurance' },
+      { a: 'Capital One', hint: 'What\'s in Your Wallet?' },
+      { a: 'Mastercard', hint: 'There are some things money can\'t buy. For everything else...', alias: ['master card'] },
+      { a: 'Visa', hint: 'It\'s Everywhere You Want to Be' },
+      { a: 'American Express', hint: 'Don\'t Leave Home Without It', alias: ['amex'] }
+    ]},
+    { name: 'Shopping, tech and cars', items: [
+      { a: 'Nike', hint: 'Just Do It' },
+      { a: 'Adidas', hint: 'Impossible Is Nothing' },
+      { a: 'Apple', hint: 'Think Different' },
+      { a: 'Verizon', hint: 'Can You Hear Me Now?', alias: ['verizon wireless'] },
+      { a: 'Target', hint: 'Expect More. Pay Less.' },
+      { a: 'Walmart', hint: 'Save Money. Live Better.', alias: ['wal-mart', 'wal mart'] },
+      { a: 'The Home Depot', hint: 'More Saving. More Doing.', alias: ['home depot'] },
+      { a: 'BMW', hint: 'The Ultimate Driving Machine' },
+      { a: 'Chevrolet', hint: 'Like a Rock', alias: ['chevy'] },
+      { a: 'Avis', hint: 'We Try Harder', alias: ['avis car rental'] },
+      { a: 'United Airlines', hint: 'Fly the Friendly Skies', alias: ['united'] }
+    ]},
+    { name: 'Everything else', items: [
+      { a: 'L\'Oréal', hint: 'Because You\'re Worth It', alias: ['loreal', 'l oreal'] },
+      { a: 'Gillette', hint: 'The Best a Man Can Get' },
+      { a: 'Bounty', hint: 'The Quicker Picker-Upper' },
+      { a: 'Energizer', hint: 'It keeps going and going and going', alias: ['energizer bunny'] },
+      { a: 'De Beers', hint: 'A Diamond Is Forever', alias: ['debeers'] },
+      { a: 'Disneyland', hint: 'The Happiest Place on Earth', alias: ['disney', 'disney world'] },
+      { a: 'Hallmark', hint: 'When You Care Enough to Send the Very Best' }
     ]}
   ]
 },
