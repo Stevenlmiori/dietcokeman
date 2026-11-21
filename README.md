@@ -22,6 +22,7 @@ and the score already set. Pick a mode in the bar at the top and press play.
 | NBA Top 25 by Category | 200 | Timed 15:00 · No pressure |
 | NFL MVPs | 71 | Timed 10:00 · No pressure |
 | NBA MVPs | 71 | Timed 10:00 · No pressure |
+| NBA 50-Point Games | 22 | Timed 5:00 · No pressure |
 | MLB All-Time Home Runs | 50 | Timed 8:00 · No pressure |
 | Still in the S&P 500 Since 1957 | 52 | Timed 10:00 · No pressure |
 | NFL Top 3 WRs: 2010 | 96 | Timed 12:00 · No pressure |

@@ -159,6 +159,13 @@ bests alongside the profile instead of after it, and swaps in the fresh map;
 signing out clears the copy. index.html `modulepreload`s the three SDK files
 and preconnects to Firestore so the download starts with the page.
 
+**Hub order (Steven, 2026-11-21): grouped by kind.** index.html sorts the
+grid, so `quizzes.js` order only matters within a group: quizzes with
+`pin: true` first (Best Drink, then Favorite Movies), then all football, then
+basketball, baseball, hockey, golf (by sport tag), then everything else by
+category in `TAXONOMY.categories` order (Movies, TV, Games, Business, Food &
+Drink, History, Geography). A new quiz lands with its own kind automatically.
+
 **"This week" (featured).** A quiz with `featured: true` leaves the evergreen
 grid and sits in its own **This week** section above "Pick your challenge", as
 one wide card with a faint red tint that also shows its blurb. Steven: the Line
@@ -551,6 +558,7 @@ number (0 = pick'em).
 | `nba-top25-by-category` | NBA Top 25 by Category (8 career stats) | 200 | Timed 15:00 · No pressure |
 | `nfl-mvps` | NFL MVPs (AP, 1957–2025, by decade) | 71 | Timed 10:00 · No pressure |
 | `nba-mvps` | NBA MVPs (1955-56 – 2025-26, by decade) | 71 | Timed 10:00 · No pressure |
+| `nba-50-point-games` | NBA 50-Point Games — from Steven's @NBA graphic (Harden passing Kobe); StatMuse regular-season list through Nov 20, 2026, top 22 (6+ games, clean tie cut); count is the clue. Active players move it: Harden 26, Lillard/Curry 15, LeBron 14, Luka 11 | 22 | Timed 5:00 · No pressure |
 | `mlb-career-hr` | MLB All-Time Home Runs (top 50, through 2026) | 50 | Timed 8:00 · No pressure |
 | `sp500-since-1957` | Still in the S&P 500 Since 1957 (52, full names) | 52 | Timed 10:00 · No pressure |
 | `nfl-top3-wr-2010` | NFL Top 3 WRs: 2010 — Steven's sheet; one box per team (32), jersey # clue | 96 | Timed 12:00 · No pressure |

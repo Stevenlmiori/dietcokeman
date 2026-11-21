@@ -17,6 +17,7 @@
      modes: ['timed','chill'],     // which mode buttons to offer (default: both)
      match: 'full',                // optional: full names only (no last-name shortcut)
      featured: true,               // optional: time-sensitive, shown in the hub's "This week" section
+     pin: true,                    // optional: kept at the top of the hub (Best Drink, Favorite Movies)
      groups: [{
        name: 'Group heading',
        note: 'right-side label',   // optional
@@ -62,6 +63,7 @@ window.QUIZZES = [
 
 {
   slug: 'best-drink',
+  pin: true,                       // stays at the top of the hub
   title: 'Best Drink of All Time',
   sub: 'One answer. You know it.',
   blurb: 'Name the greatest drink ever made. There is exactly one correct answer.',
@@ -100,6 +102,7 @@ window.QUIZZES = [
 
 {
   slug: 'dietcokeman-favorite-movies',
+  pin: true,                       // stays at the top of the hub
   title: "DietCokeMan's Favorite Movies",
   sub: '64 favorites, in his order',
   blurb: "DietCokeMan's 64 favorite movies, ranked by the man himself. The year each one came out is your clue.",
@@ -944,6 +947,46 @@ window.QUIZZES = [
       { a: 'Bill Russell', rk: '1957-58', sub: 'BOS', hint: '16.6 ppg' },
       { a: 'Bob Cousy', rk: '1956-57', sub: 'BOS', hint: '20.6 ppg', alias: ['the cooz','cooz'] },
       { a: 'Bob Pettit', rk: '1955-56', sub: 'STL', hint: '25.7 ppg' }
+    ]}
+  ]
+},
+
+{
+  slug: 'nba-50-point-games',
+  title: 'NBA 50-Point Games',
+  sub: 'Most 50-point games, all time',
+  blurb: 'The players with the most 50-point games in NBA regular-season history, through November 20, 2026. How many each one has is your clue.',
+  category: 'Sports',
+  tags: ['NBA', 'Basketball', 'Career Leaders'],
+  mode: 'timed',
+  time: 300,
+  cols: 'two',
+  groups: [
+    { name: 'The top 10', note: 'with ties', items: [
+      { a: 'Wilt Chamberlain', rk: '1', hint: '118', alias: ['wilt','the stilt','wilt the stilt','big dipper'] },
+      { a: 'Michael Jordan', rk: '2', hint: '31', alias: ['mj','air jordan','his airness'] },
+      { a: 'James Harden', rk: '3', hint: '26', alias: ['the beard'] },
+      { a: 'Kobe Bryant', rk: '4', hint: '25', alias: ['black mamba','mamba'] },
+      { a: 'Elgin Baylor', rk: '5', hint: '17' },
+      { a: 'Damian Lillard', rk: 'T6', hint: '15', alias: ['dame','dame time','dame lillard'] },
+      { a: 'Stephen Curry', rk: 'T6', hint: '15', alias: ['steph','steph curry','chef curry'] },
+      { a: 'LeBron James', rk: 'T8', hint: '14', alias: ['bron','king james','lebron'] },
+      { a: 'Rick Barry', rk: 'T8', hint: '14' },
+      { a: 'Luka Dončić', rk: 'T10', hint: '11', alias: ['luka doncic','doncic'] },
+      { a: 'Allen Iverson', rk: 'T10', hint: '11', alias: ['ai','the answer','a.i.'] }
+    ]},
+    { name: 'Six or more', items: [
+      { a: 'Kareem Abdul-Jabbar', rk: '12', hint: '10', alias: ['kareem','abdul jabbar','kaj','lew alcindor','alcindor'] },
+      { a: 'Giannis Antetokounmpo', rk: 'T13', hint: '9', alias: ['greek freak','the greek freak'] },
+      { a: 'Kevin Durant', rk: 'T13', hint: '9', alias: ['kd','durantula','slim reaper'] },
+      { a: 'Joel Embiid', rk: 'T15', hint: '8', alias: ['jojo'] },
+      { a: 'Devin Booker', rk: 'T15', hint: '8', alias: ['book','d book'] },
+      { a: 'Bernard King', rk: 'T15', hint: '8' },
+      { a: 'Dominique Wilkins', rk: '18', hint: '7', alias: ['nique','human highlight film'] },
+      { a: 'Kyrie Irving', rk: 'T19', hint: '6', alias: ['uncle drew'] },
+      { a: 'Adrian Dantley', rk: 'T19', hint: '6' },
+      { a: 'Pete Maravich', rk: 'T19', hint: '6', alias: ['pistol pete','pistol'] },
+      { a: 'Bob Pettit', rk: 'T19', hint: '6' }
     ]}
   ]
 },

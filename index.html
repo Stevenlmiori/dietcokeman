@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261118112425">
+<link rel="stylesheet" href="style.css?v=20261121142718">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 <!-- Start fetching Firebase while the page loads, so your bests show sooner (account.js) -->
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js" crossorigin>
@@ -71,15 +71,28 @@
   </p>
 </main>
 
-<script type="module" src="account.js?v=20261118112425"></script>
-<script src="quizzes.js?v=20261118112425"></script>
+<script type="module" src="account.js?v=20261121142718"></script>
+<script src="quizzes.js?v=20261121142718"></script>
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
   const grid = $('grid');
   const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const norm = (s) => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  const QUIZZES = window.QUIZZES || [];
+  // Hub order (Steven): Best Drink and his Favorite Movies stay on top (`pin`),
+  // then quizzes grouped by sport (all football, then basketball, baseball,
+  // hockey, golf), then everything else by category in TAXONOMY order. Within
+  // a group, quizzes.js order holds, so a new quiz lands with its own kind.
+  const SPORTS = ['Football', 'Basketball', 'Baseball', 'Hockey', 'Golf'];
+  const groupOf = (q) => {
+    if (q.pin) return 0;
+    const sport = SPORTS.findIndex(t => (q.tags || []).includes(t));
+    if (sport >= 0) return 1 + sport;
+    const cat = ((window.TAXONOMY || {}).categories || []).indexOf(q.category);
+    return 1 + SPORTS.length + (cat >= 0 ? cat : 99);
+  };
+  const QUIZZES = (window.QUIZZES || []).map((q, i) => [groupOf(q), i, q])
+    .sort((a, b) => a[0] - b[0] || a[1] - b[1]).map(x => x[2]);
   const TAX = window.TAXONOMY || { categories: [], tags: {} };
   const allTags = Object.values(TAX.tags).flat();
 
