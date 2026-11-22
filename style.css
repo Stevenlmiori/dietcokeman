@@ -149,10 +149,11 @@ a{color:inherit}
   position:relative;display:flex;flex-direction:column;gap:9px;
   padding:20px;border-radius:var(--r);text-decoration:none;color:inherit;
   background:linear-gradient(165deg,rgba(255,255,255,.075),rgba(255,255,255,.022));
-  border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;
-  transition:transform .16s cubic-bezier(.2,.8,.3,1),border-color .16s,box-shadow .16s;
+  border:1px solid transparent;box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.05);
+  overflow:hidden;
+  transition:transform .16s cubic-bezier(.2,.8,.3,1),box-shadow .16s;
 }
-.card:hover{transform:translateY(-3px);border-color:#3D4A5A;box-shadow:0 16px 40px rgba(0,0,0,.55)}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.07)}
 /* your best score, bottom-right of a hub card (signed in only): gray, green at 100% */
 .card-best{position:absolute;right:18px;bottom:16px;font-size:13px;font-weight:700;
   color:var(--silver-dim);font-variant-numeric:tabular-nums;letter-spacing:.01em}
@@ -163,9 +164,9 @@ a{color:inherit}
 .featured{margin-bottom:30px}
 .feature-grid{display:grid;gap:16px}
 .card.feature{padding:24px 24px 22px;
-  background:linear-gradient(120deg,rgba(240,25,50,.13),rgba(255,255,255,.03) 55%);
-  border-color:rgba(240,25,50,.28)}
-.card.feature:hover{border-color:rgba(240,25,50,.5)}
+  background:linear-gradient(120deg,rgba(240,25,50,.11),rgba(255,255,255,.03) 55%);
+  box-shadow:0 10px 34px rgba(0,0,0,.45),0 0 0 1px rgba(240,25,50,.14),inset 0 1px 0 rgba(255,255,255,.05)}
+.card.feature:hover{box-shadow:0 16px 40px rgba(0,0,0,.5),0 0 0 1px rgba(240,25,50,.24),inset 0 1px 0 rgba(255,255,255,.07)}
 .card.feature h3{font-size:clamp(21px,2.4vw,26px);letter-spacing:-.02em}
 .card.feature .sub{font-size:14.5px;color:var(--silver)}
 .card.feature .blurb{margin:6px 0 0;max-width:70ch;font-size:13.5px;line-height:1.5;color:var(--silver-dim)}
@@ -187,16 +188,20 @@ a{color:inherit}
 
 /* hub search and filters */
 .finder{margin:0 0 16px}
-.find{width:100%;border:1.5px solid var(--line);border-radius:12px;background:rgba(255,255,255,.05);
-  color:var(--white);font:inherit;font-size:16px;padding:11px 14px;outline:0;transition:border-color .14s}
-.find:focus{border-color:var(--ice)}
+.find{width:100%;border:1.5px solid transparent;border-radius:12px;background:rgba(255,255,255,.055);
+  color:var(--white);font:inherit;font-size:16px;padding:11px 14px;outline:0;
+  transition:background .14s,box-shadow .14s}
+.find::placeholder{color:var(--silver-dim)}
+.find:focus{background:rgba(255,255,255,.08);box-shadow:0 0 0 2px rgba(127,217,247,.38)}
 .facets{margin-top:10px}
-.facet-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.facet-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.facet-row:first-child{margin-top:0}
 /* one quiet neutral style; the pressed one is just brighter — no coloured chips */
-.facet{border:1px solid var(--line);background:transparent;color:var(--silver-dim);border-radius:9px;
-  padding:5px 10px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:color .14s,border-color .14s,background .14s}
-.facet:hover{color:var(--white);border-color:#3A4756}
-.facet[aria-pressed="true"]{color:var(--white);border-color:#4A5868;background:rgba(255,255,255,.07)}
+.facet{border:none;background:rgba(255,255,255,.06);color:var(--silver-dim);border-radius:9px;
+  padding:5px 10px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;
+  transition:color .14s,background .14s}
+.facet:hover{color:var(--white);background:rgba(255,255,255,.09)}
+.facet[aria-pressed="true"]{color:var(--white);background:rgba(255,255,255,.14)}
 .nomatch{color:var(--silver-dim);font-size:14px;text-align:center;margin:18px 0}
 .nomatch .linkbtn{display:inline;margin:0}
 
@@ -492,6 +497,17 @@ a{color:inherit}
 
 @media (max-width:640px){
   .wrap{width:calc(100% - 22px)}
+  /* one scroll strip for every filter chip — less vertical clutter */
+  .facets{
+    display:flex;flex-wrap:nowrap;gap:5px;margin-top:10px;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;-ms-overflow-style:none;
+    padding-bottom:2px;margin-inline:calc(-1 * min(11px,2vw));
+    padding-inline:min(11px,2vw);
+  }
+  .facets::-webkit-scrollbar{display:none}
+  .facet-row{display:contents}
+  .facet{flex:0 0 auto}
   .hudrow{flex-wrap:wrap;gap:8px}
   /* score and clock first, so they are the thing you glance at */
   .stats{order:-1;flex:1 1 100%}
