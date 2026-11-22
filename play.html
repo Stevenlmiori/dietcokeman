@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261121163620">
+<link rel="stylesheet" href="style.css?v=20261122180815">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -60,9 +60,10 @@
         </div>
 
         <form class="live" id="live" autocomplete="off" hidden>
-          <input id="guess" class="guess" type="text" placeholder="Type a name…"
-                 autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-                 enterkeyhint="done" aria-label="Type your guess">
+          <input id="guess" name="dcm-entry" class="guess" type="text" placeholder="Type your guess…"
+                 inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                 enterkeyhint="done" aria-label="Type your guess"
+                 data-form-type="other" data-lpignore="true" data-1p-ignore="true">
           <div class="lstat" id="lstat" hidden></div>
         </form>
 
@@ -104,8 +105,8 @@
   </div>
 </div>
 
-<script src="quizzes.js?v=20261121163620"></script>
-<script type="module" src="account.js?v=20261121163620"></script>
-<script src="engine.js?v=20261121163620"></script>
+<script src="quizzes.js?v=20261122180815"></script>
+<script type="module" src="account.js?v=20261122180815"></script>
+<script src="engine.js?v=20261122180815"></script>
 </body>
 </html>

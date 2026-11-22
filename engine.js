@@ -224,8 +224,10 @@ function buildLinesBoard() {
             <button type="button" class="fv" data-i="${i}" data-t="${esc(it.aw)}" aria-pressed="false">${esc(it.aw)}</button>
             <button type="button" class="fv" data-i="${i}" data-t="${esc(it.hm)}" aria-pressed="false">${esc(it.hm)}</button>
           </span>
-          <input class="pts" id="pts-${i}" data-i="${i}" type="text" inputmode="decimal" placeholder="pts"
-                 maxlength="5" autocomplete="off" enterkeyhint="go" aria-label="Spread for ${esc(it.a)}">
+          <input class="pts" id="pts-${i}" name="dcm-spread-${i}" data-i="${i}" type="text" inputmode="decimal" placeholder="pts"
+                 maxlength="5" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                 enterkeyhint="go" aria-label="Spread for ${esc(it.a)}"
+                 data-form-type="other" data-lpignore="true" data-1p-ignore="true">
           <button type="button" class="lgo" data-i="${i}" aria-label="Submit ${esc(it.a)}" title="Submit">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
           </button>
