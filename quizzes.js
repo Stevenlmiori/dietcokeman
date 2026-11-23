@@ -2636,6 +2636,71 @@ window.QUIZZES = [
       { a: 'Bengals @ Commanders', away: 'Bengals',    home: 'Commanders', aw: 'CIN', hm: 'WAS', line: 4 }
     ]}
   ]
-}
+},
+
+{
+  // 2017 World Series 25-man roster. Names and groupings from the official
+  // MLB.com roster announcement (Oct 23, 2017); same 25 names on Wikipedia's
+  // 2017 Houston Astros season postseason table and Baseball-Reference's
+  // 2017 World Series page. Wikipedia lists Beltrán as DH and González as an
+  // outfielder; this quiz follows the club's own groups (Beltrán in the
+  // outfield, González in the infield). Jersey numbers from that Wikipedia
+  // World Series table, checked against Baseball Almanac's 2017 uniform list.
+  // Jake Marisnick (thumb) and Tony Sipp were on the club but not this roster;
+  // Tyler White was on the ALDS roster only.
+  slug: '2017-astros-ws-roster',
+  title: '2017 Astros World Series Roster',
+  sub: 'The 25-man roster that beat the Dodgers',
+  blurb: 'Every player on Houston\'s active roster for the 2017 World Series, the first title in franchise history. George Springer was named MVP. Jersey numbers are your clue.',
+  category: 'Sports',
+  tags: ['MLB', 'Baseball', 'Throwback', 'Champions'],
+  mode: 'timed',
+  time: 360,
+  cols: 'multi',
+  nope: {
+    jakemarisnick: 'Marisnick was on the club, but a thumb injury kept him off the World Series roster.',
+    marisnick: 'Marisnick was on the club, but a thumb injury kept him off the World Series roster.',
+    tonysipp: 'Sipp pitched for Houston in 2017, but he was not on the World Series roster.',
+    sipp: 'Sipp pitched for Houston in 2017, but he was not on the World Series roster.',
+    tylerwhite: 'White was on the ALDS roster, but not the World Series one.',
+    ajhinch: 'That\'s the manager. Name a player.',
+    hinch: 'That\'s the manager. Name a player.'
+  },
+  groups: [
+    { name: 'Pitchers', note: '12', items: [
+      { a: 'Chris Devenski', hint: '#47', alias: ['devo'] },
+      { a: 'Ken Giles', hint: '#53' },
+      { a: 'Luke Gregerson', hint: '#44' },
+      { a: 'Will Harris', hint: '#36' },
+      { a: 'Dallas Keuchel', hint: '#60' },
+      { a: 'Francisco Liriano', hint: '#46' },
+      { a: 'Lance McCullers Jr.', hint: '#43', alias: ['lance mccullers', 'mccullers'] },
+      { a: 'Collin McHugh', hint: '#31', alias: ['colin mchugh'] },
+      { a: 'Charlie Morton', hint: '#50' },
+      { a: 'Joe Musgrove', hint: '#59' },
+      { a: 'Brad Peacock', hint: '#41' },
+      { a: 'Justin Verlander', hint: '#35', alias: ['jv'] }
+    ]},
+    { name: 'Catchers', note: '3', items: [
+      { a: 'Juan Centeno', hint: '#30' },
+      { a: 'Evan Gattis', hint: '#11', alias: ['el oso blanco', 'oso blanco', 'el oso'] },
+      { a: 'Brian McCann', hint: '#16' }
+    ]},
+    { name: 'Infielders', note: '5', items: [
+      { a: 'Jose Altuve', hint: '#27', alias: ['touve'] },
+      { a: 'Alex Bregman', hint: '#2' },
+      { a: 'Carlos Correa', hint: '#1' },
+      { a: 'Marwin González', hint: '#9', alias: ['marwin gonzalez'] },
+      { a: 'Yuli Gurriel', hint: '#10', alias: ['gourriel', 'yulieski', 'yulieski gurriel', 'yuli gourriel', 'yulieski gourriel'] }
+    ]},
+    { name: 'Outfielders', note: '5', items: [
+      { a: 'Carlos Beltrán', hint: '#15', alias: ['carlos beltran'] },
+      { a: 'Derek Fisher', hint: '#21' },
+      { a: 'Cameron Maybin', hint: '#3' },
+      { a: 'Josh Reddick', hint: '#22' },
+      { a: 'George Springer', hint: '#4' }
+    ]}
+  ]
+},
 
 ];

@@ -584,6 +584,7 @@ number (0 = pick'em).
 | `pokemon-starters` | Pokémon Starters — Bulbapedia, Gens 1–9 plus the Winds and Waves trio (revealed Feb 2026, game out 2027) as a labeled bonus row; type as clue; `nope` for Pikachu/Eevee/evolutions | 30 | No pressure · Timed 5:00 |
 | `south-america-countries` | Countries of South America — 12, A to Z, no clue; `nope` for French Guiana, Falklands, Central America | 12 | Timed 2:00 · No pressure |
 | `famous-slogans` | Name the Company by Its Slogan — Steven's idea; slogan is the clue (never containing the brand; Red Bull/State Farm show ___), full names, 4 groups | 48 | Timed 8:00 · No pressure |
+| `2017-astros-ws-roster` | 2017 Astros World Series Roster — official 25-man roster vs the Dodgers (MLB.com announcement groups: 12 P, 3 C, 5 INF, 5 OF), jersey # clue; Wikipedia and Baseball-Reference confirm the same 25 names | 25 | Timed 6:00 · No pressure |
 | `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links
