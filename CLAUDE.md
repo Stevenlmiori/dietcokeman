@@ -130,13 +130,13 @@ works well." The single source of truth is `window.TAXONOMY` at the top of
 `quizzes.js`:
 
 * **Categories** (exactly one per quiz): `Sports`, `Movies`, `TV`, `Games`,
-  `Business`, `Food & Drink`, `History`, `Geography` — more as the site grows. Add it to the list
+  `Business`, `Food & Drink`, `History`, `Geography`, `Science` — more as the site grows. Add it to the list
   before using it.
 * **Tags** (a few per quiz), in three groups, written in this order:
   * league — `NFL`, `NBA`, `MLB`, `NHL`, `NCAA`
   * sport — `Football`, `Basketball`, `Baseball`, `Hockey`
   * market — `S&P 500`, `Companies`
-  * topic — `Drinks`, `Restaurants`, `Box Office`, `Oscars`, `Favorites`, `Disney`, `Minecraft`, `Kids`, `Presidents`, `US States`, `World`, `Sitcoms`, `Pokémon`
+  * topic — `Drinks`, `Restaurants`, `Box Office`, `Oscars`, `Favorites`, `Disney`, `Minecraft`, `Kids`, `Presidents`, `US States`, `World`, `Sitcoms`, `Pokémon`, `Space`
   * kind — `All-Time`, `This Season`, `Throwback` (a past season), `Career Leaders`, `Awards`, `Fantasy`, `Betting`
 
 Every quiz must carry a category and tags. The hub warns in the browser
@@ -164,7 +164,7 @@ grid, so `quizzes.js` order only matters within a group: quizzes with
 `pin: true` first (Best Drink, then Favorite Movies), then all football, then
 basketball, baseball, hockey, golf (by sport tag), then everything else by
 category in `TAXONOMY.categories` order (Movies, TV, Games, Business, Food &
-Drink, History, Geography). A new quiz lands with its own kind automatically.
+Drink, History, Geography, Science). A new quiz lands with its own kind automatically.
 
 **"This week" (featured).** A quiz with `featured: true` leaves the evergreen
 grid and sits in its own **This week** section above "Pick your challenge", as
@@ -187,8 +187,8 @@ no tile or border ("lose the border… you just need the icon itself"); it
 tilts slightly on hover. The emoji comes from
 `TAXONOMY.icons`: a quiz's own `icon` if set, else its first tag with an icon
 (Football 🏈, Basketball 🏀, Baseball ⚾, Golf ⛳, Drinks 🥤, Restaurants 🍔,
-Oscars 🏆, Box Office 🎬, Stocks 📈…), else its category's (Sports 🏆, Movies
-🎬, TV 📺, Business 💼, Food & Drink 🍽️). Add an icon when you add a tag or
+Oscars 🏆, Box Office 🎬, Stocks 📈, Space 🪐…), else its category's (Sports 🏆, Movies
+🎬, TV 📺, Business 💼, Food & Drink 🍽️, Science 🔬). Add an icon when you add a tag or
 category. Still no tag chips on cards (see §8).
 
 ## 3. How matching works (`engine.js`)
@@ -585,6 +585,8 @@ number (0 = pick'em).
 | `south-america-countries` | Countries of South America — 12, A to Z, no clue; `nope` for French Guiana, Falklands, Central America | 12 | Timed 2:00 · No pressure |
 | `famous-slogans` | Name the Company by Its Slogan — Steven's idea; slogan is the clue (never containing the brand; Red Bull/State Farm show ___), full names, 4 groups | 48 | Timed 8:00 · No pressure |
 | `2017-astros-ws-roster` | 2017 Astros World Series Roster — official 25-man roster vs the Dodgers (MLB.com announcement groups: 12 P, 3 C, 5 INF, 5 OF), jersey # clue; Wikipedia and Baseball-Reference confirm the same 25 names | 25 | Timed 6:00 · No pressure |
+| `planets-and-moons` | Planets and Moons — for Jamesyn (10); 8 planets in Sun order (NASA) plus 12 famous moons (planet as clue; Charon labeled as orbiting Pluto, a dwarf planet); `nope` for Pluto and other dwarf planets and the Sun; generous misspellings (jupitor, satturn, luna) | 20 | No pressure · Timed 10:00 |
+| `continents-and-oceans` | Continents and Oceans — for Jamesyn (10); 7 continents by land area (CIA World Factbook) and 5 oceans by area (NOAA); Australia accepts Oceania, Southern accepts Antarctic; `match: 'full'` so America/Ocean do not sweep; size-rank clues | 12 | No pressure · Timed 8:00 |
 | `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links

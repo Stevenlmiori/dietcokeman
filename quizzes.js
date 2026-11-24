@@ -38,12 +38,12 @@
    category or tag here first, then use it. Sports tags go league, sport,
    then kind; business tags go market, then kind. */
 window.TAXONOMY = {
-  categories: ['Sports', 'Movies', 'TV', 'Games', 'Business', 'Food & Drink', 'History', 'Geography'],
+  categories: ['Sports', 'Movies', 'TV', 'Games', 'Business', 'Food & Drink', 'History', 'Geography', 'Science'],
   tags: {
     league: ['NFL', 'NBA', 'MLB', 'NHL', 'NCAA'],
     sport:  ['Football', 'Basketball', 'Baseball', 'Hockey', 'Golf'],
     market: ['S&P 500', 'Companies', 'Stocks'],
-    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Minecraft', 'Kids', 'Presidents', 'US States', 'World', 'Sitcoms', 'Pokémon'],
+    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Minecraft', 'Kids', 'Presidents', 'US States', 'World', 'Sitcoms', 'Pokémon', 'Space'],
     kind:   ['All-Time', 'This Season', 'Throwback', 'Career Leaders', 'Awards', 'Champions', 'Draft', 'Fantasy', 'Betting']
   },
   /* The little emoji in each hub card's corner. The most specific match wins:
@@ -53,9 +53,9 @@ window.TAXONOMY = {
     tags: {
       Football: '🏈', Basketball: '🏀', Baseball: '⚾', Hockey: '🏒', Golf: '⛳',
       Drinks: '🥤', Restaurants: '🍔', Oscars: '🏆', 'Box Office': '🎬',
-      Stocks: '📈', 'S&P 500': '📈', Minecraft: '⛏️', Disney: '👑', Presidents: '🇺🇸', World: '🌎', Pokémon: '⚡'
+      Stocks: '📈', 'S&P 500': '📈', Minecraft: '⛏️', Disney: '👑', Presidents: '🇺🇸', World: '🌎', Pokémon: '⚡', Space: '🪐'
     },
-    categories: { Sports: '🏆', Movies: '🎬', TV: '📺', Games: '🎮', Business: '💼', 'Food & Drink': '🍽️', History: '🏛️', Geography: '🗺️' }
+    categories: { Sports: '🏆', Movies: '🎬', TV: '📺', Games: '🎮', Business: '💼', 'Food & Drink': '🍽️', History: '🏛️', Geography: '🗺️', Science: '🔬' }
   }
 };
 
@@ -2699,6 +2699,106 @@ window.QUIZZES = [
       { a: 'Cameron Maybin', hint: '#3' },
       { a: 'Josh Reddick', hint: '#22' },
       { a: 'George Springer', hint: '#4' }
+    ]}
+  ]
+},
+
+
+{
+  // For Jamesyn (10). 8 planets in order from the Sun (NASA science.nasa.gov/solar-system/planets)
+  // plus 12 well-known moons (NASA Moons: Facts and Space Place "How Many Moons"). Charon is
+  // included only with Pluto clearly labeled as a dwarf planet. Pluto itself is not an answer;
+  // it gets a friendly nope, as do the other official dwarf planets.
+  slug: 'planets-and-moons',
+  title: 'Planets and Moons',
+  sub: 'The 8 planets and 12 famous moons',
+  blurb: 'Name the 8 planets, from closest to the Sun to farthest, and 12 famous moons. Each moon\'s clue is the world it orbits.',
+  category: 'Science',
+  tags: ['Kids', 'Space'],
+  icon: '🪐',
+  mode: 'chill',
+  time: 600,
+  cols: 'two',
+  nope: {
+    pluto: 'Pluto is a dwarf planet now. Can you name the 8 planets?',
+    ceres: 'Ceres is a dwarf planet. This quiz is the 8 planets and some famous moons.',
+    haumea: 'Haumea is a dwarf planet. This quiz is the 8 planets and some famous moons.',
+    makemake: 'Makemake is a dwarf planet. This quiz is the 8 planets and some famous moons.',
+    eris: 'Eris is a dwarf planet. This quiz is the 8 planets and some famous moons.',
+    sun: 'The Sun is a star, not a planet!',
+    thesun: 'The Sun is a star, not a planet!'
+  },
+  groups: [
+    { name: 'Planets', note: '8', items: [
+      { a: 'Mercury', rk: '1', hint: '1st from the Sun', alias: ['mercery', 'murcury', 'mercurry'] },
+      { a: 'Venus', rk: '2', hint: '2nd from the Sun', alias: ['venis'] },
+      { a: 'Earth', rk: '3', hint: '3rd from the Sun', alias: ['the earth', 'terra'] },
+      { a: 'Mars', rk: '4', hint: '4th from the Sun' },
+      { a: 'Jupiter', rk: '5', hint: '5th from the Sun', alias: ['jupitor', 'jupter', 'jupitter'] },
+      { a: 'Saturn', rk: '6', hint: '6th from the Sun', alias: ['satturn', 'satern', 'saturns'] },
+      { a: 'Uranus', rk: '7', hint: '7th from the Sun', alias: ['uranas'] },
+      { a: 'Neptune', rk: '8', hint: '8th from the Sun', alias: ['neptun', 'neptuene', 'neptoon'] }
+    ]},
+    { name: 'Famous Moons', note: '12', items: [
+      { a: 'The Moon', hint: 'Earth', alias: ['moon', 'the moon', 'luna'] },
+      { a: 'Phobos', hint: 'Mars', alias: ['phobus', 'fobos'] },
+      { a: 'Deimos', hint: 'Mars', alias: ['diemos', 'deimus'] },
+      { a: 'Io', hint: 'Jupiter', alias: ['eye oh'] },
+      { a: 'Europa', hint: 'Jupiter' },
+      { a: 'Ganymede', hint: 'Jupiter', alias: ['ganymed', 'ganymid'] },
+      { a: 'Callisto', hint: 'Jupiter', alias: ['calisto', 'kalisto'] },
+      { a: 'Titan', hint: 'Saturn' },
+      { a: 'Enceladus', hint: 'Saturn', alias: ['enceladous', 'enseladus'] },
+      { a: 'Miranda', hint: 'Uranus' },
+      { a: 'Triton', hint: 'Neptune' },
+      { a: 'Charon', hint: 'Pluto (a dwarf planet)', alias: ['sharon'] }
+    ]}
+  ]
+},
+
+{
+  // For Jamesyn (10). 7 continents by land area (CIA World Factbook landmass rankings)
+  // and 5 oceans by surface area (NOAA). Australia accepts Oceania; the Southern Ocean
+  // accepts Antarctic / Antarctic Ocean. match: 'full' so "America" does not fill both
+  // Americas and bare "Ocean" does not fill all five oceans; aliases allow "Pacific"
+  // or "Pacific Ocean".
+  slug: 'continents-and-oceans',
+  title: 'Continents and Oceans',
+  sub: 'All 7 continents and all 5 oceans',
+  blurb: 'Name all 7 continents and all 5 oceans. The clue is how they rank by size, from largest to smallest.',
+  category: 'Geography',
+  tags: ['World', 'Kids'],
+  mode: 'chill',
+  time: 480,
+  cols: 'two',
+  match: 'full',
+  nope: {
+    greenland: 'Greenland is a very big island, but it is not a continent.',
+    zealandia: 'Some scientists talk about Zealandia, but this quiz uses the 7 continents most people learn in school.',
+    centralamerica: 'Central America is part of North America.',
+    mediterranean: 'That\'s a sea, not an ocean!',
+    mediterraneansea: 'That\'s a sea, not an ocean!',
+    caribbean: 'That\'s a sea, not an ocean!',
+    caribbeansea: 'That\'s a sea, not an ocean!',
+    caspian: 'That\'s a sea, not an ocean!',
+    caspiansea: 'That\'s a sea, not an ocean!'
+  },
+  groups: [
+    { name: 'Continents', note: '7', items: [
+      { a: 'Asia', rk: '1', hint: 'Largest continent' },
+      { a: 'Africa', rk: '2', hint: '2nd largest', alias: ['afrika'] },
+      { a: 'North America', rk: '3', hint: '3rd largest' },
+      { a: 'South America', rk: '4', hint: '4th largest' },
+      { a: 'Antarctica', rk: '5', hint: '5th largest', alias: ['antartica', 'antartika'] },
+      { a: 'Europe', rk: '6', hint: '6th largest' },
+      { a: 'Australia', rk: '7', hint: 'Smallest continent', alias: ['oceania', 'austrailia', 'australia'] }
+    ]},
+    { name: 'Oceans', note: '5', items: [
+      { a: 'Pacific Ocean', rk: '1', hint: 'Largest ocean', alias: ['pacific', 'the pacific', 'the pacific ocean'] },
+      { a: 'Atlantic Ocean', rk: '2', hint: '2nd largest', alias: ['atlantic', 'the atlantic', 'the atlantic ocean'] },
+      { a: 'Indian Ocean', rk: '3', hint: '3rd largest', alias: ['indian', 'the indian', 'the indian ocean'] },
+      { a: 'Southern Ocean', rk: '4', hint: '4th largest', alias: ['southern', 'the southern', 'the southern ocean', 'antarctic', 'antarctic ocean', 'the antarctic', 'the antarctic ocean'] },
+      { a: 'Arctic Ocean', rk: '5', hint: 'Smallest ocean', alias: ['arctic', 'the arctic', 'the arctic ocean'] }
     ]}
   ]
 },
