@@ -375,10 +375,12 @@ window.QUIZZES = [
   slug: 'top5-by-position',
   title: 'NFL Fantasy Leaders',
   sub: 'Astroworld 2026 scoring leaders',
-  blurb: 'The five highest average scorers at QB, RB, WR and TE through Week 10 of the 2026 season. Average fantasy points are your clue.',
+  blurb: 'The five highest scorers at QB, RB, WR and TE through Week 11 of the 2026 season, entering Week 12. Yahoo fantasy points are your clue.',
   // Kickers and defenses were cut 2026-11-17 (30 answers became 20), so scores
   // restart under a new key; the slug stays so old links still work.
-  scoreKey: 'top5-by-position-2026-w10',
+  // 2026-11-24: refreshed from Steven's Yahoo Fantasy season-leader screenshots
+  // (totals through Week 11). New scoreKey because the answer set and clues changed.
+  scoreKey: 'top5-by-position-2026-w11',
   category: 'Sports',
   tags: ['NFL', 'Football', 'Fantasy', 'This Season'],
   mode: 'timed',
@@ -386,33 +388,33 @@ window.QUIZZES = [
   cols: 'two',            // four positions read as a 2x2
   hideSub: true,          // the NFL team would give the player away
   groups: [
-    { name: 'Quarterbacks', note: 'avg pts', items: [
-      { a: 'Joe Burrow',          sub: 'CIN', hint: '32.13' },
-      { a: 'Josh Allen',          sub: 'BUF', hint: '27.58' },
-      { a: 'Brock Purdy',         sub: 'SF',  hint: '27.01' },
-      { a: 'C.J. Stroud',         sub: 'HOU', hint: '25.12', alias: ['cj stroud','c j stroud'] },
-      { a: 'Dak Prescott',        sub: 'DAL', hint: '24.88' }
+    { name: 'Quarterbacks', note: 'pts', items: [
+      { a: 'Joe Burrow',          sub: 'CIN', hint: '315.84' },
+      { a: 'Dak Prescott',        sub: 'DAL', hint: '293.28' },
+      { a: 'Brock Purdy',         sub: 'SF',  hint: '275.28' },
+      { a: 'Josh Allen',          sub: 'BUF', hint: '267.06' },
+      { a: 'C.J. Stroud',         sub: 'HOU', hint: '253.38', alias: ['cj stroud','c j stroud'] }
     ]},
-    { name: 'Running Backs', note: 'avg pts', items: [
-      { a: 'Jahmyr Gibbs',        sub: 'DET', hint: '27.98', alias: ['sonic'] },
-      { a: 'Kenneth Walker III',  sub: 'KC',  hint: '24.75', alias: ['kenneth walker','k9','kenny walker'] },
-      { a: 'Christian McCaffrey', sub: 'SF',  hint: '23.36', alias: ['cmc','mccaffery'] },
-      { a: 'Chuba Hubbard',       sub: 'CAR', hint: '20.04' },
-      { a: 'Bijan Robinson',      sub: 'ATL', hint: '19.77' }
+    { name: 'Running Backs', note: 'pts', items: [
+      { a: 'Jahmyr Gibbs',        sub: 'DET', hint: '281.20', alias: ['sonic'] },
+      { a: 'Christian McCaffrey', sub: 'SF',  hint: '227.20', alias: ['cmc','mccaffery'] },
+      { a: 'Chuba Hubbard',       sub: 'CAR', hint: '206.80' },
+      { a: 'Bijan Robinson',      sub: 'ATL', hint: '197.70' },
+      { a: 'Kenneth Walker III',  sub: 'KC',  hint: '196.40', alias: ['kenneth walker','k9','kenny walker'] }
     ]},
-    { name: 'Wide Receivers', note: 'avg pts', items: [
-      { a: 'Jaxon Smith-Njigba',  sub: 'SEA', hint: '26.32', alias: ['jsn','smith njigba','njigba'] },
-      { a: 'Puka Nacua',          sub: 'LAR', hint: '24.80' },
-      { a: 'CeeDee Lamb',         sub: 'DAL', hint: '22.20', alias: ['cd lamb','ceedee'] },
-      { a: "Ja'Marr Chase",       sub: 'CIN', hint: '21.66', alias: ['jamar chase','jamarr'] },
-      { a: 'Amon-Ra St. Brown',   sub: 'DET', hint: '20.49', alias: ['amon ra','st brown','saint brown','sun god'] }
+    { name: 'Wide Receivers', note: 'pts', items: [
+      { a: 'Jaxon Smith-Njigba',  sub: 'SEA', hint: '263.18', alias: ['jsn','smith njigba','njigba'] },
+      { a: 'CeeDee Lamb',         sub: 'DAL', hint: '252.20', alias: ['cd lamb','ceedee'] },
+      { a: "Ja'Marr Chase",       sub: 'CIN', hint: '201.90', alias: ['jamar chase','jamarr'] },
+      { a: 'Amon-Ra St. Brown',   sub: 'DET', hint: '198.10', alias: ['amon ra','st brown','saint brown','sun god'] },
+      { a: 'Tee Higgins',         sub: 'CIN', hint: '183.70' }
     ]},
-    { name: 'Tight Ends', note: 'avg pts', items: [
-      { a: 'Brock Bowers',        sub: 'LV',  hint: '18.98' },
-      { a: 'Isaiah Likely',       sub: 'NYG', hint: '17.49' },
-      { a: 'Trey McBride',        sub: 'ARI', hint: '17.15', alias: ['macbride'] },
-      { a: 'George Kittle',       sub: 'SF',  hint: '14.49' },
-      { a: 'Harold Fannin Jr.',   sub: 'CLE', hint: '11.84', alias: ['harold fannin'] }
+    { name: 'Tight Ends', note: 'pts', items: [
+      { a: 'Trey McBride',        sub: 'ARI', hint: '186.30', alias: ['macbride'] },
+      { a: 'Isaiah Likely',       sub: 'NYG', hint: '161.00' },
+      { a: 'Brock Bowers',        sub: 'LV',  hint: '149.80' },
+      { a: 'George Kittle',       sub: 'SF',  hint: '146.10' },
+      { a: 'Travis Kelce',        sub: 'KC',  hint: '129.70', alias: ['kelce'] }
     ]}
   ]
 },
@@ -508,9 +510,11 @@ window.QUIZZES = [
    positive = away favoured, 0 = pick'em. `aw` / `hm` are the
    abbreviations on the pick buttons. `where` marks a neutral site.
 
-   Week 11, 2026. BetMGM lines from BetMGM's own per-game pages
-   (sports.betmgm.com/en/blog/nfl/<away>-<home>-prediction-odds-...-week-11-jaa),
-   pulled the afternoon of Tue Nov 17. Steven wants BetMGM, same-day.
+   Week 12, 2026 (Thanksgiving week, Nov 25 to Nov 30). BetMGM lines from
+   BetMGM's own per-game pages (sports.betmgm.com/en/blog/nfl/<away>-<home>-
+   prediction-odds-...-week-12-jaa; Giants-Colts and Jets-Dolphins sat under
+   /blog/article-new/), pulled the afternoon of Tue Nov 24. Pages dated
+   12:34 to 12:40 PM ET (11:34 to 11:40 AM CT). Steven wants BetMGM, same-day.
    ----------------------------------------------------------- */
 {
   slug: 'nba-top25-by-category',
@@ -2604,11 +2608,11 @@ window.QUIZZES = [
 {
   slug: 'line-game',               // permanent: the weekly link never changes
   featured: true,                  // weekly and time-sensitive: shown in the hub's "This week" section
-  scoreKey: 'line-game-2026-w11',  // per-week best scores
+  scoreKey: 'line-game-2026-w12',  // per-week best scores
   type: 'lines',
-  title: 'NFL Line Game: Week 11',
+  title: 'NFL Line Game: Week 12',
   sub: 'Guess the Vegas spread on every game',
-  blurb: 'Pick the favorite and guess the spread for all 13 Week 11 games. Within one point of the real Vegas line counts. BetMGM lines as of Nov 17.',
+  blurb: 'Pick the favorite and guess the spread for all 16 Week 12 games. Within one point of the real Vegas line counts. BetMGM lines as of Nov 24.',
   category: 'Sports',
   tags: ['NFL', 'Football', 'Betting', 'This Season'],
   mode: 'chill',
@@ -2616,24 +2620,31 @@ window.QUIZZES = [
   modes: ['chill', 'timed'],
   cols: 'single',
   groups: [
-    { name: 'Thursday', note: 'Nov 19', items: [
-      { a: 'Colts @ Texans',       away: 'Colts',      home: 'Texans',     aw: 'IND', hm: 'HOU', line: -10 }
+    { name: 'Wednesday', note: 'Nov 25', items: [
+      { a: 'Packers @ Rams',       away: 'Packers',    home: 'Rams',       aw: 'GB',  hm: 'LAR', line: -4 }
     ]},
-    { name: 'Sunday', note: 'Nov 22', items: [
-      { a: 'Cardinals @ Chiefs',   away: 'Cardinals',  home: 'Chiefs',     aw: 'ARI', hm: 'KC',  line: -15 },
-      { a: 'Ravens @ Panthers',    away: 'Ravens',     home: 'Panthers',   aw: 'BAL', hm: 'CAR', line: -2 },
-      { a: 'Dolphins @ Bills',     away: 'Dolphins',   home: 'Bills',      aw: 'MIA', hm: 'BUF', line: -17 },
-      { a: 'Saints @ Bears',       away: 'Saints',     home: 'Bears',      aw: 'NO',  hm: 'CHI', line: -9.5 },
-      { a: 'Steelers @ Eagles',    away: 'Steelers',   home: 'Eagles',     aw: 'PIT', hm: 'PHI', line: 4.5 },
-      { a: 'Buccaneers @ Lions',   away: 'Buccaneers', home: 'Lions',      aw: 'TB',  hm: 'DET', line: -5.5 },
-      { a: 'Titans @ Cowboys',     away: 'Titans',     home: 'Cowboys',    aw: 'TEN', hm: 'DAL', line: -8 },
-      { a: 'Jets @ Chargers',      away: 'Jets',       home: 'Chargers',   aw: 'NYJ', hm: 'LAC', line: -3 },
-      { a: 'Jaguars @ Giants',     away: 'Jaguars',    home: 'Giants',     aw: 'JAX', hm: 'NYG', line: 6.5 },
-      { a: 'Raiders @ Broncos',    away: 'Raiders',    home: 'Broncos',    aw: 'LV',  hm: 'DEN', line: -8.5 },
-      { a: 'Vikings @ 49ers',      away: 'Vikings',    home: '49ers',      aw: 'MIN', hm: 'SF',  line: -3.5, where: 'Mexico City' }
+    { name: 'Thursday', note: 'Nov 26', items: [
+      { a: 'Bears @ Lions',        away: 'Bears',      home: 'Lions',      aw: 'CHI', hm: 'DET', line: 2.5 },
+      { a: 'Eagles @ Cowboys',     away: 'Eagles',     home: 'Cowboys',    aw: 'PHI', hm: 'DAL', line: -7 },
+      { a: 'Chiefs @ Bills',       away: 'Chiefs',     home: 'Bills',      aw: 'KC',  hm: 'BUF', line: -2.5 }
     ]},
-    { name: 'Monday', note: 'Nov 23', items: [
-      { a: 'Bengals @ Commanders', away: 'Bengals',    home: 'Commanders', aw: 'CIN', hm: 'WAS', line: 4 }
+    { name: 'Friday', note: 'Nov 27', items: [
+      { a: 'Broncos @ Steelers',   away: 'Broncos',    home: 'Steelers',   aw: 'DEN', hm: 'PIT', line: 2.5 }
+    ]},
+    { name: 'Sunday', note: 'Nov 29', items: [
+      { a: 'Saints @ Bengals',     away: 'Saints',     home: 'Bengals',    aw: 'NO',  hm: 'CIN', line: -10 },
+      { a: 'Ravens @ Texans',      away: 'Ravens',     home: 'Texans',     aw: 'BAL', hm: 'HOU', line: -6.5 },
+      { a: 'Giants @ Colts',       away: 'Giants',     home: 'Colts',      aw: 'NYG', hm: 'IND', line: 7 },
+      { a: 'Jets @ Dolphins',      away: 'Jets',       home: 'Dolphins',   aw: 'NYJ', hm: 'MIA', line: 4 },
+      { a: 'Falcons @ Vikings',    away: 'Falcons',    home: 'Vikings',    aw: 'ATL', hm: 'MIN', line: -7 },
+      { a: 'Titans @ Jaguars',     away: 'Titans',     home: 'Jaguars',    aw: 'TEN', hm: 'JAX', line: -14 },
+      { a: 'Patriots @ Chargers',  away: 'Patriots',   home: 'Chargers',   aw: 'NE',  hm: 'LAC', line: -3.5 },
+      { a: 'Commanders @ Cardinals', away: 'Commanders', home: 'Cardinals', aw: 'WAS', hm: 'ARI', line: 7 },
+      { a: 'Seahawks @ 49ers',     away: 'Seahawks',   home: '49ers',      aw: 'SEA', hm: 'SF',  line: -2 },
+      { a: 'Raiders @ Browns',     away: 'Raiders',    home: 'Browns',     aw: 'LV',  hm: 'CLE', line: -5 }
+    ]},
+    { name: 'Monday', note: 'Nov 30', items: [
+      { a: 'Panthers @ Buccaneers', away: 'Panthers',  home: 'Buccaneers', aw: 'CAR', hm: 'TB',  line: -2.5 }
     ]}
   ]
 },

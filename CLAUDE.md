@@ -515,7 +515,7 @@ number (0 = pick'em).
   the end. The row turns green or red, shows `Hit · line HOU -10.5`, locks,
   and focus jumps to the next open game. A submit with no favorite picked
   nudges the toggle instead of grading.
-* The HUD shows Hits and the clock; its left half reads `N of 13 games in`.
+* The HUD shows Hits and the clock; its left half reads `N of 16 games in`.
   The run ends by itself once all games are in, or on the clock, or with
   **Stop & finish** (the Give up button), which marks unsubmitted games as
   misses and reveals their lines. It then becomes **Show results** as usual.
@@ -553,7 +553,7 @@ number (0 = pick'em).
 | `disney-princesses` | Disney Princesses — **for Jamesyn (Steven's daughter, 10)**; 13 official + Anna & Elsa bonus; opens in No pressure | 15 | No pressure · Timed 3:00 |
 | `minecraft-mobs` | Minecraft Mobs — **for Steven's boys**; all 88 from minecraft.wiki "Mob" (through the Sulfur Cube), passive/neutral/hostile/bosses, kid clue per row, full names | 88 | No pressure · Timed 10:00 |
 | `dietcokeman-favorite-movies` | DietCokeMan's Favorite Movies — Steven's own ranked 64, **second on the hub**; years from Wikipedia short descriptions | 64 | Timed 10:00 · No pressure |
-| `top5-by-position` | NFL Fantasy Leaders (QB/RB/WR/TE through Week 10, 2026) | 20 | Timed 5:00 · No pressure |
+| `top5-by-position` | NFL Fantasy Leaders (QB/RB/WR/TE through Week 11, 2026, entering Week 12; Yahoo season totals) | 20 | Timed 5:00 · No pressure |
 | `nfl-all-time-top20` | NFL All-Time Top 20 | 60 | Timed 15:00 · No pressure |
 | `nba-top25-by-category` | NBA Top 25 by Category (8 career stats) | 200 | Timed 15:00 · No pressure |
 | `nfl-mvps` | NFL MVPs (AP, 1957–2025, by decade) | 71 | Timed 10:00 · No pressure |
@@ -587,17 +587,17 @@ number (0 = pick'em).
 | `2017-astros-ws-roster` | 2017 Astros World Series Roster — official 25-man roster vs the Dodgers (MLB.com announcement groups: 12 P, 3 C, 5 INF, 5 OF), jersey # clue; Wikipedia and Baseball-Reference confirm the same 25 names | 25 | Timed 6:00 · No pressure |
 | `planets-and-moons` | Planets and Moons — for Jamesyn (10); 8 planets in Sun order (NASA) plus 12 famous moons (planet as clue; Charon labeled as orbiting Pluto, a dwarf planet); `nope` for Pluto and other dwarf planets and the Sun; generous misspellings (jupitor, satturn, luna) | 20 | No pressure · Timed 10:00 |
 | `continents-and-oceans` | Continents and Oceans — for Jamesyn (10); 7 continents by land area (CIA World Factbook) and 5 oceans by area (NOAA); Australia accepts Oceania, Southern accepts Antarctic; `match: 'full'` so America/Ocean do not sweep; size-rank clues | 12 | No pressure · Timed 8:00 |
-| `line-game` | NFL Line Game: Week 11 (replaced weekly) | 13 games | No pressure · Timed 5:00 |
+| `line-game` | NFL Line Game: Week 12 (replaced weekly) | 16 games | No pressure · Timed 5:00 |
 
 The slug stays `top5-by-position` even though the title changed, so old links
 keep working. Don't rename a slug to match a title. When a quiz's answer set
 changes (kickers and defenses cut, 30 → 20), give it a new `scoreKey`
-(`top5-by-position-2026-w10`) so old bests don't sit on the new leaderboard,
+(`top5-by-position-2026-w11`) so old bests don't sit on the new leaderboard,
 and delete the old Firestore rows (`boards/<old>-<mode>/entries/*`,
 `users/*/bests/<old>-<mode>`) — Steven: "it won't be apples to apples."
 That was done for the 30-answer version (one row, @dietcokeman 23/30).
 
-NFL Fantasy Leaders is a snapshot of the 2026 season through Week 10 and does
+NFL Fantasy Leaders is a snapshot of the 2026 season through Week 11 (Yahoo season totals, entering Week 12) and does
 not auto-update. NBA Top 25 by Category is Basketball-Reference's **NBA-only**
 career leaders (not NBA+ABA — Moses Malone's 27,409 points, not 29,580),
 pulled 2026-11-17 through games of Nov 16; active players' totals move
