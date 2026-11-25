@@ -1,7 +1,7 @@
 import {
   setFirebase, boardIdFromQuiz, cleanDisplay, displayProblem, submitCooldownLeft, markSubmitted,
   fetchBoard, renderLeaderboardPanel, initPages, refreshQuizLeaderboard
-} from './leaderboards.js?v=20261125234411';
+} from './leaderboards.js?v=20261125234528';
 
 /* ===========================================================
    DietCokeMan Challenge: accounts (optional)
@@ -173,33 +173,55 @@ let settledUid;          // uid whose profile has finished loading (null = signe
 function paintTopbar() {
   const a = $('acct');
   if (!a) return;
-  a.hidden = false;
-  if (user && profile) {
-    if (profile.guest && profile.displayName) {
-      a.textContent = profile.displayName;
+  a.onclick = null;
+  a.removeAttribute('aria-current');
+
+  if (!user) {
+    a.hidden = false;
+    a.textContent = 'Sign in';
+    a.href = 'profile.html?next=' + encodeURIComponent(here());
+    a.onclick = async (e) => {
+      e.preventDefault();
+      let ok = false;
+      try { ok = await signIn(); } catch (err) { console.warn(err); }
+      if (!ok) return;
+      for (let i = 0; i < 50 && !(user && settledUid === user.uid); i++) await new Promise(r => setTimeout(r, 100));
+      afterTopbarSignIn();
+    };
+    return;
+  }
+
+  if (!profile) {
+    a.hidden = false;
+    a.textContent = 'Set username';
+    a.href = 'profile.html?next=' + encodeURIComponent(here());
+    return;
+  }
+
+  if (profile.guest === true) {
+    const name = cleanDisplay(profile.displayName);
+    if (name) {
+      a.hidden = false;
+      a.textContent = name;
       a.href = '#';
       a.onclick = (e) => e.preventDefault();
-      return;
+    } else {
+      a.hidden = true;
     }
-    if (profile.username) {
-      a.textContent = '@' + profile.username;
-      a.href = 'profile.html';
-      a.onclick = null;
-      return;
-    }
+    return;
   }
-  a.textContent = 'Sign in';
+
+  const uname = cleanName(profile.username);
+  if (uname && NAME_RE.test(uname)) {
+    a.hidden = false;
+    a.textContent = '@' + uname;
+    a.href = 'profile.html';
+    return;
+  }
+
+  a.hidden = false;
+  a.textContent = 'Set username';
   a.href = 'profile.html?next=' + encodeURIComponent(here());
-  a.onclick = async (e) => {
-    if (user) return;                       // signed in, no username yet: follow the link
-    e.preventDefault();
-    let ok = false;
-    try { ok = await signIn(); } catch (err) { console.warn(err); }
-    if (!ok) return;
-    // wait for the profile lookup that follows every sign-in
-    for (let i = 0; i < 50 && !(user && settledUid === user.uid); i++) await new Promise(r => setTimeout(r, 100));
-    afterTopbarSignIn();
-  };
 }
 
 // After a topbar sign-in: a new account goes to pick a username, then returns.
@@ -304,6 +326,7 @@ async function ensureGuest(displayName) {
       displayName, guest: true, created: fb.serverTimestamp()
     });
     profile = { displayName, guest: true };
+    paintTopbar();
   }
 }
 
@@ -443,14 +466,16 @@ async function paintSaved(el) {
     markSubmitted();
     const rows = await fetchBoard(boardId(r), 10);
     const me = user.uid;
-    const who = profile.guest ? esc(profile.displayName) : '@' + esc(profile.username);
+    const who = profile.guest
+      ? esc(cleanDisplay(profile.displayName) || 'Guest')
+      : (profile.username ? '@' + esc(cleanName(profile.username)) : 'You');
     const line = res.isNew
       ? `New best for <b>${who}</b>`
       : `Posted for <b>${who}</b>`;
     el.innerHTML = `
       <div class="acct-card saved">
         <p class="acct-line">${line}</p>
-        ${renderLeaderboardPanel(rows, { mode: r.mode, meUid: me, sub: '' })}
+        ${renderLeaderboardPanel(rows, { mode: r.mode, meUid: me, sub: false })}
       </div>`;
   } catch (err) {
     console.warn(err);

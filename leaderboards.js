@@ -151,7 +151,7 @@ export function renderPodium(rows, meUid, opts = {}) {
       <span class="podium-meta">${row.seconds != null ? fmtElapsed(row.seconds) : ''}${row.seconds != null && fmtWhen(row.at) ? ' · ' : ''}${fmtWhen(row.at)}</span>
     </div>`;
   }).join('');
-  return `<div class="podium" role="list" aria-label="Top three">${blocks}</div>`;
+  return `<div class="podium" data-n="${top.length}" role="list" aria-label="Top three">${blocks}</div>`;
 }
 
 export function renderTable(rows, meUid, startRank = 4, opts = {}) {
@@ -177,14 +177,24 @@ export function renderTable(rows, meUid, startRank = 4, opts = {}) {
 export function renderLeaderboardPanel(rows, opts = {}) {
   const meUid = opts.meUid || null;
   const modeLabel = opts.mode === 'timed' ? 'Timed' : opts.mode === 'chill' ? 'No pressure' : (opts.modeLabel || '');
-  const sub = opts.sub === '' ? '' : `<p class="lb-sub">${esc(opts.sub || 'Higher score first. Same score: faster time wins.')}</p>`;
   const ui = { plainNames: !!opts.plainNames };
-  return `<div class="lb-panel">
-    <header class="lb-h">
+  let header = '';
+  if (!opts.compactQuiz) {
+    header = `<header class="lb-h">
       <span class="lb-heading">${esc(opts.heading || 'Leaderboard')}</span>
       ${modeLabel ? `<span class="lb-mode">${modeLabel}</span>` : ''}
-    </header>
-    ${sub}
+    </header>`;
+  }
+  let sub = '';
+  if (opts.sub === false || opts.compactQuiz) {
+    sub = '';
+  } else if (opts.sub === '' || opts.sub == null) {
+    sub = `<p class="lb-sub">${esc('Higher score first. Same score: faster time wins.')}</p>`;
+  } else {
+    sub = `<p class="lb-sub">${esc(opts.sub)}</p>`;
+  }
+  return `<div class="lb-panel${opts.compactQuiz ? ' lb-panel-compact' : ''}">
+    ${header}${sub}
     ${rows.length ? renderPodium(rows, meUid, ui) : renderPodium([], meUid, ui)}
     ${renderTable(rows, meUid, 4, ui)}
   </div>`;
@@ -224,18 +234,29 @@ async function paintQuizPage() {
     });
   };
 
+  const syncTitle = () => {
+    const h = document.getElementById('quizLbTitle');
+    if (!h) return;
+    if (modes.length < 2) {
+      h.textContent = mode === 'timed' ? 'Leaderboard · Timed' : 'Leaderboard · No pressure';
+    } else {
+      h.textContent = 'Leaderboard';
+    }
+  };
+
   const load = async () => {
     if (!body) return;
+    syncTitle();
     body.innerHTML = '<p class="lb-loading">Loading…</p>';
     try {
       const id = boardIdFromQuiz(Q, mode);
       const rows = await fetchBoard(id, 15);
       const meUid = fb.auth?.currentUser?.uid || null;
       body.innerHTML = renderLeaderboardPanel(rows, {
-        heading: Q.title,
-        mode,
+        compactQuiz: true,
+        mode: modes.length < 2 ? mode : undefined,
         meUid,
-        sub: 'Higher score first. Same score: faster time wins.'
+        sub: false
       });
     } catch (e) {
       console.warn(e);
