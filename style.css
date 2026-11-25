@@ -461,6 +461,52 @@ a{color:inherit}
 .lb-nm:hover{text-decoration:underline}
 .lb-sc{font-weight:800;font-variant-numeric:tabular-nums}
 .lb-sc small,.pf-sc small{color:var(--silver-dim);font-weight:700;font-size:12px}
+.lb-panel{margin-top:14px;text-align:left}
+.lb-panel .lb-h{margin-bottom:12px}
+.lb-heading{font-size:14px;font-weight:800;color:var(--white);letter-spacing:-.01em}
+.lb-mode{font-size:12px;font-weight:700;color:var(--silver-dim)}
+.lb-sub{margin:0 0 12px;font-size:12.5px;color:var(--silver-dim);line-height:1.4}
+.lb-empty,.lb-loading{margin:0;padding:16px 4px;font-size:14px;color:var(--silver-dim);text-align:center}
+.podium{display:grid;grid-template-columns:1fr 1.12fr 1fr;gap:8px;align-items:end;margin:0 0 14px}
+.podium-slot{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px 10px;
+  border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);min-height:108px;
+  text-align:center}
+.podium-slot.me{border-color:rgba(127,217,247,.35);background:rgba(127,217,247,.06)}
+.podium-first{min-height:128px;padding-top:16px;border-color:rgba(255,255,255,.12)}
+.podium-side{opacity:.96}
+.podium-slot.empty{border:0;background:none;min-height:0;padding:0}
+.podium-medal{font-size:22px;line-height:1}
+.podium-slot .lb-nm{font-size:13px;font-weight:700;max-width:100%}
+.podium-sc{font-size:18px;font-weight:900;font-variant-numeric:tabular-nums}
+.podium-sc small{font-size:12px;color:var(--silver-dim);font-weight:800}
+.podium-meta{font-size:11px;color:var(--silver-dim);font-weight:600}
+.lb-colhead{display:grid;grid-template-columns:28px 1fr 52px 56px 52px;gap:8px;padding:0 2px 6px;
+  font-size:11px;font-weight:700;color:var(--silver-dim);text-transform:uppercase;letter-spacing:.04em}
+.lb-list{list-style:none;margin:0;padding:0}
+.lb-list li{display:grid;grid-template-columns:28px 1fr 52px 56px 52px;gap:8px;align-items:center;
+  padding:8px 2px;font-size:13px;border-bottom:1px solid rgba(42,53,66,.55)}
+.lb-list li:last-child{border-bottom:0}
+.lb-list li.me{color:var(--white);background:rgba(127,217,247,.07);border-radius:8px;margin:0 -4px;padding-inline:6px}
+.lb-time,.lb-date{font-size:12px;color:var(--silver-dim);font-weight:600;font-variant-numeric:tabular-nums}
+.lb-date{text-align:right}
+.lb-name-fld input{width:100%;border:1.5px solid var(--line);border-radius:12px;background:rgba(255,255,255,.05);
+  color:var(--white);font:inherit;font-size:16px;font-weight:600;padding:11px 14px;outline:0}
+.lb-name-fld input:focus{border-color:var(--ice)}
+.lb-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.lb-tab{border:1px solid var(--line);border-radius:999px;padding:7px 14px;background:rgba(255,255,255,.04);
+  color:var(--silver);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.lb-tab[aria-pressed=true]{border-color:var(--ice);color:var(--white);background:rgba(127,217,247,.08)}
+.quiz-lb{margin:32px 0 8px;padding-top:28px;border-top:1px solid var(--line)}
+.quiz-lb h2{margin:0 0 4px;font-size:22px;font-weight:900;letter-spacing:-.02em}
+.quiz-lb .lb-note{margin:0 0 14px;font-size:13px;color:var(--silver-dim)}
+.hub-lb{margin:8px 0 36px;padding-top:8px}
+.hub-lb .sect-h{margin-bottom:10px}
+.hub-lb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.hub-lb-card{display:flex;flex-direction:column;border-radius:var(--r);
+  background:rgba(255,255,255,.02);border:1px solid var(--line);overflow:hidden}
+.hub-lb-card .lb-panel{margin:0;padding:16px;border:0;border-radius:0}
+.hub-lb-play{display:block;text-align:center;padding:10px 14px 14px;font-size:13px;font-weight:700;
+  border-top:1px solid var(--line)}
 
 /* profile page */
 .profile{max-width:560px;margin:0 auto;padding:40px 0 60px}
@@ -525,4 +571,15 @@ a{color:inherit}
   .topbar .wrap{gap:8px}
   .topbar .ghost{padding:7px 10px;font-size:13px}
   .acct-card{padding:15px}
+  .podium{grid-template-columns:1fr;gap:10px}
+  .podium-first{order:-1;min-height:0}
+  .podium-side{order:0}
+  .lb-colhead{display:none}
+  .lb-list li{grid-template-columns:24px 1fr auto;grid-template-rows:auto auto;
+    grid-template-areas:"rk name sc" ". meta meta"}
+  .lb-list .lb-rk{grid-area:rk}
+  .lb-list .lb-nm{grid-area:name}
+  .lb-list .lb-sc{grid-area:sc;text-align:right}
+  .lb-list .lb-time{grid-area:meta;font-size:11px}
+  .lb-list .lb-date{display:none}
 }

@@ -1,27 +1,33 @@
 rules_version = '2';
 
-// DietCokeMan Challenge. Everything is publicly readable (leaderboards and
-// profiles are public); every write is limited to the signed-in owner.
-// Paste this into Firebase console > Firestore > Rules whenever it changes.
+// DietCokeMan Challenge. Leaderboards and profiles are public; writes are
+// limited to the signed-in owner (Google or anonymous guest).
 service cloud.firestore {
   match /databases/{db}/documents {
 
     function signedIn() { return request.auth != null; }
     function isMe(uid) { return signedIn() && request.auth.uid == uid; }
-    function validName(n) { return n is string && n.matches('^[a-z0-9_]{3,20}$'); }
-    function nameAfter(uid) {
-      return getAfter(/databases/$(db)/documents/users/$(uid)).data.username;
+    function isAnon() {
+      return signedIn() && request.auth.token.firebase.sign_in_provider == 'anonymous';
     }
-    // A score can't beat the board it was played on.
+    function validName(n) { return n is string && n.matches('^[a-z0-9_]{3,20}$'); }
+    function validDisplay(n) { return n is string && n.size() >= 3 && n.size() <= 20; }
+    function userAfter(uid) {
+      return getAfter(/databases/$(db)/documents/users/$(uid)).data;
+    }
+    function nameAfter(uid) {
+      return userAfter(uid).guest == true ? userAfter(uid).displayName : userAfter(uid).username;
+    }
+  // A score can't beat the board it was played on.
     function validScore(d) {
       return d.best is int && d.total is int
-        && d.best >= 0 && d.total > 0 && d.total <= 500 && d.best <= d.total;
+        && d.best >= 0 && d.total > 0 && d.total <= 500 && d.best <= d.total
+        && (!('seconds' in d) || (d.seconds is int && d.seconds >= 0 && d.seconds <= 86400));
     }
 
-    // One doc per username is what keeps names unique: a second create fails.
     match /usernames/{name} {
       allow read: if true;
-      allow create: if signedIn() && validName(name)
+      allow create: if signedIn() && !isAnon() && validName(name)
         && request.resource.data.keys().hasOnly(['uid'])
         && request.resource.data.uid == request.auth.uid;
       allow delete: if signedIn() && resource.data.uid == request.auth.uid;
@@ -29,18 +35,37 @@ service cloud.firestore {
 
     match /users/{uid} {
       allow read: if true;
-      allow create, update: if isMe(uid)
-        && request.resource.data.keys().hasOnly(['username', 'bio', 'created'])
-        && validName(request.resource.data.username)
-        && getAfter(/databases/$(db)/documents/usernames/$(request.resource.data.username)).data.uid == uid
-        && request.resource.data.bio is string
-        && request.resource.data.bio.size() <= 160;
+      allow create: if isMe(uid) && (
+        (isAnon()
+          && request.resource.data.keys().hasOnly(['displayName', 'guest', 'created'])
+          && request.resource.data.guest == true
+          && validDisplay(request.resource.data.displayName))
+        || (!isAnon()
+          && request.resource.data.keys().hasOnly(['username', 'bio', 'created'])
+          && validName(request.resource.data.username)
+          && getAfter(/databases/$(db)/documents/usernames/$(request.resource.data.username)).data.uid == uid
+          && request.resource.data.bio is string
+          && request.resource.data.bio.size() <= 160)
+      );
+      allow update: if isMe(uid) && (
+        (isAnon()
+          && resource.data.guest == true
+          && request.resource.data.keys().hasOnly(['displayName', 'guest', 'created'])
+          && request.resource.data.guest == true
+          && validDisplay(request.resource.data.displayName))
+        || (!isAnon()
+          && request.resource.data.keys().hasOnly(['username', 'bio', 'created'])
+          && validName(request.resource.data.username)
+          && getAfter(/databases/$(db)/documents/usernames/$(request.resource.data.username)).data.uid == uid
+          && request.resource.data.bio is string
+          && request.resource.data.bio.size() <= 160)
+      );
       allow delete: if isMe(uid);
 
       match /bests/{board} {
         allow read: if true;
         allow create, update: if isMe(uid)
-          && request.resource.data.keys().hasOnly(['board', 'slug', 'title', 'mode', 'best', 'total', 'at'])
+          && request.resource.data.keys().hasOnly(['board', 'slug', 'title', 'mode', 'best', 'total', 'seconds', 'at'])
           && request.resource.data.board == board
           && validScore(request.resource.data);
         allow delete: if isMe(uid);
@@ -50,9 +75,17 @@ service cloud.firestore {
     match /boards/{board}/entries/{uid} {
       allow read: if true;
       allow create, update: if isMe(uid)
-        && request.resource.data.keys().hasOnly(['username', 'best', 'total', 'at'])
-        && request.resource.data.username == nameAfter(uid)
-        && validScore(request.resource.data);
+        && request.resource.data.keys().hasOnly(['username', 'name', 'best', 'total', 'seconds', 'at', 'guest'])
+        && validScore(request.resource.data)
+        && request.resource.data.name == nameAfter(uid)
+        && (
+          (userAfter(uid).guest == true
+            && request.resource.data.guest == true
+            && (!('username' in request.resource.data) || request.resource.data.username == ''))
+          || (userAfter(uid).guest != true
+            && request.resource.data.guest != true
+            && request.resource.data.username == userAfter(uid).username)
+        );
       allow delete: if isMe(uid);
     }
   }

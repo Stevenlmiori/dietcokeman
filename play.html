@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261124151329">
+<link rel="stylesheet" href="style.css?v=20261125234411">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 </head>
 <body>
@@ -25,6 +25,7 @@
     </a>
     <div class="spacer"></div>
     <a class="ghost acct" id="acct" href="profile.html" hidden>Sign in</a>
+    <a class="ghost" href="leaderboard.html">Leaderboards</a>
     <a class="ghost" href="index.html">All quizzes</a>
   </div>
 </header>
@@ -84,6 +85,13 @@
     <button class="ghost" id="giveup" hidden>Give up &amp; reveal</button>
   </div>
 
+  <section class="quiz-lb" id="quizLb" aria-labelledby="quizLbTitle">
+    <h2 id="quizLbTitle">Leaderboard</h2>
+    <p class="lb-note">Higher score first. Same score: faster time wins.</p>
+    <div class="lb-tabs" id="lbModes" hidden></div>
+    <div id="quizLbBody"><p class="lb-loading">Loading…</p></div>
+  </section>
+
   <p class="fine" id="fine">Last name, full name, a nickname or an unusual first name · a shared last name fills everyone who has it ·
     answers fill the moment you spell one · press Enter and a near-miss still counts</p>
 </main>
@@ -105,8 +113,8 @@
   </div>
 </div>
 
-<script src="quizzes.js?v=20261124151329"></script>
-<script type="module" src="account.js?v=20261124151329"></script>
-<script src="engine.js?v=20261124151329"></script>
+<script src="quizzes.js?v=20261125234411"></script>
+<script type="module" src="account.js?v=20261125234411"></script>
+<script src="engine.js?v=20261125234411"></script>
 </body>
 </html>
