@@ -2649,7 +2649,7 @@ window.QUIZZES = [
       { a: 'Japan', rk: '12', hint: '~123M' },
       { a: 'Egypt', rk: '13', hint: '~118M', alias: ['arab republic of egypt'] },
       { a: 'Philippines', rk: '14', hint: '~117M', alias: ['republic of the philippines'] },
-      { a: 'Democratic Republic of the Congo', rk: '15', hint: '~113M', alias: ['drc', 'dr congo', 'congo kinshasa', 'congo-kinshasa', 'democratic republic of congo'] },
+      { a: 'Democratic Republic of the Congo', rk: '15', hint: '~113M', alias: ['congo', 'the congo', 'drc', 'dr congo', 'congo kinshasa', 'congo-kinshasa', 'democratic republic of congo'] },
       { a: 'Vietnam', rk: '16', hint: '~102M', alias: ['viet nam', 'socialist republic of vietnam'] },
       { a: 'Iran', rk: '17', hint: '~92M', alias: ['islamic republic of iran', 'persia'] },
       { a: 'Turkey', rk: '18', hint: '~88M', alias: ['turkiye', 'türkiye', 'republic of turkey'] },

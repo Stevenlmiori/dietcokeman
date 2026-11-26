@@ -1,7 +1,7 @@
 import {
   setFirebase, boardIdFromQuiz, cleanDisplay, displayProblem, submitCooldownLeft, markSubmitted,
   fetchBoard, renderLeaderboardPanel, initPages, refreshQuizLeaderboard
-} from './leaderboards.js?v=20261125205044';
+} from './leaderboards.js?v=20261125232731';
 
 /* ===========================================================
    DietCokeMan Challenge: accounts (optional)
