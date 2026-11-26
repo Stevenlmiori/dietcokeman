@@ -16,7 +16,7 @@ service cloud.firestore {
       return getAfter(/databases/$(db)/documents/users/$(uid)).data;
     }
     function nameAfter(uid) {
-      return userAfter(uid).guest == true ? userAfter(uid).displayName : userAfter(uid).username;
+      return userAfter(uid).get('guest', false) == true ? userAfter(uid).displayName : userAfter(uid).username;
     }
   // A score can't beat the board it was played on.
     function validScore(d) {
@@ -49,7 +49,7 @@ service cloud.firestore {
       );
       allow update: if isMe(uid) && (
         (isAnon()
-          && resource.data.guest == true
+          && resource.data.get('guest', false) == true
           && request.resource.data.keys().hasOnly(['displayName', 'guest', 'created'])
           && request.resource.data.guest == true
           && validDisplay(request.resource.data.displayName))
@@ -79,10 +79,10 @@ service cloud.firestore {
         && validScore(request.resource.data)
         && request.resource.data.name == nameAfter(uid)
         && (
-          (userAfter(uid).guest == true
+          (userAfter(uid).get('guest', false) == true
             && request.resource.data.guest == true
             && (!('username' in request.resource.data) || request.resource.data.username == ''))
-          || (userAfter(uid).guest != true
+          || (userAfter(uid).get('guest', false) != true
             && request.resource.data.guest != true
             && request.resource.data.username == userAfter(uid).username)
         );
