@@ -269,29 +269,35 @@ async function paintQuizPage() {
   document.addEventListener('dcm:lb-refresh', load);
 }
 
-/* Homepage strip: who leads the pinned quizzes and this week's quiz, one
-   plain row each (Steven: the old bordered cards with medal boxes were clutter). */
+/* Homepage: the overall top players, two short lists (Steven, 2026-11-26:
+   "most Golds, and most podiums"). Same counting as the Leaderboards page
+   (buildStandings: a gold is a #1 finish on a quiz, best placing across modes).
+   It reads every board, so it waits until the section is near the screen. */
 async function paintHubPreview() {
   const root = document.getElementById('hubLb');
   if (!root || !fb) return;
-  const all = window.QUIZZES || [];
-  const pinned = all.filter((q) => q.pin);
-  const picks = [pinned[0], ...all.filter((q) => q.featured), ...pinned.slice(1)].filter(Boolean).slice(0, 4);
-  if (!picks.length) { root.hidden = true; return; }
-  const rows = await Promise.all(picks.map(async (q) => {
-    const mode = (q.modes || ['timed']).includes('timed') ? 'timed' : (q.modes || ['chill'])[0];
-    let top = null;
-    try { top = (await fetchBoard(boardIdFromQuiz(q, mode), 1))[0] || null; } catch (e) { console.warn(e); }
-    const href = `play.html?q=${encodeURIComponent(q.slug)}`;
-    return `<a class="hub-lb-row" href="${href}">
-      <span class="q">${esc(q.title)}</span>
-      ${top
-        ? `<span class="who">🥇 ${esc(rowName(top))}</span><span class="sc">${top.best}<small>/${top.total}</small></span>`
-        : '<span class="open">Open, be the first</span>'}
-    </a>`;
-  }));
-  root.querySelector('.hub-lb-list').innerHTML = rows.join('');
+  const go = async () => {
+    const boards = await loadEverything(window.QUIZZES || []);
+    const standings = buildStandings(boards);
+    if (!standings.length) { root.hidden = true; return; }
+    const me = fb.auth && fb.auth.currentUser ? fb.auth.currentUser.uid : null;
+    const list = (key, other, label) => {
+      const rows = standings.filter((p) => p[key] > 0)
+        .sort((x, y) => y[key] - x[key] || y[other] - x[other] || x.name.localeCompare(y.name))
+        .slice(0, 5);
+      return `<div class="hub-lb-col"><h3>${label}</h3><ol>${rows.map((p, i) => `<li>
+        <span class="rk">${i + 1}</span>${playerLink(p, me)}<b>${p[key]}</b></li>`).join('')
+        || '<li class="none">Nobody yet</li>'}</ol></div>`;
+    };
+    root.querySelector('.hub-lb-list').innerHTML = list('crowns', 'podiums', '🥇 Most golds') + list('podiums', 'crowns', '🏅 Most podiums');
+    root.hidden = false;
+  };
   root.hidden = false;
+  if (!('IntersectionObserver' in window)) { go(); return; }
+  const io = new IntersectionObserver((ents) => {
+    if (ents.some((e) => e.isIntersecting)) { io.disconnect(); go(); }
+  }, { rootMargin: '600px 0px' });
+  io.observe(root);
 }
 
 /* ---------- leaderboard page (overall + every quiz) ---------- */
