@@ -589,3 +589,170 @@ a{color:inherit}
   .lb-list .lb-time{grid-area:meta;font-size:11px}
   .lb-list .lb-date{display:none}
 }
+
+/* ===========================================================
+   Leaderboard page (leaderboard.html) — overall, latest, every quiz.
+   Calm surfaces, no box-in-box borders; hierarchy comes from type.
+   =========================================================== */
+.lbx-intro{padding-bottom:6px}
+.lbx{--gold:#F5C451;--surface:rgba(255,255,255,.035);--hair:rgba(255,255,255,.06)}
+.lbx-skel{display:grid;gap:12px;margin-top:18px}
+.lbx-skel i{display:block;height:120px;border-radius:18px;
+  background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.07),rgba(255,255,255,.03));
+  background-size:200% 100%;animation:lbxShim 1.3s ease-in-out infinite}
+.lbx-skel i:nth-child(2){height:220px}
+@keyframes lbxShim{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.lbx-skel i{animation:none}}
+
+.lbx-stats{display:flex;gap:34px;margin:14px 0 26px;flex-wrap:wrap}
+.lbx-stats div{display:flex;flex-direction:column}
+.lbx-stats b{font-size:28px;font-weight:900;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.lbx-stats b small{font-size:15px;color:var(--silver-dim);font-weight:800}
+.lbx-stats span{margin-top:6px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--silver-dim)}
+
+.lbx-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:16px;align-items:start}
+.lbx-card{background:var(--surface);border-radius:20px;padding:22px 22px 18px}
+.lbx-h{margin:0 0 16px}
+.lbx-h h2{margin:0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);font-weight:800}
+.lbx-h p{margin:4px 0 0;font-size:13px;color:var(--silver-dim)}
+.lbx-empty{margin:0;padding:18px 0;color:var(--silver-dim);font-size:14px;text-align:center;list-style:none}
+
+.lbx-who,.lbx-who-plain{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font-weight:700;color:var(--white);text-decoration:none}
+a.lbx-who:hover{color:var(--ice)}
+.lbx-who.me,.lbx-who-plain.me{color:var(--ice)}
+
+/* overall podium */
+.lbx-podium{list-style:none;margin:0 0 8px;padding:0;display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:10px;align-items:end}
+.lbx-podium[data-n="1"]{grid-template-columns:minmax(0,260px);justify-content:center}
+.lbx-podium[data-n="2"]{grid-template-columns:1fr 1.15fr}
+.lbx-step{display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px;min-width:0;
+  padding:18px 10px 16px;border-radius:16px;background:rgba(255,255,255,.03)}
+.lbx-step-1{padding-top:24px;padding-bottom:22px;
+  background:radial-gradient(120% 90% at 50% 0%,rgba(245,196,81,.16),rgba(245,196,81,.03) 70%)}
+.lbx-step.me{box-shadow:inset 0 0 0 1.5px rgba(127,217,247,.45)}
+.lbx-medal{font-size:26px;line-height:1}
+.lbx-step-1 .lbx-medal{font-size:34px}
+.lbx-step .lbx-who{max-width:100%;font-size:14px}
+.lbx-big{font-size:26px;font-weight:900;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums}
+.lbx-step-1 .lbx-big{font-size:34px;color:var(--gold)}
+.lbx-big small{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver-dim);font-weight:800;margin-top:3px}
+.lbx-fine{font-size:12px;color:var(--silver-dim);font-weight:600;display:flex;flex-wrap:wrap;justify-content:center;column-gap:8px}
+.lbx-fine span + span::before{content:"·";margin-right:8px}
+
+/* overall table */
+.lbx-table{margin-top:14px}
+.lbx-thead,.lbx-rows li{display:grid;grid-template-columns:30px minmax(0,1fr) 44px 52px 60px;gap:8px;align-items:center}
+.lbx-thead{padding:0 10px 6px;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--silver-dim)}
+.lbx-thead span:nth-child(n+3){text-align:right}
+.lbx-rows{list-style:none;margin:0;padding:0}
+.lbx-rows li{padding:10px;border-radius:10px;font-size:14px}
+.lbx-rows li:nth-child(odd){background:rgba(255,255,255,.025)}
+.lbx-rows li.me{background:rgba(127,217,247,.08)}
+.lbx-rk{color:var(--silver-dim);font-weight:800;font-variant-numeric:tabular-nums}
+.lbx-n{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+.lbx-n.zero{color:rgba(138,151,166,.55);font-weight:600}
+.lbx-more{display:block;margin:12px auto 0;border:0;background:none;color:var(--ice);font:inherit;font-size:13px;font-weight:700;cursor:pointer;padding:6px 10px;border-radius:8px}
+.lbx-more:hover{background:rgba(127,217,247,.08)}
+.lbx-you{margin:12px 0 0;padding:10px 12px;border-radius:10px;background:rgba(127,217,247,.08);font-size:13.5px;color:var(--silver)}
+.lbx-you b{color:var(--ice)}
+
+/* latest scores */
+.lbx-feed{list-style:none;margin:0;padding:0}
+.lbx-feed li{padding:10px 0;border-top:1px solid var(--hair)}
+.lbx-feed li:first-child{border-top:0;padding-top:0}
+.lbx-feed-top{display:flex;align-items:baseline;gap:10px}
+.lbx-feed-top .lbx-who{flex:1;font-size:14px}
+.lbx-when{font-size:12px;color:var(--silver-dim);font-weight:600;white-space:nowrap}
+.lbx-feed-sub{display:flex;gap:10px;align-items:baseline;font-size:13px;margin-top:2px}
+.lbx-feed-sub a{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lbx-fm{font-style:normal;margin-right:6px;font-size:13px}
+.lbx-feed-sub a{color:var(--silver);text-decoration:none}
+.lbx-feed-sub a:hover{color:var(--white)}
+
+/* every quiz */
+.lbx-all{margin-top:40px}
+.lbx-h-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.lbx-h-row p{margin:0}
+.lbx-tools{margin:0 0 12px}
+.lbx-find{max-width:420px}
+.lbx-cats{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.lbx-boards{list-style:none;margin:0;padding:0;background:var(--surface);border-radius:18px;overflow:hidden}
+.lbx-boards:empty{display:none}
+.lbx-board + .lbx-board{border-top:1px solid var(--hair)}
+.lbx-bhead{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;
+  grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 84px 18px;gap:16px;align-items:center;padding:14px 18px;
+  transition:background .14s}
+.lbx-bhead:hover{background:rgba(255,255,255,.03)}
+.lbx-bhead:focus-visible{box-shadow:inset 0 0 0 2px rgba(127,217,247,.5)}
+.lbx-btitle{min-width:0;display:flex;flex-direction:column}
+.lbx-btitle b{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lbx-btitle small{font-size:12px;color:var(--silver-dim);font-weight:600}
+.lbx-btitle em{font-style:normal;color:var(--ice)}
+.lbx-blead{display:flex;align-items:center;gap:8px;min-width:0;font-size:14px}
+.lbx-crown{font-size:14px;flex:none}
+.lbx-blead .lbx-who-plain{flex:1;font-weight:600;color:var(--silver)}
+.lbx-score{font-size:13px;color:var(--silver-dim);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lbx-score b{color:var(--white);font-size:15px;font-weight:800}
+.lbx-bplayers{font-size:12.5px;color:var(--silver-dim);font-weight:600;text-align:right;white-space:nowrap}
+.lbx-chev{color:var(--silver-dim);transition:transform .18s}
+.lbx-board.open .lbx-chev{transform:rotate(180deg)}
+.lbx-board.open{background:rgba(255,255,255,.025)}
+.lbx-detail{padding:2px 18px 16px}
+.lbx-tabs{display:flex;gap:4px;margin:0 0 8px}
+.lbx-tabb{border:0;background:none;color:var(--silver-dim);font:inherit;font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:8px;cursor:pointer}
+.lbx-tabb[aria-selected="true"]{background:rgba(255,255,255,.1);color:var(--white)}
+.lbx-modename{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--silver-dim);padding:4px 0}
+.lbx-ranks{list-style:none;margin:0;padding:0;max-width:640px}
+.lbx-ranks li{display:grid;grid-template-columns:30px minmax(0,1fr) auto 70px;gap:10px;align-items:center;padding:7px 10px;border-radius:9px;font-size:14px}
+.lbx-ranks li:nth-child(odd){background:rgba(255,255,255,.025)}
+.lbx-ranks li.me{background:rgba(127,217,247,.08)}
+.lbx-ranks .lbx-rk{font-size:13px;text-align:center}
+.lbx-ranks li:nth-child(-n+3) .lbx-rk{font-size:18px;line-height:1}
+.lbx-ranks .lbx-who{font-weight:600}
+.lbx-ranks li:nth-child(-n+3) .lbx-who{font-weight:800}
+.lbx-time{font-size:12.5px;color:var(--silver-dim);font-variant-numeric:tabular-nums}
+.lbx-ranks .lbx-score{text-align:right}
+.lbx-detail-foot{display:flex;justify-content:space-between;align-items:center;max-width:640px;margin-top:10px;font-size:12px;color:var(--silver-dim)}
+.lbx-play{color:var(--ice);font-weight:700;font-size:13.5px;text-decoration:none}
+.lbx-play:hover{text-decoration:underline}
+
+.lbx-unclaimed{margin-top:26px}
+.lbx-unclaimed h3{margin:0 0 10px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);font-weight:800}
+.lbx-unclaimed h3 span{margin-left:8px;letter-spacing:0;text-transform:none;font-weight:600;color:var(--silver-dim)}
+.lbx-chips{display:flex;flex-wrap:wrap;gap:6px}
+.lbx-chips a{padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.05);color:var(--silver);
+  font-size:13px;font-weight:600;text-decoration:none;transition:background .14s,color .14s}
+.lbx-chips a:hover{background:rgba(255,255,255,.1);color:var(--white)}
+
+@media (max-width:860px){
+  .lbx-grid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .lbx-stats{gap:22px;margin:8px 0 20px}
+  .lbx-stats b{font-size:23px}
+  .lbx-card{padding:18px 14px 14px;border-radius:18px}
+  .lbx-podium{gap:6px}
+  .lbx-step{padding:14px 6px 12px}
+  .lbx-step-1{padding-top:18px;padding-bottom:16px}
+  .lbx-step .lbx-who{font-size:13px}
+  .lbx-big{font-size:22px}
+  .lbx-step-1 .lbx-big{font-size:28px}
+  .lbx-fine{font-size:11px;flex-direction:column;align-items:center}
+  .lbx-fine span + span::before{content:none}
+  .lbx-btitle small{display:none}
+  .lbx-h p{font-size:12.5px}
+  .lbx-thead,.lbx-rows li{grid-template-columns:24px minmax(0,1fr) 30px 38px 46px;gap:6px}
+  .lbx-rows li{padding:9px 8px}
+  .lbx-thead{padding-inline:8px}
+  .lbx-cats{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-11px;padding-inline:11px}
+  .lbx-cats::-webkit-scrollbar{display:none}
+  .lbx-cats .facet{flex:0 0 auto}
+  .lbx-bhead{grid-template-columns:minmax(0,1fr) 16px;grid-template-areas:"t c" "l c";gap:6px 10px;padding:13px 14px}
+  .lbx-btitle{grid-area:t}
+  .lbx-blead{grid-area:l;font-size:13px}
+  .lbx-bplayers{display:none}
+  .lbx-chev{grid-area:c}
+  .lbx-detail{padding:0 8px 14px}
+  .lbx-ranks li{grid-template-columns:26px minmax(0,1fr) auto 62px;gap:8px;padding:7px 8px}
+}

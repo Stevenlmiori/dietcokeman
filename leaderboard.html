@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261126003524">
+<link rel="stylesheet" href="style.css?v=20261125185446">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js" crossorigin>
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js" crossorigin>
@@ -34,17 +34,19 @@
 </header>
 
 <main class="wrap">
-  <section class="qintro">
+  <section class="qintro lbx-intro">
     <h1>Leaderboards</h1>
-    <p class="qsub">Higher score first. Same score: faster time wins. Timed mode shown when a quiz offers both.</p>
+    <p class="qsub">Who's on top across every DietCokeMan quiz.</p>
   </section>
-  <div id="allLb"><p class="lb-loading">Loading leaderboards…</p></div>
+  <div id="allLb" class="lbx">
+    <div class="lbx-skel" aria-label="Loading leaderboards"><i></i><i></i><i></i></div>
+  </div>
   <p style="text-align:center;color:#6C7A8A;font-size:12.5px;margin:48px 0 40px">
     An independent fan project — not affiliated with, sponsored by, or endorsed by any beverage company.
   </p>
 </main>
 
-<script type="module" src="account.js?v=20261126003524"></script>
-<script src="quizzes.js?v=20261126003524"></script>
+<script type="module" src="account.js?v=20261125185446"></script>
+<script src="quizzes.js?v=20261125185446"></script>
 </body>
 </html>

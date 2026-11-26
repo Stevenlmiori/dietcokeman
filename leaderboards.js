@@ -297,27 +297,274 @@ async function paintHubPreview() {
     : '<p class="lb-empty">No scores yet. Be the first on the board.</p>';
 }
 
+/* ---------- leaderboard page (overall + every quiz) ---------- */
+const MODE_NAME = { timed: 'Timed', chill: 'No pressure' };
+const MEDAL = ['🥇', '🥈', '🥉'];
+
+function relTime(at) {
+  if (!at) return '';
+  const t = typeof at.toDate === 'function' ? at.toDate().getTime()
+    : at.seconds ? at.seconds * 1000 : new Date(at).getTime();
+  if (!t || Number.isNaN(t)) return '';
+  const s = Math.max(0, (Date.now() - t) / 1000);
+  if (s < 60) return 'just now';
+  if (s < 3600) return `${Math.floor(s / 60)}m ago`;
+  if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
+  if (s < 86400 * 7) return `${Math.floor(s / 86400)}d ago`;
+  return fmtWhen(at);
+}
+const atMs = (at) => (at && at.seconds ? at.seconds * 1000 : 0);
+
+function playerLink(p, meUid) {
+  const label = esc(p.name);
+  const cls = `lbx-who${meUid && p.uid === meUid ? ' me' : ''}`;
+  return p.username && !p.guest
+    ? `<a class="${cls}" href="profile.html?u=${encodeURIComponent(p.username)}">${label}</a>`
+    : `<span class="${cls}">${label}</span>`;
+}
+
+const plural = (n, w) => `${n} ${n === 1 ? w : (w === 'quiz' ? 'quizzes' : w + 's')}`;
+
+async function loadEverything(quizzes) {
+  const jobs = [];
+  quizzes.forEach((q) => ['timed', 'chill'].forEach((mode) => {
+    jobs.push(fetchBoard(boardIdFromQuiz(q, mode), 100)
+      .then((rows) => ({ q, mode, rows }))
+      .catch(() => ({ q, mode, rows: [] })));
+  }));
+  const res = await Promise.all(jobs);
+  return quizzes.map((q) => {
+    const byMode = {};
+    res.filter((r) => r.q === q).forEach((r) => { byMode[r.mode] = r.rows; });
+    const modes = ['timed', 'chill'].filter((m) => byMode[m] && byMode[m].length);
+    const main = modes.slice().sort((a, b) => byMode[b].length - byMode[a].length)[0] || null;
+    const uids = new Set();
+    modes.forEach((m) => byMode[m].forEach((r) => uids.add(r.uid)));
+    return { q, byMode, modes, main, players: uids.size };
+  });
+}
+
+function buildStandings(boards) {
+  const P = new Map();
+  const touch = (row) => {
+    let p = P.get(row.uid);
+    if (!p) {
+      p = { uid: row.uid, name: rowName(row), username: row.username, guest: row.guest === true,
+        crowns: 0, podiums: 0, quizzes: 0, pct: 0, lastAt: 0 };
+      P.set(row.uid, p);
+    }
+    const t = atMs(row.at);
+    if (t >= p.lastAt) {
+      p.lastAt = t; p.name = rowName(row); p.username = row.username; p.guest = row.guest === true;
+    }
+    return p;
+  };
+  boards.forEach((b) => {
+    const bestRank = new Map(); // uid -> best placing on this quiz across modes
+    const bestPct = new Map();
+    b.modes.forEach((m) => b.byMode[m].forEach((row, i) => {
+      touch(row);
+      if (!bestRank.has(row.uid) || i < bestRank.get(row.uid)) bestRank.set(row.uid, i);
+      const pct = row.total ? row.best / row.total : 0;
+      bestPct.set(row.uid, Math.max(bestPct.get(row.uid) || 0, pct));
+    }));
+    bestRank.forEach((rk, uid) => {
+      const p = P.get(uid);
+      p.quizzes += 1;
+      p.pct += bestPct.get(uid) || 0;
+      if (rk === 0) p.crowns += 1;
+      if (rk < 3) p.podiums += 1;
+    });
+  });
+  return [...P.values()]
+    .map((p) => ({ ...p, avg: p.quizzes ? p.pct / p.quizzes : 0 }))
+    .sort((a, b) => b.crowns - a.crowns || b.podiums - a.podiums
+      || b.quizzes - a.quizzes || b.avg - a.avg || a.name.localeCompare(b.name));
+}
+
+function renderOverall(list, meUid, showAll) {
+  if (!list.length) {
+    return '<p class="lbx-empty">No scores yet. Play any quiz and post your name to get on the board.</p>';
+  }
+  const top = list.slice(0, 3);
+  const order = top.length === 3 ? [1, 0, 2] : top.length === 2 ? [1, 0] : [0];
+  const podium = `<ol class="lbx-podium" data-n="${top.length}">${order.map((i) => {
+    const p = top[i];
+    return `<li class="lbx-step lbx-step-${i + 1}${meUid && p.uid === meUid ? ' me' : ''}">
+      <span class="lbx-medal" aria-label="Rank ${i + 1}">${MEDAL[i]}</span>
+      ${playerLink(p, meUid)}
+      <span class="lbx-big">${p.crowns}<small>${p.crowns === 1 ? 'crown' : 'crowns'}</small></span>
+      <span class="lbx-fine"><span>${plural(p.podiums, 'podium')}</span><span>${plural(p.quizzes, 'quiz')}</span></span>
+    </li>`;
+  }).join('')}</ol>`;
+  const rest = list.slice(3, showAll ? list.length : 10);
+  const rows = rest.length ? `<div class="lbx-table">
+    <div class="lbx-thead" aria-hidden="true"><span>#</span><span>Player</span><span title="#1 finishes">👑</span><span title="Top-3 finishes">Top 3</span><span>Quizzes</span></div>
+    <ol class="lbx-rows" start="4">${rest.map((p, i) => `<li class="${meUid && p.uid === meUid ? 'me' : ''}">
+      <span class="lbx-rk">${i + 4}</span>${playerLink(p, meUid)}
+      <span class="lbx-n${p.crowns ? '' : ' zero'}">${p.crowns}</span>
+      <span class="lbx-n${p.podiums ? '' : ' zero'}">${p.podiums}</span>
+      <span class="lbx-n">${p.quizzes}</span></li>`).join('')}</ol>
+  </div>` : '';
+  const more = list.length > 10
+    ? `<button type="button" class="lbx-more" data-act="all">${showAll ? 'Show top 10' : `Show all ${list.length} players`}</button>` : '';
+  let mine = '';
+  const myIdx = meUid ? list.findIndex((p) => p.uid === meUid) : -1;
+  if (myIdx >= 10 && !showAll) {
+    const p = list[myIdx];
+    mine = `<p class="lbx-you">You're <b>#${myIdx + 1}</b> overall · ${plural(p.crowns, 'crown')}, ${plural(p.quizzes, 'quiz')} played</p>`;
+  }
+  return podium + rows + mine + more;
+}
+
+function renderRecent(boards, meUid) {
+  const all = [];
+  boards.forEach((b) => b.modes.forEach((m) => b.byMode[m].forEach((row, i) => {
+    all.push({ row, rank: i + 1, b, m });
+  })));
+  all.sort((a, b) => atMs(b.row.at) - atMs(a.row.at));
+  const items = all.slice(0, 7);
+  if (!items.length) return '<p class="lbx-empty">Nothing yet.</p>';
+  return `<ul class="lbx-feed">${items.map(({ row, rank, b }) => {
+    const p = { uid: row.uid, name: rowName(row), username: row.username, guest: row.guest === true };
+    return `<li>
+      <div class="lbx-feed-top">${playerLink(p, meUid)}<span class="lbx-score">${rank <= 3 ? `<i class="lbx-fm" title="#${rank} on this quiz">${MEDAL[rank - 1]}</i>` : ''}<b>${row.best}</b>/${row.total}</span></div>
+      <div class="lbx-feed-sub"><a href="play.html?q=${encodeURIComponent(b.q.slug)}">${esc(b.q.title)}</a><span class="lbx-when">${relTime(row.at)}</span></div>
+    </li>`;
+  }).join('')}</ul>`;
+}
+
+function renderBoardDetail(b, mode, meUid) {
+  const rows = (b.byMode[mode] || []).slice(0, 10);
+  const tabs = b.modes.length > 1 ? `<div class="lbx-tabs" role="tablist">${b.modes.map((m) =>
+    `<button type="button" role="tab" class="lbx-tabb" data-act="mode" data-m="${m}" aria-selected="${m === mode}">${MODE_NAME[m]}</button>`
+  ).join('')}</div>` : `<div class="lbx-tabs"><span class="lbx-modename">${MODE_NAME[mode]}</span></div>`;
+  const list = `<ol class="lbx-ranks">${rows.map((row, i) => {
+    const p = { uid: row.uid, name: rowName(row), username: row.username, guest: row.guest === true };
+    return `<li class="${meUid && row.uid === meUid ? 'me' : ''}">
+      <span class="lbx-rk">${i < 3 ? MEDAL[i] : i + 1}</span>${playerLink(p, meUid)}
+      <span class="lbx-time">${row.seconds != null ? fmtElapsed(row.seconds) : ''}</span>
+      <span class="lbx-score"><b>${row.best}</b>/${row.total}</span>
+    </li>`;
+  }).join('')}</ol>`;
+  const n = (b.byMode[mode] || []).length;
+  return `${tabs}${list}<div class="lbx-detail-foot">
+    <span>${n > 10 ? `Top 10 of ${n}` : ''}</span>
+    <a class="lbx-play" href="play.html?q=${encodeURIComponent(b.q.slug)}#quizLb">Play this quiz →</a>
+  </div>`;
+}
+
+function renderBoardRow(b, meUid, open, mode) {
+  const lead = b.byMode[b.main][0];
+  const p = { uid: lead.uid, name: rowName(lead), username: lead.username, guest: lead.guest === true };
+  const mine = meUid && b.modes.some((m) => b.byMode[m].some((r) => r.uid === meUid));
+  return `<li class="lbx-board${open ? ' open' : ''}" data-slug="${esc(b.q.slug)}">
+    <button type="button" class="lbx-bhead" data-act="toggle" aria-expanded="${open}">
+      <span class="lbx-btitle"><b>${esc(b.q.title)}</b><small>${esc(b.q.category || '')}${mine ? ' · <em>You’re on it</em>' : ''}</small></span>
+      <span class="lbx-blead"><span class="lbx-crown" aria-hidden="true">👑</span><span class="lbx-who-plain${meUid && lead.uid === meUid ? ' me' : ''}">${esc(p.name)}</span><span class="lbx-score"><b>${lead.best}</b>/${lead.total}</span></span>
+      <span class="lbx-bplayers">${plural(b.players, 'player')}</span>
+      <svg class="lbx-chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    ${open ? `<div class="lbx-detail">${renderBoardDetail(b, mode, meUid)}</div>` : ''}
+  </li>`;
+}
+
 async function paintLeaderboardPage() {
   const root = document.getElementById('allLb');
   if (!root || !fb) return;
-  const qs = (window.QUIZZES || []).filter((q) => q.type !== 'lines' || q.slug === 'line-game');
-  root.innerHTML = '<p class="lb-loading">Loading leaderboards…</p>';
-  const chunks = await Promise.all(qs.map(async (q) => {
-    const mode = (q.modes || ['timed']).includes('timed') ? 'timed' : (q.modes || ['chill'])[0];
-    try {
-      const rows = await fetchBoard(boardIdFromQuiz(q, mode), 10);
-      return `<div class="hub-lb-card">
-        ${renderLeaderboardPanel(rows, { heading: q.title, mode, plainNames: true })}
-        <a class="ghost hub-lb-play" href="play.html?q=${encodeURIComponent(q.slug)}#quizLb">Play this quiz</a>
-      </div>`;
-    } catch (e) {
-      return '';
+  const quizzes = (window.QUIZZES || []).filter((q) => q.type !== 'lines' || q.slug === 'line-game');
+  const boards = await loadEverything(quizzes);
+  const state = { showAll: false, open: new Map(), cat: 'All', term: '' };
+  const meUid = () => fb.auth?.currentUser?.uid || null;
+
+  const played = boards.filter((b) => b.modes.length);
+  const empty = boards.filter((b) => !b.modes.length);
+  played.sort((a, b) => b.players - a.players || a.q.title.localeCompare(b.q.title));
+  const cats = {};
+  boards.forEach((b) => { const c = b.q.category || 'Other'; cats[c] = (cats[c] || 0) + 1; });
+  const catList = ['All', ...Object.keys(cats).sort((a, b) => cats[b] - cats[a] || a.localeCompare(b))];
+
+  const stats = { players: 0, scores: 0 };
+  {
+    const u = new Set();
+    played.forEach((b) => b.modes.forEach((m) => b.byMode[m].forEach((r) => { u.add(r.uid); stats.scores += 1; })));
+    stats.players = u.size;
+  }
+
+  root.innerHTML = `
+    <div class="lbx-stats">
+      <div><b>${stats.players}</b><span>players</span></div>
+      <div><b>${stats.scores}</b><span>scores posted</span></div>
+      <div><b>${played.length}<small>/${boards.length}</small></b><span>quizzes claimed</span></div>
+    </div>
+    <div class="lbx-grid">
+      <section class="lbx-card lbx-overall" aria-labelledby="lbxOverallH">
+        <header class="lbx-h"><h2 id="lbxOverallH">Overall</h2><p>Ranked by #1 finishes, then top-3s, then quizzes played.</p></header>
+        <div id="lbxOverall"></div>
+      </section>
+      <section class="lbx-card lbx-recent" aria-labelledby="lbxRecentH">
+        <header class="lbx-h"><h2 id="lbxRecentH">Latest scores</h2></header>
+        <div id="lbxRecent"></div>
+      </section>
+    </div>
+    <section class="lbx-all" aria-labelledby="lbxAllH">
+      <header class="lbx-h lbx-h-row"><h2 id="lbxAllH">Every quiz</h2><p>Higher score wins. Same score, faster time wins. Tap a quiz for its top 10.</p></header>
+      <div class="lbx-tools">
+        <input class="find lbx-find" type="search" placeholder="Search quizzes" aria-label="Search quizzes" autocomplete="off">
+        <div class="lbx-cats">${catList.map((c) => `<button type="button" class="facet" data-cat="${esc(c)}" aria-pressed="${c === 'All'}">${esc(c)}</button>`).join('')}</div>
+      </div>
+      <ul class="lbx-boards" id="lbxBoards"></ul>
+      <div id="lbxEmpty"></div>
+    </section>`;
+
+  const $ = (id) => document.getElementById(id);
+  const match = (b) => (state.cat === 'All' || (b.q.category || 'Other') === state.cat)
+    && (!state.term || b.q.title.toLowerCase().includes(state.term));
+
+  const drawOverall = () => { $('lbxOverall').innerHTML = renderOverall(buildStandings(played), meUid(), state.showAll); };
+  const drawRecent = () => { $('lbxRecent').innerHTML = renderRecent(played, meUid()); };
+  const drawBoards = () => {
+    const me = meUid();
+    const shown = played.filter(match);
+    const unclaimed = empty.filter(match);
+    $('lbxBoards').innerHTML = shown.map((b) =>
+      renderBoardRow(b, me, state.open.has(b.q.slug), state.open.get(b.q.slug) || b.main)).join('');
+    $('lbxEmpty').innerHTML = unclaimed.length ? `<div class="lbx-unclaimed">
+        <h3>Up for grabs <span>No scores yet — be the first</span></h3>
+        <div class="lbx-chips">${unclaimed.map((b) => `<a href="play.html?q=${encodeURIComponent(b.q.slug)}">${esc(b.q.title)}</a>`).join('')}</div>
+      </div>` : '';
+    if (!shown.length && !unclaimed.length) $('lbxBoards').innerHTML = '<li class="lbx-empty">No quizzes match.</li>';
+  };
+  const drawAll = () => { drawOverall(); drawRecent(); drawBoards(); };
+
+  root.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-act],[data-cat]');
+    if (!t || !root.contains(t)) return;
+    if (t.dataset.cat) {
+      state.cat = t.dataset.cat;
+      root.querySelectorAll('.lbx-cats .facet').forEach((f) => f.setAttribute('aria-pressed', String(f.dataset.cat === state.cat)));
+      drawBoards();
+      return;
     }
-  }));
-  const html = chunks.filter(Boolean);
-  root.innerHTML = html.length
-    ? `<div class="hub-lb-grid">${html.join('')}</div>`
-    : '<p class="lb-empty">No scores yet. Play a quiz and post your name.</p>';
+    const act = t.dataset.act;
+    if (act === 'all') { state.showAll = !state.showAll; drawOverall(); return; }
+    const li = t.closest('.lbx-board');
+    const slug = li && li.dataset.slug;
+    const b = slug && played.find((x) => x.q.slug === slug);
+    if (!b) return;
+    if (act === 'toggle') {
+      if (state.open.has(slug)) state.open.delete(slug); else state.open.set(slug, b.main);
+    } else if (act === 'mode') {
+      state.open.set(slug, t.dataset.m);
+    }
+    li.outerHTML = renderBoardRow(b, meUid(), state.open.has(slug), state.open.get(slug) || b.main);
+  });
+  root.querySelector('.lbx-find').addEventListener('input', (e) => {
+    state.term = e.target.value.trim().toLowerCase();
+    drawBoards();
+  });
+  if (fb.onAuthStateChanged) fb.onAuthStateChanged(fb.auth, drawAll);
+  drawAll();
 }
 
 export function initPages() {
