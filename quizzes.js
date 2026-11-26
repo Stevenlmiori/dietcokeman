@@ -43,7 +43,7 @@ window.TAXONOMY = {
     league: ['NFL', 'NBA', 'MLB', 'NHL', 'NCAA'],
     sport:  ['Football', 'Basketball', 'Baseball', 'Hockey', 'Golf'],
     market: ['S&P 500', 'Companies', 'Stocks'],
-    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Minecraft', 'Kids', 'Presidents', 'US States', 'World', 'Sitcoms', 'Pokémon', 'Space', 'Comics'],
+    topic:  ['Drinks', 'Restaurants', 'Box Office', 'Oscars', 'Favorites', 'Disney', 'Minecraft', 'Kids', 'Presidents', 'US States', 'World', 'Sitcoms', 'Pokémon', 'Space', 'Comics', 'Video Games', 'Chemistry', 'Cereal'],
     kind:   ['All-Time', 'This Season', 'Throwback', 'Career Leaders', 'Awards', 'Champions', 'Draft', 'Fantasy', 'Betting']
   },
   /* The little emoji in each hub card's corner. The most specific match wins:
@@ -3036,6 +3036,878 @@ window.QUIZZES = [
       { a: 'Indian Ocean', rk: '3', hint: '3rd largest', alias: ['indian', 'the indian', 'the indian ocean'] },
       { a: 'Southern Ocean', rk: '4', hint: '4th largest', alias: ['southern', 'the southern', 'the southern ocean', 'antarctic', 'antarctic ocean', 'the antarctic', 'the antarctic ocean'] },
       { a: 'Arctic Ocean', rk: '5', hint: 'Smallest ocean', alias: ['arctic', 'the arctic', 'the arctic ocean'] }
+    ]}
+  ]
+},
+
+{
+  // All 32 NFL teams by division, 2026 season alignment. Nickname or (unshared) city alone counts.
+  slug: 'nfl-teams',
+  title: 'NFL Teams',
+  sub: 'Name all 32',
+  blurb: 'Every NFL team, grouped by division (2026 season). The team name or its city counts, unless two teams share the city.',
+  category: 'Sports',
+  tags: ['NFL', 'Football'],
+  match: 'full',
+  nope: {
+    redskins: 'They\'re the Washington Commanders now.',
+    footballteam: 'They\'re the Washington Commanders now.',
+    newyork: 'Two teams play there. Which one?',
+    losangeles: 'Two teams play there. Which one?',
+    la: 'Two teams play there. Which one?',
+    oilers: 'The Oilers became the Tennessee Titans.'
+  },
+  mode: 'timed',
+  time: 360,
+  cols: 'four',
+  groups: [
+    { name: 'AFC East', items: [
+      { a: 'Buffalo Bills', alias: ['bills', 'buffalo'] },
+      { a: 'Miami Dolphins', alias: ['dolphins', 'miami'] },
+      { a: 'New England Patriots', alias: ['patriots', 'new england', 'pats'] },
+      { a: 'New York Jets', alias: ['jets', 'ny jets'] }
+    ]},
+    { name: 'AFC North', items: [
+      { a: 'Baltimore Ravens', alias: ['ravens', 'baltimore'] },
+      { a: 'Cincinnati Bengals', alias: ['bengals', 'cincinnati', 'cincy'] },
+      { a: 'Cleveland Browns', alias: ['browns', 'cleveland'] },
+      { a: 'Pittsburgh Steelers', alias: ['steelers', 'pittsburgh'] }
+    ]},
+    { name: 'AFC South', items: [
+      { a: 'Houston Texans', alias: ['texans', 'houston'] },
+      { a: 'Indianapolis Colts', alias: ['colts', 'indianapolis', 'indy'] },
+      { a: 'Jacksonville Jaguars', alias: ['jaguars', 'jacksonville', 'jags'] },
+      { a: 'Tennessee Titans', alias: ['titans', 'tennessee'] }
+    ]},
+    { name: 'AFC West', items: [
+      { a: 'Denver Broncos', alias: ['broncos', 'denver'] },
+      { a: 'Kansas City Chiefs', alias: ['chiefs', 'kansas city', 'kc', 'kc chiefs'] },
+      { a: 'Las Vegas Raiders', alias: ['raiders', 'las vegas', 'vegas', 'oakland raiders', 'oakland'] },
+      { a: 'Los Angeles Chargers', alias: ['chargers', 'la chargers', 'san diego chargers', 'bolts'] }
+    ]},
+    { name: 'NFC East', items: [
+      { a: 'Dallas Cowboys', alias: ['cowboys', 'dallas'] },
+      { a: 'New York Giants', alias: ['giants', 'ny giants', 'big blue'] },
+      { a: 'Philadelphia Eagles', alias: ['eagles', 'philadelphia', 'philly'] },
+      { a: 'Washington Commanders', alias: ['commanders', 'washington'] }
+    ]},
+    { name: 'NFC North', items: [
+      { a: 'Chicago Bears', alias: ['bears', 'chicago'] },
+      { a: 'Detroit Lions', alias: ['lions', 'detroit'] },
+      { a: 'Green Bay Packers', alias: ['packers', 'green bay', 'pack'] },
+      { a: 'Minnesota Vikings', alias: ['vikings', 'minnesota'] }
+    ]},
+    { name: 'NFC South', items: [
+      { a: 'Atlanta Falcons', alias: ['falcons', 'atlanta'] },
+      { a: 'Carolina Panthers', alias: ['panthers', 'carolina'] },
+      { a: 'New Orleans Saints', alias: ['saints', 'new orleans'] },
+      { a: 'Tampa Bay Buccaneers', alias: ['buccaneers', 'tampa bay', 'tampa', 'bucs', 'buccs', 'tampa bay bucs'] }
+    ]},
+    { name: 'NFC West', items: [
+      { a: 'Arizona Cardinals', alias: ['cardinals', 'arizona'] },
+      { a: 'Los Angeles Rams', alias: ['rams', 'la rams', 'st louis rams'] },
+      { a: 'San Francisco 49ers', alias: ['49ers', 'san francisco', 'niners', 'forty niners', 'fortyniners', 'sf', 'sf 49ers', 'san francisco forty niners'] },
+      { a: 'Seattle Seahawks', alias: ['seahawks', 'seattle', 'hawks'] }
+    ]}
+  ]
+},
+
+{
+  // All 30 NBA teams by division, 2026-27 season.
+  slug: 'nba-teams',
+  title: 'NBA Teams',
+  sub: 'Name all 30',
+  blurb: 'Every NBA team, grouped by division (2026–27 season). The team name or its city counts, unless two teams share the city.',
+  category: 'Sports',
+  tags: ['NBA', 'Basketball'],
+  match: 'full',
+  nope: {
+    supersonics: 'The Sonics left Seattle and became the Oklahoma City Thunder.',
+    sonics: 'The Sonics left Seattle and became the Oklahoma City Thunder.',
+    bobcats: 'The Bobcats are the Charlotte Hornets now.',
+    newjerseynets: 'The Nets moved to Brooklyn.',
+    losangeles: 'Two teams play there. Which one?',
+    la: 'Two teams play there. Which one?'
+  },
+  mode: 'timed',
+  time: 360,
+  cols: 'two',
+  groups: [
+    { name: 'Atlantic', items: [
+      { a: 'Boston Celtics', alias: ['celtics', 'boston'] },
+      { a: 'Brooklyn Nets', alias: ['nets', 'brooklyn'] },
+      { a: 'New York Knicks', alias: ['knicks', 'new york', 'ny knicks', 'knickerbockers', 'ny'] },
+      { a: 'Philadelphia 76ers', alias: ['76ers', 'philadelphia', 'sixers', 'seventy sixers', 'philly', 'philadelphia sixers'] },
+      { a: 'Toronto Raptors', alias: ['raptors', 'toronto'] }
+    ]},
+    { name: 'Central', items: [
+      { a: 'Chicago Bulls', alias: ['bulls', 'chicago'] },
+      { a: 'Cleveland Cavaliers', alias: ['cavaliers', 'cleveland', 'cavs'] },
+      { a: 'Detroit Pistons', alias: ['pistons', 'detroit'] },
+      { a: 'Indiana Pacers', alias: ['pacers', 'indiana', 'indy'] },
+      { a: 'Milwaukee Bucks', alias: ['bucks', 'milwaukee'] }
+    ]},
+    { name: 'Southeast', items: [
+      { a: 'Atlanta Hawks', alias: ['hawks', 'atlanta'] },
+      { a: 'Charlotte Hornets', alias: ['hornets', 'charlotte'] },
+      { a: 'Miami Heat', alias: ['heat', 'miami'] },
+      { a: 'Orlando Magic', alias: ['magic', 'orlando'] },
+      { a: 'Washington Wizards', alias: ['wizards', 'washington', 'dc', 'wiz'] }
+    ]},
+    { name: 'Northwest', items: [
+      { a: 'Denver Nuggets', alias: ['nuggets', 'denver'] },
+      { a: 'Minnesota Timberwolves', alias: ['timberwolves', 'minnesota', 'wolves', 'twolves', 't-wolves'] },
+      { a: 'Oklahoma City Thunder', alias: ['thunder', 'oklahoma city', 'okc'] },
+      { a: 'Portland Trail Blazers', alias: ['trail blazers', 'portland', 'blazers', 'trailblazers', 'portland trailblazers'] },
+      { a: 'Utah Jazz', alias: ['jazz', 'utah'] }
+    ]},
+    { name: 'Pacific', items: [
+      { a: 'Golden State Warriors', alias: ['warriors', 'golden state', 'dubs', 'gsw'] },
+      { a: 'Los Angeles Clippers', alias: ['clippers', 'la clippers'] },
+      { a: 'Los Angeles Lakers', alias: ['lakers', 'la lakers'] },
+      { a: 'Phoenix Suns', alias: ['suns', 'phoenix'] },
+      { a: 'Sacramento Kings', alias: ['kings', 'sacramento'] }
+    ]},
+    { name: 'Southwest', items: [
+      { a: 'Dallas Mavericks', alias: ['mavericks', 'dallas', 'mavs'] },
+      { a: 'Houston Rockets', alias: ['rockets', 'houston'] },
+      { a: 'Memphis Grizzlies', alias: ['grizzlies', 'memphis', 'grizz'] },
+      { a: 'New Orleans Pelicans', alias: ['pelicans', 'new orleans', 'pels', 'nola'] },
+      { a: 'San Antonio Spurs', alias: ['spurs', 'san antonio'] }
+    ]}
+  ]
+},
+
+{
+  // All 30 MLB teams by division, 2026 season. The Athletics have no city in their name (Sacramento 2025-27, Las Vegas planned).
+  slug: 'mlb-teams',
+  title: 'MLB Teams',
+  sub: 'Name all 30',
+  blurb: 'Every Major League Baseball team, grouped by division (2026 season). The team name or its city counts, unless two teams share the city.',
+  category: 'Sports',
+  tags: ['MLB', 'Baseball'],
+  match: 'full',
+  nope: {
+    indians: 'They\'re the Cleveland Guardians now.',
+    expos: 'The Expos moved and became the Washington Nationals.',
+    devilrays: 'They dropped the "Devil" and are the Tampa Bay Rays now.',
+    sox: 'Two teams are the Sox. Which one?',
+    newyork: 'Two teams play there. Which one?',
+    chicago: 'Two teams play there. Which one?',
+    losangeles: 'Two teams play there. Which one?'
+  },
+  mode: 'timed',
+  time: 360,
+  cols: 'two',
+  groups: [
+    { name: 'AL East', items: [
+      { a: 'Baltimore Orioles', alias: ['orioles', 'baltimore', 'os', 'o\'s'] },
+      { a: 'Boston Red Sox', alias: ['red sox', 'boston', 'redsox', 'bosox'] },
+      { a: 'New York Yankees', alias: ['yankees', 'yanks', 'ny yankees', 'bronx bombers'] },
+      { a: 'Tampa Bay Rays', alias: ['rays', 'tampa bay', 'tampa', 'tampa bay devil rays'] },
+      { a: 'Toronto Blue Jays', alias: ['blue jays', 'toronto', 'jays', 'bluejays'] }
+    ]},
+    { name: 'AL Central', items: [
+      { a: 'Chicago White Sox', alias: ['white sox', 'whitesox', 'chisox'] },
+      { a: 'Cleveland Guardians', alias: ['guardians', 'cleveland'] },
+      { a: 'Detroit Tigers', alias: ['tigers', 'detroit'] },
+      { a: 'Kansas City Royals', alias: ['royals', 'kansas city', 'kc', 'kc royals'] },
+      { a: 'Minnesota Twins', alias: ['twins', 'minnesota'] }
+    ]},
+    { name: 'AL West', items: [
+      { a: 'Athletics', alias: ['a\'s', 'as', 'oakland athletics', 'oakland a\'s', 'oakland as', 'oakland', 'sacramento athletics', 'sacramento', 'las vegas athletics', 'the a\'s'] },
+      { a: 'Houston Astros', alias: ['astros', 'houston'] },
+      { a: 'Los Angeles Angels', alias: ['angels', 'halos', 'anaheim angels', 'anaheim', 'la angels', 'los angeles angels of anaheim'] },
+      { a: 'Seattle Mariners', alias: ['mariners', 'seattle'] },
+      { a: 'Texas Rangers', alias: ['rangers', 'texas'] }
+    ]},
+    { name: 'NL East', items: [
+      { a: 'Atlanta Braves', alias: ['braves', 'atlanta'] },
+      { a: 'Miami Marlins', alias: ['marlins', 'miami'] },
+      { a: 'New York Mets', alias: ['mets', 'ny mets', 'amazins'] },
+      { a: 'Philadelphia Phillies', alias: ['phillies', 'philadelphia', 'phils', 'philly', 'fightin phils'] },
+      { a: 'Washington Nationals', alias: ['nationals', 'washington', 'nats', 'dc'] }
+    ]},
+    { name: 'NL Central', items: [
+      { a: 'Chicago Cubs', alias: ['cubs', 'cubbies'] },
+      { a: 'Cincinnati Reds', alias: ['reds', 'cincinnati'] },
+      { a: 'Milwaukee Brewers', alias: ['brewers', 'milwaukee', 'brew crew'] },
+      { a: 'Pittsburgh Pirates', alias: ['pirates', 'pittsburgh', 'bucs'] },
+      { a: 'St. Louis Cardinals', alias: ['cardinals', 'st. louis', 'saint louis cardinals', 'st louis cardinals', 'cards', 'stl', 'st louis', 'saint louis', 'redbirds'] }
+    ]},
+    { name: 'NL West', items: [
+      { a: 'Arizona Diamondbacks', alias: ['diamondbacks', 'arizona', 'dbacks', 'd-backs', 'd backs', 'snakes'] },
+      { a: 'Colorado Rockies', alias: ['rockies', 'colorado'] },
+      { a: 'Los Angeles Dodgers', alias: ['dodgers', 'la dodgers'] },
+      { a: 'San Diego Padres', alias: ['padres', 'san diego', 'friars'] },
+      { a: 'San Francisco Giants', alias: ['giants', 'san francisco', 'sf giants', 'sf'] }
+    ]}
+  ]
+},
+
+{
+  // All 32 NHL teams by division, 2026-27 season. Utah Hockey Club became the Utah Mammoth in 2025.
+  slug: 'nhl-teams',
+  title: 'NHL Teams',
+  sub: 'Name all 32',
+  blurb: 'Every NHL team, grouped by division (2026–27 season). The team name or its city counts, unless two teams share the city.',
+  category: 'Sports',
+  tags: ['NHL', 'Hockey'],
+  match: 'full',
+  nope: {
+    coyotes: 'The Coyotes left Arizona. That franchise is now the Utah Mammoth.',
+    arizonacoyotes: 'The Coyotes left Arizona. That franchise is now the Utah Mammoth.',
+    nordiques: 'The Nordiques became the Colorado Avalanche.',
+    whalers: 'The Whalers became the Carolina Hurricanes.',
+    thrashers: 'The Thrashers became the Winnipeg Jets.',
+    newyork: 'Two teams play there. Which one?'
+  },
+  mode: 'timed',
+  time: 360,
+  cols: 'two',
+  groups: [
+    { name: 'Atlantic', items: [
+      { a: 'Boston Bruins', alias: ['bruins', 'boston', 'bs', 'b\'s'] },
+      { a: 'Buffalo Sabres', alias: ['sabres', 'buffalo'] },
+      { a: 'Detroit Red Wings', alias: ['red wings', 'detroit', 'wings', 'redwings'] },
+      { a: 'Florida Panthers', alias: ['panthers', 'florida'] },
+      { a: 'Montreal Canadiens', alias: ['canadiens', 'montreal', 'habs', 'montreal canadians', 'canadians', 'montréal canadiens'] },
+      { a: 'Ottawa Senators', alias: ['senators', 'ottawa', 'sens'] },
+      { a: 'Tampa Bay Lightning', alias: ['lightning', 'tampa bay', 'bolts', 'tampa'] },
+      { a: 'Toronto Maple Leafs', alias: ['maple leafs', 'toronto', 'leafs', 'mapleleafs'] }
+    ]},
+    { name: 'Metropolitan', items: [
+      { a: 'Carolina Hurricanes', alias: ['hurricanes', 'carolina', 'canes'] },
+      { a: 'Columbus Blue Jackets', alias: ['blue jackets', 'columbus', 'jackets', 'cbj', 'bluejackets'] },
+      { a: 'New Jersey Devils', alias: ['devils', 'new jersey'] },
+      { a: 'New York Islanders', alias: ['islanders', 'isles', 'ny islanders'] },
+      { a: 'New York Rangers', alias: ['rangers', 'ny rangers', 'blueshirts'] },
+      { a: 'Philadelphia Flyers', alias: ['flyers', 'philadelphia', 'philly'] },
+      { a: 'Pittsburgh Penguins', alias: ['penguins', 'pittsburgh', 'pens'] },
+      { a: 'Washington Capitals', alias: ['capitals', 'washington', 'caps', 'dc'] }
+    ]},
+    { name: 'Central', items: [
+      { a: 'Chicago Blackhawks', alias: ['blackhawks', 'chicago', 'hawks', 'black hawks'] },
+      { a: 'Colorado Avalanche', alias: ['avalanche', 'colorado', 'avs'] },
+      { a: 'Dallas Stars', alias: ['stars', 'dallas'] },
+      { a: 'Minnesota Wild', alias: ['wild', 'minnesota'] },
+      { a: 'Nashville Predators', alias: ['predators', 'nashville', 'preds'] },
+      { a: 'St. Louis Blues', alias: ['blues', 'st. louis', 'saint louis blues', 'st louis blues', 'stl'] },
+      { a: 'Utah Mammoth', alias: ['mammoth', 'utah', 'utah hockey club', 'utah hc'] },
+      { a: 'Winnipeg Jets', alias: ['jets', 'winnipeg'] }
+    ]},
+    { name: 'Pacific', items: [
+      { a: 'Anaheim Ducks', alias: ['ducks', 'anaheim'] },
+      { a: 'Calgary Flames', alias: ['flames', 'calgary'] },
+      { a: 'Edmonton Oilers', alias: ['oilers', 'edmonton'] },
+      { a: 'Los Angeles Kings', alias: ['kings', 'los angeles', 'la kings'] },
+      { a: 'San Jose Sharks', alias: ['sharks', 'san jose'] },
+      { a: 'Seattle Kraken', alias: ['kraken', 'seattle'] },
+      { a: 'Vancouver Canucks', alias: ['canucks', 'vancouver'] },
+      { a: 'Vegas Golden Knights', alias: ['golden knights', 'vegas', 'las vegas golden knights', 'las vegas', 'knights', 'vgk'] }
+    ]}
+  ]
+},
+
+{
+  // Wikipedia "List of best-selling video games in the United States by year" (read 2026-11-26).
+  // 1998 on is Circana (formerly NPD) annual US unit/dollar charts; 1980-1997 are manufacturer and press figures cited there.
+  // Skipped: 1984, 1985 (no data on the list) and 1989 ("Unknown"). Space Invaders led 1980-81 and Donkey Kong Country 1994-95, one row each.
+  // Black Ops / Black Ops II etc: match full + explicit aliases so one Call of Duty never fills another.
+  slug: 'best-selling-video-game-by-year',
+  title: 'No. 1 Video Game Every Year',
+  sub: 'America\'s best-seller, 1980–2025',
+  blurb: 'The best-selling video game in the U.S. each year from 1980 to 2025 (Circana/NPD charts from 1998). The year and publisher are your clues. A few early years with no reliable figures are left out.',
+  category: 'Games',
+  tags: ['Video Games', 'All-Time'],
+  icon: '🕹️',
+  match: 'full',
+  nope: {
+    callofduty: 'Which Call of Duty? Add the subtitle.',
+    cod: 'Which Call of Duty? Add the subtitle.',
+    madden: 'Which Madden? Add the year.',
+    modernwarfare: 'Which Modern Warfare? There are three on the board.',
+    grandtheftauto: 'Which GTA? Add the subtitle or number.',
+    gta: 'Which GTA? Add the subtitle or number.',
+    fortnite: 'Fortnite is free to play, so it doesn\'t show up on sales charts.',
+    minecraft: 'Huge seller over time, but never the No. 1 game of a single year here.',
+    wiisports: 'Wii Sports came bundled with the console, so it doesn\'t count on the sales charts.',
+    tetris: 'Not a No. 1 for a year on this list.'
+  },
+  mode: 'timed',
+  time: 540,
+  cols: 'two',
+  groups: [
+    { name: '1980–1997', note: 'Before Circana', items: [
+      { a: 'Space Invaders', rk: '1980', hint: 'Atari · #1 in 1980 and 1981' },
+      { a: 'Pac-Man', rk: '1982', hint: 'Atari', alias: ['pacman', 'pac man'] },
+      { a: 'Ms. Pac-Man', rk: '1983', hint: 'Atari', alias: ['ms pacman', 'ms pac man', 'miss pac man', 'miss pacman', 'mrs pac man', 'mrs pacman'] },
+      { a: 'Super Mario Bros.', rk: '1986', hint: 'Nintendo · NES', alias: ['super mario brothers', 'super mario bros'] },
+      { a: 'The Legend of Zelda', rk: '1987', hint: 'Nintendo · NES', alias: ['zelda', 'legend of zelda'] },
+      { a: 'Super Mario Bros. / Duck Hunt', rk: '1988', hint: 'Nintendo · NES', alias: ['duck hunt', 'super mario bros duck hunt', 'mario duck hunt', 'super mario brothers duck hunt'] },
+      { a: 'Super Mario Bros. 3', rk: '1990', hint: 'Nintendo · NES', alias: ['super mario brothers 3', 'mario 3', 'smb3', 'super mario 3'] },
+      { a: 'Sonic the Hedgehog', rk: '1991', hint: 'Sega · Genesis', alias: ['sonic'] },
+      { a: 'Sonic the Hedgehog 2', rk: '1992', hint: 'Sega · Genesis', alias: ['sonic 2'] },
+      { a: 'Mortal Kombat', rk: '1993', hint: 'Acclaim', alias: ['mortal combat'] },
+      { a: 'Donkey Kong Country', rk: '1994', hint: 'Nintendo · #1 in 1994 and 1995', alias: ['dkc'] },
+      { a: 'Super Mario 64', rk: '1996', hint: 'Nintendo · N64', alias: ['mario 64', 'sm64'] },
+      { a: 'Mario Kart 64', rk: '1997', hint: 'Nintendo · N64', alias: ['mk64'] }
+    ]},
+    { name: '1998–2025', note: 'Circana / NPD', items: [
+      { a: 'The Legend of Zelda: Ocarina of Time', rk: '1998', hint: 'Nintendo', alias: ['ocarina of time', 'zelda ocarina of time', 'ocarina'] },
+      { a: 'Donkey Kong 64', rk: '1999', hint: 'Nintendo', alias: ['dk64', 'dk 64'] },
+      { a: 'Pokémon Gold and Silver', rk: '2000', hint: 'Nintendo', alias: ['pokemon gold', 'pokemon silver', 'pokemon gold silver', 'pokemon gold and silver', 'pokemon gold/silver', 'gold and silver'] },
+      { a: 'Madden NFL 2002', rk: '2001', hint: 'Electronic Arts', alias: ['madden 2002', 'madden 02', 'madden nfl 02'] },
+      { a: 'Grand Theft Auto: Vice City', rk: '2002', hint: 'Rockstar Games', alias: ['gta vice city', 'vice city', 'gta vc'] },
+      { a: 'Madden NFL 2004', rk: '2003', hint: 'Electronic Arts', alias: ['madden 2004', 'madden 04', 'madden nfl 04'] },
+      { a: 'Grand Theft Auto: San Andreas', rk: '2004', hint: 'Rockstar Games', alias: ['gta san andreas', 'san andreas', 'gta sa'] },
+      { a: 'Madden NFL 06', rk: '2005', hint: 'Electronic Arts', alias: ['madden 06', 'madden 2006', 'madden nfl 2006'] },
+      { a: 'Madden NFL 07', rk: '2006', hint: 'Electronic Arts', alias: ['madden 07', 'madden 2007', 'madden nfl 2007'] },
+      { a: 'Halo 3', rk: '2007', hint: 'Microsoft' },
+      { a: 'Wii Play', rk: '2008', hint: 'Nintendo' },
+      { a: 'Call of Duty: Modern Warfare 2', rk: '2009', hint: 'Activision', alias: ['modern warfare 2', 'mw2', 'cod mw2', 'cod modern warfare 2'] },
+      { a: 'Call of Duty: Black Ops', rk: '2010', hint: 'Activision', alias: ['black ops', 'cod black ops', 'black ops 1', 'bo1', 'call of duty black ops 1'] },
+      { a: 'Call of Duty: Modern Warfare 3', rk: '2011', hint: 'Activision', alias: ['modern warfare 3', 'mw3', 'cod mw3', 'call of duty modern warfare iii'] },
+      { a: 'Call of Duty: Black Ops II', rk: '2012', hint: 'Activision', alias: ['black ops 2', 'black ops ii', 'bo2', 'call of duty black ops 2', 'cod black ops 2'] },
+      { a: 'Grand Theft Auto V', rk: '2013', hint: 'Rockstar Games', alias: ['gta 5', 'gta v', 'gta5', 'grand theft auto 5', 'gtav'] },
+      { a: 'Call of Duty: Advanced Warfare', rk: '2014', hint: 'Activision', alias: ['advanced warfare', 'cod advanced warfare', 'cod aw'] },
+      { a: 'Call of Duty: Black Ops III', rk: '2015', hint: 'Activision', alias: ['black ops 3', 'black ops iii', 'bo3', 'call of duty black ops 3', 'cod black ops 3'] },
+      { a: 'Call of Duty: Infinite Warfare', rk: '2016', hint: 'Activision', alias: ['infinite warfare', 'cod infinite warfare', 'cod iw'] },
+      { a: 'Call of Duty: WWII', rk: '2017', hint: 'Activision', alias: ['ww2', 'wwii', 'call of duty ww2', 'cod ww2', 'cod wwii', 'call of duty world war 2', 'call of duty world war ii'] },
+      { a: 'Red Dead Redemption 2', rk: '2018', hint: 'Rockstar Games', alias: ['rdr2', 'red dead 2', 'red dead redemption ii'] },
+      { a: 'Call of Duty: Modern Warfare', rk: '2019', hint: 'Activision', alias: ['modern warfare 2019', 'cod modern warfare 2019', 'call of duty modern warfare 2019', 'mw 2019', 'mw2019'] },
+      { a: 'Call of Duty: Black Ops Cold War', rk: '2020', hint: 'Activision', alias: ['black ops cold war', 'cold war', 'cod cold war', 'call of duty cold war'] },
+      { a: 'Call of Duty: Vanguard', rk: '2021', hint: 'Activision', alias: ['vanguard', 'cod vanguard'] },
+      { a: 'Call of Duty: Modern Warfare II', rk: '2022', hint: 'Activision', alias: ['modern warfare ii', 'mwii', 'mw2 2022', 'modern warfare 2 2022', 'call of duty modern warfare 2 2022', 'cod mwii'] },
+      { a: 'Hogwarts Legacy', rk: '2023', hint: 'Warner Bros. Games' },
+      { a: 'Call of Duty: Black Ops 6', rk: '2024', hint: 'Activision', alias: ['black ops 6', 'bo6', 'cod black ops 6', 'call of duty black ops six'] },
+      { a: 'Battlefield 6', rk: '2025', hint: 'Electronic Arts', alias: ['bf6', 'battlefield six'] }
+    ]}
+  ]
+},
+
+{
+  // The six friends plus characters who came back across several episodes. First names count (match full + aliases, so "Geller" does not fill the whole family).
+  slug: 'friends-cast',
+  title: 'Friends Characters',
+  sub: 'The six, plus the regulars',
+  blurb: 'The six friends and the people who kept coming back to Central Perk: family, exes, neighbors and coworkers. First names count. Who they are is your clue.',
+  category: 'TV',
+  tags: ['Sitcoms'],
+  icon: '☕',
+  match: 'full',
+  mode: 'timed',
+  time: 540,
+  cols: 'two',
+  groups: [
+    { name: 'The six', note: '6', items: [
+      { a: 'Rachel Green', hint: 'Waitress turned fashion exec', alias: ['rachel', 'rach'] },
+      { a: 'Monica Geller', hint: 'Chef, the neat freak', alias: ['monica', 'mon', 'monica bing', 'monica geller bing'] },
+      { a: 'Phoebe Buffay', hint: 'Masseuse, sings "Smelly Cat"', alias: ['phoebe', 'pheebs', 'phoebe buffay hannigan', 'regina phalange'] },
+      { a: 'Joey Tribbiani', hint: 'Actor, plays Dr. Drake Ramoray', alias: ['joey', 'tribbiani', 'tribiani', 'joey tribiani'] },
+      { a: 'Chandler Bing', hint: 'Statistical analysis and data reconfiguration', alias: ['chandler', 'bing'] },
+      { a: 'Ross Geller', hint: 'Paleontologist, "We were on a break!"', alias: ['ross'] }
+    ]},
+    { name: 'Family', items: [
+      { a: 'Jack Geller', hint: 'Ross and Monica\'s dad', alias: ['jack', 'mr geller'] },
+      { a: 'Judy Geller', hint: 'Ross and Monica\'s mom', alias: ['judy', 'mrs geller'] },
+      { a: 'Ben Geller', hint: 'Ross and Carol\'s son', alias: ['ben'] },
+      { a: 'Ursula Buffay', hint: 'Phoebe\'s twin, works at Riff\'s', alias: ['ursula'] },
+      { a: 'Frank Buffay Jr.', hint: 'Phoebe\'s half-brother, father of triplets', alias: ['frank jr', 'frank buffay', 'frank'] },
+      { a: 'Alice Knight', hint: 'Frank Jr.\'s wife, his former teacher', alias: ['alice'] },
+      { a: 'Sandra Green', hint: 'Rachel\'s mom', alias: ['sandra', 'mrs green'] },
+      { a: 'Leonard Green', hint: 'Rachel\'s dad, a doctor', alias: ['leonard', 'dr green', 'mr green'] },
+      { a: 'Jill Green', hint: 'Rachel\'s spoiled little sister', alias: ['jill'] },
+      { a: 'Amy Green', hint: 'Rachel\'s other sister', alias: ['amy'] },
+      { a: 'Charles Bing', hint: 'Chandler\'s dad, headlines a Vegas show', alias: ['charles', 'helena handbasket'] },
+      { a: 'Nora Tyler Bing', hint: 'Chandler\'s mom, an erotic novelist', alias: ['nora', 'nora bing'] }
+    ]},
+    { name: 'Partners and exes', items: [
+      { a: 'Janice Litman', hint: '"Oh. My. God."', alias: ['janice', 'janice hosenstein', 'janice litman goralnik', 'janice goralnik'] },
+      { a: 'Mike Hannigan', hint: 'Pianist, marries Phoebe', alias: ['mike', 'crap bag'] },
+      { a: 'Richard Burke', hint: 'Ophthalmologist, dates Monica', alias: ['richard', 'dr burke'] },
+      { a: 'Emily Waltham', hint: 'Ross says the wrong name at their wedding', alias: ['emily'] },
+      { a: 'Carol Willick', hint: 'Ross\'s first wife', alias: ['carol'] },
+      { a: 'Susan Bunch', hint: 'Carol\'s wife', alias: ['susan'] },
+      { a: 'Paolo', hint: 'Rachel\'s Italian boyfriend' },
+      { a: 'Julie', hint: 'Ross\'s girlfriend from China' },
+      { a: 'Kathy', hint: 'Joey\'s girlfriend who dates Chandler', alias: ['cathy'] },
+      { a: 'Charlie Wheeler', hint: 'Paleontologist who dates Joey, then Ross', alias: ['charlie'] },
+      { a: 'David', hint: 'Phoebe\'s scientist boyfriend, goes to Minsk', alias: ['scientist david'] },
+      { a: 'Janine Lacroix', hint: 'Joey\'s dancer roommate', alias: ['janine', 'janine la croix'] },
+      { a: 'Tag Jones', hint: 'Rachel\'s young assistant', alias: ['tag'] },
+      { a: 'Pete Becker', hint: 'Millionaire who wants to be a fighter', alias: ['pete'] },
+      { a: 'Joshua Burgin', hint: 'Rachel\'s Bloomingdale\'s customer crush', alias: ['joshua'] },
+      { a: 'Barry Farber', hint: 'Orthodontist Rachel leaves at the altar', alias: ['barry'] },
+      { a: 'Mona', hint: 'Ross\'s girlfriend, met at Monica and Chandler\'s wedding' },
+      { a: 'Elizabeth Stevens', hint: 'Ross\'s student girlfriend', alias: ['elizabeth'] },
+      { a: 'Paul Stevens', hint: 'Elizabeth\'s dad (Bruce Willis)', alias: ['paul', 'mr stevens'] }
+    ]},
+    { name: 'Around the building', items: [
+      { a: 'Gunther', hint: 'Central Perk manager, loves Rachel' },
+      { a: 'Mr. Heckles', hint: 'Grumpy downstairs neighbor', alias: ['heckles', 'mr heckles'] },
+      { a: 'Mr. Treeger', hint: 'The building super', alias: ['treeger', 'mr treeger'] },
+      { a: 'Eddie Menuek', hint: 'Chandler\'s creepy roommate', alias: ['eddie'] },
+      { a: 'Ugly Naked Guy', hint: 'Across the street, never shown up close', alias: ['naked guy'] },
+      { a: 'Estelle Leonard', hint: 'Joey\'s agent', alias: ['estelle'] },
+      { a: 'Marcel', hint: 'Ross\'s monkey', alias: ['marcel the monkey'] }
+    ]}
+  ]
+},
+
+{
+  // The four leads plus recurring characters (multiple episodes). match full + aliases: "Costanza" alone is George, not Frank/Estelle.
+  slug: 'seinfeld-cast',
+  title: 'Seinfeld Characters',
+  sub: 'The four, plus the regulars',
+  blurb: 'Jerry, George, Elaine and Kramer, plus the recurring characters around them. Last names and first names both count where they\'re how people know them. Who they are is your clue.',
+  category: 'TV',
+  tags: ['Sitcoms'],
+  icon: '🥨',
+  match: 'full',
+  nope: {
+    bobsacamano: 'Kramer talks about him constantly, but he\'s never on screen.',
+    sacamano: 'Kramer talks about him constantly, but he\'s never on screen.',
+    lomez: 'Never on screen!',
+    vandelay: 'Art Vandelay is made up! George invents him.',
+    artvandelay: 'Art Vandelay is made up! George invents him.'
+  },
+  mode: 'timed',
+  time: 420,
+  cols: 'two',
+  groups: [
+    { name: 'The four', note: '4', items: [
+      { a: 'Jerry Seinfeld', hint: 'Stand-up comedian', alias: ['jerry', 'seinfeld'] },
+      { a: 'George Costanza', hint: 'Jerry\'s best friend, works for the Yankees', alias: ['george', 'costanza', 'koko', 'gammy', 'biff'] },
+      { a: 'Elaine Benes', hint: 'Jerry\'s ex, works for Peterman', alias: ['elaine', 'benes', 'elaine bennis', 'elaine benis'] },
+      { a: 'Cosmo Kramer', hint: 'Jerry\'s neighbor across the hall', alias: ['kramer', 'cosmo', 'k-man', 'kramerica'] }
+    ]},
+    { name: 'Family', items: [
+      { a: 'Frank Costanza', hint: 'Serenity now! Invented Festivus', alias: ['frank'] },
+      { a: 'Estelle Costanza', hint: 'George\'s mother', alias: ['estelle'] },
+      { a: 'Morty Seinfeld', hint: 'Jerry\'s dad, invented the beltless trench coat', alias: ['morty'] },
+      { a: 'Helen Seinfeld', hint: 'Jerry\'s mom: "How could anyone not like him?"', alias: ['helen'] },
+      { a: 'Uncle Leo', hint: '"Hello!" Jerry\'s uncle', alias: ['leo'] }
+    ]},
+    { name: 'Work and bosses', items: [
+      { a: 'J. Peterman', hint: 'Catalog king, Elaine\'s boss', alias: ['peterman', 'j peterman', 'jacopo peterman', 'john peterman'] },
+      { a: 'George Steinbrenner', hint: 'George\'s boss with the Yankees', alias: ['steinbrenner', 'mr steinbrenner'] },
+      { a: 'Mr. Lippman', hint: 'Elaine\'s boss at Pendant Publishing', alias: ['lippman', 'mr lippman'] },
+      { a: 'Mr. Pitt', hint: 'Elaine\'s boss, eats Snickers with a fork', alias: ['pitt', 'justin pitt', 'mr pitt'] },
+      { a: 'Mr. Wilhelm', hint: 'George\'s supervisor at the Yankees', alias: ['wilhelm', 'mr wilhelm'] },
+      { a: 'Mr. Kruger', hint: 'George\'s boss at Kruger Industrial Smoothing', alias: ['kruger', 'mr kruger'] },
+      { a: 'Russell Dalrymple', hint: 'NBC president, falls for Elaine', alias: ['dalrymple', 'russell'] }
+    ]},
+    { name: 'Around the city', items: [
+      { a: 'Newman', hint: '"Hello, Newman." The mailman' },
+      { a: 'David Puddy', hint: 'Elaine\'s on-and-off boyfriend, face painter', alias: ['puddy'] },
+      { a: 'Susan Ross', hint: 'George\'s fiancée (the envelopes)', alias: ['susan', 'susan biddle ross'] },
+      { a: 'Jackie Chiles', hint: 'Lawyer: "outrageous, egregious, preposterous"', alias: ['jackie', 'chiles'] },
+      { a: 'The Soup Nazi', hint: '"No soup for you!"', alias: ['soup nazi', 'yev kassem'] },
+      { a: 'Kenny Bania', hint: 'Hack comic who loves Jerry', alias: ['bania', 'kenny', 'banya'] },
+      { a: 'Jack Klompus', hint: 'Morty\'s condo rival in Florida', alias: ['klompus', 'jack'] },
+      { a: 'Babu Bhatt', hint: '"You are a very, very bad man!"', alias: ['babu'] },
+      { a: 'Tim Whatley', hint: 'Dentist, re-gifter', alias: ['whatley', 'dr whatley'] },
+      { a: 'Mickey Abbott', hint: 'Kramer\'s friend and fellow stand-in actor', alias: ['mickey'] },
+      { a: 'Sue Ellen Mischke', hint: 'The bra-less oh! Henry heiress', alias: ['sue ellen', 'mischke'] },
+      { a: 'Lloyd Braun', hint: 'George\'s childhood rival', alias: ['braun', 'lloyd'] },
+      { a: 'Crazy Joe Davola', hint: 'Unstable writer who stalks Jerry', alias: ['joe davola', 'davola', 'crazy joe'] },
+      { a: 'Keith Hernandez', hint: 'Mets star (playing himself), the magic loogie', alias: ['hernandez', 'keith'] }
+    ]}
+  ]
+},
+
+{
+  // UN M49 "Europe" region: 43 UN member states plus the Holy See (observer) = 44. Grouped by M49 subregion.
+  // Cyprus, Turkey, Georgia, Armenia, Azerbaijan are Western Asia in M49 (they are on the Asia quiz); Kazakhstan is Central Asia; Kosovo is not a UN member.
+  slug: 'europe-countries',
+  title: 'Countries of Europe',
+  sub: 'Name all 44',
+  blurb: 'All 44 countries of Europe as the UN groups them, including Vatican City. Grouped by region, A to Z.',
+  category: 'Geography',
+  tags: ['World'],
+  match: 'full',
+  nope: {
+    turkey: 'The UN groups Turkey with Western Asia. It\'s on the Asia quiz.',
+    turkiye: 'The UN groups Turkey with Western Asia. It\'s on the Asia quiz.',
+    cyprus: 'The UN groups Cyprus with Western Asia, even though it\'s in the EU. It\'s on the Asia quiz.',
+    georgia: 'The UN groups Georgia with Western Asia. It\'s on the Asia quiz.',
+    armenia: 'The UN groups Armenia with Western Asia. It\'s on the Asia quiz.',
+    azerbaijan: 'The UN groups Azerbaijan with Western Asia. It\'s on the Asia quiz.',
+    kazakhstan: 'The UN groups Kazakhstan with Central Asia. It\'s on the Asia quiz.',
+    kosovo: 'Kosovo isn\'t a UN member, so it isn\'t on this board.',
+    england: 'Part of the United Kingdom.',
+    scotland: 'Part of the United Kingdom.',
+    wales: 'Part of the United Kingdom.',
+    northernireland: 'Part of the United Kingdom.',
+    greatbritain: 'Try the country\'s full name.',
+    greenland: 'Part of the Kingdom of Denmark.',
+    gibraltar: 'A British territory.',
+    faroeislands: 'Part of the Kingdom of Denmark.',
+    yugoslavia: 'Broke up in the 1990s.',
+    czechoslovakia: 'Split into two countries in 1993.',
+    ussr: 'Broke up in 1991.',
+    sovietunion: 'Broke up in 1991.'
+  },
+  mode: 'timed',
+  time: 540,
+  cols: 'two',
+  groups: [
+    { name: 'Eastern Europe', note: '10', items: [
+      { a: 'Belarus' },
+      { a: 'Bulgaria' },
+      { a: 'Czechia', alias: ['czech republic'] },
+      { a: 'Hungary' },
+      { a: 'Moldova' },
+      { a: 'Poland' },
+      { a: 'Romania', alias: ['rumania'] },
+      { a: 'Russia', alias: ['russian federation'] },
+      { a: 'Slovakia' },
+      { a: 'Ukraine', alias: ['the ukraine'] }
+    ]},
+    { name: 'Northern Europe', note: '10', items: [
+      { a: 'Denmark' },
+      { a: 'Estonia' },
+      { a: 'Finland' },
+      { a: 'Iceland' },
+      { a: 'Ireland', alias: ['republic of ireland', 'eire'] },
+      { a: 'Latvia' },
+      { a: 'Lithuania' },
+      { a: 'Norway' },
+      { a: 'Sweden' },
+      { a: 'United Kingdom', alias: ['uk', 'u k', 'britain', 'great britain'] }
+    ]},
+    { name: 'Southern Europe', note: '15', items: [
+      { a: 'Albania' },
+      { a: 'Andorra' },
+      { a: 'Bosnia and Herzegovina', alias: ['bosnia', 'bosnia herzegovina', 'bosnia & herzegovina'] },
+      { a: 'Croatia' },
+      { a: 'Greece' },
+      { a: 'Italy' },
+      { a: 'Malta' },
+      { a: 'Montenegro' },
+      { a: 'North Macedonia', alias: ['macedonia'] },
+      { a: 'Portugal' },
+      { a: 'San Marino' },
+      { a: 'Serbia' },
+      { a: 'Slovenia' },
+      { a: 'Spain' },
+      { a: 'Vatican City', alias: ['vatican', 'holy see', 'the vatican', 'vatican city state'] }
+    ]},
+    { name: 'Western Europe', note: '9', items: [
+      { a: 'Austria' },
+      { a: 'Belgium' },
+      { a: 'France' },
+      { a: 'Germany' },
+      { a: 'Liechtenstein', alias: ['lichtenstein', 'liechenstein'] },
+      { a: 'Luxembourg', alias: ['luxemburg', 'luxembourgh'] },
+      { a: 'Monaco' },
+      { a: 'Netherlands', alias: ['the netherlands', 'holland'] },
+      { a: 'Switzerland' }
+    ]}
+  ]
+},
+
+{
+  // UN M49 "Asia" region: 47 UN member states plus the State of Palestine (observer) = 48. Grouped by M49 subregion.
+  // Russia is Eastern Europe in M49 (on the Europe quiz). Taiwan, Hong Kong, Macau are not separate UN members/observers.
+  slug: 'asia-countries',
+  title: 'Countries of Asia',
+  sub: 'Name all 48',
+  blurb: 'All 48 countries of Asia as the UN groups them, from Turkey and Cyprus in the west to Japan in the east. Grouped by region, A to Z.',
+  category: 'Geography',
+  tags: ['World'],
+  match: 'full',
+  nope: {
+    russia: 'The UN groups Russia with Europe. It\'s on the Europe quiz.',
+    taiwan: 'Taiwan isn\'t a UN member or observer state, so it isn\'t on this board.',
+    hongkong: 'Part of China.',
+    macau: 'Part of China.',
+    macao: 'Part of China.',
+    tibet: 'Part of China.',
+    egypt: 'The UN groups Egypt with Africa.',
+    burma: 'It\'s called Myanmar now.',
+    ceylon: 'It\'s called Sri Lanka now.',
+    siam: 'It\'s called Thailand now.',
+    persia: 'It\'s called Iran now.',
+    kurdistan: 'Not a country.',
+    australia: 'That\'s its own continent!'
+  },
+  mode: 'timed',
+  time: 600,
+  cols: 'two',
+  groups: [
+    { name: 'Central Asia', note: '5', items: [
+      { a: 'Kazakhstan' },
+      { a: 'Kyrgyzstan', alias: ['kyrgyz republic', 'kirgizstan'] },
+      { a: 'Tajikistan' },
+      { a: 'Turkmenistan' },
+      { a: 'Uzbekistan' }
+    ]},
+    { name: 'East Asia', note: '5', items: [
+      { a: 'China', alias: ['peoples republic of china', 'prc'] },
+      { a: 'Japan' },
+      { a: 'Mongolia' },
+      { a: 'North Korea', alias: ['dprk', 'n korea'] },
+      { a: 'South Korea', alias: ['korea', 's korea', 'republic of korea'] }
+    ]},
+    { name: 'Southeast Asia', note: '11', items: [
+      { a: 'Brunei' },
+      { a: 'Cambodia' },
+      { a: 'Indonesia' },
+      { a: 'Laos' },
+      { a: 'Malaysia' },
+      { a: 'Myanmar' },
+      { a: 'Philippines', alias: ['phillipines', 'philipines', 'the philippines'] },
+      { a: 'Singapore' },
+      { a: 'Thailand' },
+      { a: 'Timor-Leste', alias: ['east timor', 'timor leste', 'timor'] },
+      { a: 'Vietnam', alias: ['viet nam'] }
+    ]},
+    { name: 'South Asia', note: '9', items: [
+      { a: 'Afghanistan' },
+      { a: 'Bangladesh' },
+      { a: 'Bhutan' },
+      { a: 'India' },
+      { a: 'Iran' },
+      { a: 'Maldives', alias: ['the maldives'] },
+      { a: 'Nepal' },
+      { a: 'Pakistan' },
+      { a: 'Sri Lanka' }
+    ]},
+    { name: 'Western Asia', note: '18', items: [
+      { a: 'Armenia' },
+      { a: 'Azerbaijan' },
+      { a: 'Bahrain' },
+      { a: 'Cyprus' },
+      { a: 'Georgia' },
+      { a: 'Iraq' },
+      { a: 'Israel' },
+      { a: 'Jordan' },
+      { a: 'Kuwait' },
+      { a: 'Lebanon' },
+      { a: 'Oman' },
+      { a: 'Palestine', alias: ['state of palestine'] },
+      { a: 'Qatar' },
+      { a: 'Saudi Arabia', alias: ['saudi'] },
+      { a: 'Syria' },
+      { a: 'Turkey', alias: ['turkiye'] },
+      { a: 'United Arab Emirates', alias: ['uae', 'u a e', 'emirates'] },
+      { a: 'Yemen' }
+    ]}
+  ]
+},
+
+{
+  // US Census Bureau Vintage 2025 city population estimates (July 1, 2025), per Wikipedia "List of United States cities by population" (read 2026-11-26).
+  slug: 'largest-us-cities-top10',
+  title: 'Largest U.S. Cities: Top 10',
+  sub: 'By population, 2025',
+  blurb: 'The 10 biggest U.S. cities by population within city limits, from the Census Bureau\'s July 2025 estimates. Metro areas don\'t count. Population is your clue.',
+  category: 'Geography',
+  tags: ['US States'],
+  icon: '🏙️',
+  match: 'full',
+  nope: {
+    jacksonville: 'Big, but not in the top 10.',
+    austin: 'Big, but not in the top 10.',
+    sanjose: 'Big, but not in the top 10.',
+    charlotte: 'Big, but not in the top 10.',
+    columbus: 'Big, but not in the top 10.',
+    indianapolis: 'Big, but not in the top 10.',
+    sanfrancisco: 'Big, but not in the top 10.',
+    seattle: 'Big, but not in the top 10.',
+    denver: 'Big, but not in the top 10.',
+    nashville: 'Big, but not in the top 10.',
+    oklahomacity: 'Big, but not in the top 10.',
+    washington: 'Big, but not in the top 10.',
+    elpaso: 'Big, but not in the top 10.',
+    lasvegas: 'Big, but not in the top 10.',
+    boston: 'Big, but not in the top 10.',
+    detroit: 'Big, but not in the top 10.',
+    louisville: 'Big, but not in the top 10.',
+    portland: 'Big, but not in the top 10.',
+    memphis: 'Big, but not in the top 10.',
+    baltimore: 'Big, but not in the top 10.',
+    milwaukee: 'Not in the top 10.',
+    albuquerque: 'Not in the top 10.',
+    tucson: 'Not in the top 10.',
+    miami: 'Miami\'s metro is huge, but the city itself isn\'t in the top 10.',
+    atlanta: 'Atlanta\'s metro is huge, but the city itself isn\'t in the top 10.'
+  },
+  mode: 'timed',
+  time: 150,
+  cols: 'single',
+  groups: [
+    { name: 'Top 10', note: 'July 2025 estimates', items: [
+      { a: 'New York', rk: '1', hint: '8,584,629', alias: ['new york city', 'nyc', 'ny', 'new york ny'] },
+      { a: 'Los Angeles', rk: '2', hint: '3,869,089', alias: ['la', 'l a'] },
+      { a: 'Chicago', rk: '3', hint: '2,731,585' },
+      { a: 'Houston', rk: '4', hint: '2,397,315' },
+      { a: 'Phoenix', rk: '5', hint: '1,665,481' },
+      { a: 'Philadelphia', rk: '6', hint: '1,574,281', alias: ['philly'] },
+      { a: 'San Antonio', rk: '7', hint: '1,548,422' },
+      { a: 'San Diego', rk: '8', hint: '1,406,106' },
+      { a: 'Dallas', rk: '9', hint: '1,329,491' },
+      { a: 'Fort Worth', rk: '10', hint: '1,028,117', alias: ['ft worth', 'ft. worth'] }
+    ]}
+  ]
+},
+
+{
+  // US Census Bureau Vintage 2025 city population estimates (July 1, 2025), per Wikipedia "List of United States cities by population" (read 2026-11-26).
+  slug: 'largest-us-cities-top30',
+  title: 'Largest U.S. Cities: Top 30',
+  sub: 'By population, 2025',
+  blurb: 'The 30 biggest U.S. cities by population within city limits, from the Census Bureau\'s July 2025 estimates. Metro areas don\'t count. Population is your clue.',
+  category: 'Geography',
+  tags: ['US States'],
+  icon: '🏙️',
+  match: 'full',
+  nope: {
+    milwaukee: 'Close! Just outside the top 30.',
+    albuquerque: 'Not in the top 30.',
+    tucson: 'Not in the top 30.',
+    miami: 'Miami\'s metro is huge, but the city itself isn\'t in the top 30.',
+    atlanta: 'Atlanta\'s metro is huge, but the city itself isn\'t in the top 30.'
+  },
+  mode: 'timed',
+  time: 420,
+  cols: 'two',
+  groups: [
+    { name: 'Top 30', note: 'July 2025 estimates', items: [
+      { a: 'New York', rk: '1', hint: '8,584,629', alias: ['new york city', 'nyc', 'ny', 'new york ny'] },
+      { a: 'Los Angeles', rk: '2', hint: '3,869,089', alias: ['la', 'l a'] },
+      { a: 'Chicago', rk: '3', hint: '2,731,585' },
+      { a: 'Houston', rk: '4', hint: '2,397,315' },
+      { a: 'Phoenix', rk: '5', hint: '1,665,481' },
+      { a: 'Philadelphia', rk: '6', hint: '1,574,281', alias: ['philly'] },
+      { a: 'San Antonio', rk: '7', hint: '1,548,422' },
+      { a: 'San Diego', rk: '8', hint: '1,406,106' },
+      { a: 'Dallas', rk: '9', hint: '1,329,491' },
+      { a: 'Fort Worth', rk: '10', hint: '1,028,117', alias: ['ft worth', 'ft. worth'] },
+      { a: 'Jacksonville', rk: '11', hint: '1,017,689' },
+      { a: 'Austin', rk: '12', hint: '1,002,632' },
+      { a: 'San Jose', rk: '13', hint: '989,814' },
+      { a: 'Charlotte', rk: '14', hint: '964,784' },
+      { a: 'Columbus', rk: '15', hint: '938,396' },
+      { a: 'Indianapolis', rk: '16', hint: '901,116', alias: ['indy'] },
+      { a: 'San Francisco', rk: '17', hint: '826,079', alias: ['sf', 'san fran'] },
+      { a: 'Seattle', rk: '18', hint: '784,777' },
+      { a: 'Denver', rk: '19', hint: '740,613' },
+      { a: 'Nashville', rk: '20', hint: '721,074' },
+      { a: 'Oklahoma City', rk: '21', hint: '719,849', alias: ['okc'] },
+      { a: 'Washington', rk: '22', hint: '693,645', alias: ['washington dc', 'dc', 'd c', 'washington d c'] },
+      { a: 'El Paso', rk: '23', hint: '683,012' },
+      { a: 'Las Vegas', rk: '24', hint: '679,817', alias: ['vegas'] },
+      { a: 'Boston', rk: '25', hint: '672,973' },
+      { a: 'Detroit', rk: '26', hint: '649,095' },
+      { a: 'Louisville', rk: '27', hint: '641,962' },
+      { a: 'Portland', rk: '28', hint: '635,109', alias: ['portland oregon'] },
+      { a: 'Memphis', rk: '29', hint: '609,647' },
+      { a: 'Baltimore', rk: '30', hint: '569,997' }
+    ]}
+  ]
+},
+
+{
+  // Elements 1-20 in atomic-number order (IUPAC). US spellings shown; British spellings accepted.
+  slug: 'periodic-table-first-20',
+  title: 'Periodic Table: First 20',
+  sub: 'Hydrogen to calcium',
+  blurb: 'Name the first 20 elements of the periodic table. The atomic number and chemical symbol are your clues.',
+  category: 'Science',
+  tags: ['Chemistry'],
+  icon: '⚗️',
+  match: 'full',
+  nope: {
+    iron: 'Iron is number 26.',
+    copper: 'Copper is number 29.',
+    gold: 'Gold is number 79.',
+    silver: 'Silver is number 47.',
+    zinc: 'Zinc is number 30.',
+    titanium: 'Titanium is number 22.',
+    scandium: 'So close! Scandium is number 21.',
+    lead: 'Lead is number 82.',
+    mercury: 'Mercury is number 80.',
+    iodine: 'Iodine is number 53.',
+    uranium: 'Uranium is number 92.',
+    tin: 'Tin is number 50.',
+    water: 'Water is a compound, not an element.'
+  },
+  mode: 'timed',
+  time: 240,
+  cols: 'two',
+  groups: [
+    { name: '1–10', items: [
+      { a: 'Hydrogen', rk: '1', hint: 'H' },
+      { a: 'Helium', rk: '2', hint: 'He' },
+      { a: 'Lithium', rk: '3', hint: 'Li' },
+      { a: 'Beryllium', rk: '4', hint: 'Be', alias: ['berylium'] },
+      { a: 'Boron', rk: '5', hint: 'B' },
+      { a: 'Carbon', rk: '6', hint: 'C' },
+      { a: 'Nitrogen', rk: '7', hint: 'N' },
+      { a: 'Oxygen', rk: '8', hint: 'O' },
+      { a: 'Fluorine', rk: '9', hint: 'F', alias: ['flourine', 'fluorene'] },
+      { a: 'Neon', rk: '10', hint: 'Ne' }
+    ]},
+    { name: '11–20', items: [
+      { a: 'Sodium', rk: '11', hint: 'Na' },
+      { a: 'Magnesium', rk: '12', hint: 'Mg' },
+      { a: 'Aluminum', rk: '13', hint: 'Al', alias: ['aluminium'] },
+      { a: 'Silicon', rk: '14', hint: 'Si' },
+      { a: 'Phosphorus', rk: '15', hint: 'P', alias: ['phosphorous', 'phosphoros'] },
+      { a: 'Sulfur', rk: '16', hint: 'S', alias: ['sulphur'] },
+      { a: 'Chlorine', rk: '17', hint: 'Cl' },
+      { a: 'Argon', rk: '18', hint: 'Ar' },
+      { a: 'Potassium', rk: '19', hint: 'K' },
+      { a: 'Calcium', rk: '20', hint: 'Ca' }
+    ]}
+  ]
+},
+
+{
+  // Cereal named from its mascot (brand mascots, classic and current). Monster-cereal hints describe the character so the name is not given away.
+  slug: 'cereal-mascots',
+  title: 'Name the Cereal by Its Mascot',
+  sub: 'From Tony the Tiger to Toucan Sam',
+  blurb: 'The mascot is your clue. Name the breakfast cereal it sells.',
+  category: 'Food & Drink',
+  tags: ['Cereal', 'Throwback'],
+  icon: '🥣',
+  match: 'full',
+  nope: {
+    cheerios: 'Close, but which Cheerios? Plain Cheerios has no mascot.',
+    wheaties: 'Wheaties puts athletes on the box, not a mascot.',
+    specialk: 'No mascot on this board for Special K.',
+    kix: 'Not on this board.'
+  },
+  mode: 'timed',
+  time: 300,
+  cols: 'two',
+  groups: [
+    { name: 'Mascots', items: [
+      { a: 'Frosted Flakes', hint: 'Tony the Tiger: "They\'re Gr-r-reat!"', alias: ['frosties', 'sugar frosted flakes'] },
+      { a: 'Rice Krispies', hint: 'Snap, Crackle and Pop', alias: ['rice crispies', 'rice krispy', 'rice krispies cereal'] },
+      { a: 'Froot Loops', hint: 'Toucan Sam: "Follow your nose!"', alias: ['fruit loops', 'froot loop', 'fruit loop'] },
+      { a: 'Lucky Charms', hint: 'Lucky the Leprechaun', alias: ['lucky charm'] },
+      { a: 'Cap\'n Crunch', hint: 'A sea captain named Horatio', alias: ['capn crunch', 'captain crunch', 'cap n crunch', 'capt crunch'] },
+      { a: 'Trix', hint: 'A rabbit: "Silly rabbit…"', alias: ['trix cereal'] },
+      { a: 'Cocoa Puffs', hint: 'Sonny the Cuckoo Bird', alias: ['coco puffs', 'cocoa puff'] },
+      { a: 'Honey Nut Cheerios', hint: 'Buzz the Bee', alias: ['honey nut', 'honeynut cheerios'] },
+      { a: 'Count Chocula', hint: 'A chocolate vampire', alias: ['count choculla'] },
+      { a: 'Franken Berry', hint: 'A pink, strawberry Frankenstein', alias: ['frankenberry', 'frankenberry cereal'] },
+      { a: 'Boo Berry', hint: 'A blue, blueberry ghost', alias: ['booberry'] },
+      { a: 'Honey Smacks', hint: 'Dig \'Em Frog', alias: ['smacks', 'sugar smacks'] },
+      { a: 'Cinnamon Toast Crunch', hint: 'The Crazy Squares (and once Wendell the baker)', alias: ['ctc'] },
+      { a: 'Fruity Pebbles', hint: 'Fred Flintstone and Barney Rubble', alias: ['pebbles', 'cocoa pebbles', 'fruity pebble', 'fruity and cocoa pebbles'] },
+      { a: 'Cookie Crisp', hint: 'Chip the Wolf', alias: ['cookie crisps'] },
+      { a: 'Cocoa Krispies', hint: 'Coco the Monkey', alias: ['coco krispies', 'cocoa rice krispies', 'cocoa crispies'] },
+      { a: 'Corn Flakes', hint: 'Cornelius the Rooster', alias: ['cornflakes', 'kelloggs corn flakes'] },
+      { a: 'Golden Crisp', hint: 'Sugar Bear', alias: ['super golden crisp', 'sugar crisp', 'super sugar crisp'] },
+      { a: 'Raisin Bran', hint: 'Sunny, the smiling sun', alias: ['kelloggs raisin bran'] },
+      { a: 'Apple Jacks', hint: 'CinnaMon and Bad Apple', alias: ['applejacks', 'apple jack'] },
+      { a: 'Life', hint: 'Mikey: "He likes it!"', alias: ['life cereal'] }
     ]}
   ]
 },
