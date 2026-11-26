@@ -1,7 +1,7 @@
 import {
   setFirebase, boardIdFromQuiz, cleanDisplay, displayProblem, submitCooldownLeft, markSubmitted,
   fetchBoard, renderLeaderboardPanel, initPages, refreshQuizLeaderboard
-} from './leaderboards.js?v=20261126113806';
+} from './leaderboards.js?v=20261126131101';
 
 /* ===========================================================
    DietCokeMan Challenge: accounts (optional)
@@ -90,7 +90,7 @@ async function load() {
     auth.onAuthStateChanged(fb.auth, async (u) => {
       user = u;
       // On the hub, ask for the bests alongside the profile instead of after it.
-      const bestsP = u && $('grid') ? fetchBests(u.uid) : null;
+      const bestsP = u && $('shelves') ? fetchBests(u.uid) : null;
       if (bestsP) bestsP.catch(() => {});
       try { profile = u ? await readProfile(u.uid) : null; }
       catch (e) { profile = null; console.warn(e); }
@@ -138,7 +138,7 @@ function sendBests(map) {
   window._dcmBests = map;
   window.dispatchEvent(new CustomEvent('dcm:bests', { detail: map }));
 }
-if ($('grid')) {
+if ($('shelves')) {
   try { const c = JSON.parse(localStorage.getItem(BESTS_CACHE) || 'null'); if (c && c.map) sendBests(c.map); } catch (e) {}
 }
 async function fetchBests(uid) {
@@ -148,7 +148,7 @@ async function fetchBests(uid) {
   return map;
 }
 async function paintBests(bestsP) {
-  if (!$('grid')) return;
+  if (!$('shelves')) return;
   let map = null;
   if (user && profile) {
     try { map = await (bestsP || fetchBests(user.uid)); }
