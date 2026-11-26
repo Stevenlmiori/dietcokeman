@@ -1,3 +1,8 @@
+import {
+  setFirebase, boardIdFromQuiz, cleanDisplay, displayProblem, submitCooldownLeft, markSubmitted,
+  fetchBoard, renderLeaderboardPanel, initPages, refreshQuizLeaderboard
+} from './leaderboards.js?v=20261125234528';
+
 /* ===========================================================
    DietCokeMan Challenge: accounts (optional)
 
@@ -36,7 +41,7 @@ const SDK = 'https://www.gstatic.com/firebasejs/13.1.0/';
 // Local testing against the Firebase emulators: open any page on localhost
 // with ?emu=1 (run `npx firebase-tools emulators:start` first). Sticks for the
 // tab's session so redirects between pages stay on the emulator.
-const EMU = location.hostname === 'localhost' && (() => {
+const EMU = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') && (() => {
   try {
     if (new URLSearchParams(location.search).has('emu')) sessionStorage.setItem('dcm-emu', '1');
     return sessionStorage.getItem('dcm-emu') === '1';
@@ -79,6 +84,8 @@ async function load() {
           JSON.stringify({ sub, email: sub + '@example.com', email_verified: true, name })))
       };
     }
+    setFirebase(fb);
+    initPages();
     document.documentElement.classList.add('has-accounts');
     auth.onAuthStateChanged(fb.auth, async (u) => {
       user = u;
@@ -166,25 +173,55 @@ let settledUid;          // uid whose profile has finished loading (null = signe
 function paintTopbar() {
   const a = $('acct');
   if (!a) return;
-  a.hidden = false;
-  if (user && profile) {
-    a.textContent = '@' + profile.username;
-    a.href = 'profile.html';
-    a.onclick = null;
+  a.onclick = null;
+  a.removeAttribute('aria-current');
+
+  if (!user) {
+    a.hidden = false;
+    a.textContent = 'Sign in';
+    a.href = 'profile.html?next=' + encodeURIComponent(here());
+    a.onclick = async (e) => {
+      e.preventDefault();
+      let ok = false;
+      try { ok = await signIn(); } catch (err) { console.warn(err); }
+      if (!ok) return;
+      for (let i = 0; i < 50 && !(user && settledUid === user.uid); i++) await new Promise(r => setTimeout(r, 100));
+      afterTopbarSignIn();
+    };
     return;
   }
-  a.textContent = 'Sign in';
+
+  if (!profile) {
+    a.hidden = false;
+    a.textContent = 'Set username';
+    a.href = 'profile.html?next=' + encodeURIComponent(here());
+    return;
+  }
+
+  if (profile.guest === true) {
+    const name = cleanDisplay(profile.displayName);
+    if (name) {
+      a.hidden = false;
+      a.textContent = name;
+      a.href = '#';
+      a.onclick = (e) => e.preventDefault();
+    } else {
+      a.hidden = true;
+    }
+    return;
+  }
+
+  const uname = cleanName(profile.username);
+  if (uname && NAME_RE.test(uname)) {
+    a.hidden = false;
+    a.textContent = '@' + uname;
+    a.href = 'profile.html';
+    return;
+  }
+
+  a.hidden = false;
+  a.textContent = 'Set username';
   a.href = 'profile.html?next=' + encodeURIComponent(here());
-  a.onclick = async (e) => {
-    if (user) return;                       // signed in, no username yet: follow the link
-    e.preventDefault();
-    let ok = false;
-    try { ok = await signIn(); } catch (err) { console.warn(err); }
-    if (!ok) return;
-    // wait for the profile lookup that follows every sign-in
-    for (let i = 0; i < 50 && !(user && settledUid === user.uid); i++) await new Promise(r => setTimeout(r, 100));
-    afterTopbarSignIn();
-  };
 }
 
 // After a topbar sign-in: a new account goes to pick a username, then returns.
@@ -235,21 +272,62 @@ async function claimName(name, bio) {
 }
 
 /* ---------- scores ---------- */
-const boardId = (r) => r.scoreKey + '-' + r.mode;
+const boardId = (r) => boardIdFromQuiz({ scoreKey: r.scoreKey, slug: r.slug }, r.mode);
 
-// Keep the higher of what is stored and this run. Returns { best, isNew }.
+function runBeats(prev, score, seconds) {
+  if (!prev || prev.best == null) return true;
+  if (score > prev.best) return true;
+  if (score === prev.best) {
+    const ps = prev.seconds != null ? prev.seconds : 1e9;
+    return seconds < ps;
+  }
+  return false;
+}
+
+function entryForProfile() {
+  const guest = !!(profile && profile.guest);
+  const name = guest ? profile.displayName : profile.username;
+  return guest
+    ? { username: '', name, guest: true }
+    : { username: profile.username, name, guest: false };
+}
+
+// Keep the best run (score, then time). Returns { best, isNew, seconds }.
 async function saveRun(r) {
   const uid = user.uid, id = boardId(r);
+  const seconds = r.seconds != null ? r.seconds : 0;
   const ref = fb.doc(fb.db, 'users', uid, 'bests', id);
   const s = await fb.getDoc(ref);
-  const prev = s.exists() ? s.data().best : -1;
-  if (r.score <= prev) return { best: prev, isNew: false };
+  const prev = s.exists() ? s.data() : null;
+  if (!runBeats(prev, r.score, seconds)) {
+    return { best: prev.best, seconds: prev.seconds, isNew: false };
+  }
   const at = fb.serverTimestamp();
   const b = fb.writeBatch(fb.db);
-  b.set(ref, { board: id, slug: r.slug, title: r.title, mode: r.mode, best: r.score, total: r.total, at });
-  b.set(fb.doc(fb.db, 'boards', id, 'entries', uid), { username: profile.username, best: r.score, total: r.total, at });
+  b.set(ref, {
+    board: id, slug: r.slug, title: r.title, mode: r.mode,
+    best: r.score, total: r.total, seconds, at
+  });
+  b.set(fb.doc(fb.db, 'boards', id, 'entries', uid), {
+    ...entryForProfile(), best: r.score, total: r.total, seconds, at
+  });
   await b.commit();
-  return { best: r.score, isNew: prev >= 0 };
+  refreshQuizLeaderboard();
+  return { best: r.score, seconds, isNew: prev != null };
+}
+
+async function ensureGuest(displayName) {
+  if (!user) {
+    const cred = await fb.signInAnonymously(fb.auth);
+    user = cred.user;
+  }
+  if (!profile || !profile.guest) {
+    await fb.setDoc(fb.doc(fb.db, 'users', user.uid), {
+      displayName, guest: true, created: fb.serverTimestamp()
+    });
+    profile = { displayName, guest: true };
+    paintTopbar();
+  }
 }
 
 /* Bests earned before signing in live in localStorage. The first time a
@@ -264,12 +342,6 @@ async function importLocalBests() {
       if (v > 0) await saveRun({ slug: q.slug, scoreKey: q.scoreKey || q.slug, title: q.title, mode, score: Math.min(v, total), total });
     }
   }
-}
-
-async function topScores(id, n) {
-  const q = fb.query(fb.collection(fb.db, 'boards', id, 'entries'), fb.orderBy('best', 'desc'), fb.limit(n));
-  const s = await fb.getDocs(q);
-  return s.docs.map(d => ({ uid: d.id, ...d.data() }));
 }
 
 /* ---------- result card ---------- */
@@ -291,19 +363,50 @@ async function paintSave() {
     if (dismissed) { el.hidden = true; return; }
     el.hidden = false;
     el.innerHTML = `
-      <div class="acct-card">
-        <h3>Save your score</h3>
-        <p>Sign in to keep your bests on any device and see where you rank.</p>
+      <form class="acct-card" id="acctGuest" autocomplete="off">
+        <h3>Post to the leaderboard</h3>
+        <p>Type a name. No account needed. Higher score wins; same score, faster time wins.</p>
+        <label class="fld lb-name-fld">
+          <span>Display name</span>
+          <input id="acctGuestName" maxlength="20" placeholder="Your name"
+            autocapitalize="words" autocorrect="off" spellcheck="false" aria-label="Display name"
+            autocomplete="off">
+        </label>
+        <p class="acct-err" id="acctErr" hidden></p>
+        <button class="btn" type="submit" id="acctGuestGo">Save my score</button>
         <button type="button" class="gbtn" id="acctGo">${GOOGLE_G}<span>Continue with Google</span></button>
         <button type="button" class="linkbtn" id="acctNo">Not now</button>
-        <p class="acct-err" id="acctErr" hidden></p>
-      </div>`;
+      </form>`;
     $('acctNo').onclick = () => { dismissed = true; el.hidden = true; };
-    $('acctGo').onclick = async () => {
+    $('acctGo').onclick = async (e) => {
+      e.preventDefault();
       $('acctGo').disabled = true;
       try { await signIn(); }
       catch (err) { showErr('Sign-in didn’t go through. Try again?'); console.warn(err); }
       finally { const g = $('acctGo'); if (g) g.disabled = false; }
+    };
+    const guestInput = $('acctGuestName');
+    setTimeout(() => guestInput && guestInput.focus({ preventScroll: true }), 50);
+    guestInput.oninput = () => showErr('');
+    $('acctGuest').onsubmit = async (e) => {
+      e.preventDefault();
+      const name = cleanDisplay(guestInput.value);
+      const bad = displayProblem(name);
+      if (bad) { showErr(bad); return; }
+      const wait = submitCooldownLeft();
+      if (wait > 0) {
+        showErr(`Give it ${Math.ceil(wait / 1000)}s before posting again.`);
+        return;
+      }
+      $('acctGuestGo').disabled = true;
+      try {
+        await ensureGuest(name);
+        paintSaved(el);
+      } catch (err) {
+        showErr('Couldn’t save that. Try again?');
+        console.warn(err);
+        $('acctGuestGo').disabled = false;
+      }
     };
     return;
   }
@@ -360,24 +463,19 @@ async function paintSaved(el) {
   el.innerHTML = `<div class="acct-card saved"><p class="acct-line">Saving…</p></div>`;
   try {
     const res = await saveRun(r);
-    const rows = await topScores(boardId(r), 10);
+    markSubmitted();
+    const rows = await fetchBoard(boardId(r), 10);
     const me = user.uid;
-    const line = res.isNew ? `New best for <b>@${esc(profile.username)}</b>`
-      : r.score >= res.best ? `Saved to <b>@${esc(profile.username)}</b>`
-      : `Saved to <b>@${esc(profile.username)}</b> · your best is ${res.best}`;
+    const who = profile.guest
+      ? esc(cleanDisplay(profile.displayName) || 'Guest')
+      : (profile.username ? '@' + esc(cleanName(profile.username)) : 'You');
+    const line = res.isNew
+      ? `New best for <b>${who}</b>`
+      : `Posted for <b>${who}</b>`;
     el.innerHTML = `
       <div class="acct-card saved">
         <p class="acct-line">${line}</p>
-        <div class="lb">
-          <div class="lb-h"><span>Leaderboard</span><span>${r.mode === 'timed' ? 'Timed' : 'No pressure'}</span></div>
-          <ol>${rows.map((x, i) => `
-            <li class="${x.uid === me ? 'me' : ''}">
-              <span class="lb-rk">${i + 1}</span>
-              <a class="lb-nm" href="profile.html?u=${encodeURIComponent(x.username)}">@${esc(x.username)}</a>
-              <span class="lb-sc">${x.best}<small>/${x.total}</small></span>
-            </li>`).join('')}
-          </ol>
-        </div>
+        ${renderLeaderboardPanel(rows, { mode: r.mode, meUid: me, sub: false })}
       </div>`;
   } catch (err) {
     console.warn(err);

@@ -583,7 +583,7 @@ function end(reason) {
 
   // account.js (optional) listens for this to offer sign-in and save the score.
   window.dispatchEvent(new CustomEvent('dcm:end', { detail: {
-    slug: Q.slug, scoreKey: Q.scoreKey || Q.slug, title: Q.title, mode, score, total
+    slug: Q.slug, scoreKey: Q.scoreKey || Q.slug, title: Q.title, mode, score, total, seconds: elapsed
   } }));
 }
 
