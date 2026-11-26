@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261126113545">
+<link rel="stylesheet" href="style.css?v=20261126113806">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 <!-- Start fetching Firebase while the page loads, so your bests show sooner (account.js) -->
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js" crossorigin>
@@ -71,8 +71,8 @@
   </p>
 </main>
 
-<script type="module" src="account.js?v=20261126113545"></script>
-<script src="quizzes.js?v=20261126113545"></script>
+<script type="module" src="account.js?v=20261126113806"></script>
+<script src="quizzes.js?v=20261126113806"></script>
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
@@ -114,6 +114,17 @@
   const iconFor = (q) => q.icon
     || ((q.tags || []).map(t => ICONS.tags[t]).find(Boolean))
     || ICONS.categories[q.category] || '';
+
+  // leaderboards.js works out the most-played quiz once it has read the boards.
+  let mostPlayed = '';
+  try { mostPlayed = localStorage.getItem('dcm-most-played') || ''; } catch (e) {}
+  if (window._dcmMostPlayed) mostPlayed = window._dcmMostPlayed;
+  window.addEventListener('dcm:mostplayed', (e) => {
+    if (e.detail === mostPlayed) return;
+    mostPlayed = e.detail;
+    try { localStorage.setItem('dcm-most-played', mostPlayed); } catch (err) {}
+    render();
+  });
 
   // Signed in, account.js hands over your saved bests (board id -> {best,total});
   // a card shows the higher of its two modes. Signed out, nothing is shown.
@@ -171,9 +182,13 @@
     const browsing = !state.q && !state.category && !state.tag;
     let html = '', count = 0;
     if (browsing) {
-      // Top row: the pinned two with this week's quiz second, then a shelf per category.
-      const pinned = QUIZZES.filter(q => q.pin);
-      const top = [pinned[0], ...QUIZZES.filter(q => q.featured), ...pinned.slice(1)].filter(Boolean);
+      // Top row: Best Drink, this week's quiz, then the most-played quiz (most
+      // players on its boards; Steven 2026-11-26). Until the boards load, the last
+      // known most-played quiz (or Favorite Movies) holds the slot.
+      const first = QUIZZES.find(q => q.pin);
+      const popular = QUIZZES.find(q => q.slug === mostPlayed && q !== first && !q.featured)
+        || QUIZZES.filter(q => q.pin)[1];
+      const top = [first, ...QUIZZES.filter(q => q.featured), popular].filter(Boolean);
       html += grid(top);
       SHELVES.forEach(s => {
         const list = s.quizzes.filter(q => !top.includes(q));

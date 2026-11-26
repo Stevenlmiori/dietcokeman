@@ -172,12 +172,14 @@ Food & Drink · Geography · Science · Business · History — Movies and TV ar
 shelf). Picking **Sports** opens a second, smaller row of leagues (NFL, NBA, MLB,
 NHL, College, Golf). Other tags are not shown as chips; they still work in search
 and in `?tag=` links. With nothing picked, the page is a top row (Best Drink,
-then any `featured: true` quiz, then Favorite Movies) followed by one shelf per
+then any `featured: true` quiz, then the **most-played** quiz: most players on its
+boards, ties to more scores then the latest; leaderboards.js works it out and
+localStorage remembers it, with Favorite Movies as the fallback) followed by one shelf per
 category with a plain heading and a count. A `featured` quiz is no longer its own
 "This week" section; it sits second in the top row with a faint red tint.
 Cards have no border or drop shadow, just a soft tint. Below the shelves,
-**Current leaders** is one plain row per top-row quiz (who's #1 and their score),
-not bordered cards. Links carrying `?q=`, `?category=` (old values like `Movies`
+**Top players** is two short lists, most golds and most podiums (same counting as
+the Leaderboards page), not bordered cards. Links carrying `?q=`, `?category=` (old values like `Movies`
 map to their shelf) or `?tag=` open pre-filtered, and the URL follows the filters.
 Search matches title, subtitle, blurb, category and tags;
 it **never searches answers**, which would reveal who is on the board.

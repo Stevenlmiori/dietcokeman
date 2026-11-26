@@ -277,7 +277,7 @@ async function paintHubPreview() {
   const root = document.getElementById('hubLb');
   if (!root || !fb) return;
   const go = async () => {
-    const boards = await loadEverything(window.QUIZZES || []);
+    const boards = await (window._dcmBoardsP || loadEverything(window.QUIZZES || []));
     const standings = buildStandings(boards);
     if (!standings.length) { root.hidden = true; return; }
     const me = fb.auth && fb.auth.currentUser ? fb.auth.currentUser.uid : null;
@@ -292,6 +292,23 @@ async function paintHubPreview() {
     root.querySelector('.hub-lb-list').innerHTML = list('crowns', 'podiums', '🥇 Most golds') + list('podiums', 'crowns', '🏅 Most podiums');
     root.hidden = false;
   };
+  // One read of every board feeds both the most-played card at the top and this
+  // section, so it starts with the page rather than waiting for a scroll.
+  window._dcmBoardsP = loadEverything(window.QUIZZES || []);
+  window._dcmBoardsP.then((boards) => {
+    const best = boards.filter((b) => !b.q.featured && !(b.q.pin && b.q === (window.QUIZZES || []).find((q) => q.pin)))
+      // most players; ties go to the board with more scores, then the most recent one
+      .map((b) => {
+        const rows = b.modes.flatMap((m) => b.byMode[m]);
+        return { ...b, runs: rows.length, last: Math.max(0, ...rows.map((r) => atMs(r.at))) };
+      })
+      .reduce((a, b) => (!a || b.players > a.players
+        || (b.players === a.players && (b.runs > a.runs || (b.runs === a.runs && b.last > a.last))) ? b : a), null);
+    if (best && best.players) {
+      window._dcmMostPlayed = best.q.slug;
+      window.dispatchEvent(new CustomEvent('dcm:mostplayed', { detail: best.q.slug }));
+    }
+  }).catch((e) => console.warn(e));
   root.hidden = false;
   if (!('IntersectionObserver' in window)) { go(); return; }
   const io = new IntersectionObserver((ents) => {
