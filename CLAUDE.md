@@ -166,20 +166,20 @@ basketball, baseball, hockey, golf (by sport tag), then everything else by
 category in `TAXONOMY.categories` order (Movies, TV, Games, Business, Food &
 Drink, History, Geography, Science). A new quiz lands with its own kind automatically.
 
-**"This week" (featured).** A quiz with `featured: true` leaves the evergreen
-grid and sits in its own **This week** section above "Pick your challenge", as
-one wide card with a faint red tint that also shows its blurb. Steven: the Line
-Game "doesn't make sense … in the mix with those other ones that aren't changing
-every week." Use it for weekly or seasonal quizzes; drop the flag when one stops
-being current. While searching or filtering, the section steps aside and
-featured quizzes appear in the results like any other.
-
-**The hub's search and filters** (search box, category row, tag row) are
-always shown — Steven chose that over hiding them until the hub grew ("Show it
-now"). The category row only appears once two categories are in use. Links
-carrying `?q=`, `?category=` or `?tag=` open pre-filtered — e.g. `/?tag=NBA`,
-`/?q=mvp`, `/?tag=Football&q=all-time` — and the URL follows the filters, so a
-filtered view can be texted. Search matches title, subtitle, blurb, category and tags;
+**Hub layout (Steven, 2026-11-26: "too cluttered… categories not intuitive").**
+Hero, then search, then **one row of shelves** (All · Sports · TV & Movies · Games ·
+Food & Drink · Geography · Science · Business · History — Movies and TV are one
+shelf). Picking **Sports** opens a second, smaller row of leagues (NFL, NBA, MLB,
+NHL, College, Golf). Other tags are not shown as chips; they still work in search
+and in `?tag=` links. With nothing picked, the page is a top row (Best Drink,
+then any `featured: true` quiz, then Favorite Movies) followed by one shelf per
+category with a plain heading and a count. A `featured` quiz is no longer its own
+"This week" section; it sits second in the top row with a faint red tint.
+Cards have no border or drop shadow, just a soft tint. Below the shelves,
+**Current leaders** is one plain row per top-row quiz (who's #1 and their score),
+not bordered cards. Links carrying `?q=`, `?category=` (old values like `Movies`
+map to their shelf) or `?tag=` open pre-filtered, and the URL follows the filters.
+Search matches title, subtitle, blurb, category and tags;
 it **never searches answers**, which would reveal who is on the board.
 Filters show only values some quiz actually uses. Cards show the title, the
 subtitle and **one emoji in the top-right corner** (Steven asked for it), bare,

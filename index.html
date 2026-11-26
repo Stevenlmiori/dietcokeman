@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap">
-<link rel="stylesheet" href="style.css?v=20261126111124">
+<link rel="stylesheet" href="style.css?v=20261126113039">
 <link rel="icon" type="image/png" href="assets/frosted-can-icon.png">
 <!-- Start fetching Firebase while the page loads, so your bests show sooner (account.js) -->
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js" crossorigin>
@@ -49,29 +49,20 @@
     </div>
   </section>
 
-  <!-- Time-sensitive quizzes (featured: true) get their own section above the
-       evergreen ones. It steps aside while you search or filter. -->
-  <section class="featured" id="featured" hidden>
-    <div class="sect-h"><h2>This week</h2></div>
-    <div class="feature-grid" id="featureGrid"></div>
-  </section>
-
-  <div class="sect-h"><h2>Pick your challenge</h2></div>
-  <!-- Search and filters. Always on (Steven: "Show it now"). -->
-  <div class="finder" id="finder" hidden>
+  <!-- Search, one row of categories (Sports opens a row of leagues), then the
+       quizzes grouped into shelves. A weekly quiz (featured: true) sits second. -->
+  <div class="finder" id="finder">
     <input class="find" id="find" type="search" placeholder="Search quizzes" autocomplete="off"
            spellcheck="false" aria-label="Search quizzes">
     <div class="facets" id="facets"></div>
+    <div class="facets subfacets" id="subfacets" hidden></div>
   </div>
-  <div class="grid" id="grid"></div>
+  <div id="shelves"></div>
   <p class="nomatch" id="nomatch" hidden>No quizzes match. <button type="button" class="linkbtn" id="clear">Show all</button></p>
 
   <section class="hub-lb" id="hubLb" hidden>
-    <div class="sect-h"><h2>Leaderboards</h2></div>
-    <p class="lb-note" style="margin:0 0 14px;font-size:13.5px;color:var(--silver-dim)">
-      Top scores on featured quizzes. <a href="leaderboard.html" style="color:var(--ice);font-weight:700">See all boards</a>
-    </p>
-    <div class="hub-lb-grid"></div>
+    <div class="shelf-h"><h2>Current leaders</h2><a href="leaderboard.html">See all boards</a></div>
+    <div class="hub-lb-list"></div>
   </section>
 
   <p style="text-align:center;color:#6C7A8A;font-size:12.5px;margin:48px 0 40px">
@@ -80,12 +71,11 @@
   </p>
 </main>
 
-<script type="module" src="account.js?v=20261126111124"></script>
-<script src="quizzes.js?v=20261126111124"></script>
+<script type="module" src="account.js?v=20261126113039"></script>
+<script src="quizzes.js?v=20261126113039"></script>
 <script>
 (function(){
   const $ = (id) => document.getElementById(id);
-  const grid = $('grid');
   const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const norm = (s) => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   // Hub order (Steven): Best Drink and his Favorite Movies stay on top (`pin`),
@@ -114,19 +104,11 @@
 
   const params = new URLSearchParams(location.search);
   const state = { q: params.get('q') || '', category: params.get('category') || '', tag: params.get('tag') || '' };
-  const finderOn = true;   // Steven: "Show it now" — always on, even with a handful of quizzes
 
   // Words typed in the box must all appear somewhere in a quiz's title,
   // subtitle, blurb, category or tags. Answers are never searched: that
   // would tell you who is on the board.
   const hay = (q) => norm([q.title, q.sub, q.blurb, q.category, ...(q.tags || [])].join(' '));
-  function matches(q) {
-    if (state.category && q.category !== state.category) return false;
-    if (state.tag && !(q.tags || []).includes(state.tag)) return false;
-    const words = norm(state.q).split(/\s+/).filter(Boolean);
-    const h = hay(q);
-    return words.every(w => h.includes(w));
-  }
 
   const ICONS = TAX.icons || { tags: {}, categories: {} };
   const iconFor = (q) => q.icon
@@ -145,41 +127,80 @@
   }
 
   // Title, subtitle, one small emoji in the corner, and your best if you're signed in.
-  const card = (q, cls) => {
+  const card = (q) => {
     const b = bestFor(q);
     const best = b ? `<span class="card-best${b.best >= b.total ? ' full' : ''}" title="Your best">${b.best}/${b.total}</span>` : '';
-    return `<a class="card${cls ? ' ' + cls : ''}${b ? ' has-best' : ''}" href="play.html?q=${encodeURIComponent(q.slug)}">
+    return `<a class="card${q.featured ? ' feature' : ''}${b ? ' has-best' : ''}" href="play.html?q=${encodeURIComponent(q.slug)}">
       <span class="card-ico" aria-hidden="true">${esc(iconFor(q))}</span>
       <h3>${esc(q.title)}</h3>
       <div class="sub">${esc(q.sub)}</div>
-      ${cls && q.blurb ? `<p class="blurb">${esc(q.blurb)}</p>` : ''}
       ${best}
     </a>`;
   };
 
-  function render() {
-    // Featured (weekly, time-sensitive) quizzes sit in "This week" until you
-    // search or filter; then everything is just results in one grid.
-    const browsing = !state.q && !state.category && !state.tag;
-    const featured = browsing ? QUIZZES.filter(q => q.featured) : [];
-    $('featured').hidden = !featured.length;
-    $('featureGrid').innerHTML = featured.map(q => card(q, 'feature')).join('');
-    const shown = QUIZZES.filter(q => matches(q) && !featured.includes(q));
-    grid.innerHTML = shown.map(q => card(q)).join('');
-    $('nomatch').hidden = shown.length + featured.length > 0;
-    if (finderOn) paintFacets();
+  /* Shelves (Steven, 2026-11-26: "figure out these categories… not very
+     intuitive"). One row of shelves, with Movies and TV shown together. Tags stay
+     in the data and in search; the only tags on screen are the leagues, and only
+     once Sports is picked. Old ?category=Movies / ?tag=Betting links still work. */
+  const SHELVES = [
+    { name: 'Sports', cats: ['Sports'] },
+    { name: 'TV & Movies', cats: ['Movies', 'TV'] },
+    { name: 'Games', cats: ['Games'] },
+    { name: 'Food & Drink', cats: ['Food & Drink'] },
+    { name: 'Geography', cats: ['Geography'] },
+    { name: 'Science', cats: ['Science'] },
+    { name: 'Business', cats: ['Business'] },
+    { name: 'History', cats: ['History'] }
+  ].map(s => ({ ...s, quizzes: QUIZZES.filter(q => s.cats.includes(q.category)) })).filter(s => s.quizzes.length);
+  const LEAGUES = [['NFL', 'NFL'], ['NBA', 'NBA'], ['MLB', 'MLB'], ['NHL', 'NHL'], ['NCAA', 'College'], ['Golf', 'Golf']]
+    .filter(([t]) => QUIZZES.some(q => (q.tags || []).includes(t)));
+  const shelfOf = (cat) => (SHELVES.find(s => s.name === cat || s.cats.includes(cat)) || {}).name || '';
+  state.category = shelfOf(state.category);
+  if (state.tag && !state.category && LEAGUES.some(([t]) => t === state.tag)) state.category = 'Sports';
+
+  function matches(q) {
+    if (state.category && !SHELVES.find(s => s.name === state.category).cats.includes(q.category)) return false;
+    if (state.tag && !(q.tags || []).includes(state.tag)) return false;
+    const words = norm(state.q).split(/\s+/).filter(Boolean);
+    const h = hay(q);
+    return words.every(w => h.includes(w));
   }
 
-  // Only categories and tags that some quiz actually uses, in taxonomy order.
+  const grid = (list) => `<div class="grid">${list.map(card).join('')}</div>`;
+  function render() {
+    const browsing = !state.q && !state.category && !state.tag;
+    let html = '', count = 0;
+    if (browsing) {
+      // Top row: the pinned two with this week's quiz second, then a shelf per category.
+      const pinned = QUIZZES.filter(q => q.pin);
+      const top = [pinned[0], ...QUIZZES.filter(q => q.featured), ...pinned.slice(1)].filter(Boolean);
+      html += grid(top);
+      SHELVES.forEach(s => {
+        const list = s.quizzes.filter(q => !top.includes(q));
+        if (!list.length) return;
+        html += `<section class="shelf"><div class="shelf-h"><h2>${esc(s.name)}</h2><span>${list.length}</span></div>${grid(list)}</section>`;
+      });
+      count = QUIZZES.length;
+    } else {
+      const shown = QUIZZES.filter(matches);
+      count = shown.length;
+      html = grid(shown);
+    }
+    $('shelves').innerHTML = html;
+    $('nomatch').hidden = count > 0;
+    paintFacets();
+  }
+
   function paintFacets() {
-    const used = (list, key) => list.filter(v => QUIZZES.some(q => key === 'category' ? q.category === v : (q.tags || []).includes(v)));
-    const cats = used(TAX.categories, 'category');
-    const tags = used(allTags, 'tag');
     const btn = (key, v, label) => `<button type="button" class="facet" data-k="${key}" data-v="${esc(v)}"
       aria-pressed="${state[key] === v}">${esc(label)}</button>`;
-    $('facets').innerHTML =
-      (cats.length > 1 ? `<div class="facet-row">${btn('category', '', 'All')}${cats.map(c => btn('category', c, c)).join('')}</div>` : '') +
-      `<div class="facet-row">${btn('tag', '', 'Everything')}${tags.map(t => btn('tag', t, t)).join('')}</div>`;
+    $('facets').innerHTML = btn('category', '', 'All') + SHELVES.map(s => btn('category', s.name, s.name)).join('');
+    const sub = $('subfacets');
+    const extra = state.tag && !LEAGUES.some(([t]) => t === state.tag) ? [[state.tag, state.tag]] : [];
+    const leagues = state.category === 'Sports' ? LEAGUES : [];
+    const chips = [...leagues, ...extra];
+    sub.hidden = !chips.length;
+    sub.innerHTML = chips.length ? btn('tag', '', 'All ' + (state.category === 'Sports' ? 'sports' : 'quizzes')) + chips.map(([t, l]) => btn('tag', t, l)).join('') : '';
   }
 
   function sync() {
@@ -189,17 +210,16 @@
     render();
   }
 
-  if (finderOn) {
-    $('finder').hidden = false;
-    $('find').value = state.q;
-    $('find').addEventListener('input', (e) => { state.q = e.target.value; sync(); });
-    $('facets').addEventListener('click', (e) => {
-      const b = e.target.closest('.facet');
-      if (!b) return;
-      state[b.dataset.k] = b.dataset.v;
-      sync();
-    });
-  }
+  $('find').value = state.q;
+  $('find').addEventListener('input', (e) => { state.q = e.target.value; sync(); });
+  $('finder').addEventListener('click', (e) => {
+    const b = e.target.closest('.facet');
+    if (!b) return;
+    state[b.dataset.k] = b.dataset.v;
+    // a new shelf starts with every league; a league chip only lives under Sports
+    if (b.dataset.k === 'category') state.tag = '';
+    sync();
+  });
   $('clear').addEventListener('click', () => { state.q = state.category = state.tag = ''; $('find').value = ''; sync(); });
   render();
 })();

@@ -269,32 +269,29 @@ async function paintQuizPage() {
   document.addEventListener('dcm:lb-refresh', load);
 }
 
+/* Homepage strip: who leads the pinned quizzes and this week's quiz, one
+   plain row each (Steven: the old bordered cards with medal boxes were clutter). */
 async function paintHubPreview() {
   const root = document.getElementById('hubLb');
   if (!root || !fb) return;
-  const picks = (window.QUIZZES || []).filter((q) => q.featured || q.pin).slice(0, 3);
-  if (!picks.length) {
-    root.hidden = true;
-    return;
-  }
-  root.hidden = false;
-  const cards = await Promise.all(picks.map(async (q) => {
+  const all = window.QUIZZES || [];
+  const pinned = all.filter((q) => q.pin);
+  const picks = [pinned[0], ...all.filter((q) => q.featured), ...pinned.slice(1)].filter(Boolean).slice(0, 4);
+  if (!picks.length) { root.hidden = true; return; }
+  const rows = await Promise.all(picks.map(async (q) => {
     const mode = (q.modes || ['timed']).includes('timed') ? 'timed' : (q.modes || ['chill'])[0];
-    try {
-      const rows = await fetchBoard(boardIdFromQuiz(q, mode), 5);
-      return `<div class="hub-lb-card">
-        ${renderLeaderboardPanel(rows, { heading: q.title, mode, plainNames: true })}
-        <a class="ghost hub-lb-play" href="play.html?q=${encodeURIComponent(q.slug)}#quizLb">Play this quiz</a>
-      </div>`;
-    } catch (e) {
-      console.warn(e);
-      return '';
-    }
+    let top = null;
+    try { top = (await fetchBoard(boardIdFromQuiz(q, mode), 1))[0] || null; } catch (e) { console.warn(e); }
+    const href = `play.html?q=${encodeURIComponent(q.slug)}`;
+    return `<a class="hub-lb-row" href="${href}">
+      <span class="q">${esc(q.title)}</span>
+      ${top
+        ? `<span class="who">🥇 ${esc(rowName(top))}</span><span class="sc">${top.best}<small>/${top.total}</small></span>`
+        : '<span class="open">Open, be the first</span>'}
+    </a>`;
   }));
-  const html = cards.filter(Boolean);
-  root.querySelector('.hub-lb-grid').innerHTML = html.length
-    ? html.join('')
-    : '<p class="lb-empty">No scores yet. Be the first on the board.</p>';
+  root.querySelector('.hub-lb-list').innerHTML = rows.join('');
+  root.hidden = false;
 }
 
 /* ---------- leaderboard page (overall + every quiz) ---------- */
