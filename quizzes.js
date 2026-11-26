@@ -18,6 +18,7 @@
      match: 'full',                // optional: full names only (no last-name shortcut)
      featured: true,               // optional: time-sensitive, shown in the hub's "This week" section
      pin: true,                    // optional: kept at the top of the hub (Best Drink, Favorite Movies)
+     created: '2026-11-17T17:03:54-06:00', // ISO 8601 with offset; hub shows New badge for 24h after this
      groups: [{
        name: 'Group heading',
        note: 'right-side label',   // optional
@@ -59,10 +60,24 @@ window.TAXONOMY = {
   }
 };
 
+/* Client-side "New" badge: true when `created` is within the last 24 hours. */
+window.QUIZ_NEW_MS = 24 * 60 * 60 * 1000;
+window.isQuizNew = function (q) {
+  const s = typeof q === 'string' ? q : q && q.created;
+  if (!s) return false;
+  const t = Date.parse(s);
+  return !Number.isNaN(t) && Date.now() - t < window.QUIZ_NEW_MS;
+};
+window.quizNewBadge = function (q) {
+  if (!window.isQuizNew(q)) return '';
+  return '<span class="quiz-new-badge" aria-label="New within the last 24 hours">New</span>';
+};
+
 window.QUIZZES = [
 
 {
   slug: 'best-drink',
+  created: '2026-11-17T17:03:54-06:00',
   pin: true,                       // stays at the top of the hub
   title: 'Best Drink of All Time',
   sub: 'One answer. You know it.',
@@ -102,6 +117,7 @@ window.QUIZZES = [
 
 {
   slug: 'dietcokeman-favorite-movies',
+  created: '2026-11-17T17:54:46-06:00',
   pin: true,                       // stays at the top of the hub
   title: "DietCokeMan's Favorite Movies",
   sub: '64 favorites, in his order',
@@ -193,6 +209,7 @@ window.QUIZZES = [
 
 {
   slug: 'disney-princesses',
+  created: '2026-11-17T19:05:24-06:00',
   title: 'Disney Princesses',
   sub: 'Name every princess',
   blurb: "Can you name all 13 official Disney Princesses, plus the two Frozen sisters? Each row shows the year her movie came out and her sidekick.",
@@ -246,6 +263,7 @@ window.QUIZZES = [
 
 {
   slug: 'minecraft-mobs',
+  created: '2026-11-17T20:58:37-06:00',
   title: 'Minecraft Mobs',
   sub: 'Name every mob in the game',
   blurb: "How many of Minecraft's 88 mobs can you name? Every row has a hint. Passive, neutral, hostile, and the two bosses.",
@@ -373,6 +391,7 @@ window.QUIZZES = [
 
 {
   slug: 'top5-by-position',
+  created: '2026-11-17T08:00:09-06:00',
   title: 'NFL Fantasy Leaders',
   sub: 'Astroworld 2026 scoring leaders',
   blurb: 'The five highest scorers at QB, RB, WR and TE through Week 11 of the 2026 season, entering Week 12. Yahoo fantasy points are your clue.',
@@ -421,6 +440,7 @@ window.QUIZZES = [
 
 {
   slug: 'nfl-all-time-top20',
+  created: '2026-11-17T08:15:53-06:00',
   title: 'NFL All-Time Top 20',
   sub: 'Passing, rushing and receiving yards',
   blurb: 'The twenty biggest career totals in each of the three great counting stats. Career yards are your clue.',
@@ -518,6 +538,7 @@ window.QUIZZES = [
    ----------------------------------------------------------- */
 {
   slug: 'nba-top25-by-category',
+  created: '2026-11-17T16:35:29-06:00',
   title: 'NBA Top 25 by Category',
   sub: 'Career leaders in eight stats',
   blurb: 'The top 25 in NBA career games, points, rebounds, assists, blocks, steals, 3-pointers and free throw percentage, through games of November 16, 2026. The stat is your clue. A name fills every list it is on.',
@@ -751,6 +772,7 @@ window.QUIZZES = [
 
 {
   slug: 'nfl-mvps',
+  created: '2026-11-17T16:38:56-06:00',
   title: 'NFL MVPs',
   sub: 'Every AP MVP since 1957',
   blurb: 'Every AP NFL MVP from 1957 through the 2025 season. The year, position and team are your clues. A name fills every year he won.',
@@ -855,6 +877,7 @@ window.QUIZZES = [
 
 {
   slug: 'nba-mvps',
+  created: '2026-11-17T16:38:56-06:00',
   title: 'NBA MVPs',
   sub: 'Every MVP since 1955-56',
   blurb: 'Every NBA MVP from 1955-56 through 2025-26. The season, team and points per game are your clues. A name fills every season he won.',
@@ -957,6 +980,7 @@ window.QUIZZES = [
 
 {
   slug: 'nba-50-point-games',
+  created: '2026-11-21T14:27:18-06:00',
   title: 'NBA 50-Point Games',
   sub: 'Most 50-point games, all time',
   blurb: 'The players with the most 50-point games in NBA regular-season history, through November 20, 2026. How many each one has is your clue.',
@@ -997,6 +1021,7 @@ window.QUIZZES = [
 
 {
   slug: 'mlb-career-hr',
+  created: '2026-11-17T16:44:18-06:00',
   title: 'MLB All-Time Home Runs',
   sub: 'The top 50 career home run hitters',
   blurb: 'The 50 greatest home run hitters in MLB history, through the 2026 season. Career home runs are your clue.',
@@ -1073,6 +1098,7 @@ window.QUIZZES = [
 
 {
   slug: 'sp500-since-1957',
+  created: '2026-11-17T17:03:54-06:00',
   title: 'Still in the S&P 500 Since 1957',
   sub: 'The original members that never left',
   blurb: 'When the S&P 500 launched on March 4, 1957, these 52 companies (or the companies they grew out of) were in it, and they still are. The sector and headquarters are your clues.',
@@ -1156,6 +1182,7 @@ window.QUIZZES = [
 
 {
   slug: 'nfl-top3-wr-2010',
+  created: '2026-11-17T20:09:46-06:00',
   title: 'NFL Top 3 WRs: 2010',
   sub: "Every team's top three receivers",
   blurb: 'Can you name the top 3 wide receivers for each 2010 NFL team? Their jersey numbers are your clue.',
@@ -1333,6 +1360,7 @@ window.QUIZZES = [
 
 {
   slug: 'nfl-first-overall-picks',
+  created: '2026-11-17T17:20:36-06:00',
   title: 'No. 1 Overall NFL Draft Picks',
   sub: 'Every top pick since 1990',
   blurb: 'Every first overall pick in the NFL draft from 1990 through 2026. The year, position and drafting team are your clues.',
@@ -1393,6 +1421,7 @@ window.QUIZZES = [
 
 {
   slug: 'heisman-winners',
+  created: '2026-11-17T17:20:36-06:00',
   title: 'Heisman Trophy Winners',
   sub: 'Every winner since 1980',
   blurb: 'Every Heisman Trophy winner from 1980 through 2025. The year, position and school are your clues.',
@@ -1464,6 +1493,7 @@ window.QUIZZES = [
 
 {
   slug: 'world-series-champions',
+  created: '2026-11-17T17:20:36-06:00',
   title: 'World Series Champions',
   sub: 'Every champion since 1980',
   blurb: 'Every World Series champion from 1980 through 2026 (there was no Series in 1994). The year, the team they beat and the series score are your clues. A team fills every year it won.',
@@ -1536,6 +1566,7 @@ window.QUIZZES = [
 
 {
   slug: 'masters-champions',
+  created: '2026-11-17T17:20:36-06:00',
   title: 'Masters Champions',
   sub: 'Every green jacket since 1980',
   blurb: 'Every Masters champion from 1980 through 2026. The year, country and winning score are your clues. A name fills every year he won.',
@@ -1608,6 +1639,7 @@ window.QUIZZES = [
 
 {
   slug: 'highest-grossing-movies',
+  created: '2026-11-17T17:20:36-06:00',
   title: 'Highest-Grossing Movies',
   sub: 'The worldwide top 25 of all time',
   blurb: 'The 25 biggest movies ever at the worldwide box office, as of November 8, 2026. The release year and worldwide gross are your clues. Two 2026 releases are still in theaters and still climbing.',
@@ -1654,6 +1686,7 @@ window.QUIZZES = [
 
 {
   slug: 'best-picture-winners',
+  created: '2026-11-17T17:20:36-06:00',
   title: 'Best Picture Winners',
   sub: 'Every Oscar winner since 1990',
   blurb: 'Every Academy Award for Best Picture from the films of 1990 through 2025. The film year and director are your clues.',
@@ -1714,6 +1747,7 @@ window.QUIZZES = [
 
 {
   slug: 'biggest-us-companies',
+  created: '2026-11-17T17:20:36-06:00',
   title: 'Biggest US Companies Right Now',
   sub: 'The top 25 by market value',
   blurb: 'The 25 most valuable U.S. companies by stock market value on November 17, 2026. Their market value is your clue.',
@@ -1759,6 +1793,7 @@ window.QUIZZES = [
 
 {
   slug: 'best-selling-sodas',
+  created: '2026-11-17T17:20:36-06:00',
   title: 'America\'s Best-Selling Sodas',
   sub: 'The top 10 soft drinks in the U.S.',
   blurb: 'The 10 best-selling soft drinks in America by volume, per Beverage Digest. The company that makes each one is your clue.',
@@ -1788,6 +1823,7 @@ window.QUIZZES = [
 
 {
   slug: 'biggest-fast-food-chains',
+  created: '2026-11-17T17:20:36-06:00',
   title: 'Biggest Fast-Food Chains',
   sub: 'The top 25 by U.S. sales',
   blurb: 'The 25 biggest fast-food chains in America by 2025 U.S. systemwide sales, from the 2026 QSR 50. The food type and sales are your clues.',
@@ -1833,6 +1869,7 @@ window.QUIZZES = [
 
 {
   slug: 'us-presidents',
+  created: '2026-11-18T10:12:18-06:00',
   title: 'US Presidents',
   sub: 'All 47 presidencies, in order',
   blurb: 'Name every president from Washington to today. The years in office are your clue. Two men served twice, non-consecutively.',
@@ -1902,6 +1939,7 @@ window.QUIZZES = [
 
 {
   slug: 'us-states',
+  created: '2026-11-18T10:57:45-06:00',
   title: 'US States',
   sub: 'Name all 50',
   blurb: 'Every state, A to Z. No clues, just 50 blanks.',
@@ -1982,6 +2020,7 @@ window.QUIZZES = [
 
 {
   slug: 'us-state-capitals',
+  created: '2026-11-18T10:14:21-06:00',
   title: 'US State Capitals',
   sub: 'All 50, state by state',
   blurb: 'Name the capital of every state. The state is your clue. Careful: the biggest city is usually not the answer.',
@@ -2114,6 +2153,7 @@ window.QUIZZES = [
 
 {
   slug: 'nfl-career-passing-tds',
+  created: '2026-11-21T16:36:20-06:00',
   title: 'NFL Career Passing TDs',
   sub: 'The top 25 of all time',
   blurb: 'The 25 quarterbacks with the most career passing touchdowns, regular season, through the Thursday game of Week 11, 2026. Touchdowns are your clue.',
@@ -2157,6 +2197,7 @@ window.QUIZZES = [
 
 {
   slug: 'texans-all-time-leaders',
+  created: '2026-11-21T16:36:20-06:00',
   title: 'Texans All-Time Leaders',
   sub: 'Top 5 in passing, rushing, receiving and sacks',
   blurb: 'The Houston Texans franchise leaders, through the Thursday win over the Colts in Week 11, 2026. The numbers are your clue.',
@@ -2199,6 +2240,7 @@ window.QUIZZES = [
 
 {
   slug: 'nfl-week1-qbs-2026',
+  created: '2026-11-21T16:36:20-06:00',
   title: 'NFL Week 1 Starting QBs: 2026',
   sub: 'Every team\'s opening-day starter',
   blurb: 'The quarterback who took the first snap for every team in Week 1 of the 2026 season. The team is your clue. (Sam Darnold and Kyler Murray started but were hurt in the first quarter.)',
@@ -2261,6 +2303,7 @@ window.QUIZZES = [
 
 {
   slug: 'nba-50-40-90-club',
+  created: '2026-11-21T16:36:20-06:00',
   title: 'NBA 50-40-90 Club',
   sub: 'Every 50-40-90 season in NBA history',
   blurb: 'Shoot 50% from the field, 40% from three and 90% from the line in one season. Only nine players have done it, 14 times in all (none in 2025-26). The season and team are your clue.',
@@ -2291,6 +2334,7 @@ window.QUIZZES = [
 
 {
   slug: 'mlb-3000-hit-club',
+  created: '2026-11-21T16:36:20-06:00',
   title: 'MLB 3,000-Hit Club',
   sub: 'All 33 members',
   blurb: 'Every player with 3,000 career hits, through the 2026 season. No one joined this year; Freddie Freeman is closest among active players. Career hits are your clue.',
@@ -2344,6 +2388,7 @@ window.QUIZZES = [
 
 {
   slug: 'pixar-movies',
+  created: '2026-11-21T16:36:20-06:00',
   title: 'Every Pixar Movie',
   sub: 'All 31, in order',
   blurb: 'Every Pixar feature film, from Toy Story to Toy Story 5. The year it came out is your clue.',
@@ -2395,6 +2440,7 @@ window.QUIZZES = [
 
 {
   slug: 'the-office-cast',
+  created: '2026-11-21T16:36:20-06:00',
   title: 'The Office Main Cast',
   sub: 'Every regular at Dunder Mifflin Scranton',
   blurb: 'All 25 regular characters from The Office. First names count here, since that\'s how everyone knows them. Their job is your clue.',
@@ -2439,6 +2485,7 @@ window.QUIZZES = [
 
 {
   slug: 'pokemon-starters',
+  created: '2026-11-21T16:36:20-06:00',
   title: 'Pokémon Starters',
   sub: 'Every first partner, region by region',
   blurb: 'Every starter Pokémon from every main game, plus the three just revealed for Pokémon Winds and Waves (2027). The type is your clue.',
@@ -2505,6 +2552,7 @@ window.QUIZZES = [
 
 {
   slug: 'south-america-countries',
+  created: '2026-11-21T16:36:20-06:00',
   title: 'Countries of South America',
   sub: 'Name all 12',
   blurb: 'Every independent country in South America, A to Z. No clues.',
@@ -2535,6 +2583,7 @@ window.QUIZZES = [
 
 {
   slug: 'africa-countries',
+  created: '2026-11-25T18:40:00-06:00',
   title: 'Countries of Africa',
   sub: 'Name all 54',
   blurb: 'Every UN member state in Africa, A to Z. Disputed territories such as Western Sahara and Somaliland are not on the board.',
@@ -2623,6 +2672,7 @@ window.QUIZZES = [
 
 {
   slug: 'world-population-top25',
+  created: '2026-11-25T18:40:00-06:00',
   title: 'Most Populous Countries',
   sub: 'Top 25 in the world',
   // UN DESA World Population Prospects 2024 Revision, medium variant, estimated population on 1 July 2025.
@@ -2666,6 +2716,7 @@ window.QUIZZES = [
 
 {
   slug: 'marvel-main-characters',
+  created: '2026-11-25T18:40:00-06:00',
   title: 'Marvel Main Characters',
   sub: '28 icons, heroes and villains',
   blurb: 'The most iconic Marvel heroes and villains from comics and film. Hero names and secret identities both count; real names appear when you find each one.',
@@ -2714,6 +2765,7 @@ window.QUIZZES = [
 
 {
   slug: 'dc-main-characters',
+  created: '2026-11-25T18:40:00-06:00',
   title: 'DC Main Characters',
   sub: '28 icons, heroes and villains',
   blurb: 'The most iconic DC heroes and villains from comics and film. Hero names and secret identities both count; real names appear when you find each one.',
@@ -2761,6 +2813,7 @@ window.QUIZZES = [
 
 {
   slug: 'famous-slogans',
+  created: '2026-11-21T16:36:20-06:00',
   title: 'Name the Company by Its Slogan',
   sub: '48 slogans you\'ve heard a thousand times',
   blurb: 'Famous ad slogans, past and present. The slogan is your clue; name the company or brand behind it.',
@@ -2833,6 +2886,7 @@ window.QUIZZES = [
 
 {
   slug: 'line-game',               // permanent: the weekly link never changes
+  created: '2026-11-17T13:18:48-06:00',
   featured: true,                  // weekly and time-sensitive: shown in the hub's "This week" section
   scoreKey: 'line-game-2026-w12',  // per-week best scores
   type: 'lines',
@@ -2886,6 +2940,7 @@ window.QUIZZES = [
   // Jake Marisnick (thumb) and Tony Sipp were on the club but not this roster;
   // Tyler White was on the ALDS roster only.
   slug: '2017-astros-ws-roster',
+  created: '2026-11-23T17:56:20-06:00',
   title: '2017 Astros World Series Roster',
   sub: 'The 25-man roster that beat the Dodgers',
   blurb: 'Every player on Houston\'s active roster for the 2017 World Series, the first title in franchise history. George Springer was named MVP. Jersey numbers are your clue.',
@@ -2947,6 +3002,7 @@ window.QUIZZES = [
   // included only with Pluto clearly labeled as a dwarf planet. Pluto itself is not an answer;
   // it gets a friendly nope, as do the other official dwarf planets.
   slug: 'planets-and-moons',
+  created: '2026-11-23T18:06:54-06:00',
   title: 'Planets and Moons',
   sub: 'The 8 planets and 12 famous moons',
   blurb: 'Name the 8 planets, from closest to the Sun to farthest, and 12 famous moons. Each moon\'s clue is the world it orbits.',
@@ -3000,6 +3056,7 @@ window.QUIZZES = [
   // Americas and bare "Ocean" does not fill all five oceans; aliases allow "Pacific"
   // or "Pacific Ocean".
   slug: 'continents-and-oceans',
+  created: '2026-11-23T18:06:54-06:00',
   title: 'Continents and Oceans',
   sub: 'All 7 continents and all 5 oceans',
   blurb: 'Name all 7 continents and all 5 oceans. The clue is how they rank by size, from largest to smallest.',

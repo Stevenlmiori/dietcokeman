@@ -181,7 +181,7 @@ export function renderLeaderboardPanel(rows, opts = {}) {
   let header = '';
   if (!opts.compactQuiz) {
     header = `<header class="lb-h">
-      <span class="lb-heading">${esc(opts.heading || 'Leaderboard')}</span>
+      <span class="lb-heading">${esc(opts.heading || 'Leaderboard')}${opts.quiz && typeof window !== 'undefined' && window.quizNewBadge ? window.quizNewBadge(opts.quiz) : ''}</span>
       ${modeLabel ? `<span class="lb-mode">${modeLabel}</span>` : ''}
     </header>`;
   }
@@ -283,7 +283,7 @@ async function paintHubPreview() {
     try {
       const rows = await fetchBoard(boardIdFromQuiz(q, mode), 5);
       return `<div class="hub-lb-card">
-        ${renderLeaderboardPanel(rows, { heading: q.title, mode, plainNames: true })}
+        ${renderLeaderboardPanel(rows, { heading: q.title, quiz: q, mode, plainNames: true })}
         <a class="ghost hub-lb-play" href="play.html?q=${encodeURIComponent(q.slug)}#quizLb">Play this quiz</a>
       </div>`;
     } catch (e) {
@@ -307,7 +307,7 @@ async function paintLeaderboardPage() {
     try {
       const rows = await fetchBoard(boardIdFromQuiz(q, mode), 10);
       return `<div class="hub-lb-card">
-        ${renderLeaderboardPanel(rows, { heading: q.title, mode, plainNames: true })}
+        ${renderLeaderboardPanel(rows, { heading: q.title, quiz: q, mode, plainNames: true })}
         <a class="ghost hub-lb-play" href="play.html?q=${encodeURIComponent(q.slug)}#quizLb">Play this quiz</a>
       </div>`;
     } catch (e) {

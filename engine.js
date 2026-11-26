@@ -627,7 +627,8 @@ function boot() {
   total = items.length;
 
   document.title = Q.title + ' · DietCokeMan Challenge';
-  $('qTitle').textContent = Q.title;
+  const newBadge = typeof window.quizNewBadge === 'function' ? window.quizNewBadge(Q) : '';
+  $('qTitle').innerHTML = `<span class="qtitle-text">${esc(Q.title)}</span>${newBadge}`;
   $('qSub').textContent = Q.blurb || Q.sub;
   $('mTime').textContent = fmt(Q.time);
   if (Q.match === 'full') $('fine').textContent = 'Full names or the names people actually use · answers fill the moment you spell one · ' +

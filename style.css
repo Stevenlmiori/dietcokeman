@@ -178,7 +178,10 @@ a{color:inherit}
   transition:transform .16s cubic-bezier(.2,.8,.3,1)}
 .card:hover .card-ico{transform:scale(1.1) rotate(-4deg)}
 .card h3{padding-right:36px}
-.card h3{margin:2px 0 0;font-size:19px;font-weight:800;letter-spacing:-.015em}
+.card h3{margin:2px 0 0;font-size:19px;font-weight:800;letter-spacing:-.015em;
+  display:flex;flex-wrap:wrap;align-items:center;gap:7px;row-gap:4px}
+.card-title{min-width:0}
+.card.feature h3{gap:8px}
 .card .sub{color:var(--silver-dim);font-size:13.5px}
 .pill{
   display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;
@@ -209,7 +212,16 @@ a{color:inherit}
 /* Title and subtitle only. Choosing a mode happens in the sticky bar, right on
    top of the board, so the first thing you see is the quiz itself. */
 .qintro{padding:22px 0 16px}
-.qintro h1{margin:0;font-size:clamp(24px,4.2vw,36px);font-weight:900;letter-spacing:-.025em;line-height:1.08}
+.qintro h1{margin:0;font-size:clamp(24px,4.2vw,36px);font-weight:900;letter-spacing:-.025em;line-height:1.08;
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;row-gap:6px}
+.qtitle-text{min-width:0}
+.quiz-new-badge{
+  display:inline-flex;align-items:center;flex-shrink:0;
+  font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;line-height:1.25;
+  background:rgba(59,217,126,.18);color:#79E8A8;border:1px solid rgba(59,217,126,.5);
+  box-shadow:0 0 0 1px rgba(0,0,0,.25) inset;
+}
 .qsub{margin:7px 0 0;color:var(--silver);font-size:14.5px;max-width:70ch}
 .bestline{margin:6px 0 0;font-size:12px;font-weight:700;color:var(--ice);letter-spacing:.01em}
 .bestline:empty{display:none}
@@ -463,7 +475,8 @@ a{color:inherit}
 .lb-sc small,.pf-sc small{color:var(--silver-dim);font-weight:700;font-size:12px}
 .lb-panel{margin-top:14px;text-align:left}
 .lb-panel .lb-h{margin-bottom:12px}
-.lb-heading{font-size:14px;font-weight:800;color:var(--white);letter-spacing:-.01em}
+.lb-heading{font-size:14px;font-weight:800;color:var(--white);letter-spacing:-.01em;
+  display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px;max-width:100%}
 .lb-mode{font-size:12px;font-weight:700;color:var(--silver-dim)}
 .lb-sub{margin:0 0 12px;font-size:12.5px;color:var(--silver-dim);line-height:1.4}
 .lb-empty,.lb-loading{margin:0;padding:16px 4px;font-size:14px;color:var(--silver-dim);text-align:center}
