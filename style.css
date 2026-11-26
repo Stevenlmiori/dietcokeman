@@ -193,7 +193,8 @@ a{color:inherit}
   transition:background .14s,box-shadow .14s}
 .find::placeholder{color:var(--silver-dim)}
 .find:focus{background:rgba(255,255,255,.08);box-shadow:0 0 0 2px rgba(127,217,247,.38)}
-.finder{margin-top:6px}
+.finder{margin-top:36px}
+@media (max-width:640px){ .finder{margin-top:24px} }
 .facets{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .subfacets{margin-top:8px}
 .subfacets[hidden]{display:none}
