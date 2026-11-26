@@ -3867,47 +3867,36 @@ window.QUIZZES = [
 },
 
 {
-  // Cereal named from its mascot (brand mascots, classic and current). Monster-cereal hints describe the character so the name is not given away.
-  slug: 'cereal-mascots',
-  title: 'Name the Cereal by Its Mascot',
-  sub: 'From Tony the Tiger to Toucan Sam',
-  blurb: 'The mascot is your clue. Name the breakfast cereal it sells.',
+  // Zippia, "The 10 Largest Cereal Brands In The United States" (Kristin Kizer, Apr 28 2023, fact-checked May 11 2023),
+  // https://www.zippia.com/advice/largest-cereal-brands/ . Ranked by boxes sold, as Zippia lists them; annual sales shown in hints.
+  // Zippia's dollar figures match IRI numbers reported around 2018 (e.g. Frosted Flakes $412.6M), so the label stays "as of 2023".
+  slug: 'largest-cereal-brands',
+  title: 'America\'s Biggest Cereal Brands',
+  sub: 'The top 10, by boxes sold',
+  blurb: 'The 10 biggest cereal brands in the U.S. by boxes sold, per Zippia\'s 2023 ranking. The maker and boxes sold per year are your clues.',
   category: 'Food & Drink',
-  tags: ['Cereal', 'Throwback'],
+  tags: ['Cereal', 'Companies'],
   icon: '🥣',
   match: 'full',
   nope: {
-    cheerios: 'Close, but which Cheerios? Plain Cheerios has no mascot.',
-    wheaties: 'Wheaties puts athletes on the box, not a mascot.',
-    specialk: 'No mascot on this board for Special K.',
-    kix: 'Not on this board.'
+    reesespuffs: 'Popular, but not in this top 10.', raisinbran: 'Not in this top 10.', ricekrispies: 'Not in this top 10.', capncrunch: 'Not in this top 10.', captaincrunch: 'Not in this top 10.',
+    cocoapuffs: 'Not in this top 10.', specialk: 'Not in this top 10.', applejacks: 'Not in this top 10.', cornflakes: 'Not in this top 10.', trix: 'Not in this top 10.', cocoapebbles: 'Close! Fruity Pebbles is the one on the list.'
   },
   mode: 'timed',
-  time: 300,
-  cols: 'two',
+  time: 150,
+  cols: 'single',
   groups: [
-    { name: 'Mascots', items: [
-      { a: 'Frosted Flakes', hint: 'Tony the Tiger: "They\'re Gr-r-reat!"', alias: ['frosties', 'sugar frosted flakes'] },
-      { a: 'Rice Krispies', hint: 'Snap, Crackle and Pop', alias: ['rice crispies', 'rice krispy', 'rice krispies cereal'] },
-      { a: 'Froot Loops', hint: 'Toucan Sam: "Follow your nose!"', alias: ['fruit loops', 'froot loop', 'fruit loop'] },
-      { a: 'Lucky Charms', hint: 'Lucky the Leprechaun', alias: ['lucky charm'] },
-      { a: 'Cap\'n Crunch', hint: 'A sea captain named Horatio', alias: ['capn crunch', 'captain crunch', 'cap n crunch', 'capt crunch'] },
-      { a: 'Trix', hint: 'A rabbit: "Silly rabbit…"', alias: ['trix cereal'] },
-      { a: 'Cocoa Puffs', hint: 'Sonny the Cuckoo Bird', alias: ['coco puffs', 'cocoa puff'] },
-      { a: 'Honey Nut Cheerios', hint: 'Buzz the Bee', alias: ['honey nut', 'honeynut cheerios'] },
-      { a: 'Count Chocula', hint: 'A chocolate vampire', alias: ['count choculla'] },
-      { a: 'Franken Berry', hint: 'A pink, strawberry Frankenstein', alias: ['frankenberry', 'frankenberry cereal'] },
-      { a: 'Boo Berry', hint: 'A blue, blueberry ghost', alias: ['booberry'] },
-      { a: 'Honey Smacks', hint: 'Dig \'Em Frog', alias: ['smacks', 'sugar smacks'] },
-      { a: 'Cinnamon Toast Crunch', hint: 'The Crazy Squares (and once Wendell the baker)', alias: ['ctc'] },
-      { a: 'Fruity Pebbles', hint: 'Fred Flintstone and Barney Rubble', alias: ['pebbles', 'cocoa pebbles', 'fruity pebble', 'fruity and cocoa pebbles'] },
-      { a: 'Cookie Crisp', hint: 'Chip the Wolf', alias: ['cookie crisps'] },
-      { a: 'Cocoa Krispies', hint: 'Coco the Monkey', alias: ['coco krispies', 'cocoa rice krispies', 'cocoa crispies'] },
-      { a: 'Corn Flakes', hint: 'Cornelius the Rooster', alias: ['cornflakes', 'kelloggs corn flakes'] },
-      { a: 'Golden Crisp', hint: 'Sugar Bear', alias: ['super golden crisp', 'sugar crisp', 'super sugar crisp'] },
-      { a: 'Raisin Bran', hint: 'Sunny, the smiling sun', alias: ['kelloggs raisin bran'] },
-      { a: 'Apple Jacks', hint: 'CinnaMon and Bad Apple', alias: ['applejacks', 'apple jack'] },
-      { a: 'Life', hint: 'Mikey: "He likes it!"', alias: ['life cereal'] }
+    { name: 'Top 10', note: 'Zippia, 2023', items: [
+      { a: 'Cheerios', rk: '1', hint: 'General Mills · 139.1M boxes', alias: ['original cheerios', 'plain cheerios'] },
+      { a: 'Frosted Flakes', rk: '2', hint: 'Kellogg\'s · 132.3M boxes', alias: ['frosties', 'sugar frosted flakes'] },
+      { a: 'Honey Nut Cheerios', rk: '3', hint: 'General Mills · 129.3M boxes', alias: ['honey nut', 'honeynut cheerios'] },
+      { a: 'Honey Bunches of Oats', rk: '4', hint: 'Post · 111.3M boxes', alias: ['honey bunches', 'honey bunch of oats', 'honey bunches oats'] },
+      { a: 'Cinnamon Toast Crunch', rk: '5', hint: 'General Mills · 105.2M boxes', alias: ['ctc', 'cinnamon toast'] },
+      { a: 'Froot Loops', rk: '6', hint: 'Kellogg\'s · 91.7M boxes', alias: ['fruit loops', 'froot loop', 'fruit loop'] },
+      { a: 'Lucky Charms', rk: '7', hint: 'General Mills · 86.4M boxes', alias: ['lucky charm'] },
+      { a: 'Frosted Mini-Wheats', rk: '8', hint: 'Kellogg\'s · 71.3M boxes', alias: ['mini wheats', 'frosted mini wheats', 'miniwheats', 'mini-wheats'] },
+      { a: 'Life', rk: '9', hint: 'Quaker · 58.1M boxes', alias: ['life cereal', 'cinnamon life'] },
+      { a: 'Fruity Pebbles', rk: '10', hint: 'Post · 54.1M boxes', alias: ['pebbles', 'fruity pebble'] }
     ]}
   ]
 },
